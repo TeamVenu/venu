@@ -1,16 +1,16 @@
 {
-  "name": "react-boilerplate",
-  "version": "3.4.0",
-  "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
+  "name": "venu",
+  "version": "0.0.1",
+  "description": "Wayfinding app that assists event attendees and personalizes their experience at large events.",
   "repository": {
     "type": "git",
-    "url": "git://github.com/react-boilerplate/react-boilerplate.git"
+    "url": "git://github.com/TeamVenu/venu.git"
   },
   "engines": {
     "npm": ">=3",
     "node": ">=5"
   },
-  "author": "Max Stoiber",
+  "author": "Erick Sauri, Isaac Selleck",
   "license": "MIT",
   "scripts": {
     "analyze:clean": "rimraf stats.json",
@@ -215,6 +215,7 @@
     "cross-env": "3.1.3",
     "express": "4.14.0",
     "fontfaceobserver": "2.0.7",
+    "google-maps-react": "^1.0.19",
     "immutable": "3.8.1",
     "intl": "1.2.5",
     "invariant": "2.2.2",

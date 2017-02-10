@@ -1,6 +1,6 @@
 # CSS
 
-This boilerplate uses [`styled-components`](https://github.com/styled-components/styled-components)
+Venu uses [`styled-components`](https://github.com/styled-components/styled-components)
 allowing you to write your CSS in your JavaScript,
 removing the mapping between styles and components.
 

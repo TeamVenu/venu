@@ -1,4 +1,4 @@
-# Can I use Sass with this boilerplate?
+# Can I use Sass with venu?
 
 Yes, although we advise against it and **do not support this**. We selected
 [`styled-components`](https://github.com/styled-components/styled-components)

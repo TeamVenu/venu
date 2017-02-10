@@ -32,11 +32,11 @@
 
 ### Quickstart
 
-1. First, let's kick the tyres by launching the sample _Repospective_ app
+1. First, let's kick the tyres by launching the venu app
    bundled with this project to demo some of its best features:
 
     ```Shell
-    npm run setup && npm start
+    npm start
     ```
 
 1. Open [localhost:3000](http://localhost:3000) to see it in action.
