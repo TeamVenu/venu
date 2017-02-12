@@ -20,7 +20,7 @@ export default class Sidebar extends React.Component {
       },
       {
         id: 1,
-        name: 'Gannet',
+        name: 'Wallace Library',
       },
     ],
   }

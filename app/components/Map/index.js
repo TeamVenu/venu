@@ -8,7 +8,7 @@ export default class Map extends Component {
     apiKey: T.string,
     center: T.object,
     zoom: T.number,
-    pinCoords: T.any,
+    places: T.array,
   };
 
   static defaultProps = {
@@ -18,10 +18,16 @@ export default class Map extends Component {
       lng: -77.6768412,
     },
     zoom: 17,
-    pinCoords: {
+    places: [{
       lat: 43.085190399999995,
       lng: -77.6768412,
+      title: 'James E. Booth',
     },
+    {
+      lat: 43.0837819,
+      lng: -77.6761046,
+      title: 'Wallace Library',
+    }],
   };
 
   render() {
@@ -31,11 +37,15 @@ export default class Map extends Component {
         defaultCenter={this.props.center}
         defaultZoom={this.props.zoom}
       >
-        <Marker
-          {...this.props.pinCoords}
-          text={'Bathroom'}
-        />
+      {this.props.places.map((place) => { //eslint-disable-line
+        return (
+          <Marker
+            {...place}
+          />
+        );
+      })}
       </GoogleMap>
     );
   }
 }
+
