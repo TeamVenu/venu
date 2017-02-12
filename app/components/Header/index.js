@@ -12,7 +12,7 @@ export default class Header extends React.Component { //eslint-disable-line
         <AppTitle href="/">
           <FormattedMessage {...messages.appName} />
         </AppTitle>
-          <ModeWrapper>
+        <ModeWrapper>
           <ModeList>
             <ModeListItem>
               Discover
