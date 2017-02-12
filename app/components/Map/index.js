@@ -17,7 +17,7 @@ export default class Map extends Component {
       lat: 43.085190399999995,
       lng: -77.6768412,
     },
-    zoom: 18,
+    zoom: 17,
     pinCoords: {
       lat: 43.085190399999995,
       lng: -77.6768412,

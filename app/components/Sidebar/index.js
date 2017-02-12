@@ -15,9 +15,11 @@ export default class Sidebar extends React.Component {
     title: 'Events',
     places: [
       {
+        id: 0,
         name: 'James E. Booth',
       },
       {
+        id: 1,
         name: 'Gannet',
       },
     ],
@@ -33,9 +35,7 @@ export default class Sidebar extends React.Component {
   render() {
     return (
       <Bar>
-        <Title>
-          <h2>{this.props.title}</h2>
-        </Title>
+        <Title>{this.props.title}</Title>
         <List places={this.props.places} />
       </Bar>
     );

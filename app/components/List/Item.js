@@ -1,6 +1,6 @@
 import React, { PropTypes as T } from 'react';
 
-import { ItemContainer } from './styles';
+import { ItemContainer, ItemInfoContainer, ItemActionContainer, ItemTitle, ItemSubtitle } from './styles';
 
 export default class Item extends React.Component {
   constructor(props) {
@@ -20,7 +20,13 @@ export default class Item extends React.Component {
 
     return (
       <ItemContainer>
-        <h3>{ place.name }</h3>
+        <ItemInfoContainer>
+          <ItemTitle>{ place.name }</ItemTitle>
+          <ItemSubtitle>Building</ItemSubtitle>
+        </ItemInfoContainer>
+        <ItemActionContainer>
+          <p>Distance: 0.4m</p>
+        </ItemActionContainer>
       </ItemContainer>
     );
   }

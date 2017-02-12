@@ -14,7 +14,7 @@ export const Topbar = styled.header`
 
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
 `;
 
 export const AppTitle = styled.a`
@@ -23,22 +23,26 @@ export const AppTitle = styled.a`
   text-decoration: none;
   letter-spacing: 1px;
   font-size: 2em;
+  /* box-shadow: 5px -1px 5px var(--accent-color); */
 `;
 
-// export const ModeWrapper = styled.nav`
-//   flex: 2;
-//   overflow: auto;
-// `;
+export const ModeWrapper = styled.nav`
+  flex: 2;
+  overflow-x: auto;
+`;
 
-// export const ModeList = styled.ul`
-//   margin-top: 0;
-// `;
+export const ModeList = styled.ul`
+  margin: 0;
+  padding: 0;
+`;
 
-// export const ModeListItem = styled.li`
-//   display: inline;
-//   padding: var(--padding);
-//   font-size: 1.5em;
-// `;
+export const ModeListItem = styled.li`
+  display: inline;
+  padding: var(--padding);
+  font-size: 1.5em;
+  letter-spacing: 1px;
+
+`;
 
 export const PlaceHolder = styled.a`
   /* flex: 1; */

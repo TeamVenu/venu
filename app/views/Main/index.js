@@ -32,7 +32,7 @@ export default class Main extends React.Component { // eslint-disable-line react
     return (
       <Wrapper>
         <Header />
-        <div style={{ width: '100%', height: 500, background: 'var(--primary-color)' }}>
+        <div style={{ width: '100%', height: 400, background: 'var(--primary-color)' }}>
           <Map />
         </div>
         <Sidebar />

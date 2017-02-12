@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Bar = styled.section`
   height: 100%;
   position: relative;
-  overflow: hidden;
+  /*overflow: hidden;*/
   background: var(--background-color);
 
   display: flex;
@@ -22,6 +22,7 @@ export const Bar = styled.section`
 export const Title = styled.h1`
   flex: 1;
   border-bottom: 1px solid var(--dark);
-  padding: 0 var(--padding);
+  padding: calc(var(--padding) * 2) var(--padding);
   font-size: 1.8em;
+  margin: 0;
 `;

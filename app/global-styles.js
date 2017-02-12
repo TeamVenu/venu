@@ -9,17 +9,22 @@ injectGlobal`
     --light: #f3f6fa;
     --dark: #272727;
     --blue: #48b5e9;
+    --dark-blue: #66b4d8;
 
     /* */
     --background-color: var(--white);
     --foreground-color: var(--black);
 
     --primary-color: var(--blue);
-    --accent-color: var(--blue);
+    --accent-color: var(--dark-blue);
 
     /* */
     --padding: 10px;
-    --topbar-height: 80px;
+    --topbar-height: 50px;
+
+    @media (min-width: 720px) {
+      --topbar-height: 80px;
+    }
   }
 
   /* Custom Media queries */

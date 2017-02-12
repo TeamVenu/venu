@@ -6,7 +6,7 @@ import { ListView } from './styles';
 
 export default class List extends React.Component { //eslint-disable-line
   static propTypes = {
-    places: T.object,
+    places: T.array,
   }
 
   render() {
