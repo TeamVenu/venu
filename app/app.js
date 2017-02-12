@@ -1,8 +1,7 @@
 /**
  * app.js
  *
- * This is the entry file for the application, only setup and boilerplate
- * code.
+ * This is the entry file for the application.
  */
 
 // Needed for redux-saga es6 generator support
@@ -64,6 +63,9 @@ const rootRoute = {
   childRoutes: createRoutes(store),
 };
 
+// This is the node on which our app will be mounted on
+const appNode = document.getElementById('app');
+
 const render = (messages) => {
   ReactDOM.render(
     <Provider store={store}>
@@ -79,7 +81,7 @@ const render = (messages) => {
         />
       </LanguageProvider>
     </Provider>,
-    document.getElementById('app')
+    appNode
   );
 };
 
