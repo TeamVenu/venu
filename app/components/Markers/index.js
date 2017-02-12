@@ -25,7 +25,7 @@ const Pin = styled.section`
 export default class Marker extends Component {
   static propTypes = {
     // change later
-    text: T.string
+    text: T.string,
   }
 
   static defaultProps = {};
