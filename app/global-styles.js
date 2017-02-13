@@ -36,6 +36,16 @@ injectGlobal`
   @custom-media --screen-lg (width >= 64em) and (width < 80em);
   @custom-media --screen-xl (width >= 80em);
 
+  *,
+  *:after,
+  *:before {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
   html,
   body {
     height: 100%;
@@ -45,7 +55,9 @@ injectGlobal`
   }
 
   body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Open Sans", sans-serif;
+    font-smoothing: antialiased;
+    overflow: hidden;
   }
 
   body.fontLoaded {
@@ -53,14 +65,13 @@ injectGlobal`
   }
 
   #app {
-    background-color: #fafafa;
+    background-color: var(--background-color);
     min-height: 100%;
     min-width: 100%;
   }
 
   p,
   label {
-    font-family: Georgia, Times, 'Times New Roman', serif;
     line-height: 1.5em;
   }
 `;

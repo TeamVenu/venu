@@ -11,20 +11,27 @@ import styled from 'styled-components';
 
 import Header from 'components/Header';
 import Map from 'components/Map';
-import Sidebar from 'components/Sidebar';
+import PlacesContainer from 'components/PlacesContainer';
 
 // import messages from './messages';
 
 const Wrapper = styled.main`
   display: flex;
   flex-direction: column;
+  marging: 0;
   height: 100vh;
   -webkit-box-orient: horizontal;
   -o-box-orient: horizontal;
 
-  @media (min-width: 1720px) {
+  @media (min-width: 720px) {
     flex-direction: row;
   }
+`;
+
+const MapWrapper = styled.section`
+  position: relative;
+  width: 100%;
+  height: 100%;
 `;
 
 export default class Main extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -32,10 +39,10 @@ export default class Main extends React.Component { // eslint-disable-line react
     return (
       <Wrapper>
         <Header />
-        <div style={{ width: '100%', height: 400, background: 'var(--primary-color)' }}>
+        <MapWrapper>
           <Map />
-        </div>
-        <Sidebar />
+        </MapWrapper>
+        <PlacesContainer />
       </Wrapper>
     );
   }

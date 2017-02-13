@@ -8,8 +8,8 @@ const Pin = styled.section`
   height: 40;
   left: calc(-1 * calc(40 / 2));
   top: calc(-1 * calc(40 / 2));
-  border: 5px solid var(--primary-color);
-  border-radius: 40;
+  border: 3px solid var(--primary-color);
+  border-radius: 50%;
   background: var(--light);
   text-align: center;
   color: var(--dark);
@@ -33,7 +33,6 @@ export default class Marker extends Component {
   render() {
     return (
       <Pin>
-        {this.props.title}
       </Pin>
     );
   }

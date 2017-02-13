@@ -5,7 +5,7 @@ export const Topbar = styled.header`
   z-index: 10;
   top: 0;
   left: 0;
-  background: var(--primary-color);
+  // background: var(--primary-color);
   width: 100%;
   padding: 0 25px;
   height: var(--topbar-height);
@@ -19,7 +19,7 @@ export const Topbar = styled.header`
 
 export const AppTitle = styled.a`
   flex: 1;
-  color: var(--white);
+  color: var(--accent-color);
   text-decoration: none;
   letter-spacing: 1px;
   font-size: 2em;
@@ -46,7 +46,7 @@ export const ModeListItem = styled.li`
 
 export const PlaceHolder = styled.a`
   /* flex: 1; */
-  color: var(--white);
+  color: var(--accent-color);
   text-decoration: none;
   letter-spacing: 1px;
   font-size: 2em;
