@@ -10,5 +10,3 @@ data-driven cross-browser normalisation.
 Learn more:
 
 - [`styled-components`](styled-components.md)
-- [sanitize.css](sanitize.md)
-- [Using Sass](sass.md)

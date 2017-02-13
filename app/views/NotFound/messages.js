@@ -6,8 +6,8 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'app.components.NotFoundPage.header',
-    defaultMessage: 'This is NotFoundPage component!',
+  message: {
+    id: 'app.components.NotFoundPage.message',
+    defaultMessage: 'Page not found!',
   },
 });

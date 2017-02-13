@@ -1,0 +1,31 @@
+{
+  "places": [
+    {
+      "id": 0,
+      "name": "James E. Booth",
+      "location": {
+        "latitude": 43.085190399999995,
+        "longitude": -77.6768412,
+        "altitude": 0
+      }
+    },
+    {
+      "id": 1,
+      "name": "Wallace Library",
+      "location": {
+        "latitude": 43.0837819,
+        "longitude": -77.6761046,
+        "altitude": 0
+      }
+    },
+    {
+      "id": 2,
+      "name": "Gosnell",
+      "location": {
+        "latitude": 43.0837819,
+        "longitude": -77.6768412,
+        "altitude": 0
+      }
+    }
+  ]
+}
