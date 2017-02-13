@@ -6,45 +6,47 @@
 
 import React from 'react';
 
-import styled from 'styled-components';
 // import { FormattedMessage } from 'react-intl';
-
 import Header from 'components/Header';
 import Map from 'components/Map';
 import PlacesContainer from 'components/PlacesContainer';
+import testData from 'fixtures/test-data.json';
+import { Wrapper, MapWrapper } from './styles';
 
 // import messages from './messages';
 
-const Wrapper = styled.main`
-  display: flex;
-  flex-direction: column;
-  marging: 0;
-  height: 100vh;
-  -webkit-box-orient: horizontal;
-  -o-box-orient: horizontal;
-
-  @media (min-width: 720px) {
-    flex-direction: row;
-  }
-`;
-
-const MapWrapper = styled.section`
-  position: relative;
-  width: 100%;
-  height: 100%;
-`;
-
 export default class Main extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      places: testData.places,
+    };
+
+    this.addPlaces();
+  }
+
+  componentDidMount() {
+
+  }
+
+  addPlaces() {
+    if (!testData.places || testData.places.length === 0) return;
+
+    this.setState = {
+      places: testData.places,
+    };
+  }
+
   render() {
     return (
       <Wrapper>
         <Header />
         <MapWrapper>
-          <Map />
+          <Map places={this.state.places} />
         </MapWrapper>
-        <PlacesContainer />
+        <PlacesContainer places={this.state.places} />
       </Wrapper>
     );
   }
 }
-

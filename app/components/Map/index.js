@@ -1,5 +1,4 @@
 import React, { PropTypes as T, Component } from 'react';
-
 import GoogleMap from 'google-map-react';
 import Marker from 'components/Markers';
 
@@ -19,25 +18,7 @@ export default class Map extends Component {
       lat: 43.085190399999995,
       lng: -77.6768412,
     },
-    zoom: 17,
-    places: [{
-      id: 0,
-      lat: 43.085190399999995,
-      lng: -77.6768412,
-      title: 'James E. Booth',
-    },
-    {
-      id: 1,
-      lat: 43.0837819,
-      lng: -77.6761046,
-      title: 'Wallace Library',
-    },
-    {
-      id: 2,
-      lat: 43.0837819,
-      lng: -77.6768412,
-      title: 'Gosnell',
-    }],
+    zoom: 19,
   };
 
   /**
@@ -49,10 +30,16 @@ export default class Map extends Component {
     if (!this.props.places) { return null; }
     return this.props.places.map(place => { //eslint-disable-line
       return (
-        <Marker key={place.id} {...place} />
+        <Marker
+          key={place.id}
+          lat={place.location.latitude}
+          lng={place.location.longitude}
+          {...place}
+        />
       );
     });
   }
+
   /**
    * render
    * Returns the GoogleMap component to render
@@ -60,6 +47,7 @@ export default class Map extends Component {
   render() {
     return (
       <GoogleMap
+        apiKey={this.props.apiKey}
         bootstrapURLKeys={this.props.apiKey}
         defaultCenter={this.props.center}
         defaultZoom={this.props.zoom}
