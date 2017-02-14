@@ -4,7 +4,7 @@ export const Wrapper = styled.section`
   position: relative;
   // background: rgba(0, 0, 0, 0.5);
   width: 100%;
-  transform: translateY(-75%);
+  transform: translateY(-110%);
   
   @media (min-width: 720px) {
     transform: translateY(0);
@@ -49,6 +49,7 @@ export const ListView = styled.ul`
 export const Item = styled.li`
   display: inline;
   background: var(--accent-color);
+  background: ${(props) => props.event ? 'var(--accent-color)' : 'palevioletred'};
   margin-right: calc(var(--padding) * 2);
   padding: var(--padding);
   min-width: 200px;

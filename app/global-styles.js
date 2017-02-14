@@ -70,8 +70,12 @@ injectGlobal`
     min-width: 100%;
   }
 
+  h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+  }
+
   p,
   label {
-    line-height: 1.5em;
+    // line-height: 1.5em;
   }
 `;
