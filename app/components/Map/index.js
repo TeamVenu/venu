@@ -8,6 +8,7 @@ const UserPin = styled.div`
   min-width: 20px;
   height: 20px;
   border: 2px solid var(--primary-color);
+  background: var(--primary-color);
   border-radius: 50%;
   display: flex;
   justify-content: center;
