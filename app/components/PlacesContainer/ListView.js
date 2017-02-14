@@ -19,6 +19,17 @@ export default class ListView extends React.Component { //eslint-disable-line
               place={place}
               // onClick={this.props.onClick}
               key={place.id}
+              type={'event'}
+            />
+          );
+        })}
+        {this.props.facilities.map((place) => { //eslint-disable-line
+          return (
+            <Item
+              place={place}
+              // onClick={this.props.onClick}
+              key={place.id}
+              type={'facility'}
             />
           );
         })}

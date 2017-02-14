@@ -7,6 +7,7 @@ export default class PlacesContainer extends React.Component {
 
   static propTypes = {
     places: T.array,
+    facilities: T.array,
     onListItemClick: T.func,
   };
 
@@ -24,7 +25,7 @@ export default class PlacesContainer extends React.Component {
   render() {
     return (
       <Wrapper>
-        <ListView places={this.props.places} />
+        <ListView places={this.props.places} facilities={this.props.facilities} />
       </Wrapper>
     );
   }

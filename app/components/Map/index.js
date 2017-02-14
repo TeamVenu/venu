@@ -9,6 +9,7 @@ export default class Map extends Component {
     center: T.object,
     zoom: T.number,
     places: T.array,
+    facilities: T.array,
   };
 
   // Set some default props
@@ -22,16 +23,32 @@ export default class Map extends Component {
   };
 
   /**
-   * renderMarkers
+   * renderEventMarkers
    * Checks to see if there are places props in Map
    * If there are then it displays Markers for each place
    */
-  renderMarkers() {
+  renderEventMarkers() {
     if (!this.props.places) { return null; }
     return this.props.places.map(place => { //eslint-disable-line
       return (
         <Marker
           key={place.id}
+          type={'event'}
+          lat={place.location.latitude}
+          lng={place.location.longitude}
+          {...place}
+        />
+      );
+    });
+  }
+
+  renderFacilityMarkers() {
+    if (!this.props.facilities) { return null; }
+    return this.props.facilities.map(place => { //eslint-disable-line
+      return (
+        <Marker
+          key={place.id}
+          type={'facility'}
           lat={place.location.latitude}
           lng={place.location.longitude}
           {...place}
@@ -52,7 +69,8 @@ export default class Map extends Component {
         defaultCenter={this.props.center}
         defaultZoom={this.props.zoom}
       >
-        {this.renderMarkers()}
+        {this.renderEventMarkers()}
+        {this.renderFacilityMarkers()}
       </GoogleMap>
     );
   }

@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
 // Get our styles
-import { Topbar, AppTitle, /* ModeWrapper, ModeList, ModeListItem, */ PlaceHolder } from './styles';
+import { Topbar, AppTitle, ModeWrapper, ModeList, ModeListItem, PlaceHolder } from './styles';
 
 export default class Header extends React.Component { //eslint-disable-line
   render() {
@@ -12,7 +12,7 @@ export default class Header extends React.Component { //eslint-disable-line
         <AppTitle href="/">
           <FormattedMessage {...messages.appName} />
         </AppTitle>
-        {/* <ModeWrapper>
+        <ModeWrapper>
           <ModeList>
             <ModeListItem>
               Discover
@@ -24,7 +24,7 @@ export default class Header extends React.Component { //eslint-disable-line
               Events
             </ModeListItem>
           </ModeList>
-        </ModeWrapper>*/}
+        </ModeWrapper>
         <PlaceHolder href="/404">
           Team 7
         </PlaceHolder>

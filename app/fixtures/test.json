@@ -1,71 +1,78 @@
 {
 	"facilities": [{
-		"Bathrooms": [{
-			"Location": {
-				"Longitude": -77.679972,
-				"Latitude": 43.083771
+		"restrooms": [{
+			"id": 0,
+			"location": {
+				"longitude": -77.679972,
+				"latitude": 43.083771
 			},
-			"Gender": "f"
+			"gender": "Women"
 
 		}, {
-			"Location": {
-				"Longitude": -77.679797,
-				"Latitude": 43.083776
+			"id": 1,
+			"location": {
+				"longitude": -77.679797,
+				"latitude": 43.083776
 			},
-			"Gender": "m"
+			"gender": "Men"
 		}, {
-			"Location": {
-				"Longitude": -77.680092,
-				"Latitude": 43.084510
+			"id": 2,
+			"location": {
+				"longitude": -77.680092,
+				"latitude": 43.084510
 			},
-			"Gender": "m"
+			"gender": "Men"
 		}, {
-			"Location": {
-				"Longitude": -77.680092,
-				"Latitude": 43.084510
+			"id": 3,
+			"location": {
+				"longitude": -77.680092,
+				"latitude": 43.084510
 			},
-			"Gender": "f"
+			"gender": "Women"
 		}, {
-			"Location": {
-				"Longitude": -77.677547,
-				"Latitude": 43.084426
+			"id": 4,
+			"location": {
+				"longitude": -77.677547,
+				"latitude": 43.084426
 			},
-			"gender": "n"
+			"gender": "Gender Neutral"
 		}, {
-			"Location": {
-				"Longitude": -77.677279,
-				"Latitude": 43.083799
+			"id": 5,
+			"location": {
+				"longitude": -77.677279,
+				"latitude": 43.083799
 			},
-			"gender": "n"
+			"gender": "Gender Neutral"
 		}, {
-			"Location": {
-				"Longitude": -77.676831,
-				"Latitude": 43.08517
+			"id": 6,
+			"location": {
+				"longitude": -77.676831,
+				"latitude": 43.08517
 			},
-			"gender": "n"
+			"gender": "Gender Neutral"
 		}, {
-			"Location": {
-				"Longitude": -77.679112,
-				"Latitude": 43.084564
+			"id": 7,
+			"location": {
+				"longitude": -77.679112,
+				"latitude": 43.084564
 			},
-			"gender": "n"
+			"gender": "Gender Neutral"
 		}],
 		"food": [{
 			"name": "food truck",
 			"location": {
-				"Longitude": -77.676040,
-				"Latitude": 43.083496
+				"longitude": -77.676040,
+				"latitude": 43.083496
 			}
 		}]
 	}],
-
 	"booths": [{
 		"id": "01",
 		"name": "smores",
 		"description": "come get some smores at the field house",
-		"Location": {
-			"Longitude": -77.671438,
-			"Latitude": 43.085274,
+		"location": {
+			"longitude": -77.671438,
+			"latitude": 43.085274,
 			"building": "Gordon Field House"
 		},
 		"category": "engineering"
@@ -73,9 +80,9 @@
 		"id": "02",
 		"name": "Ice Cream",
 		"description": "Come get some freshly made ice cream",
-		"Location": {
-			"Longitude": -77.677685,
-			"Latitude": 43.083629,
+		"location": {
+			"longitude": -77.677685,
+			"latitude": 43.083629,
 			"building": "Gosnell Hall"
 		},
 		"category": "chemistry"
@@ -83,9 +90,9 @@
 		"id": "03",
 		"name": "New Media Team Project",
 		"description": "Check out our awesome exhibit",
-		"Location": {
-			"Longitude": -77.676963,
-			"Latitude": 43.085373,
+		"location": {
+			"longitude": -77.676963,
+			"latitude": 43.085373,
 			"building": "Booth"
 		},
 		"category": "new media"
@@ -93,9 +100,9 @@
 		"id": "04",
 		"name": "Acapalooza",
 		"description": "Come hear RIT's acapella groups perform",
-		"Location": {
-			"Longitude": -77.674412,
-			"Latitude": 43.084069,
+		"location": {
+			"longitude": -77.674412,
+			"latitude": 43.084069,
 			"building": "SAU"
 		},
 		"category": "clubs"
@@ -103,9 +110,9 @@
 		"id": "05",
 		"name": "Games Games Games",
 		"description": "We got gamess you should play them",
-		"Location": {
-			"Longitude": -77.679729,
-			"Latitude": 43.084077,
+		"location": {
+			"longitude": -77.679729,
+			"latitude": 43.084077,
 			"building": "Golisano"
 		},
 		"category": "IGM"
