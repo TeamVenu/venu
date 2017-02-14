@@ -5,7 +5,7 @@ export const Topbar = styled.header`
   z-index: 10;
   top: 0;
   left: 0;
-  // background: var(--primary-color);
+  background: var(--white);
   width: 100%;
   padding: 0 25px;
   height: var(--topbar-height);
@@ -14,7 +14,7 @@ export const Topbar = styled.header`
 
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
 `;
 
 export const AppTitle = styled.a`
@@ -41,11 +41,15 @@ export const ModeListItem = styled.li`
   padding: var(--padding);
   font-size: 1.5em;
   letter-spacing: 1px;
+  color: var(--accent-color);
 
+  &.selected {
+    border-bottom: 3px solid var(--accent-color);
+  }
 `;
 
 export const PlaceHolder = styled.a`
-  /* flex: 1; */
+  // flex: 1;
   color: var(--accent-color);
   text-decoration: none;
   letter-spacing: 1px;

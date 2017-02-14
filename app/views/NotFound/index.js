@@ -36,6 +36,13 @@ const Message = styled.p`
   text-align: center;
 `;
 
+const Button = styled.a`
+  font-size: 1.5em;
+  text-decoration: none;
+  color: white;
+  text-align: center;
+`;
+
 export default class NotFound extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
@@ -44,6 +51,7 @@ export default class NotFound extends React.PureComponent { // eslint-disable-li
         <Message>
           <FormattedMessage {...messages.message} />
         </Message>
+        <Button href="/">Return Home</Button>
       </Wrapper>
     );
   }

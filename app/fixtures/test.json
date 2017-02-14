@@ -6,29 +6,28 @@
 				"longitude": -77.679972,
 				"latitude": 43.083771
 			},
-			"gender": "Women"
-
+			"gender": "Women's"
 		}, {
 			"id": 1,
 			"location": {
 				"longitude": -77.679797,
 				"latitude": 43.083776
 			},
-			"gender": "Men"
+			"gender": "Men's"
 		}, {
 			"id": 2,
 			"location": {
 				"longitude": -77.680092,
 				"latitude": 43.084510
 			},
-			"gender": "Men"
+			"gender": "Men's"
 		}, {
 			"id": 3,
 			"location": {
 				"longitude": -77.680092,
 				"latitude": 43.084510
 			},
-			"gender": "Women"
+			"gender": "Women's"
 		}, {
 			"id": 4,
 			"location": {
@@ -67,17 +66,7 @@
 		}]
 	}],
 	"booths": [{
-		"id": "01",
-		"name": "smores",
-		"description": "come get some smores at the field house",
-		"location": {
-			"longitude": -77.671438,
-			"latitude": 43.085274,
-			"building": "Gordon Field House"
-		},
-		"category": "engineering"
-	}, {
-		"id": "02",
+		"id": 1,
 		"name": "Ice Cream",
 		"description": "Come get some freshly made ice cream",
 		"location": {
@@ -87,7 +76,7 @@
 		},
 		"category": "chemistry"
 	}, {
-		"id": "03",
+		"id": 2,
 		"name": "New Media Team Project",
 		"description": "Check out our awesome exhibit",
 		"location": {
@@ -97,7 +86,7 @@
 		},
 		"category": "new media"
 	}, {
-		"id": "04",
+		"id": 3,
 		"name": "Acapalooza",
 		"description": "Come hear RIT's acapella groups perform",
 		"location": {
@@ -107,7 +96,7 @@
 		},
 		"category": "clubs"
 	}, {
-		"id": "05",
+		"id": 4,
 		"name": "Games Games Games",
 		"description": "We got gamess you should play them",
 		"location": {
@@ -116,5 +105,15 @@
 			"building": "Golisano"
 		},
 		"category": "IGM"
+	},{
+		"id": 5,
+		"name": "smores",
+		"description": "come get some smores at the field house",
+		"location": {
+			"longitude": -77.671438,
+			"latitude": 43.085274,
+			"building": "Gordon Field House"
+		},
+		"category": "engineering"
 	}]
 }

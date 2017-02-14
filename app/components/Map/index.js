@@ -1,6 +1,22 @@
 import React, { PropTypes as T, Component } from 'react';
 import GoogleMap from 'google-map-react';
 import Marker from 'components/Markers';
+import styled from 'styled-components';
+
+const UserPin = styled.div`
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+  border: 2px solid var(--primary-color);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  &:hover {
+    background: var(--white);
+  }
+`;
 
 export default class Map extends Component {
   // Specifies the type of each prop
@@ -16,10 +32,10 @@ export default class Map extends Component {
   static defaultProps = {
     apiKey: 'AIzaSyCC_hT5gMai_hZh8JSnlFzFOCTetRBYhQg',
     center: {
-      lat: 43.085190399999995,
-      lng: -77.6768412,
+      lat: 43.084167,
+      lng: -77.677085,
     },
-    zoom: 19,
+    zoom: 17,
   };
 
   /**
@@ -57,6 +73,15 @@ export default class Map extends Component {
     });
   }
 
+
+  renderUser() {
+    const { center } = this.props;
+
+    return (
+      <UserPin lat={center.lat} lng={center.lng} />
+    );
+  }
+
   /**
    * render
    * Returns the GoogleMap component to render
@@ -71,6 +96,7 @@ export default class Map extends Component {
       >
         {this.renderEventMarkers()}
         {this.renderFacilityMarkers()}
+        {this.renderUser()}
       </GoogleMap>
     );
   }

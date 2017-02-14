@@ -21,6 +21,7 @@ export const Pin = styled.section`
   transform: translateY(-100%);
 
   &:hover {
+    cursor: pointer;
     background: ${(props) => props.event ? 'var(--accent-color)' : 'palevioletred'};
   }
 `;
