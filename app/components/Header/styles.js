@@ -13,7 +13,7 @@ export const Topbar = styled.header`
   color: var(--white);
 
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 `;
 
