@@ -48,8 +48,8 @@ export const ListView = styled.ul`
 
 export const Item = styled.li`
   display: inline;
-  background: var(--accent-color);
-  background: ${(props) => props.event ? 'var(--accent-color)' : 'palevioletred'};
+  background: var(--light);
+  color: ${(props) => props.event ? 'var(--accent-color)' : 'var(--dark)'};
   margin-right: calc(var(--padding) * 2);
   padding: var(--padding);
   min-width: 200px;

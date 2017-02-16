@@ -39,7 +39,7 @@ export default class Item extends React.Component {
     } else if (type === 'facility') {
       return (
         <ItemContainer onClick={this.clickEvent}>
-          <ItemCategory>{ place.gender }</ItemCategory>
+          <ItemCategory>{ place.name }</ItemCategory>
           <ItemTitle>Restroom</ItemTitle>
           <ItemSubtitle></ItemSubtitle>
         </ItemContainer>

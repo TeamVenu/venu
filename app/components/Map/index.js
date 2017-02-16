@@ -91,6 +91,13 @@ export default class Map extends Component {
         position: maps.ControlPosition.RIGHT_CENTER,
       },
       styles: [
+        { stylers: [{ visibility: 'off' }] },
+        { featureType: 'water', stylers: [{ visibility: 'on' }] },
+        { featureType: 'poi', stylers: [{ visibility: 'on' }] },
+        { featureType: 'transit', stylers: [{ visibility: 'on' }] },
+        { featureType: 'landscape', stylers: [{ visibility: 'on' }] },
+        { featureType: 'road', stylers: [{ visibility: 'on' }] },
+        { featureType: 'administrative', stylers: [{ visibility: 'on' }] },
         {
           elementType: 'geometry',
           stylers: [{ color: '#1f1e1f' }],
@@ -118,11 +125,11 @@ export default class Map extends Component {
           elementType: 'geometry',
           stylers: [{ color: '#333333' }],
         },
-        {
-          featureType: 'transit',
-          elementType: 'labels.icon',
-          stylers: [{ visibility: 'off' }],
-        },
+        // {
+        //   featureType: 'transit',
+        //   elementType: 'labels.icon',
+        //   stylers: [{ visibility: 'off' }],
+        // },
       ],
     };
   }
