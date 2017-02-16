@@ -6,56 +6,64 @@
 				"longitude": -77.679972,
 				"latitude": 43.083771
 			},
-			"gender": "Women's"
+			"gender": "W",
+			"name": "Women's"
 		}, {
 			"id": 1,
 			"location": {
 				"longitude": -77.679797,
 				"latitude": 43.083776
 			},
-			"gender": "Men's"
+			"gender": "M",
+			"name": "Men's"
 		}, {
 			"id": 2,
 			"location": {
 				"longitude": -77.680092,
 				"latitude": 43.084510
 			},
-			"gender": "Men's"
+			"gender": "M",
+			"name": "Men's"
 		}, {
 			"id": 3,
 			"location": {
 				"longitude": -77.680092,
 				"latitude": 43.084510
 			},
-			"gender": "Women's"
+			"gender": "W",
+			"name": "Women's"
 		}, {
 			"id": 4,
 			"location": {
 				"longitude": -77.677547,
 				"latitude": 43.084426
 			},
-			"gender": "Gender Neutral"
+			"gender": "M",
+			"name": "Men's"
 		}, {
 			"id": 5,
 			"location": {
 				"longitude": -77.677279,
 				"latitude": 43.083799
 			},
-			"gender": "Gender Neutral"
+			"gender": "N",
+			"name": "Gender Neutral"
 		}, {
 			"id": 6,
 			"location": {
 				"longitude": -77.676831,
 				"latitude": 43.08517
 			},
-			"gender": "Gender Neutral"
+			"gender": "M",
+			"name": "Men's"
 		}, {
 			"id": 7,
 			"location": {
 				"longitude": -77.679112,
 				"latitude": 43.084564
 			},
-			"gender": "Gender Neutral"
+			"gender": "N",
+			"name": "Gender Neutral"
 		}],
 		"food": [{
 			"name": "food truck",

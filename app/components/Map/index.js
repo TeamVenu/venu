@@ -7,8 +7,8 @@ const UserPin = styled.div`
   width: 20px;
   min-width: 20px;
   height: 20px;
-  border: 2px solid var(--primary-color);
-  background: var(--primary-color);
+  border: 2px solid #e74c3c;
+  background: #e74c3c;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -19,25 +19,117 @@ const UserPin = styled.div`
   }
 `;
 
+const MARKER_SIZE = 40;
+
 export default class Map extends Component {
   // Specifies the type of each prop
   static propTypes = {
-    apiKey: T.string,
+    bootStrapURLKeys: T.object,
     center: T.object,
     zoom: T.number,
     places: T.array,
     facilities: T.array,
+    defaultCenter: T.object,
+    onBoundsChange: T.func,
+    onCenterChange: T.func,
+    onZoomChange: T.func,
+    currentMarker: T.object,
+    clearPlaceInfo: T.func,
+    clickOnPlaceCard: T.func,
   };
 
   // Set some default props
   static defaultProps = {
-    apiKey: 'AIzaSyCC_hT5gMai_hZh8JSnlFzFOCTetRBYhQg',
-    center: {
+    defaultCenter: {
       lat: 43.084167,
       lng: -77.677085,
     },
+    bootStrapURLKeys: {
+      key: 'AIzaSyCC_hT5gMai_hZh8JSnlFzFOCTetRBYhQg',
+      language: 'en',
+    },
     zoom: 17,
   };
+
+  constructor(props) {
+    super(props);
+
+    this.clickEvent = this.clickEvent.bind(this);
+  }
+
+  onBoundsChange(center, zoom) {
+    this.props.onCenterChange(center);
+    this.props.onZoomChange(zoom);
+  }
+
+  onChildMouseEnter() {
+
+  }
+
+  onChildMouseLeave() {
+
+  }
+
+  distanceToMouse(markerPosition, mousePosition, markerProps) {
+    const x = markerPosition.x;
+
+    const y = markerPosition.y - MARKER_SIZE;
+
+    const distanceCoefficient = markerProps.type !== 'event' ? 1.5 : 1;
+
+    const horizontalDistance = (x - mousePosition.x) * (x - mousePosition.x);
+    const verticalDistance = (y - mousePosition.y) * (y - mousePosition.y);
+
+    return distanceCoefficient * Math.sqrt(horizontalDistance + verticalDistance);
+  }
+
+  createMapOptions(maps) {
+    return {
+      clickableIcons: true,
+      zoomControl: true,
+      zoomControlOptions: {
+        position: maps.ControlPosition.RIGHT_CENTER,
+      },
+      styles: [
+        {
+          elementType: 'geometry',
+          stylers: [{ color: '#1f1e1f' }],
+        },
+        {
+          elementType: 'labels.text.stroke',
+          stylers: [{ color: '#1f1f1f' }],
+        },
+        {
+          elementType: 'labels.text.fill',
+          stylers: [{ color: '#f1f1f1' }],
+        },
+        {
+          featureType: 'administrative.locality',
+          elementType: 'labels.text.fill',
+          stylers: [{ color: '#d59563' }],
+        },
+        {
+          featureType: 'landscape.man_made',
+          elementType: 'geometry.fill',
+          stylers: [{ color: '#2b2b2b' }],
+        },
+        {
+          featureType: 'road',
+          elementType: 'geometry',
+          stylers: [{ color: '#333333' }],
+        },
+        {
+          featureType: 'transit',
+          elementType: 'labels.icon',
+          stylers: [{ visibility: 'off' }],
+        },
+      ],
+    };
+  }
+
+  clickEvent() {
+    this.props.clearPlaceInfo();
+  }
 
   /**
    * renderEventMarkers
@@ -54,6 +146,8 @@ export default class Map extends Component {
           lat={place.location.latitude}
           lng={place.location.longitude}
           {...place}
+          currentMarker={this.props.currentMarker}
+          clickOnPlaceCard={this.props.clickOnPlaceCard}
         />
       );
     });
@@ -68,15 +162,19 @@ export default class Map extends Component {
           type={'facility'}
           lat={place.location.latitude}
           lng={place.location.longitude}
+          currentMarker={this.props.currentMarker}
+          clickOnPlaceCard={this.props.clickOnPlaceCard}
           {...place}
         />
       );
     });
   }
 
-
   renderUser() {
-    const { center } = this.props;
+    const center = {
+      lat: 43.084167,
+      lng: -77.677085,
+    };
 
     return (
       <UserPin lat={center.lat} lng={center.lng} />
@@ -90,10 +188,15 @@ export default class Map extends Component {
   render() {
     return (
       <GoogleMap
-        apiKey={this.props.apiKey}
-        bootstrapURLKeys={this.props.apiKey}
-        defaultCenter={this.props.center}
+        bootstrapURLKeys={this.props.bootStrapURLKeys}
+        defaultCenter={this.props.defaultCenter}
         defaultZoom={this.props.zoom}
+        options={this.createMapOptions}
+        hoverDistance={MARKER_SIZE}
+        distanceToMouse={this.distanceToMouse}
+        center={this.props.center}
+        onBoundsChange={this.props.onBoundsChange}
+        onClick={this.clickEvent}
       >
         {this.renderEventMarkers()}
         {this.renderFacilityMarkers()}

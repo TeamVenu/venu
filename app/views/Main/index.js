@@ -25,9 +25,18 @@ export default class Main extends React.Component { // eslint-disable-line react
       places: testData.booths,
       facilities: testData.facilities[0].restrooms,
       viewMode: 'discover',
+      center: {
+        lat: 43.084167,
+        lng: -77.677085,
+      },
+      currentMarker: {},
     };
 
+    this.centerMap = this.centerMap.bind(this);
     this.updateViewMode = this.updateViewMode.bind(this);
+    this.clickOnPlaceCard = this.clickOnPlaceCard.bind(this);
+    this.showPlaceInfo = this.showPlaceInfo.bind(this);
+    this.clearPlaceInfo = this.clearPlaceInfo.bind(this);
   }
 
   updateViewMode(e) {
@@ -70,14 +79,41 @@ export default class Main extends React.Component { // eslint-disable-line react
     });
   }
 
+  centerMap(center) {
+    this.setState({
+      center,
+    });
+  }
+
+  clickOnPlaceCard(place) {
+    const centerLocation = {
+      lat: place.location.latitude,
+      lng: place.location.longitude,
+    };
+    this.centerMap(centerLocation);
+    this.showPlaceInfo(centerLocation);
+  }
+
+  showPlaceInfo(location) {
+    this.setState({
+      currentMarker: location,
+    });
+  }
+
+  clearPlaceInfo() {
+    this.setState({
+      currentMarker: {},
+    });
+  }
+
   render() {
     return (
       <Wrapper>
         <Header updateViewMode={this.updateViewMode} viewMode={this.state.viewMode} />
         <MapWrapper>
-          <Map places={this.state.places} facilities={this.state.facilities} />
+          <Map places={this.state.places} facilities={this.state.facilities} center={this.state.center} clearPlaceInfo={this.clearPlaceInfo} currentMarker={this.state.currentMarker} clickOnPlaceCard={this.clickOnPlaceCard} />
         </MapWrapper>
-        <PlacesContainer places={this.state.places} facilities={this.state.facilities} />
+        <PlacesContainer places={this.state.places} facilities={this.state.facilities} clickOnPlaceCard={this.clickOnPlaceCard} />
       </Wrapper>
     );
   }

@@ -9,6 +9,7 @@ export default class ListView extends React.Component { //eslint-disable-line
   static propTypes = {
     places: T.array,
     facilities: T.array,
+    clickOnPlaceCard: T.func,
   }
 
   renderEventMarkers() {
@@ -17,7 +18,7 @@ export default class ListView extends React.Component { //eslint-disable-line
       return (
         <Item
           place={place}
-          // onClick={this.props.onClick
+          clickOnPlaceCard={this.props.clickOnPlaceCard}
           key={place.id}
           type={'event'}
         />
@@ -31,7 +32,7 @@ export default class ListView extends React.Component { //eslint-disable-line
       return (
         <Item
           place={place}
-          // onClick={this.props.onClick}
+          clickOnPlaceCard={this.props.clickOnPlaceCard}
           key={place.id}
           type={'facility'}
         />
