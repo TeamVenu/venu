@@ -5,6 +5,8 @@ import { Item as ItemContainer, ItemTitle, ItemSubtitle, ItemCategory } from './
 export default class Item extends React.Component {
   static propTypes = {
     type: T.string,
+    clickOnPlaceCard: T.func,
+    place: T.object,
   }
 
   constructor(props) {
@@ -13,11 +15,14 @@ export default class Item extends React.Component {
     this.state = {
       hovered: false,
     };
+
+    this.clickEvent = this.clickEvent.bind(this);
   }
 
-  // onClick(e) {
-  //   this.props.onClick(this.props.place);
-  // }
+  clickEvent() {
+    const { place } = this.props;
+    this.props.clickOnPlaceCard(place);
+  }
 
   renderCards() {
     const { place } = this.props;
@@ -25,7 +30,7 @@ export default class Item extends React.Component {
 
     if (type === 'event') {
       return (
-        <ItemContainer event>
+        <ItemContainer event onClick={this.clickEvent}>
           <ItemCategory>{ place.category }</ItemCategory>
           <ItemTitle>{ place.name }</ItemTitle>
           <ItemSubtitle>{ place.location.building }</ItemSubtitle>
@@ -33,7 +38,7 @@ export default class Item extends React.Component {
       );
     } else if (type === 'facility') {
       return (
-        <ItemContainer>
+        <ItemContainer onClick={this.clickEvent}>
           <ItemCategory>{ place.gender }</ItemCategory>
           <ItemTitle>Restroom</ItemTitle>
           <ItemSubtitle></ItemSubtitle>

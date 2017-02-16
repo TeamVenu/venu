@@ -5,7 +5,7 @@ export const Topbar = styled.header`
   z-index: 10;
   top: 0;
   left: 0;
-  background: var(--white);
+  // background: var(--white);
   width: 100%;
   padding: 0 25px;
   height: var(--topbar-height);
