@@ -39,6 +39,10 @@ export default class Main extends React.Component { // eslint-disable-line react
   }
 
   componentDidMount() {
+    this.getPlacesData();
+  }
+
+  getPlacesData() {
     // Get Places through AJAX or fetch here from our API
   }
 

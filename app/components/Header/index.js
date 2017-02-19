@@ -17,7 +17,7 @@ export default class Header extends React.Component { //eslint-disable-line
     const modes = [{ key: 0, name: 'Discover' }, { key: 1, name: 'Exhibits' }, { key: 2, name: 'Facilities' }];
     return modes.map((mode) => { //eslint-disable-line
       const currentModeClass = (viewMode === mode.name) ? 'selected' : '';
-      
+
       return (
         <ModeListItem key={mode.key} className={currentModeClass} onClick={this.props.updateViewMode}>
           {mode.name}
