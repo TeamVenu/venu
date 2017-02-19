@@ -21,9 +21,9 @@ export default class App extends React.PureComponent { // eslint-disable-line re
 
   render() {
     return (
-      <div>
+      <article>
         {React.Children.toArray(this.props.children)}
-      </div>
+      </article>
     );
   }
 }

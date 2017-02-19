@@ -3,7 +3,15 @@ import GoogleMap from 'google-map-react';
 import Marker from 'components/Markers';
 import styled from 'styled-components';
 
-const UserPin = styled.div`
+const UserPinWrapper = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-50%);
+  flex-direction: column;
+`;
+
+const UserPin = styled.section`
   width: 20px;
   min-width: 20px;
   height: 20px;
@@ -16,7 +24,21 @@ const UserPin = styled.div`
   
   &:hover {
     background: var(--white);
+    cursor: pointer;
+
+    & + section {
+      visibility: visible;
+    }
   }
+`;
+
+const UserInfo = styled.section`
+  margin-top: 10px;
+  padding: 10px;
+  background: var(--white);
+  visibility: hidden;
+  z-index: 9999;
+  text-align: center;
 `;
 
 const MARKER_SIZE = 40;
@@ -28,7 +50,6 @@ export default class Map extends Component {
     center: T.object,
     zoom: T.number,
     places: T.array,
-    facilities: T.array,
     defaultCenter: T.object,
     onBoundsChange: T.func,
     onCenterChange: T.func,
@@ -54,7 +75,7 @@ export default class Map extends Component {
   constructor(props) {
     super(props);
 
-    this.clickEvent = this.clickEvent.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   onBoundsChange(center, zoom) {
@@ -134,44 +155,29 @@ export default class Map extends Component {
     };
   }
 
-  clickEvent() {
+  handleClick() {
     this.props.clearPlaceInfo();
   }
 
   /**
-   * renderEventMarkers
+   * renderPlaces
    * Checks to see if there are places props in Map
    * If there are then it displays Markers for each place
    */
-  renderEventMarkers() {
-    if (!this.props.places) { return null; }
-    return this.props.places.map(place => { //eslint-disable-line
-      return (
-        <Marker
-          key={place.id}
-          type={'event'}
-          lat={place.location.latitude}
-          lng={place.location.longitude}
-          {...place}
-          currentMarker={this.props.currentMarker}
-          clickOnPlaceCard={this.props.clickOnPlaceCard}
-        />
-      );
-    });
-  }
+  renderPlaces() {
+    const { places } = this.props;
 
-  renderFacilityMarkers() {
-    if (!this.props.facilities) { return null; }
-    return this.props.facilities.map(place => { //eslint-disable-line
+    if (!places) { return null; }
+
+    return places.map((place) => { //eslint-disable-line
       return (
         <Marker
           key={place.id}
-          type={'facility'}
-          lat={place.location.latitude}
-          lng={place.location.longitude}
+          lat={place.lat}
+          lng={place.lng}
+          place={place}
           currentMarker={this.props.currentMarker}
           clickOnPlaceCard={this.props.clickOnPlaceCard}
-          {...place}
         />
       );
     });
@@ -179,12 +185,17 @@ export default class Map extends Component {
 
   renderUser() {
     const center = {
-      lat: 43.084167,
-      lng: -77.677085,
+      lat: 43.08516,
+      lng: -77.677192,
     };
 
     return (
-      <UserPin lat={center.lat} lng={center.lng} />
+      <UserPinWrapper lat={center.lat} lng={center.lng}>
+        <UserPin />
+        <UserInfo>
+          <p>My Location</p>
+        </UserInfo>
+      </UserPinWrapper>
     );
   }
 
@@ -203,10 +214,9 @@ export default class Map extends Component {
         distanceToMouse={this.distanceToMouse}
         center={this.props.center}
         onBoundsChange={this.props.onBoundsChange}
-        onClick={this.clickEvent}
+        onClick={this.handleClick}
       >
-        {this.renderEventMarkers()}
-        {this.renderFacilityMarkers()}
+        {this.renderPlaces()}
         {this.renderUser()}
       </GoogleMap>
     );

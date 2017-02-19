@@ -1,17 +1,11 @@
 import React, { PropTypes as T, Component } from 'react';
 
-import { PinWrapper, FacilityPinWrapper, FacilityPin, EventPinWrapper, EventPin, TextWrapper, Text } from './styles';
+import { POIContainer, PinWrapper, InfoPane, Pin } from './styles';
 
 export default class Marker extends Component {
   static propTypes = {
-    type: T.string,
-    gender: T.string,
-    category: T.string,
-    $hover: T.bool,
-    name: T.string,
     currentMarker: T.object,
-    lat: T.number,
-    lng: T.number,
+    place: T.object.isRequired,
     clickOnPlaceCard: T.func,
   }
 
@@ -20,87 +14,35 @@ export default class Marker extends Component {
   constructor(props) {
     super(props);
 
-    this.clickEvent = this.clickEvent.bind(this);
+    this.handlePinClick = this.handlePinClick.bind(this);
   }
 
-  clickEvent() {
+  handlePinClick() {
     const place = this.props;
     this.props.clickOnPlaceCard(place);
   }
 
-
-  renderFacilityPin() {
-    const { gender } = this.props;
-    const { name } = this.props;
-    const { currentMarker } = this.props;
-    let selected = false;
-
-    if (currentMarker && currentMarker.lat === this.props.lat && currentMarker.lng === this.props.lng) {
-      selected = true;
-    }
-
-    return (
-      <PinWrapper onClick={this.clickEvent}>
-        <FacilityPinWrapper>
-          <FacilityPin>{gender}</FacilityPin>
-        </FacilityPinWrapper>
-        <TextWrapper className={(selected) ? 'show' : ''}>
-          <Text>{name} Restroom</Text>
-        </TextWrapper>
-      </PinWrapper>
-    );
-  }
-
-  renderEventPin() {
-    const { category } = this.props;
-    const { name } = this.props;
-    const hovered = this.props.$hover;
-    const { currentMarker } = this.props;
-    let selected = false;
-
-    if (currentMarker && currentMarker.lat === this.props.lat && currentMarker.lng === this.props.lng) {
-      selected = true;
-    }
-
-    if (hovered) {
-      // console.log('hovering!');
-    }
-
-    if (category === 'new media' || category === 'chemistry' || hovered) {
-      return (
-        <PinWrapper onClick={this.clickEvent}>
-          <EventPinWrapper highlight>
-            <EventPin highlight />
-          </EventPinWrapper>
-          <TextWrapper className={(selected) ? 'show' : ''}>
-            <Text>{name}</Text>
-          </TextWrapper>
-        </PinWrapper>
-      );
-    }
-
-    return (
-      <PinWrapper onClick={this.clickEvent}>
-        <EventPinWrapper>
-          <EventPin />
-        </EventPinWrapper>
-        <TextWrapper className={(selected) ? 'show' : ''}>
-          <Text>{name}</Text>
-        </TextWrapper>
-      </PinWrapper>
-    );
-  }
-
   renderPin() {
-    const { type } = this.props;
+    const { place } = this.props;
+    if (!place) { return null; }
+    const { currentMarker } = this.props;
+    let placePinClasses = place.type + ' ' + place.subType; // eslint-disable-line
 
-    if (type === 'event') {
-      return (
-        this.renderEventPin()
-      );
+    if (currentMarker && (currentMarker.lat === place.lat && currentMarker.lng === place.lng)) {
+      placePinClasses += ' selected';
     }
+
     return (
-      this.renderFacilityPin()
+      <POIContainer className={placePinClasses} onClick={this.handlePinClick}>
+        <PinWrapper>
+          <Pin>
+            {place.name.charAt(0)}
+          </Pin>
+        </PinWrapper>
+        <InfoPane>
+          <p>{ place.name }</p>
+        </InfoPane>
+      </POIContainer>
     );
   }
 
