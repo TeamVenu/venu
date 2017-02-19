@@ -1,5 +1,5 @@
 /*
- * HomePage Messages
+ * Main Messages
  *
  * This contains all the text for the HomePage component.
  */
