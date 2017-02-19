@@ -1,28 +1,24 @@
 import React, { PropTypes as T } from 'react';
 
-import { PlacesContainer as Places } from 'components/PlacesContainer';
-
+import ListView from './ListView';
+import { Wrapper } from './styles';
 
 export default class PlacesContainer extends React.Component {
 
   static propTypes = {
     places: T.array,
-    onListItemClick: T.func,
+    clickOnPlaceCard: T.func,
   };
 
-  constructor() {
-    super();
-
-    this.state = {
-      places: [],
-    };
+  static defaultProps = {
+    title: 'Places',
   }
-
-  componentDidMount() { }
 
   render() {
     return (
-      <Places places={this.state.places} facilities={this.state.facilities} />
+      <Wrapper>
+        <ListView places={this.props.places} clickOnPlaceCard={this.props.clickOnPlaceCard} />
+      </Wrapper>
     );
   }
 }
