@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.main`
+export const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   marging: 0;

@@ -48,12 +48,19 @@ export const ListView = styled.ul`
 
 export const Item = styled.li`
   display: inline;
-  background: var(--accent-color);
-  background: ${(props) => props.event ? 'var(--accent-color)' : 'palevioletred'};
+  background: var(--light);
   margin-right: calc(var(--padding) * 2);
   padding: var(--padding);
   min-width: 200px;
   border-radius: 4px;
+
+  /* // Add these later to edit based on type */
+  &.exhibit {
+    color: var(--accent-color);
+  }
+  /* &.facility { } */
+  /* &.restroom { } */
+
 
   @media (min-width: 720px) {
     margin-right: 0;

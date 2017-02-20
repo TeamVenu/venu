@@ -4,16 +4,19 @@ import { injectGlobal } from 'styled-components';
 injectGlobal`
   :root {
     /* Base colors */
-    --white: #fff;
-    --black: #000;
-    --light: #f3f6fa;
+    --black: #1f1f1f;
+    --white: #f1f1f1;
+    --light: #e2e2e3;
     --dark: #272727;
     --blue: #48b5e9;
     --dark-blue: #66b4d8;
+    --blue-pin-accent-color: #1b80a5;
+    --blue-pin-color: #24bdf6;
+    --blue-pin-accent-color-opaque: rgba(29, 131, 168, 0.9);
 
     /* */
-    --background-color: var(--white);
-    --foreground-color: var(--black);
+    --background-color: var(--black);
+    --foreground-color: var(--white);
 
     --primary-color: var(--blue);
     --accent-color: var(--dark-blue);
@@ -21,6 +24,7 @@ injectGlobal`
     /* */
     --padding: 10px;
     --topbar-height: 50px;
+    --pin-size: 20px;
 
     @media (min-width: 720px) {
       --topbar-height: 80px;
