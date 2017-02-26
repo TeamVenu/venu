@@ -82,4 +82,23 @@ injectGlobal`
   label {
     // line-height: 1.5em;
   }
+
+  // Hide Google Maps Attribution
+  .gm-style a[title='Click to see this area on Google Maps']{ display: none!important; }
+
+  .gm-style a[href^="https://maps.google.com/maps"] {
+    display: none !important;
+  }
+
+  .gm-style-cc {
+    display: none !important;
+  }
+
+  a[href$="google.com/maps"], .gmnoprint:not(.gm-bundled-control) {
+    display: none !important
+  }
+
+  .gm-bundled-control .gmnoprint {
+      display: block;
+  }
 `;

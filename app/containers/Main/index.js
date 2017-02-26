@@ -5,10 +5,9 @@
  */
 
 import React from 'react';
-
+import axios from 'axios';
 import Header from 'components/Header';
 import PlacesContainer from 'containers/PlacesContainer';
-import places from 'fixtures/places.json';
 import Map from './Map';
 import { Wrapper, MapWrapper } from './styles';
 
@@ -16,13 +15,10 @@ export default class Main extends React.Component { // eslint-disable-line react
   constructor(props, context) {
     super(props, context);
 
-    let newPlaces = [];
-    newPlaces = places.exhibits.concat(places.facilities.restrooms);
-
     this.state = {
-      places: newPlaces,
-      exhibits: places.exhibits,
-      facilities: places.facilities.restrooms,
+      places: [],
+      exhibits: [],
+      facilities: [],
       viewMode: 'Discover',
       center: {
         lat: 43.08516,
@@ -38,12 +34,32 @@ export default class Main extends React.Component { // eslint-disable-line react
     this.clearPlaceInfo = this.clearPlaceInfo.bind(this);
   }
 
+  componentWillMount() { }
+
   componentDidMount() {
     this.getPlacesData();
   }
 
   getPlacesData() {
     // Get Places through AJAX or fetch here from our API
+    axios.get('/api/places')
+      .then((response) => {
+        this.setPlacesData(response.data);
+      })
+      .catch((error) => {
+        console.error('Error getting API ' + error);
+      });
+  }
+
+  setPlacesData(data) {
+    // Concatenate every place into one array
+    const allPlaces = data.exhibits.concat(data.facilities.restrooms);
+
+    this.setState({
+      places: allPlaces,
+      exhibits: data.exhibits,
+      facilities: data.facilities.restrooms,
+    });
   }
 
   centerMap(center) {
@@ -92,8 +108,8 @@ export default class Main extends React.Component { // eslint-disable-line react
         newState.exhibits = this.state.exhibits;
         newState.facilities = this.state.facilities;
         break;
-      case 'Exhibits':
-        newState.viewMode = 'Exhibits';
+      case 'Itinerary':
+        newState.viewMode = 'Itinerary';
         newState.exhibits = this.state.exhibits;
         newState.facilities = [];
         break;

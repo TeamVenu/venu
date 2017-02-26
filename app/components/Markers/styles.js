@@ -1,4 +1,30 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+// Animations
+
+const pulse = keyframes`
+  0% {
+    box-shadow: 0 0 0px var(--blue-pin-accent-color);
+  }
+
+  25% {
+    box-shadow: 0 0 20px var(--blue-pin-accent-color);
+  }
+
+  50% {
+    box-shadow: 0 0 40px var(--blue-pin-accent-color);
+  }
+
+  50% {
+    box-shadow: 0 0 20px var(--blue-pin-accent-color);
+  }
+
+  100% {
+    box-shadow: 0 0 0px var(--blue-pin-accent-color);
+  }
+`;
+
+// Styles
 
 export const POIContainer = styled.section`
   display: flex;
@@ -21,18 +47,18 @@ export const PinWrapper = styled.section`
     border-color: var(--blue-pin-accent-color);
     color: transparent;
     border-radius: 50%;
-    box-shadow: 0 0 40px var(--blue-pin-accent-color);
   }
 
   .recommended & {
-    background: var(--blue-pin-accent-color-opaque);
-    border-color: transparent;
+    box-shadow: 0 0 40px var(--blue-pin-accent-color);
+    animation: ${pulse} 4s ease-out infinite;
   }
 
   .bookmarked & {
-    background: yellow;
+    background: var(--blue-pin-accent-color-opaque);
     border-color: transparent;
-    box-shadow: 0 0 40px yellow;
+    box-shadow: 0 0 40px var(--blue-pin-accent-color);
+    animation: ${pulse} 4s ease-out infinite;
   }
 
   .visited & {
@@ -62,11 +88,11 @@ export const Pin = styled.section`
   }
 
   .recommended & {
-    background: var(--blue-pin-color);
+
   }
 
   .bookmarked & {
-
+    background: var(--blue-pin-color);
   }
 
   .facility & {

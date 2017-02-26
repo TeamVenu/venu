@@ -1,33 +1,35 @@
 import styled from 'styled-components';
 
 export const Topbar = styled.header`
-  position: fixed;
-  z-index: 10;
-  top: 0;
-  left: 0;
-  // background: var(--white);
+  position: relative;
   width: 100%;
-  padding: 0 25px;
+  padding: 0 var(--padding);
   height: var(--topbar-height);
   line-height: var(--topbar-height);
   color: var(--white);
+  z-index: 10;
 
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex: 1;
+  justify-content: space-between;
+  align-items: baseline;
+
+  @media (min-width: 720px) {
+    flex-basis: 100%;
+    padding: 0 25px;
+    align-items: center;
+  }
 `;
 
 export const AppTitle = styled.a`
-  flex: 1;
   color: var(--accent-color);
   text-decoration: none;
   letter-spacing: 1px;
-  font-size: 2em;
+  font-size: 1.5em;
   /* box-shadow: 5px -1px 5px var(--accent-color); */
 `;
 
 export const ModeWrapper = styled.nav`
-  flex: 2;
   overflow-x: auto;
 `;
 
@@ -39,7 +41,7 @@ export const ModeList = styled.ul`
 export const ModeListItem = styled.li`
   display: inline;
   padding: var(--padding);
-  font-size: 1.5em;
+  font-size: 1em;
   letter-spacing: 1px;
   color: var(--accent-color);
 
@@ -49,9 +51,8 @@ export const ModeListItem = styled.li`
 `;
 
 export const PlaceHolder = styled.a`
-  // flex: 1;
   color: var(--accent-color);
   text-decoration: none;
   letter-spacing: 1px;
-  font-size: 2em;
+  font-size: 1.5em;
 `;
