@@ -8,7 +8,7 @@ const UserPinWrapper = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: translateY(-50%);
+  transform: rotate(45deg);
   flex-direction: column;
 `;
 
@@ -18,7 +18,8 @@ const UserPin = styled.section`
   height: 20px;
   border: 2px solid #e74c3c;
   background: #e74c3c;
-  border-radius: 50%;
+  border-radius: 100% 100% 0;
+  transform: translateY(-100%);
   display: flex;
   justify-content: center;
   align-items: center;

@@ -3,7 +3,6 @@
  *
  * This is the first thing users see of our App, at the '/' route
  */
-
 import React from 'react';
 import axios from 'axios';
 import Header from 'components/Header';
@@ -50,15 +49,7 @@ export default class Main extends React.Component { // eslint-disable-line react
     const location = {};
 
     if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        // Success
-        location.lat = position.coords.latitude;
-        location.lng = position.coords.longitude;
-        // this.centerMap(location);
-        this.setState({
-          userLocation: location,
-        });
-      }, () => {
+      navigator.geolocation.getCurrentPosition(this.retrieveUsersLocation.bind(this), () => {
         // Error
         console.warn('Unable to retrieve location, user might have declined to use location');
         location.lat = 43.08516;
@@ -100,6 +91,17 @@ export default class Main extends React.Component { // eslint-disable-line react
       places: allPlaces,
       exhibits: data.exhibits,
       facilities: data.facilities.restrooms,
+    });
+  }
+
+  retrieveUsersLocation(position) {
+    const location = {};
+
+    location.lat = position.coords.latitude;
+    location.lng = position.coords.longitude;
+
+    this.setState({
+      userLocation: location,
     });
   }
 
