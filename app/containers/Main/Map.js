@@ -49,6 +49,7 @@ export default class Map extends Component {
   static propTypes = {
     bootStrapURLKeys: T.object,
     center: T.object,
+    userLocation: T.object,
     zoom: T.number,
     places: T.array,
     defaultCenter: T.object,
@@ -145,10 +146,10 @@ export default class Map extends Component {
   }
 
   renderUser() {
-    const { center } = this.props;
+    const { userLocation } = this.props;
 
     return (
-      <UserPinWrapper lat={center.lat} lng={center.lng}>
+      <UserPinWrapper lat={userLocation.lat} lng={userLocation.lng}>
         <UserPin />
         <UserInfo>
           <p>My Location</p>

@@ -20,6 +20,10 @@ export default class Main extends React.Component { // eslint-disable-line react
       exhibits: [],
       facilities: [],
       viewMode: 'Discover',
+      userLocation: {
+        lat: 43.08516,
+        lng: -77.677192,
+      },
       center: {
         lat: 43.08516,
         lng: -77.677192,
@@ -50,20 +54,31 @@ export default class Main extends React.Component { // eslint-disable-line react
         // Success
         location.lat = position.coords.latitude;
         location.lng = position.coords.longitude;
-        this.centerMap(location);
+        // this.centerMap(location);
+        this.setState({
+          userLocation: location,
+        });
       }, () => {
         // Error
         console.warn('Unable to retrieve location, user might have declined to use location');
         location.lat = 43.08516;
         location.lng = -77.677192;
-        this.centerMap(location);
+        // this.centerMap(location);
+        this.setState({
+          userLocation: location,
+        });
       });
     } else {
       console.warn('Geolocation is not available');
       location.lat = 43.08516;
       location.lng = -77.677192;
-      this.centerMap(location);
+      // this.centerMap(location);
+      this.setState({
+        userLocation: location,
+      });
     }
+
+    this.centerMap(this.state.userLocation);
   }
 
   getPlacesData() {
@@ -167,7 +182,7 @@ export default class Main extends React.Component { // eslint-disable-line react
       <Wrapper>
         <Header updateViewMode={this.updateViewMode} viewMode={this.state.viewMode} />
         <MapWrapper>
-          <Map places={this.state.places} zoom={this.state.zoom} center={this.state.center} clearPlaceInfo={this.clearPlaceInfo} currentMarker={this.state.currentMarker} clickOnPlaceCard={this.clickOnPlaceCard} />
+          <Map places={this.state.places} zoom={this.state.zoom} center={this.state.center} userLocation={this.state.userLocation} clearPlaceInfo={this.clearPlaceInfo} currentMarker={this.state.currentMarker} clickOnPlaceCard={this.clickOnPlaceCard} />
         </MapWrapper>
         <PlacesContainer places={this.state.places} clickOnPlaceCard={this.clickOnPlaceCard} />
       </Wrapper>
