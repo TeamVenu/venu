@@ -39,6 +39,31 @@ export default class Main extends React.Component { // eslint-disable-line react
 
   componentDidMount() {
     this.getPlacesData();
+    this.getUserLocation();
+  }
+
+  getUserLocation() {
+    const location = {};
+
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        // Success
+        location.lat = position.coords.latitude;
+        location.lng = position.coords.longitude;
+        this.centerMap(location);
+      }, () => {
+        // Error
+        console.warn('Unable to retrieve location, user might have declined to use location');
+        location.lat = 43.08516;
+        location.lng = -77.677192;
+        this.centerMap(location);
+      });
+    } else {
+      console.warn('Geolocation is not available');
+      location.lat = 43.08516;
+      location.lng = -77.677192;
+      this.centerMap(location);
+    }
   }
 
   getPlacesData() {
@@ -65,6 +90,7 @@ export default class Main extends React.Component { // eslint-disable-line react
 
   centerMap(center) {
     this.setState({
+      zoom: 17,
       center,
     });
   }

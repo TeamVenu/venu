@@ -145,10 +145,7 @@ export default class Map extends Component {
   }
 
   renderUser() {
-    const center = {
-      lat: 43.08516,
-      lng: -77.677192,
-    };
+    const { center } = this.props;
 
     return (
       <UserPinWrapper lat={center.lat} lng={center.lng}>
