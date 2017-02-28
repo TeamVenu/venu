@@ -56,3 +56,66 @@ export const PlaceHolder = styled.a`
   letter-spacing: 1px;
   font-size: 1.5em;
 `;
+
+export const MenuButton = styled.button`
+  background: red;
+  border: none;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:hover div {
+    color: var(--primary-color);
+  }
+`;
+
+export const HamburgerIcon = styled.div`
+  color: var(--white);
+  position: relative;
+  width: 20px;
+  height: 1px;
+  background-color: currentColor;
+
+  &:before, 
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 20px;
+    height: 1px;
+    background-color: currentColor;
+  }
+  &:before {
+    margin-top: -7px;
+  }
+  &:after {
+    top: 7px;
+  }
+`;
+
+export const SearchIcon = styled.div`
+  color: var(--foreground-color);
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  margin-left: -1px;
+  border: 1px solid currentColor;
+  border-radius: 100%;
+  transform: rotate(-45deg);
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 13px;
+    left: 7px;
+    height: 8px;
+    width: 1px;
+    background-color: currentColor;
+  }
+`;

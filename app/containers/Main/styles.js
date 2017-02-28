@@ -22,7 +22,7 @@ export const MapWrapper = styled.section`
   
   @media (min-width: 720px) {
     margin-top: 0;
-    height: 100%;
+    height: calc(100% - var(--topbar-height));
     flex-basis: 80%;
   }
 `;

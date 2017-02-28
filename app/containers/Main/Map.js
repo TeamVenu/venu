@@ -2,6 +2,7 @@ import React, { PropTypes as T, Component } from 'react';
 import GoogleMap from 'google-map-react';
 import Marker from 'components/Markers';
 import styled from 'styled-components';
+import mapStyles from 'fixtures/map-styles.json';
 
 const UserPinWrapper = styled.section`
   display: flex;
@@ -51,6 +52,7 @@ export default class Map extends Component {
     zoom: T.number,
     places: T.array,
     defaultCenter: T.object,
+    defaultZoom: T.number,
     onBoundsChange: T.func,
     onCenterChange: T.func,
     onZoomChange: T.func,
@@ -65,16 +67,15 @@ export default class Map extends Component {
       lat: 43.084167,
       lng: -77.677085,
     },
+    defaultZoom: 17,
     bootStrapURLKeys: {
       key: 'AIzaSyCC_hT5gMai_hZh8JSnlFzFOCTetRBYhQg',
       language: 'en',
     },
-    zoom: 17,
   };
 
   constructor(props) {
     super(props);
-
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -111,47 +112,7 @@ export default class Map extends Component {
       zoomControlOptions: {
         position: maps.ControlPosition.RIGHT_CENTER,
       },
-      styles: [
-        { stylers: [{ visibility: 'off' }] },
-        { featureType: 'water', stylers: [{ visibility: 'on' }] },
-        { featureType: 'poi', stylers: [{ visibility: 'on' }] },
-        { featureType: 'transit', stylers: [{ visibility: 'on' }] },
-        { featureType: 'landscape', stylers: [{ visibility: 'on' }] },
-        { featureType: 'road', stylers: [{ visibility: 'on' }] },
-        { featureType: 'administrative', stylers: [{ visibility: 'on' }] },
-        {
-          elementType: 'geometry',
-          stylers: [{ color: '#1f1e1f' }],
-        },
-        {
-          elementType: 'labels.text.stroke',
-          stylers: [{ color: '#1f1f1f' }],
-        },
-        {
-          elementType: 'labels.text.fill',
-          stylers: [{ color: '#f1f1f1' }],
-        },
-        {
-          featureType: 'administrative.locality',
-          elementType: 'labels.text.fill',
-          stylers: [{ color: '#d59563' }],
-        },
-        {
-          featureType: 'landscape.man_made',
-          elementType: 'geometry.fill',
-          stylers: [{ color: '#2b2b2b' }],
-        },
-        {
-          featureType: 'road',
-          elementType: 'geometry',
-          stylers: [{ color: '#333333' }],
-        },
-        // {
-        //   featureType: 'transit',
-        //   elementType: 'labels.icon',
-        //   stylers: [{ visibility: 'off' }],
-        // },
-      ],
+      styles: mapStyles,
     };
   }
 
@@ -208,11 +169,12 @@ export default class Map extends Component {
       <GoogleMap
         bootstrapURLKeys={this.props.bootStrapURLKeys}
         defaultCenter={this.props.defaultCenter}
-        defaultZoom={this.props.zoom}
+        defaultZoom={this.props.defaultZoom}
         options={this.createMapOptions}
         hoverDistance={MARKER_SIZE}
         distanceToMouse={this.distanceToMouse}
         center={this.props.center}
+        zoom={this.props.zoom}
         onBoundsChange={this.props.onBoundsChange}
         onClick={this.handleClick}
       >

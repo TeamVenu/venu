@@ -24,6 +24,7 @@ export default class Main extends React.Component { // eslint-disable-line react
         lat: 43.08516,
         lng: -77.677192,
       },
+      zoom: 17,
       currentMarker: {},
     };
 
@@ -47,7 +48,7 @@ export default class Main extends React.Component { // eslint-disable-line react
         this.setPlacesData(response.data);
       })
       .catch((error) => {
-        console.error('Error getting API ' + error);
+        console.error('Error getting API ', error);
       });
   }
 
@@ -75,12 +76,15 @@ export default class Main extends React.Component { // eslint-disable-line react
   }
 
   clickOnPlaceCard(place) {
+    const ZOOM = 20;
+
     const centerLocation = {
       lat: place.lat,
       lng: place.lng,
     };
 
     this.setState({
+      zoom: ZOOM,
       center: centerLocation,
       currentMarker: centerLocation,
     });
@@ -137,7 +141,7 @@ export default class Main extends React.Component { // eslint-disable-line react
       <Wrapper>
         <Header updateViewMode={this.updateViewMode} viewMode={this.state.viewMode} />
         <MapWrapper>
-          <Map places={this.state.places} center={this.state.center} clearPlaceInfo={this.clearPlaceInfo} currentMarker={this.state.currentMarker} clickOnPlaceCard={this.clickOnPlaceCard} />
+          <Map places={this.state.places} zoom={this.state.zoom} center={this.state.center} clearPlaceInfo={this.clearPlaceInfo} currentMarker={this.state.currentMarker} clickOnPlaceCard={this.clickOnPlaceCard} />
         </MapWrapper>
         <PlacesContainer places={this.state.places} clickOnPlaceCard={this.clickOnPlaceCard} />
       </Wrapper>
