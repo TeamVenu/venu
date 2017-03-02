@@ -3,23 +3,23 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
 // Get our styles
-import { Topbar, AppTitle, ModeWrapper, ModeList, ModeListItem /* , PlaceHolder */ } from './styles';
+import { Topbar, AppTitle, ModeWrapper, ModeList, ModeListItem, PlaceHolder } from './styles';
 
 export default class Header extends React.Component { //eslint-disable-line
   static propTypes = {
-    updateViewMode: T.func,
-    viewMode: T.string,
+    onChangeMapMode: T.func,
+    mapMode: T.string,
   }
 
   renderModeItems() {
-    const { viewMode } = this.props;
+    const { mapMode } = this.props;
 
-    const modes = [{ key: 0, name: 'Discover' }, { key: 1, name: 'Exhibits' }, { key: 2, name: 'Facilities' }];
+    const modes = [{ key: 0, name: 'Discover' }, { key: 1, name: 'Itinerary' }, { key: 2, name: 'Facilities' }];
     return modes.map((mode) => { //eslint-disable-line
-      const currentModeClass = (viewMode === mode.name) ? 'selected' : '';
+      const currentModeClass = (mapMode === mode.name) ? 'selected' : '';
 
       return (
-        <ModeListItem key={mode.key} className={currentModeClass} onClick={this.props.updateViewMode}>
+        <ModeListItem key={mode.key} className={currentModeClass} onClick={this.props.onChangeMapMode}>
           {mode.name}
         </ModeListItem>
       );
@@ -36,6 +36,9 @@ export default class Header extends React.Component { //eslint-disable-line
             {this.renderModeItems()}
           </ModeList>
         </ModeWrapper>
+        <PlaceHolder href="/404">
+          Team 7
+        </PlaceHolder>
       </Topbar>
     );
   }

@@ -1,6 +1,9 @@
 import React, { PropTypes as T, Component } from 'react';
-
-import { POIContainer, PinWrapper, InfoPane, Pin } from './styles';
+import FoodIcon from 'media/icons/food.png';
+import RestroomIcon from 'media/icons/restroom.png';
+import ManIcon from 'media/icons/man.png';
+import WomanIcon from 'media/icons/woman.png';
+import { POIContainer, PinWrapper, InfoPane, Pin, PinImage } from './styles';
 
 export default class Marker extends Component {
   static propTypes = {
@@ -36,7 +39,7 @@ export default class Marker extends Component {
       <POIContainer className={placePinClasses} onClick={this.handlePinClick}>
         <PinWrapper>
           <Pin>
-            {place.name.charAt(0)}
+            { this.renderPinImage(place) }
           </Pin>
         </PinWrapper>
         <InfoPane>
@@ -44,6 +47,48 @@ export default class Marker extends Component {
         </InfoPane>
       </POIContainer>
     );
+  }
+
+  renderPinImage(place) {
+    if (place.type !== 'facility') {
+      return null;
+    }
+
+    switch (place.subType) {
+      case 'restroom':
+        switch (place.category) {
+          case 'men':
+            return (
+              <PinImage src={ManIcon} />
+            );
+          case 'women':
+            return (
+              <PinImage src={WomanIcon} />
+            );
+          case 'genderNeutral':
+            return (
+              <PinImage src={RestroomIcon} />
+            );
+          default:
+            return null;
+        }
+      case 'food':
+        return (
+          <PinImage src={FoodIcon} />
+        );
+      case 'information':
+        // TODO: Correct Icon
+        return (
+          <PinImage src={FoodIcon} />
+        );
+      case 'medical':
+        // TODO: Correct Icon
+        return (
+          <PinImage src={FoodIcon} />
+        );
+      default:
+        return null;
+    }
   }
 
   render() {
