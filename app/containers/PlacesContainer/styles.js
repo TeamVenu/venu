@@ -65,3 +65,28 @@ export const ItemTitle = styled.h2`
 export const ItemSubtitle = styled.h3``;
 
 export const ItemCategory = styled.p``;
+
+export const HandleWrapper = styled.button`
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: row-resize;
+
+  // &:focus {
+  //   cursor: grabbing;
+  // }
+
+  @media (min-width: 720px) {
+    display: none;
+  }
+`;
+
+export const Handle = styled.span`
+  width: 100px;
+  height: 10px;
+  border: none;
+  border-radius: 8px;
+  background: grey;
+`;

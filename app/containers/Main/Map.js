@@ -1,47 +1,10 @@
 import React, { PropTypes as T, Component } from 'react';
 import GoogleMap from 'google-map-react';
 import Marker from 'components/Markers';
-import styled from 'styled-components';
+import UserIcon from 'media/icons/user.png';
 import mapStyles from 'fixtures/map-styles.json';
+import { UserPinWrapper, UserPin, UserImage, UserInfo } from './styles';
 
-const UserPinWrapper = styled.section`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transform: rotate(45deg);
-  flex-direction: column;
-`;
-
-const UserPin = styled.section`
-  width: 20px;
-  min-width: 20px;
-  height: 20px;
-  border: 2px solid #e74c3c;
-  background: #e74c3c;
-  border-radius: 100% 100% 0;
-  transform: translateY(-100%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-  &:hover {
-    background: var(--white);
-    cursor: pointer;
-
-    & + section {
-      visibility: visible;
-    }
-  }
-`;
-
-const UserInfo = styled.section`
-  margin-top: 10px;
-  padding: 10px;
-  background: var(--white);
-  visibility: hidden;
-  z-index: 9999;
-  text-align: center;
-`;
 
 const MARKER_SIZE = 40;
 
@@ -151,7 +114,9 @@ export default class Map extends Component {
 
     return (
       <UserPinWrapper lat={userLocation.lat} lng={userLocation.lng}>
-        <UserPin />
+        <UserPin>
+          <UserImage alt="Profile picture" src={UserIcon} />
+        </UserPin>
         <UserInfo>
           <p>My Location</p>
         </UserInfo>

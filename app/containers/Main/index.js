@@ -18,7 +18,7 @@ export default class Main extends React.Component { // eslint-disable-line react
       places: [],
       exhibits: [],
       facilities: [],
-      viewMode: 'Discover',
+      mapMode: 'Discover',
       userLocation: {
         lat: 43.08516,
         lng: -77.677192,
@@ -32,7 +32,7 @@ export default class Main extends React.Component { // eslint-disable-line react
     };
 
     this.centerMap = this.centerMap.bind(this);
-    this.updateViewMode = this.updateViewMode.bind(this);
+    this.onChangeMapMode = this.onChangeMapMode.bind(this);
     this.clickOnPlaceCard = this.clickOnPlaceCard.bind(this);
     this.showPlaceInfo = this.showPlaceInfo.bind(this);
     this.clearPlaceInfo = this.clearPlaceInfo.bind(this);
@@ -43,6 +43,69 @@ export default class Main extends React.Component { // eslint-disable-line react
   componentDidMount() {
     this.getPlacesData();
     this.getUserLocation();
+  }
+
+  onChangeMapMode(e) {
+    e.preventDefault();
+
+    const mode = e.target.textContent;
+
+    const newState = {
+      exhibits: [],
+      facilities: [],
+      mapMode: '',
+    };
+
+    switch (mode) {
+      case 'Discover':
+        newState.mapMode = 'Discover';
+        newState.exhibits = this.state.exhibits;
+        newState.facilities = this.state.facilities;
+        break;
+      case 'Itinerary':
+        newState.mapMode = 'Itinerary';
+        newState.exhibits = this.state.exhibits;
+        newState.facilities = [];
+        break;
+      case 'Facilities':
+        newState.mapMode = 'Facilities';
+        newState.exhibits = [];
+        newState.facilities = this.state.facilities;
+        break;
+      default:
+        newState.mapMode = 'none';
+        newState.exhibits = [];
+        newState.facilities = [];
+        break;
+    }
+    const newPlaces = newState.exhibits.concat(newState.facilities);
+
+    this.setState({
+      places: newPlaces,
+      mapMode: newState.mapMode,
+    });
+  }
+
+  getPlacesData() {
+    // Get Places through AJAX or fetch here from our API
+    axios.get('/api/places')
+      .then((response) => {
+        this.setPlacesData(response.data);
+      })
+      .catch((error) => {
+        console.error('Error getting API ', error);
+      });
+  }
+
+  setPlacesData(data) {
+    // Concatenate every place into one array
+    const allPlaces = data.exhibits.concat(data.facilities.restrooms);
+
+    this.setState({
+      places: allPlaces,
+      exhibits: data.exhibits,
+      facilities: data.facilities.restrooms,
+    });
   }
 
   getUserLocation() {
@@ -70,28 +133,6 @@ export default class Main extends React.Component { // eslint-disable-line react
     }
 
     this.centerMap(this.state.userLocation);
-  }
-
-  getPlacesData() {
-    // Get Places through AJAX or fetch here from our API
-    axios.get('/api/places')
-      .then((response) => {
-        this.setPlacesData(response.data);
-      })
-      .catch((error) => {
-        console.error('Error getting API ', error);
-      });
-  }
-
-  setPlacesData(data) {
-    // Concatenate every place into one array
-    const allPlaces = data.exhibits.concat(data.facilities.restrooms);
-
-    this.setState({
-      places: allPlaces,
-      exhibits: data.exhibits,
-      facilities: data.facilities.restrooms,
-    });
   }
 
   retrieveUsersLocation(position) {
@@ -139,50 +180,10 @@ export default class Main extends React.Component { // eslint-disable-line react
     });
   }
 
-  updateViewMode(e) {
-    e.preventDefault();
-
-    const mode = e.target.textContent;
-    const newState = {
-      exhibits: [],
-      facilities: [],
-      viewMode: '',
-    };
-
-    switch (mode) {
-      case 'Discover':
-        newState.viewMode = 'Discover';
-        newState.exhibits = this.state.exhibits;
-        newState.facilities = this.state.facilities;
-        break;
-      case 'Itinerary':
-        newState.viewMode = 'Itinerary';
-        newState.exhibits = this.state.exhibits;
-        newState.facilities = [];
-        break;
-      case 'Facilities':
-        newState.viewMode = 'Facilities';
-        newState.exhibits = [];
-        newState.facilities = this.state.facilities;
-        break;
-      default:
-        newState.viewMode = 'none';
-        newState.exhibits = [];
-        newState.facilities = [];
-        break;
-    }
-    const newPlaces = newState.exhibits.concat(newState.facilities);
-
-    this.setState({
-      places: newPlaces,
-      viewMode: newState.viewMode,
-    });
-  }
-
   render() {
     return (
       <Wrapper>
-        <Header updateViewMode={this.updateViewMode} viewMode={this.state.viewMode} />
+        <Header onChangeMapMode={this.onChangeMapMode} mapMode={this.state.mapMode} />
         <MapWrapper>
           <Map places={this.state.places} zoom={this.state.zoom} center={this.state.center} userLocation={this.state.userLocation} clearPlaceInfo={this.clearPlaceInfo} currentMarker={this.state.currentMarker} clickOnPlaceCard={this.clickOnPlaceCard} />
         </MapWrapper>

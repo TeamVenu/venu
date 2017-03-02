@@ -7,19 +7,19 @@ import { Topbar, AppTitle, ModeWrapper, ModeList, ModeListItem, PlaceHolder } fr
 
 export default class Header extends React.Component { //eslint-disable-line
   static propTypes = {
-    updateViewMode: T.func,
-    viewMode: T.string,
+    onChangeMapMode: T.func,
+    mapMode: T.string,
   }
 
   renderModeItems() {
-    const { viewMode } = this.props;
+    const { mapMode } = this.props;
 
     const modes = [{ key: 0, name: 'Discover' }, { key: 1, name: 'Itinerary' }, { key: 2, name: 'Facilities' }];
     return modes.map((mode) => { //eslint-disable-line
-      const currentModeClass = (viewMode === mode.name) ? 'selected' : '';
+      const currentModeClass = (mapMode === mode.name) ? 'selected' : '';
 
       return (
-        <ModeListItem key={mode.key} className={currentModeClass} onClick={this.props.updateViewMode}>
+        <ModeListItem key={mode.key} className={currentModeClass} onClick={this.props.onChangeMapMode}>
           {mode.name}
         </ModeListItem>
       );

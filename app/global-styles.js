@@ -9,23 +9,31 @@ injectGlobal`
     --light: #e2e2e3;
     --dark: #2b2b2b;
     --dark-grey: #444444;
-    --blue: #48b5e9;
+    --red: #f9000c;
+    --blue: #00d8f9;
     --dark-blue: #66b4d8;
     --blue-pin-accent-color: #1b80a5;
     --blue-pin-color: #24bdf6;
     --blue-pin-accent-color-opaque: rgba(29, 131, 168, 0.9);
+    --light-blue: #0dfff9;
+    --light-green: #7aea35;
+    --light-blue-opaque: rgba(13, 255, 249, 0.4);
+    --light-green-opaque: rgba(122, 234, 53, 0.4);
+
 
     /* */
     --background-color: var(--black);
     --foreground-color: var(--white);
-
+    --blue-green-gradient-opaque: linear-gradient(to bottom, var(--light-green-opaque), var(--light-blue-opaque));
+    --blue-green-gradient: linear-gradient(to bottom, var(--light-green), var(--light-blue));
+    --blue-red-gradient: linear-gradient(to bottom, var(--red), var(--blue));
     --primary-color: var(--blue);
     --accent-color: var(--dark-blue);
 
     /* */
     --padding: 10px;
     --topbar-height: 50px;
-    --pin-size: 20px;
+    --pin-size: 30px;
 
     @media (min-width: 720px) {
       --topbar-height: 80px;
