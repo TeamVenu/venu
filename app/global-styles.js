@@ -17,9 +17,10 @@ injectGlobal`
     --blue-pin-accent-color-opaque: rgba(29, 131, 168, 0.9);
     --light-blue: #0dfff9;
     --light-green: #7aea35;
-    --light-blue-opaque: rgba(13, 255, 249, 0.4);
-    --light-green-opaque: rgba(122, 234, 53, 0.4);
-
+    --light-blue-opaque: rgba(13, 255, 249, 0.15);
+    --light-green-opaque: rgba(122, 234, 53, 0.15);
+    --black-background: #201f1e;
+    --black-background-opaque: rgba(32, 31, 30, 0.4);
 
     /* */
     --background-color: var(--black);
@@ -27,6 +28,8 @@ injectGlobal`
     --blue-green-gradient-opaque: linear-gradient(to bottom, var(--light-green-opaque), var(--light-blue-opaque));
     --blue-green-gradient: linear-gradient(to bottom, var(--light-green), var(--light-blue));
     --blue-red-gradient: linear-gradient(to bottom, var(--red), var(--blue));
+    --header-background-gradient: linear-gradient(to bottom, var(--black-background), var(--black-background-opaque));
+    --panel-background-gradient: linear-gradient(to bottom, var(--black-background-opaque), var(--black-background));
     --primary-color: var(--blue);
     --accent-color: var(--dark-blue);
 

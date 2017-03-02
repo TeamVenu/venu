@@ -6,7 +6,7 @@
 import React from 'react';
 import axios from 'axios';
 import Header from 'components/Header';
-import PlacesContainer from 'containers/PlacesContainer';
+import PlacesPanel from 'containers/PlacesPanel';
 import Map from './Map';
 import { Wrapper, MapWrapper } from './styles';
 
@@ -187,7 +187,7 @@ export default class Main extends React.Component { // eslint-disable-line react
         <MapWrapper>
           <Map places={this.state.places} zoom={this.state.zoom} center={this.state.center} userLocation={this.state.userLocation} clearPlaceInfo={this.clearPlaceInfo} currentMarker={this.state.currentMarker} clickOnPlaceCard={this.clickOnPlaceCard} />
         </MapWrapper>
-        <PlacesContainer places={this.state.places} clickOnPlaceCard={this.clickOnPlaceCard} />
+        <PlacesPanel places={this.state.places} clickOnPlaceCard={this.clickOnPlaceCard} />
       </Wrapper>
     );
   }

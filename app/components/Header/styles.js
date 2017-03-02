@@ -6,6 +6,8 @@ export const Topbar = styled.header`
   padding: 0 var(--padding);
   height: var(--topbar-height);
   line-height: var(--topbar-height);
+  background: var(--header-background-gradient);
+  box-shadow: 0 10px 10px var(--black-background-opaque);
   color: var(--white);
   z-index: 10;
 

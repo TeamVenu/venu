@@ -1,26 +1,28 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.section`
-  display: flex;
-  flex-direction: column;
+  // position: relative;
   margin: 0;
   height: 100vh;
   -webkit-box-orient: horizontal;
   -o-box-orient: horizontal;
 
   @media (min-width: 720px) {
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
   }
 `;
 
 export const MapWrapper = styled.section`
-  position: relative;
+  position: absolute;
   width: 100%;
-  height: calc(100% - 200px);
-  margin-top: var(--topbar-height);
-  
+  height: 100%;
+  top: 0;
+
   @media (min-width: 720px) {
+    position: relative;
+    width: 100%;
     margin-top: 0;
     height: calc(100% - var(--topbar-height));
     flex-basis: 80%;

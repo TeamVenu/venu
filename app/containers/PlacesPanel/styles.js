@@ -1,15 +1,21 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.section`
-  position: relative;
-  background: var(--white);
+  position: absolute;
+  bottom: -400px;
+  background: var(--panel-background-gradient);
+  box-shadow: 0 -10px 10px var(--black-background-opaque);
+  width: 100%;
   height: 100%;
   overflow: hidden;
-  z-index: 0;
+  z-index: 15;
 
   @media (min-width: 720px) {
+    position: relative;
+    bottom: auto;
     flex-basis: 20%;
     display: block;
+    box-shadow: -10 0px 10px var(--black-background-opaque);
   }
 `;
 
@@ -26,13 +32,16 @@ export const Title = styled.h1`
 `;
 
 export const ListView = styled.ul`
+  display: block;
+  max-width: 90%;
   height: 100%;
   overflow: auto;
-  margin: 0;
-  padding: 0 0 50px;
+  margin: 0 auto;
+  // Needs to be altered
+  padding: 0 0 200px;
 
   @media (min-width: 720px) {
-    padding-bottom: 100px;
+    max-width: none;
   }
 `;
 
@@ -41,6 +50,7 @@ export const Item = styled.li`
   flex-direction: column;
   background: var(--white);
   border-bottom: 1px solid var(--light);
+  margin-bottom: var(--padding);
   padding: var(--padding);
   text-decoration: none;
   cursor: pointer;
@@ -74,9 +84,10 @@ export const HandleWrapper = styled.button`
   align-items: center;
   cursor: row-resize;
 
-  // &:focus {
-  //   cursor: grabbing;
-  // }
+  &:focus {
+    outline: 0;
+    // cursor: grabbing;
+  }
 
   @media (min-width: 720px) {
     display: none;
@@ -88,5 +99,5 @@ export const Handle = styled.span`
   height: 10px;
   border: none;
   border-radius: 8px;
-  background: grey;
+  background: var(--white);
 `;
