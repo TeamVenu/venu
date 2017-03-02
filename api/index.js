@@ -36,6 +36,16 @@ router.get('/places', (req, res) => {
   });
 });
 
+router.get('/map-styles', (req, res) => {
+  retrieveMapStylesData((error, data) => {
+    if (!error) {
+      res.json(data);
+    } else {
+      res.status(500).send();
+    }
+  });
+});
+
 /**
  * retrieveTest retrieves places from our JSON file
  * @param  {function} callback
@@ -62,6 +72,16 @@ function retrieveTestData(callback) {
  */
 function retrievePlaceData(callback) {
   fs.readFile('./app/fixtures/places.json', 'utf-8', (err, content) => {
+    callback(err, JSON.parse(content));
+  });
+}
+
+/**
+ * retrieveMapStylesData retrieves map styles from our JSON file
+ * @param  {function} callback
+ */
+function retrieveMapStylesData(callback) {
+  fs.readFile('./app/fixtures/map-styles.json', 'utf-8', (err, content) => {
     callback(err, JSON.parse(content));
   });
 }

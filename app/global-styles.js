@@ -4,27 +4,39 @@ import { injectGlobal } from 'styled-components';
 injectGlobal`
   :root {
     /* Base colors */
-    --black: #1f1f1f;
+    --black: #1e1e1e;
     --white: #f1f1f1;
     --light: #e2e2e3;
-    --dark: #272727;
-    --blue: #48b5e9;
+    --dark: #2b2b2b;
+    --dark-grey: #444444;
+    --red: #f9000c;
+    --blue: #00d8f9;
     --dark-blue: #66b4d8;
     --blue-pin-accent-color: #1b80a5;
     --blue-pin-color: #24bdf6;
     --blue-pin-accent-color-opaque: rgba(29, 131, 168, 0.9);
+    --light-blue: #0dfff9;
+    --light-green: #7aea35;
+    --light-blue-opaque: rgba(13, 255, 249, 0.15);
+    --light-green-opaque: rgba(122, 234, 53, 0.15);
+    --black-background: #201f1e;
+    --black-background-opaque: rgba(32, 31, 30, 0.4);
 
     /* */
     --background-color: var(--black);
     --foreground-color: var(--white);
-
+    --blue-green-gradient-opaque: linear-gradient(to bottom, var(--light-green-opaque), var(--light-blue-opaque));
+    --blue-green-gradient: linear-gradient(to bottom, var(--light-green), var(--light-blue));
+    --blue-red-gradient: linear-gradient(to bottom, var(--red), var(--blue));
+    --header-background-gradient: linear-gradient(to bottom, var(--black-background), var(--black-background-opaque));
+    --panel-background-gradient: linear-gradient(to bottom, var(--black-background-opaque), var(--black-background));
     --primary-color: var(--blue);
     --accent-color: var(--dark-blue);
 
     /* */
     --padding: 10px;
     --topbar-height: 50px;
-    --pin-size: 20px;
+    --pin-size: 30px;
 
     @media (min-width: 720px) {
       --topbar-height: 80px;
@@ -83,3 +95,21 @@ injectGlobal`
     // line-height: 1.5em;
   }
 `;
+  // Hide Google Maps Attribution
+  // .gm-style a[title='Click to see this area on Google Maps']{ display: none!important; }
+
+  // .gm-style a[href^="https://maps.google.com/maps"] {
+  //   display: none !important;
+  // }
+
+  // .gm-style-cc {
+  //   display: none !important;
+  // }
+
+  // a[href$="google.com/maps"], .gmnoprint:not(.gm-bundled-control) {
+  //   display: none !important
+  // }
+
+  // .gm-bundled-control .gmnoprint {
+  //     display: block;
+  // }
