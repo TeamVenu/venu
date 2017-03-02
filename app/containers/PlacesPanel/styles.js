@@ -54,6 +54,29 @@ export const Item = styled.li`
   padding: var(--padding);
   text-decoration: none;
   cursor: pointer;
+  color: var(--background-color);
+
+  border-top: 5px solid transparent;
+  
+  &.mustard {
+    border-color: #CB9929;
+  }
+
+  &.orange {
+    border-color: #E47D42;
+  }
+
+  &.purple {
+    border-color: #8D6EA6;
+  }
+
+  &.aqua {
+    border-color: #2EA6A0;
+  }
+
+  &.yellow {
+    border-color: #E5BC31;
+  }
 
   &:last-of-type {
     border: none;
@@ -61,7 +84,7 @@ export const Item = styled.li`
 
   // Add these later to edit based on type
   &.exhibit {
-    color: var(--accent-color);
+    color: var(--background-color);
   }
 
   // &.facility { }

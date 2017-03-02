@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.section`
-  // position: relative;
+  position: relative;
   margin: 0;
   height: 100vh;
   -webkit-box-orient: horizontal;

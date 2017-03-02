@@ -30,7 +30,7 @@ export default class Item extends React.Component {
 
     // If restroom lets not show category
     const category = (place.subType === 'restroom') ? '' : place.category;
-    const placeClass = place.type + ' ' + place.subType; //eslint-disable-line
+    const placeClass = place.type + ' ' + place.subType + ' ' + place.colorZone; //eslint-disable-line
 
     return (
       <ItemContainer className={placeClass} onClick={this.handleCardClick}>

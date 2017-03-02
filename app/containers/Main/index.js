@@ -4,6 +4,7 @@
  * This is the first thing users see of our App, at the '/' route
  */
 import React from 'react';
+import { browserHistory } from 'react-router';
 import axios from 'axios';
 import Header from 'components/Header';
 import PlacesPanel from 'containers/PlacesPanel';
@@ -27,7 +28,7 @@ export default class Main extends React.Component { // eslint-disable-line react
         lat: 43.08516,
         lng: -77.677192,
       },
-      zoom: 17,
+      zoom: 20,
       currentMarker: {},
     };
 
@@ -64,8 +65,10 @@ export default class Main extends React.Component { // eslint-disable-line react
         break;
       case 'Itinerary':
         newState.mapMode = 'Itinerary';
-        newState.exhibits = this.state.exhibits;
-        newState.facilities = [];
+        newState.exhibits = this.state.exhibits.filter((exhibit) => { // eslint-disable-line
+          return exhibit.subType === 'bookmarked';
+        });
+        newState.facilities = this.state.facilities;
         break;
       case 'Facilities':
         newState.mapMode = 'Facilities';
@@ -148,7 +151,7 @@ export default class Main extends React.Component { // eslint-disable-line react
 
   centerMap(center) {
     this.setState({
-      zoom: 17,
+      zoom: 20,
       center,
     });
   }
@@ -160,18 +163,9 @@ export default class Main extends React.Component { // eslint-disable-line react
   }
 
   clickOnPlaceCard(place) {
-    const ZOOM = 20;
-
-    const centerLocation = {
-      lat: place.lat,
-      lng: place.lng,
-    };
-
-    this.setState({
-      zoom: ZOOM,
-      center: centerLocation,
-      currentMarker: centerLocation,
-    });
+    const { id } = place;
+    const placeURL = '/place/' + id; // eslint-disable-line
+    browserHistory.push(placeURL);
   }
 
   showPlaceInfo(location) {

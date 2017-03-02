@@ -74,6 +74,7 @@ injectGlobal`
     font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Open Sans", sans-serif;
     font-smoothing: antialiased;
     overflow: hidden;
+    color: var(--foreground-color);
   }
 
   body.fontLoaded {

@@ -3,7 +3,7 @@ import GoogleMap from 'google-map-react';
 import Marker from 'components/Markers';
 import UserIcon from 'media/icons/user.png';
 import mapStyles from 'fixtures/map-styles.json';
-import { UserPinWrapper, UserPin, UserImage, UserInfo } from './styles';
+import { UserPinWrapper, UserPin, UserImage } from './styles';
 
 
 const MARKER_SIZE = 40;
@@ -32,7 +32,7 @@ export default class Map extends Component {
       lat: 43.084167,
       lng: -77.677085,
     },
-    defaultZoom: 17,
+    defaultZoom: 20,
     bootStrapURLKeys: {
       key: 'AIzaSyCC_hT5gMai_hZh8JSnlFzFOCTetRBYhQg',
       language: 'en',
@@ -82,6 +82,8 @@ export default class Map extends Component {
   }
 
   handleClick() {
+    if (!this.props.clearPlaceInfo) return;
+
     this.props.clearPlaceInfo();
   }
 
@@ -112,14 +114,13 @@ export default class Map extends Component {
   renderUser() {
     const { userLocation } = this.props;
 
+    if (!userLocation) return null;
+
     return (
       <UserPinWrapper lat={userLocation.lat} lng={userLocation.lng}>
         <UserPin>
           <UserImage alt="Profile picture" src={UserIcon} />
         </UserPin>
-        <UserInfo>
-          <p>My Location</p>
-        </UserInfo>
       </UserPinWrapper>
     );
   }
