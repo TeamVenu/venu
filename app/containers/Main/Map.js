@@ -22,7 +22,6 @@ export default class Map extends Component {
     onCenterChange: T.func,
     onZoomChange: T.func,
     currentMarker: T.object,
-    clearPlaceInfo: T.func,
     clickOnPlaceCard: T.func,
   };
 
@@ -82,9 +81,8 @@ export default class Map extends Component {
   }
 
   handleClick() {
-    if (!this.props.clearPlaceInfo) return;
-
-    this.props.clearPlaceInfo();
+    // if (!this.props.clearPlaceInfo) return;
+    // this.props.clearPlaceInfo();
   }
 
   /**
@@ -141,7 +139,6 @@ export default class Map extends Component {
         center={this.props.center}
         zoom={this.props.zoom}
         onBoundsChange={this.props.onBoundsChange}
-        onClick={this.handleClick}
       >
         {this.renderPlaces()}
         {this.renderUser()}

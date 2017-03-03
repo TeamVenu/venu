@@ -8,7 +8,7 @@ const pulse = keyframes`
   }
 
   50% {
-    transform: scale(1.5);
+    transform: scale(2);
   }
 
   100% {
@@ -52,12 +52,19 @@ export const PinWrapper = styled.section`
   }
 
   .recommended & {
+    width: calc(var(--pin-size) - 2px);
+    height: calc(var(--pin-size) - 2px);
+
+    &:before {
+      width: calc(var(--pin-size));
+      height: calc(var(--pin-size));
+    }
 
     &:after {
       content: '';
       position: absolute;
-      width: calc(var(--pin-size) + 2px);
-      height: calc(var(--pin-size) + 2px);
+      width: calc(var(--pin-size) - 6px);
+      height: calc(var(--pin-size) - 6px);
       background: var(--blue-green-gradient-opaque);
       z-index: -1;
       opacity: 0.3;
@@ -72,23 +79,12 @@ export const PinWrapper = styled.section`
     &:before {
       content: '';
       position: absolute;
-      width: calc(var(--pin-size) + 4px);
-      height: calc(var(--pin-size) + 4px);
-      background: none;
+      width: var(--pin-size);
+      height: var(--pin-size);
+      background: var(--black);
+      box-shadow: 0 0 20px black;
       z-index: -1;
       border-radius: 100%;
-    }
-
-    &:after {
-      content: '';
-      position: absolute;
-      width: calc(var(--pin-size) + 2px);
-      height: calc(var(--pin-size) + 2px);
-      background: var(--blue-green-gradient-opaque);
-      z-index: -1;
-      opacity: 0.3;
-      border-radius: 100%;
-      animation: ${pulse} 4s ease-out infinite;
     }
   }
 
@@ -100,7 +96,7 @@ export const PinWrapper = styled.section`
     border: 1px solid var(--white);
     background: var(--black);
     color: var(--white);
-    box-shadow: 0 0 40px black;
+    box-shadow: 0 0 20px black;
     transform: rotate(45deg);
   }
 
@@ -123,7 +119,7 @@ export const Pin = styled.section`
   }
 
   .recommended & {
-    background: var(--blue-green-gradient);
+    // background: var(--blue-green-gradient);
   }
 
   .bookmarked & {

@@ -4,15 +4,15 @@
       "id": 1103,
       "name": "Bike Blender",
       "type": "exhibit",
-      "subType": "default",
-      "colorZone": "mustard",
+      "subType": "recommended",
+      "colorZone": "recreation-zone",
       "imagineRitArea": "RIT Central",
       "building": "Outside",
       "location": "RIT Bengal Statue",
       "ageRange": "all",
       "exhibitCode": "OUT-0500",
       "category": "",
-      "subCategories": [
+      "tags": [
         "",
         ""
       ],
@@ -29,16 +29,17 @@
       "name": "Model Railroad Club",
       "type": "exhibit",
       "subType": "default",
-      "colorZone": "mustard",
+      "colorZone": "rit-central",
       "imagineRitArea": "RIT Central",
       "building": "Student Alumni Union",
       "location": "A420",
       "ageRange": "all",
       "exhibitCode": "SAU-A420",
       "category": "General",
-      "subCategories": [
+      "tags": [
         ""
       ],
+      "hoursRunning": "10:00am - 4:00pm",
       "lat": 43.084057,
       "lng": -77.674510,
       "alt": 0,
@@ -52,16 +53,17 @@
       "name": "A Day at Hogwarts",
       "type": "exhibit",
       "subType": "default",
-      "colorZone": "mustard",
+      "colorZone": "ntid-area",
       "imagineRitArea": "RIT Central",
       "building": "Student Alumni Union",
       "location": "0100",
       "ageRange": "all",
       "exhibitCode": "SAU-0100",
       "category": "General",
-      "subCategories": [
+      "tags": [
         ""
       ],
+      "hoursRunning": "11:00am - 3:00pm",
       "lat": 43.084087,
       "lng": -77.674564,
       "alt": 0,
@@ -75,14 +77,14 @@
       "name": "St. Baldrick's Foundation",
       "type": "exhibit",
       "subType": "default",
-      "colorZone": "mustard",
+      "colorZone": "information-station",
       "imagineRitArea": "RIT Central",
       "building": "Student Alumni Union",
       "location": "Fireside Lounge",
       "ageRange": "all",
       "exhibitCode": "SAU-0110",
       "category": "General",
-      "subCategories": [
+      "tags": [
         ""
       ],
       "lat": 43.083871,
@@ -98,16 +100,17 @@
       "name": "Five VL2 ASL Storybook Apps",
       "type": "exhibit",
       "subType": "default",
-      "colorZone": "mustard",
+      "colorZone": "think-tank",
       "imagineRitArea": "RIT Central",
       "building": "Student Alumni Union",
       "location": "Fireside Lounge",
       "ageRange": "all",
       "exhibitCode": "SAU-0130",
       "category": "General",
-      "subCategories": [
+      "tags": [
         ""
       ],
+      "hoursRunning": "12:00pm - 2:00pm",
       "lat": 43.083822,
       "lng": -77.674303,
       "alt": 0,
@@ -121,14 +124,14 @@
       "name": "Dalmatian Co.",
       "type": "exhibit",
       "subType": "default",
-      "colorZone": "mustard",
+      "colorZone": "artistic-alley",
       "imagineRitArea": "RIT Central",
       "building": "Student Alumni Union",
       "location": "Fireside Lounge",
       "ageRange": "all",
       "exhibitCode": "SAU-0150",
       "category": "General",
-      "subCategories": [
+      "tags": [
         ""
       ],
       "lat": 43.083779,
@@ -140,18 +143,18 @@
       "devComments": "old"
     },
     {
-      "id": 1228,
+      "id": 1528,
       "name": "inSpIRE",
       "type": "exhibit",
       "subType": "default",
-      "colorZone": "purple",
+      "colorZone": "engineering-park",
       "imagineRitArea": "Artistic Alley",
       "building": "James E. Booth Hall",
       "location": "1303",
       "ageRange": "all",
       "exhibitCode": "BOO-1303",
       "category": "Art",
-      "subCategories": [
+      "tags": [
         "Music",
         "Installation"
       ],
@@ -164,18 +167,18 @@
       "devComments": "old"
     },
     {
-      "id": 1230,
+      "id": 1530,
       "name": "Rhapsody",
       "type": "exhibit",
       "subType": "default",
-      "colorZone": "purple",
+      "colorZone": "science-center",
       "imagineRitArea": "Artistic Alley",
       "building": "James E. Booth Hall",
       "location": "1320",
       "ageRange": "all",
       "exhibitCode": "BOO-1320",
       "category": "Art",
-      "subCategories": [
+      "tags": [
         "Music"
       ],
       "lat": 43.085160,
@@ -187,18 +190,18 @@
       "devComments": "old"
     },
     {
-      "id": 1231,
+      "id": 1531,
       "name": "3DDD Calder 100 Hour Project",
       "type": "exhibit",
       "subType": "default",
-      "colorZone": "purple",
+      "colorZone": "business-district",
       "imagineRitArea": "Artistic Alley",
       "building": "James E. Booth Hall",
       "location": "Webb Auditorium",
       "ageRange": "all",
       "exhibitCode": "BOO-1350",
       "category": "Art",
-      "subCategories": [
+      "tags": [
         ""
       ],
       "lat": 43.085128,
@@ -210,18 +213,18 @@
       "devComments": "old"
     },
     {
-      "id": 1233,
+      "id": 1533,
       "name": "EVOXE",
       "type": "exhibit",
       "subType": "recommended",
-      "colorZone": "purple",
+      "colorZone": "innovation-center",
       "imagineRitArea": "Artistic Alley",
       "building": "James E. Booth Hall",
       "location": "1420",
       "ageRange": "all",
       "exhibitCode": "BOO-1420",
       "category": "Art",
-      "subCategories": [
+      "tags": [
         ""
       ],
       "lat": 43.084944,
@@ -233,21 +236,21 @@
       "devComments": "old"
     },
     {
-      "id": 1234,
+      "id": 1534,
       "name": "Beam Beats",
       "type": "exhibit",
       "subType": "bookmarked",
-      "colorZone": "purple",
+      "colorZone": "global-village",
       "imagineRitArea": "Artistic Alley",
       "building": "James E. Booth Hall",
       "location": "1440",
       "ageRange": "all",
       "exhibitCode": "BOO-1440",
       "category": "Art",
-      "subCategories": [
+      "tags": [
         "Music"
       ],
-      "lat": 43.084858,
+      "lat": 43.084863,
       "lng": -77.676861,
       "alt": 0,
       "distance": 0,
@@ -256,18 +259,18 @@
       "devComments": "old"
     },
     {
-      "id": 1235,
+      "id": 1535,
       "name": "Mixta",
       "type": "exhibit",
       "subType": "recommended",
-      "colorZone": "purple",
+      "colorZone": "green-place",
       "imagineRitArea": "Artistic Alley",
       "building": "James E. Booth Hall",
       "location": "1441",
       "ageRange": "all",
       "exhibitCode": "BOO-1441",
       "category": "Art",
-      "subCategories": [
+      "tags": [
         ""
       ],
       "lat": 43.084863,
@@ -279,18 +282,18 @@
       "devComments": "old"
     },
     {
-      "id": 1236,
+      "id": 1536,
       "name": "Spotlight",
       "type": "exhibit",
       "subType": "bookmarked",
-      "colorZone": "purple",
+      "colorZone": "technology-quarter",
       "imagineRitArea": "Artistic Alley",
       "building": "James E. Booth Hall",
       "location": "1480",
       "ageRange": "all",
       "exhibitCode": "BOO-1480",
       "category": "Art",
-      "subCategories": [
+      "tags": [
         ""
       ],
       "lat": 43.084655,
@@ -302,18 +305,18 @@
       "devComments": "old"
     },
     {
-      "id": 1246,
+      "id": 1546,
       "name": "Signatures",
       "type": "exhibit",
       "subType": "recommended",
-      "colorZone": "purple",
+      "colorZone": "artistic-alley",
       "imagineRitArea": "Artistic Alley",
       "building": "James E. Booth Hall",
       "location": "Hallway near University Gallery",
       "ageRange": "all",
       "exhibitCode": "BOO-2917",
       "category": "Art",
-      "subCategories": [
+      "tags": [
         ""
       ],
       "lat": 43.085310,
@@ -325,18 +328,18 @@
       "devComments": "old"
     },
     {
-      "id": 2017,
+      "id": 2317,
       "name": "Caps & Hammers",
       "type": "exhibit",
       "subType": "default",
-      "colorZone": "aqua",
+      "colorZone": "computer-zone",
       "imagineRitArea": "Computer Zone",
       "building": "Golisano Hall",
       "location": "1435",
       "ageRange": "11 and up",
       "exhibitCode": "GOL-1435",
       "category": "Games",
-      "subCategories": [
+      "tags": [
         ""
       ],
       "lat": 43.084460,
@@ -348,18 +351,18 @@
       "devComments": "old"
     },
     {
-      "id": 2018,
+      "id": 2318,
       "name": "Learning with Games",
       "type": "exhibit",
       "subType": "default",
-      "colorZone": "aqua",
+      "colorZone": "computer-zone",
       "imagineRitArea": "Computer Zone",
       "building": "Golisano Hall",
       "location": "1445",
       "ageRange": "all",
       "exhibitCode": "GOL-1445",
       "category": "Games",
-      "subCategories": [
+      "tags": [
         ""
       ],
       "lat": 43.084356,
@@ -371,18 +374,18 @@
       "devComments": "old"
     },
     {
-      "id": 2020,
+      "id": 2320,
       "name": "Super MarI/O: Artifical Intelligence Meets Mario",
       "type": "exhibit",
       "subType": "bookmarked",
-      "colorZone": "aqua",
+      "colorZone": "computer-zone",
       "imagineRitArea": "Computer Zone",
       "building": "Golisano Hall",
       "location": "1455",
       "ageRange": "all",
       "exhibitCode": "GOL-1455",
       "category": "Games",
-      "subCategories": [
+      "tags": [
         ""
       ],
       "lat": 43.084281,
@@ -394,18 +397,18 @@
       "devComments": "old"
     },
     {
-      "id": 2028,
+      "id": 2328,
       "name": "Gibraltar! A Lunchtime Strategy Game",
       "type": "exhibit",
       "subType": "default",
-      "colorZone": "aqua",
+      "colorZone": "computer-zone",
       "imagineRitArea": "Computer Zone",
       "building": "Golisano Hall",
       "location": "2000",
       "ageRange": "all",
       "exhibitCode": "GOL-2000",
       "category": "Games",
-      "subCategories": [
+      "tags": [
         ""
       ],
       "lat": 43.084637,
@@ -417,18 +420,18 @@
       "devComments": "old"
     },
     {
-      "id": 2030,
+      "id": 2330,
       "name": "Scare Tactics",
       "type": "exhibit",
       "subType": "default",
-      "colorZone": "aqua",
+      "colorZone": "computer-zone",
       "imagineRitArea": "Computer Zone",
       "building": "Golisano Hall",
       "location": "2000",
       "ageRange": "13 and up",
       "exhibitCode": "GOL-2000",
       "category": "Games",
-      "subCategories": [
+      "tags": [
         ""
       ],
       "lat": 43.084637,
@@ -440,18 +443,18 @@
       "devComments": "old"
     },
     {
-      "id": 2031,
+      "id": 2331,
       "name": "Sense 3",
       "type": "exhibit",
       "subType": "default",
-      "colorZone": "aqua",
+      "colorZone": "computer-zone",
       "imagineRitArea": "Computer Zone",
       "building": "Golisano Hall",
       "location": "2000",
       "ageRange": "all",
       "exhibitCode": "GOL-2000",
       "category": "Games",
-      "subCategories": [
+      "tags": [
         ""
       ],
       "lat": 43.084637,
@@ -469,7 +472,7 @@
     "medical": [],
     "restrooms": [
       {
-        "id": 0,
+        "id": 6000,
         "name": "Women's Restroom",
         "type": "facility",
         "subType": "restroom",
@@ -487,7 +490,7 @@
         "devComments": "needs verification"
       },
       {
-        "id": 1,
+        "id": 6001,
         "name": "Men's Restroom",
         "type": "facility",
         "subType": "restroom",
@@ -505,7 +508,7 @@
         "devComments": "needs verification"
       },
       {
-        "id": 2,
+        "id": 6002,
         "name": "Men's Restroom",
         "type": "facility",
         "subType": "restroom",
@@ -523,7 +526,7 @@
         "devComments": "needs verification"
       },
       {
-        "id": 3,
+        "id": 6003,
         "name": "Gender Neutral Restroom",
         "type": "facility",
         "subType": "restroom",
@@ -541,7 +544,7 @@
         "devComments": "needs verification"
       },
       {
-        "id": 4,
+        "id": 6004,
         "name": "Men's Restroom",
         "type": "facility",
         "subType": "restroom",
@@ -559,7 +562,7 @@
         "devComments": "needs verification"
       },
       {
-        "id": 5,
+        "id": 6005,
         "name": "Men's Restroom",
         "type": "facility",
         "subType": "restroom",
@@ -577,7 +580,7 @@
         "devComments": "needs verification"
       },
       {
-        "id": 6,
+        "id": 6006,
         "name": "Gender Neutral Restroom",
         "type": "facility",
         "subType": "restroom",

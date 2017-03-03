@@ -4,7 +4,6 @@
  * This is the first thing users see of our App, at the '/' route
  */
 import React from 'react';
-import { browserHistory } from 'react-router';
 import axios from 'axios';
 import Header from 'components/Header';
 import PlacesPanel from 'containers/PlacesPanel';
@@ -20,6 +19,7 @@ export default class Main extends React.Component { // eslint-disable-line react
       exhibits: [],
       facilities: [],
       mapMode: 'Discover',
+      detailedPlace: null,
       userLocation: {
         lat: 43.08516,
         lng: -77.677192,
@@ -123,6 +123,7 @@ export default class Main extends React.Component { // eslint-disable-line react
         // this.centerMap(location);
         this.setState({
           userLocation: location,
+          center: location,
         });
       });
     } else {
@@ -132,6 +133,7 @@ export default class Main extends React.Component { // eslint-disable-line react
       // this.centerMap(location);
       this.setState({
         userLocation: location,
+        center: location,
       });
     }
 
@@ -146,6 +148,7 @@ export default class Main extends React.Component { // eslint-disable-line react
 
     this.setState({
       userLocation: location,
+      center: location,
     });
   }
 
@@ -159,18 +162,25 @@ export default class Main extends React.Component { // eslint-disable-line react
   clearPlaceInfo() {
     this.setState({
       currentMarker: {},
+      detailedPlace: null,
     });
   }
 
   clickOnPlaceCard(place) {
-    const { id } = place;
-    const placeURL = '/place/' + id; // eslint-disable-line
-    browserHistory.push(placeURL);
+    // Open up Detail view
+    this.showPlaceInfo(place);
   }
 
-  showPlaceInfo(location) {
+  showPlaceInfo(place) {
+    const location = {
+      lat: place.lat,
+      lng: place.lng,
+    };
+
     this.setState({
+      center: location,
       currentMarker: location,
+      detailedPlace: place,
     });
   }
 
@@ -179,9 +189,17 @@ export default class Main extends React.Component { // eslint-disable-line react
       <Wrapper>
         <Header onChangeMapMode={this.onChangeMapMode} mapMode={this.state.mapMode} />
         <MapWrapper>
-          <Map places={this.state.places} zoom={this.state.zoom} center={this.state.center} userLocation={this.state.userLocation} clearPlaceInfo={this.clearPlaceInfo} currentMarker={this.state.currentMarker} clickOnPlaceCard={this.clickOnPlaceCard} />
+          <Map
+            places={this.state.places}
+            zoom={this.state.zoom}
+            center={this.state.center}
+            userLocation={this.state.userLocation}
+            clearPlaceInfo={this.clearPlaceInfo}
+            currentMarker={this.state.currentMarker}
+            clickOnPlaceCard={this.clickOnPlaceCard}
+          />
         </MapWrapper>
-        <PlacesPanel places={this.state.places} clickOnPlaceCard={this.clickOnPlaceCard} />
+        <PlacesPanel clearPlaceInfo={this.clearPlaceInfo} detailedPlace={this.state.detailedPlace} places={this.state.places} clickOnPlaceCard={this.clickOnPlaceCard} />
       </Wrapper>
     );
   }

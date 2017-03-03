@@ -1,5 +1,5 @@
 import React, { PropTypes as T } from 'react';
-
+import DetailView from './DetailView';
 import ListView from './ListView';
 import { Wrapper, HandleWrapper, Handle } from './styles';
 
@@ -8,14 +8,18 @@ export default class PlacesPanel extends React.Component {
   static propTypes = {
     places: T.array,
     clickOnPlaceCard: T.func,
+    clearPlaceInfo: T.func,
+    detailedPlace: T.object,
   };
 
   static defaultProps = {
     title: 'Places',
+    detailedPlace: null,
   }
 
   constructor(props) {
     super(props);
+
     this.state = {
       pressing: false,
       dragging: false,
@@ -155,7 +159,7 @@ export default class PlacesPanel extends React.Component {
 
   handlePanelDrag(position) {
     const HEADER_HEIGHT = 80; // Height of the header
-    const HANDLE_HEIGHT = 30; // Height of the handle
+    const HANDLE_HEIGHT = 70; // Height of the handle
     const appContainer = document.getElementById('app'); // Get app container as reference
     const appBottom = appContainer.getBoundingClientRect().bottom; // Get the bottom of the app
     const HANDLE_OFFSET = appBottom - HANDLE_HEIGHT; // calculcate the bottom of the app minus the handle height
@@ -191,7 +195,30 @@ export default class PlacesPanel extends React.Component {
     });
   }
 
+  renderPlacesListView() {
+    return (
+      <ListView places={this.props.places} clickOnPlaceCard={this.props.clickOnPlaceCard} />
+    );
+  }
+
+  renderPlaceDetailView() {
+    const { detailedPlace } = this.props;
+    const { clearPlaceInfo } = this.props;
+
+    return (
+      <DetailView place={detailedPlace} clearPlaceInfo={clearPlaceInfo} />
+    );
+  }
+
   render() {
+    // Get Details Place prop
+    const { detailedPlace } = this.props;
+
+    // If we have a detailedPlace prop
+    // Set viewMode to render that place detail view
+    // Otherwise set viewMode to render the ListView
+    const viewMode = (detailedPlace) ? this.renderPlaceDetailView() : this.renderPlacesListView();
+
     return (
       <Wrapper style={this.state.wrapperStyle}>
         <HandleWrapper
@@ -201,7 +228,7 @@ export default class PlacesPanel extends React.Component {
         >
           <Handle />
         </HandleWrapper>
-        <ListView places={this.props.places} clickOnPlaceCard={this.props.clickOnPlaceCard} />
+        { viewMode }
       </Wrapper>
     );
   }
