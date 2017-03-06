@@ -293,6 +293,7 @@ export const TagListItem = styled.li`
   padding: calc(var(--padding) / 2) calc(var(--padding) * 1.5);
   background: var(--dark);
   color: var(--foreground-color);
+  font-size: 0.85em;
 
   &:hover {
     // background: var(--grey);

@@ -50,18 +50,53 @@ export default class PlacesPanel extends React.Component {
     this.handlePanelPress = this.handlePanelPress.bind(this);
     this.handlePanelDrag = this.handlePanelDrag.bind(this);
     this.handlePanelRelease = this.handlePanelRelease.bind(this);
+    this.handleWindowResize = this.handleWindowResize.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.handleWindowResize);
+  }
+
+  handleWindowResize() {
+    const { innerWidth } = window;
+    const MIN_WIDTH = 720;
+
+    // If window width is 720 or greater
+    if (innerWidth >= MIN_WIDTH) {
+      // We want to remove event listeners
+
+      // Remove mouse event listeners
+      document.removeEventListener('mousemove', this.handleMouseMove.bind(this));
+      document.removeEventListener('mouseup', this.handleMouseUp.bind(this));
+
+      // Remove touch event listeners
+      document.removeEventListener('touchmove', this.handleTouchMove.bind(this));
+      document.removeEventListener('touchend', this.handleTouchEnd.bind(this));
+      document.removeEventListener('touchcancel', this.handleTouchEnd.bind(this));
+
+      // We want to remove inline styles
+      this.setState({
+        wrapperStyle: null,
+      });
+    }
   }
 
   handleMouseDown(e) {
-    // Get the position
-    const position = e.pageY;
+    const { innerWidth } = window;
+    const MAX_WIDTH = 720;
 
-    // Activate event listeners
-    document.addEventListener('mousemove', this.handleMouseMove.bind(this));
-    document.addEventListener('mouseup', this.handleMouseUp.bind(this));
+    // If window width is less than 720
+    if (innerWidth < MAX_WIDTH) {
+      // Get the position
+      const position = e.pageY;
 
-    // Call function which handles press event
-    this.handlePanelPress(position);
+      // Activate event listeners
+      document.addEventListener('mousemove', this.handleMouseMove.bind(this));
+      document.addEventListener('mouseup', this.handleMouseUp.bind(this));
+
+      // Call function which handles press event
+      this.handlePanelPress(position);
+    }
   }
 
   handleMouseMove(e) {
@@ -92,19 +127,25 @@ export default class PlacesPanel extends React.Component {
   }
 
   handleTouchStart(e) {
-    // Prevent default action
-    e.preventDefault();
+    const { innerWidth } = window;
+    const MAX_WIDTH = 720;
 
-    // Get the position
-    const position = e.changedTouches[0].pageY;
+    // If window width is less than 720
+    if (innerWidth < MAX_WIDTH) {
+      // Prevent default action
+      e.preventDefault();
 
-    // Activate event listeners
-    document.addEventListener('touchmove', this.handleTouchMove.bind(this));
-    document.addEventListener('touchend', this.handleTouchEnd.bind(this));
-    document.addEventListener('touchcancel', this.handleTouchEnd.bind(this));
+      // Get the position
+      const position = e.changedTouches[0].pageY;
 
-    // Call function which handles press event
-    this.handlePanelPress(position);
+      // Activate event listeners
+      document.addEventListener('touchmove', this.handleTouchMove.bind(this));
+      document.addEventListener('touchend', this.handleTouchEnd.bind(this));
+      document.addEventListener('touchcancel', this.handleTouchEnd.bind(this));
+
+      // Call function which handles press event
+      this.handlePanelPress(position);
+    }
   }
 
   handleTouchMove(e) {

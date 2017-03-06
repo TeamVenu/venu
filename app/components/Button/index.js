@@ -1,4 +1,5 @@
 import React, { PropTypes as T } from 'react';
+import Ionicon from 'react-ionicons';
 import styled from 'styled-components';
 
 const Btn = styled.button`
@@ -41,7 +42,7 @@ export default class Button extends React.Component { //eslint-disable-line
     const { onClickEvent } = this.props;
 
     const iconComponent = (icon) ? (
-      <i className={`icon ${icon}`}></i>
+      <Ionicon className={'icon'} icon={`icon ${icon}`} />
     ) : null;
 
     const clickEvent = (onClickEvent) ? this.handleClick : null;

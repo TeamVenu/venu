@@ -16,8 +16,8 @@
         "exhibitCode": "OUT-0500",
         "category": "",
         "tags": [
-          "",
-          ""
+          "General",
+          "Physical"
         ],
         "lat": 43.084237,
         "lng": -77.675547,
@@ -41,7 +41,8 @@
         "exhibitCode": "SAU-A420",
         "category": "General",
         "tags": [
-          ""
+          "General",
+          "Vehicles"
         ],
         "hoursRunning": "10:00am - 4:00pm",
         "lat": 43.084057,
@@ -66,7 +67,9 @@
         "exhibitCode": "SAU-0100",
         "category": "General",
         "tags": [
-          ""
+          "General",
+          "Books",
+          "Fantasy"
         ],
         "hoursRunning": "11:00am - 3:00pm",
         "lat": 43.084087,
@@ -91,7 +94,8 @@
         "exhibitCode": "SAU-0110",
         "category": "General",
         "tags": [
-          ""
+          "General",
+          "Charity"
         ],
         "lat": 43.083871,
         "lng": -77.674311,
@@ -115,7 +119,9 @@
         "exhibitCode": "SAU-0130",
         "category": "General",
         "tags": [
-          ""
+          "General",
+          "ASL",
+          "Books"
         ],
         "hoursRunning": "12:00pm - 2:00pm",
         "lat": 43.083822,
@@ -140,7 +146,8 @@
         "exhibitCode": "SAU-0150",
         "category": "General",
         "tags": [
-          ""
+          "General",
+          "Animals"
         ],
         "lat": 43.083779,
         "lng": -77.674298,
@@ -170,6 +177,7 @@
         "category": "Art",
         "tags": [
           "Music",
+          "Visual",
           "Installation"
         ],
         "lat": 43.08533,
@@ -218,7 +226,8 @@
         "exhibitCode": "BOO-1350",
         "category": "Art",
         "tags": [
-          ""
+          "3D",
+          "Installation"
         ],
         "lat": 43.085128,
         "lng": -77.677121,
@@ -242,7 +251,7 @@
         "exhibitCode": "BOO-1420",
         "category": "Art",
         "tags": [
-          ""
+          "Art"
         ],
         "lat": 43.084944,
         "lng": -77.676866,
@@ -266,7 +275,8 @@
         "exhibitCode": "BOO-1440",
         "category": "Art",
         "tags": [
-          "Music"
+          "Music",
+          "Interactive"
         ],
         "lat": 43.084863,
         "lng": -77.676861,
@@ -290,7 +300,8 @@
         "exhibitCode": "BOO-1441",
         "category": "Art",
         "tags": [
-          ""
+          "Music",
+          "Interactive"
         ],
         "lat": 43.084863,
         "lng": -77.677004,
@@ -314,7 +325,7 @@
         "exhibitCode": "BOO-1480",
         "category": "Art",
         "tags": [
-          ""
+          "Interactive"
         ],
         "lat": 43.084655,
         "lng": -77.677101,
@@ -338,7 +349,8 @@
         "exhibitCode": "BOO-2917",
         "category": "Art",
         "tags": [
-          ""
+          "Books",
+          "Design"
         ],
         "lat": 43.085310,
         "lng": -77.677252,
@@ -371,7 +383,9 @@
         "exhibitCode": "GOL-1435",
         "category": "Games",
         "tags": [
-          ""
+          "Games",
+          "Interactive",
+          "Computers"
         ],
         "lat": 43.084460,
         "lng": -77.679650,
@@ -395,7 +409,9 @@
         "exhibitCode": "GOL-1445",
         "category": "Games",
         "tags": [
-          ""
+          "Educational",
+          "Games",
+          "Interactive"
         ],
         "lat": 43.084356,
         "lng": -77.679650,
@@ -419,7 +435,9 @@
         "exhibitCode": "GOL-1455",
         "category": "Games",
         "tags": [
-          ""
+          "AI",
+          "Games",
+          "Interactive"
         ],
         "lat": 43.084281,
         "lng": -77.679650,
@@ -443,7 +461,8 @@
         "exhibitCode": "GOL-2000",
         "category": "Games",
         "tags": [
-          ""
+          "Games",
+          "Board Game"
         ],
         "lat": 43.084637,
         "lng": -77.679868,
@@ -467,7 +486,9 @@
         "exhibitCode": "GOL-2000",
         "category": "Games",
         "tags": [
-          ""
+          "Games",
+          "Horror",
+          "Interactive"
         ],
         "lat": 43.084637,
         "lng": -77.679774,
@@ -491,7 +512,8 @@
         "exhibitCode": "GOL-2000",
         "category": "Games",
         "tags": [
-          ""
+          "Games",
+          "Interactive"
         ],
         "lat": 43.084637,
         "lng": -77.679691,
