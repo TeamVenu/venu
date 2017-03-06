@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.section`
-  // position: relative;
+  position: relative;
   margin: 0;
   height: 100vh;
   -webkit-box-orient: horizontal;
@@ -25,7 +25,7 @@ export const MapWrapper = styled.section`
     width: 100%;
     margin-top: 0;
     height: calc(100% - var(--topbar-height));
-    flex-basis: 80%;
+    flex-basis: 70%;
   }
 `;
 

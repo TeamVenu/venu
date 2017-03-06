@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
 // Get our styles
-import { Topbar, AppTitle, ModeWrapper, ModeList, ModeListItem, PlaceHolder } from './styles';
+import { Topbar, AppTitle, ModeWrapper, ModeList, ModeListItem } from './styles';
 
 export default class Header extends React.Component { //eslint-disable-line
   static propTypes = {
@@ -36,9 +36,6 @@ export default class Header extends React.Component { //eslint-disable-line
             {this.renderModeItems()}
           </ModeList>
         </ModeWrapper>
-        <PlaceHolder href="/404">
-          Team 7
-        </PlaceHolder>
       </Topbar>
     );
   }

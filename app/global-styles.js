@@ -17,10 +17,28 @@ injectGlobal`
     --blue-pin-accent-color-opaque: rgba(29, 131, 168, 0.9);
     --light-blue: #0dfff9;
     --light-green: #7aea35;
-    --light-blue-opaque: rgba(13, 255, 249, 0.15);
-    --light-green-opaque: rgba(122, 234, 53, 0.15);
+    --light-blue-opaque: rgba(13, 255, 249, 0.3);
+    --light-green-opaque: rgba(122, 234, 53, 0.3);
     --black-background: #201f1e;
     --black-background-opaque: rgba(32, 31, 30, 0.4);
+    --white-background-opaque: rgba(241, 241, 241, 0.8);
+    --grey: #9e9e9e;
+
+    /* Imagine RIT Zone Colors */
+    --recreation-zone: #19a3d2;
+    --rit-central: #dfb235;
+    --ntid-area: #6ac7e8;
+    --information-station: #c9905b;
+    --think-tank: #c7655a;
+    --artistic-alley: #7d5f93;
+    --engineering-park: #ec9244;
+    --science-center: #f1e11a;
+    --business-district: #55a172;
+    --innovation-center: #437aa1;
+    --global-village: #d6798c;
+    --green-place: #95b045;
+    --technology-quarter: #2a98bd;
+    --computer-zone: #37a19d;
 
     /* */
     --background-color: var(--black);
@@ -30,6 +48,8 @@ injectGlobal`
     --blue-red-gradient: linear-gradient(to bottom, var(--red), var(--blue));
     --header-background-gradient: linear-gradient(to bottom, var(--black-background), var(--black-background-opaque));
     --panel-background-gradient: linear-gradient(to bottom, var(--black-background-opaque), var(--black-background));
+    --card-background-gradient: linear-gradient(to bottom, var(--white), var(--grey));
+    --detail-background-gradient: linear-gradient(to bottom, var(--white-background-opaque), var(--white));
     --primary-color: var(--blue);
     --accent-color: var(--dark-blue);
 
@@ -74,6 +94,7 @@ injectGlobal`
     font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Open Sans", sans-serif;
     font-smoothing: antialiased;
     overflow: hidden;
+    color: var(--foreground-color);
   }
 
   body.fontLoaded {
@@ -93,6 +114,11 @@ injectGlobal`
   p,
   label {
     // line-height: 1.5em;
+  }
+
+  i.icon {
+    margin-right: 0.5em;
+    font-size: 1.2em;
   }
 `;
   // Hide Google Maps Attribution
