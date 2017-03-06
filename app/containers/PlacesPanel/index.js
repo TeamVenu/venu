@@ -10,6 +10,13 @@ export default class PlacesPanel extends React.Component {
     clickOnPlaceCard: T.func,
     clearPlaceInfo: T.func,
     detailedPlace: T.object,
+    navigateToPlace: T.func,
+    likeExhibit: T.func,
+    unLikeExhibit: T.func,
+    setExhibitToDefault: T.func,
+    setExhibitToRecommended: T.func,
+    setExhibitToBookmarked: T.func,
+    setExhibitToVisited: T.func,
   };
 
   static defaultProps = {
@@ -202,11 +209,23 @@ export default class PlacesPanel extends React.Component {
   }
 
   renderPlaceDetailView() {
-    const { detailedPlace } = this.props;
-    const { clearPlaceInfo } = this.props;
+    const { detailedPlace, clearPlaceInfo,
+      navigateToPlace, likeExhibit, unLikeExhibit,
+      setExhibitToDefault, setExhibitToRecommended,
+      setExhibitToBookmarked, setExhibitToVisited } = this.props;
 
     return (
-      <DetailView place={detailedPlace} clearPlaceInfo={clearPlaceInfo} />
+      <DetailView
+        place={detailedPlace}
+        clearPlaceInfo={clearPlaceInfo}
+        navigateToPlace={navigateToPlace}
+        likeExhibit={likeExhibit}
+        unLikeExhibit={unLikeExhibit}
+        setExhibitToDefault={setExhibitToDefault}
+        setExhibitToRecommended={setExhibitToRecommended}
+        setExhibitToBookmarked={setExhibitToBookmarked}
+        setExhibitToVisited={setExhibitToVisited}
+      />
     );
   }
 

@@ -8,8 +8,15 @@ import {
 
 export default class DetailView extends React.Component { // eslint-disable-line
   static propTypes = {
-    clearPlaceInfo: T.func.isRequired,
     place: T.object.isRequired,
+    clearPlaceInfo: T.func.isRequired,
+    navigateToPlace: T.func.isRequired,
+    likeExhibit: T.func,
+    unLikeExhibit: T.func,
+    setExhibitToDefault: T.func.isRequired,
+    setExhibitToRecommended: T.func.isRequired,
+    setExhibitToBookmarked: T.func.isRequired,
+    setExhibitToVisited: T.func.isRequired,
   }
 
   constructor(props) {
@@ -17,6 +24,48 @@ export default class DetailView extends React.Component { // eslint-disable-line
 
     this.handleClick = this.handleClick.bind(this);
     this.renderPlaceDetail = this.renderPlaceDetail.bind(this);
+    this.navigateToPlace = this.navigateToPlace.bind(this);
+    this.likeExhibit = this.likeExhibit.bind(this);
+    this.unLikeExhibit = this.unLikeExhibit.bind(this);
+    this.setExhibitToDefault = this.setExhibitToDefault.bind(this);
+    this.setExhibitToRecommended = this.setExhibitToRecommended.bind(this);
+    this.setExhibitToBookmarked = this.setExhibitToBookmarked.bind(this);
+    this.setExhibitToVisited = this.setExhibitToVisited.bind(this);
+  }
+
+  setExhibitToDefault() {
+    const { place, setExhibitToDefault } = this.props;
+    setExhibitToDefault(place);
+  }
+
+  setExhibitToRecommended() {
+    const { place, setExhibitToRecommended } = this.props;
+    setExhibitToRecommended(place);
+  }
+
+  setExhibitToBookmarked() {
+    const { place, setExhibitToBookmarked } = this.props;
+    setExhibitToBookmarked(place);
+  }
+
+  setExhibitToVisited() {
+    const { place, setExhibitToVisited } = this.props;
+    setExhibitToVisited(place);
+  }
+
+  likeExhibit() {
+    const { place, likeExhibit } = this.props;
+    likeExhibit(place);
+  }
+
+  unLikeExhibit() {
+    const { place, unLikeExhibit } = this.props;
+    unLikeExhibit(place);
+  }
+
+  navigateToPlace() {
+    const { place, navigateToPlace } = this.props;
+    navigateToPlace(place);
   }
 
   handleClick() {
@@ -30,14 +79,13 @@ export default class DetailView extends React.Component { // eslint-disable-line
     let index = -1;
     let btn = null;
 
-    const NavigateButtonSecondary = (<Button name={'Navigate'} icon={'ion-navigate'} onClickEvent={this.handleClick} />);
-    const CheckInButtonSecondary = (<Button name={'Check-in'} icon={'ion-checkmark-round'} onClickEvent={this.handleClick} />);
-    // const AddToItineraryButtonSecondary = (<Button name={'Add to Itinerary'} icon={'ion-plus'} onClickEvent={this.handleClick} />);
-    const LikeExhibitButtonSecondary = (<Button name={'Like'} icon={'ion-thumbsup'} onClickEvent={this.handleClick} />);
-    const RemoveLikeExhibitButtonSecondary = (<Button name={'Remove Like'} icon={'ion-thumbsdown'} onClickEvent={this.handleClick} />);
-    const RemoveFromItinerarySecondary = (<Button name={'Remove from Itinerary'} icon={'ion-calendar'} onClickEvent={this.handleClick} />);
-    const RemoveCheckInButtonSecondary = (<Button name={'Remove Check-In'} icon={'ion-close-round'} onClickEvent={this.handleClick} />);
-
+    const NavigateButtonSecondary = (<Button name={'Navigate'} icon={'ion-navigate'} onClickEvent={this.navigateToPlace} />);
+    const CheckInButtonSecondary = (<Button name={'Check-in'} icon={'ion-checkmark-round'} onClickEvent={this.setExhibitToVisited} />);
+    // const AddToItineraryButtonSecondary = (<Button name={'Add to Itinerary'} icon={'ion-plus'} onClickEvent={this.addExhibitToItinerary} />);
+    const LikeExhibitButtonSecondary = (<Button name={'Like'} icon={'ion-thumbsup'} onClickEvent={this.likeExhibit} />);
+    const RemoveLikeExhibitButtonSecondary = (<Button name={'Remove Like'} icon={'ion-thumbsdown'} onClickEvent={this.unLikeExhibit} />);
+    const RemoveFromItinerarySecondary = (<Button name={'Remove from Itinerary'} icon={'ion-calendar'} onClickEvent={this.setExhibitToDefault} />);
+    const RemoveCheckInButtonSecondary = (<Button name={'Remove Check-In'} icon={'ion-close-round'} onClickEvent={this.setExhibitToDefault} />);
 
     return Actions.map((action) => { // eslint-disable-line
       switch (action) {
@@ -113,10 +161,10 @@ export default class DetailView extends React.Component { // eslint-disable-line
     // Subtype Blurb
     // Tells us whether place is in Itinerary or Recommended
     // Placeholder these are some of the options for Primary Button
-    const NavigateButtonPrimary = (<DetailCTAButton onClick={this.handleClick}><i className="icon ion-navigate"></i>Navitage</DetailCTAButton>);
-    const CheckInButtonPrimary = (<DetailCTAButton onClick={this.handleClick}><i className="icon ion-checkmark-round"></i>Check-in</DetailCTAButton>);
-    const AddToItineraryButtonPrimary = (<DetailCTAButton onClick={this.handleClick}><i className="icon ion-plus"></i>Add to Itinerary</DetailCTAButton>);
-    const LikeExhibitButtonPrimary = (<DetailCTAButton onClick={this.handleClick}><i className="icon ion-thumbsup"></i>Like</DetailCTAButton>);
+    const NavigateButtonPrimary = (<DetailCTAButton onClick={this.navigateToPlace}><i className="icon ion-navigate"></i>Navitage</DetailCTAButton>);
+    const CheckInButtonPrimary = (<DetailCTAButton onClick={this.setExhibitToVisited}><i className="icon ion-checkmark-round"></i>Check-in</DetailCTAButton>);
+    const AddToItineraryButtonPrimary = (<DetailCTAButton onClick={this.setExhibitToBookmarked}><i className="icon ion-plus"></i>Add to Itinerary</DetailCTAButton>);
+    const LikeExhibitButtonPrimary = (<DetailCTAButton onClick={this.likeExhibit}><i className="icon ion-thumbsup"></i>Like</DetailCTAButton>);
 
     let subTypeBlurb = null;
     let PrimaryButton = null;

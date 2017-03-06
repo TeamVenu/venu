@@ -83,59 +83,59 @@ export const Item = styled.li`
 
   border-top: 5px solid transparent;
   
-  &.recreation-zone {
+  &.recreationZone {
     border-color: var(--recreation-zone);
   }
 
-  &.rit-central {
+  &.ritCentral {
     border-color: var(--rit-central);
   }
 
-  &.ntid-area {
+  &.ntidArea {
     border-color: var(--ntid-area);
   }
 
-  &.information-station {
+  &.informationStation {
     border-color: var(--information-station);
   }
 
-  &.think-tank {
+  &.thinkTank {
     border-color: var(--think-tank);
   }
 
-  &.artistic-alley {
+  &.artisticAlley {
     border-color: var(--artistic-alley);
   }
 
-  &.engineering-park {
+  &.engineeringPark {
     border-color: var(--engineering-park);
   }
 
-  &.science-center {
+  &.scienceCenter {
     border-color: var(--science-center);
   }
 
-  &.business-district {
+  &.businessDistrict {
     border-color: var(--business-district);
   }
 
-  &.innovation-center {
+  &.innovationCenter {
     border-color: var(--innovation-center);
   }
 
-  &.global-village {
+  &.globalVillage {
     border-color: var(--global-village);
   }
 
-  &.green-place {
+  &.greenPlace {
     border-color: var(--green-place);
   }
 
-  &.technology-quarter {
+  &.technologyQuarter {
     border-color: var(--technology-quarter);
   }
 
-  &.computer-zone {
+  &.computerZone {
     border-color: var(--computer-zone);
   }
 
@@ -166,59 +166,59 @@ export const DetailWrapper = styled.section`
   color: var(--background-color);
   border-top: 10px solid transparent;
 
-  &.recreation-zone {
+  &.recreationZone {
     border-color: var(--recreation-zone);
   }
 
-  &.rit-central {
+  &.ritCentral {
     border-color: var(--rit-central);
   }
 
-  &.ntid-area {
+  &.ntidArea {
     border-color: var(--ntid-area);
   }
 
-  &.information-station {
+  &.informationStation {
     border-color: var(--information-station);
   }
 
-  &.think-tank {
+  &.thinkTank {
     border-color: var(--think-tank);
   }
 
-  &.artistic-alley {
+  &.artisticAlley {
     border-color: var(--artistic-alley);
   }
 
-  &.engineering-park {
+  &.engineeringPark {
     border-color: var(--engineering-park);
   }
 
-  &.science-center {
+  &.scienceCenter {
     border-color: var(--science-center);
   }
 
-  &.business-district {
+  &.businessDistrict {
     border-color: var(--business-district);
   }
 
-  &.innovation-center {
+  &.innovationCenter {
     border-color: var(--innovation-center);
   }
 
-  &.global-village {
+  &.globalVillage {
     border-color: var(--global-village);
   }
 
-  &.green-place {
+  &.greenPlace {
     border-color: var(--green-place);
   }
 
-  &.technology-quarter {
+  &.technologyQuarter {
     border-color: var(--technology-quarter);
   }
 
-  &.computer-zone {
+  &.computerZone {
     border-color: var(--computer-zone);
   }
 
@@ -319,16 +319,16 @@ export const DetailCTAButton = styled.button`
     outline: 0;
   }
 
-    @media (min-width: 720px) {
+  @media (min-width: 720px) {
       // right: 50%;
       // bottom: 50%;
       // transform: translateX(50%);
       // right: 0;
       // left: auto;
       // width: 55vh;
-    }
+  }
 
-  .recreation-zone & {
+  .recreationZone & {
     background: var(--recreation-zone);
 
     &:hover {
@@ -337,7 +337,7 @@ export const DetailCTAButton = styled.button`
     }
   }
 
-  .rit-central & {
+  .ritCentral & {
     background: var(--rit-central);
 
     &:hover {
@@ -346,7 +346,7 @@ export const DetailCTAButton = styled.button`
     }
   }
 
-  .ntid-area & {
+  .ntidArea & {
     background: var(--ntid-area);
 
     &:hover {
@@ -355,7 +355,7 @@ export const DetailCTAButton = styled.button`
     }
   }
 
-  .information-station & {
+  .informationStation & {
     background: var(--information-station);
 
     &:hover {
@@ -364,7 +364,7 @@ export const DetailCTAButton = styled.button`
     }
   }
 
-  .think-tank & {
+  .thinkTank & {
     background: var(--think-tank);
 
     &:hover {
@@ -373,7 +373,7 @@ export const DetailCTAButton = styled.button`
     }
   }
 
-  .artistic-alley & {
+  .artisticAlley & {
     background: var(--artistic-alley);
 
     &:hover {
@@ -382,7 +382,7 @@ export const DetailCTAButton = styled.button`
     }
   }
 
-  .engineering-park & {
+  .engineeringPark & {
     background: var(--engineering-park);
 
     &:hover {
@@ -391,7 +391,7 @@ export const DetailCTAButton = styled.button`
     }
   }
 
-  .science-center & {
+  .scienceCenter & {
     background: var(--science-center);
     color: var(--background-color);
 
@@ -401,7 +401,7 @@ export const DetailCTAButton = styled.button`
     }
   }
 
-  .business-district & {
+  .businessDistrict & {
     background: var(--business-district);
 
     &:hover {
@@ -410,7 +410,7 @@ export const DetailCTAButton = styled.button`
     }
   }
 
-  .innovation-center & {
+  .innovationCenter & {
     background: var(--innovation-center);
 
     &:hover {
@@ -419,7 +419,7 @@ export const DetailCTAButton = styled.button`
     }
   }
 
-  .global-village & {
+  .globalVillage & {
     background: var(--global-village);
 
     &:hover {
@@ -428,7 +428,7 @@ export const DetailCTAButton = styled.button`
     }
   }
 
-  .green-place & {
+  .greenPlace & {
     background: var(--green-place);
 
     &:hover {
@@ -437,7 +437,7 @@ export const DetailCTAButton = styled.button`
     }
   }
 
-  .technology-quarter & {
+  .technologyQuarter & {
     background: var(--technology-quarter);
     
     &:hover {
@@ -446,7 +446,7 @@ export const DetailCTAButton = styled.button`
     }
   }
 
-  .computer-zone & {
+  .computerZone & {
     background: var(--computer-zone);
 
     &:hover {

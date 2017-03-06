@@ -48,43 +48,7 @@ export default function createRoutes(store) {
           importModules.catch(errorLoading);
         },
       },
-      childRoutes: [
-        {
-          path: '/place/:placeId',
-          name: 'place',
-          getComponent(nextState, cb) {
-            const importModules = Promise.all([
-              import('containers/PlaceDetail'),
-            ]);
-
-            const renderRoute = loadModule(cb);
-
-            importModules.then(([component]) => {
-              renderRoute(component);
-            });
-
-            importModules.catch(errorLoading);
-          },
-        },
-      ],
     },
-    // {
-    //   path: '/place/:placeId',
-    //   name: 'place',
-    //   getComponent(nextState, cb) {
-    //     const importModules = Promise.all([
-    //       import('containers/PlaceDetail'),
-    //     ]);
-
-    //     const renderRoute = loadModule(cb);
-
-    //     importModules.then(([component]) => {
-    //       renderRoute(component);
-    //     });
-
-    //     importModules.catch(errorLoading);
-    //   },
-    // },
     {
       path: '*',
       name: 'notfound',
