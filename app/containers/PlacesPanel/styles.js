@@ -295,7 +295,7 @@ export const TagListItem = styled.li`
   color: var(--foreground-color);
 
   &:hover {
-    background: var(--grey);
+    // background: var(--grey);
   }
 `;
 
@@ -332,8 +332,8 @@ export const DetailCTAButton = styled.button`
     background: var(--recreation-zone);
 
     &:hover {
-      background: var(--grey);
-      color: var(--recreation-zone);
+      // background: var(--grey);
+      // color: var(--recreation-zone);
     }
   }
 
@@ -341,8 +341,8 @@ export const DetailCTAButton = styled.button`
     background: var(--rit-central);
 
     &:hover {
-      background: var(--grey);
-      color: var(--rit-central);
+      // background: var(--grey);
+      // color: var(--rit-central);
     }
   }
 
@@ -350,8 +350,8 @@ export const DetailCTAButton = styled.button`
     background: var(--ntid-area);
 
     &:hover {
-      background: var(--grey);
-      color: var(--ntid-area);
+      // background: var(--grey);
+      // color: var(--ntid-area);
     }
   }
 
@@ -359,8 +359,8 @@ export const DetailCTAButton = styled.button`
     background: var(--information-station);
 
     &:hover {
-      background: var(--grey);
-      color: var(--information-station);
+      // background: var(--grey);
+      // color: var(--information-station);
     }
   }
 
@@ -368,8 +368,8 @@ export const DetailCTAButton = styled.button`
     background: var(--think-tank);
 
     &:hover {
-      background: var(--grey);
-      color: var(--think-tank);
+      // background: var(--grey);
+      // color: var(--think-tank);
     }
   }
 
@@ -377,8 +377,8 @@ export const DetailCTAButton = styled.button`
     background: var(--artistic-alley);
 
     &:hover {
-      background: var(--grey);
-      color: var(--artistic-alley);
+      // background: var(--grey);
+      // color: var(--artistic-alley);
     }
   }
 
@@ -386,8 +386,8 @@ export const DetailCTAButton = styled.button`
     background: var(--engineering-park);
 
     &:hover {
-      background: var(--grey);
-      color: var(--engineering-park);
+      // background: var(--grey);
+      // color: var(--engineering-park);
     }
   }
 
@@ -396,8 +396,8 @@ export const DetailCTAButton = styled.button`
     color: var(--background-color);
 
     &:hover {
-      background: var(--grey);
-      color: var(--science-center);
+      // background: var(--grey);
+      // color: var(--science-center);
     }
   }
 
@@ -405,8 +405,8 @@ export const DetailCTAButton = styled.button`
     background: var(--business-district);
 
     &:hover {
-      background: var(--grey);
-      color: var(--business-district);
+      // background: var(--grey);
+      // color: var(--business-district);
     }
   }
 
@@ -414,8 +414,8 @@ export const DetailCTAButton = styled.button`
     background: var(--innovation-center);
 
     &:hover {
-      background: var(--grey);
-      color: var(--innovation-center);
+      // background: var(--grey);
+      // color: var(--innovation-center);
     }
   }
 
@@ -423,8 +423,8 @@ export const DetailCTAButton = styled.button`
     background: var(--global-village);
 
     &:hover {
-      background: var(--grey);
-      color: var(--global-village);
+      // background: var(--grey);
+      // color: var(--global-village);
     }
   }
 
@@ -432,8 +432,8 @@ export const DetailCTAButton = styled.button`
     background: var(--green-place);
 
     &:hover {
-      background: var(--grey);
-      color: var(--green-place);
+      // background: var(--grey);
+      // color: var(--green-place);
     }
   }
 
@@ -441,8 +441,8 @@ export const DetailCTAButton = styled.button`
     background: var(--technology-quarter);
     
     &:hover {
-      background: var(--grey);
-      color: var(--technology-quarter);
+      // background: var(--grey);
+      // color: var(--technology-quarter);
     }
   }
 
@@ -450,8 +450,8 @@ export const DetailCTAButton = styled.button`
     background: var(--computer-zone);
 
     &:hover {
-      background: var(--grey);
-      color: var(--computer-zone);
+      // background: var(--grey);
+      // color: var(--computer-zone);
     }
   }
 `;

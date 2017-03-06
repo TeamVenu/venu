@@ -105,6 +105,8 @@ export default class Main extends React.Component { // eslint-disable-line react
       places: newPlaces,
       mapMode: newState.mapMode,
     });
+
+    this.clearPlaceInfo();
   }
 
   /**
@@ -385,16 +387,31 @@ export default class Main extends React.Component { // eslint-disable-line react
     });
   }
 
+  /**
+   * navigateToPlace
+   * Navigates user to specific place based on latitude and longitude
+   * @param  {Object} place
+   */
   navigateToPlace(place) {
     console.log(`Take me to ${place.name} which has a latitude of ${place.lat} and a longitude of ${place.lng}`);
     this.clearPlaceInfo();
   }
 
+  /**
+   * likeExhibit
+   * Allows user to like an exhibit
+   * @param  {Object} place
+   */
   likeExhibit(place) {
     console.log(`I liked the ${place.name} exhibit.`);
     this.clearPlaceInfo();
   }
 
+  /**
+   * unLikeExhibit
+   * Allows user to remove their like from an exhibit
+   * @param  {Object} place
+   */
   unLikeExhibit(place) {
     console.log(`I removed my like from the ${place.name} exhibit.`);
     this.clearPlaceInfo();

@@ -6,7 +6,7 @@ const Btn = styled.button`
   padding: 1em;
 
   &:hover {
-    background: var(--grey);
+    // background: var(--grey);
   }
 
   &:focus {
