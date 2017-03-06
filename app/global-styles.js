@@ -115,6 +115,11 @@ injectGlobal`
   label {
     // line-height: 1.5em;
   }
+
+  i.icon {
+    margin-right: 0.5em;
+    font-size: 1.2em;
+  }
 `;
   // Hide Google Maps Attribution
   // .gm-style a[title='Click to see this area on Google Maps']{ display: none!important; }

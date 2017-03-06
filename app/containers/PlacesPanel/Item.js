@@ -29,7 +29,7 @@ export default class Item extends React.Component {
     if (!place) { return null; }
 
     // If restroom lets not show category
-    const category = (place.subType === 'restroom') ? '' : place.category;
+    const category = (place.type === 'exhibit') ? place.category : place.imagineRitArea;
     const placeClass = place.type + ' ' + place.subType + ' ' + place.colorZone; //eslint-disable-line
 
     return (

@@ -2,7 +2,7 @@ import React, { PropTypes as T } from 'react';
 
 import Item from './Item';
 
-import { ListView as List } from './styles';
+import { ListView as List, Title } from './styles';
 
 export default class ListView extends React.Component { //eslint-disable-line
   // Specify which prop Type
@@ -10,32 +10,6 @@ export default class ListView extends React.Component { //eslint-disable-line
     places: T.array,
     clickOnPlaceCard: T.func,
   }
-
-  // renderEventMarkers() {
-  //   if (!this.props.places) { return null; }
-  //   return this.props.places.map((place) => { //eslint-disable-line
-  //     return (
-  //       <Item
-  //         place={place}
-  //         clickOnPlaceCard={this.props.clickOnPlaceCard}
-  //         key={place.id}
-  //       />
-  //     );
-  //   });
-  // }
-
-  // renderFacilityMarker() {
-  //   if (!this.props.facilities) { return null; }
-  //   return this.props.facilities.map((place) => { //eslint-disable-line
-  //     return (
-  //       <Item
-  //         place={place}
-  //         clickOnPlaceCard={this.props.clickOnPlaceCard}
-  //         key={place.id}
-  //       />
-  //     );
-  //   });
-  // }
 
   renderPlaces() {
     const { places } = this.props;
@@ -55,6 +29,7 @@ export default class ListView extends React.Component { //eslint-disable-line
   render() {
     return (
       <List>
+        <Title>Recommended For You</Title>
         {this.renderPlaces()}
       </List>
     );

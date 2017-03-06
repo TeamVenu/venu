@@ -1,5 +1,10 @@
 import React, { PropTypes as T } from 'react';
-import { DetailWrapper, DetailHeader, DetailExitButton, DetailTitle, DetailSectionTitle, DetailInfo, TagListView, TagListItem, DetailCTAButton } from './styles';
+import Button from 'components/Button';
+import {
+  DetailWrapper, DetailHeader, DetailSubHeader,
+  DetailExitButton, DetailTitle, DetailSectionTitle,
+  DetailInfo, FlexListView, TagListItem, DetailCTAButton,
+} from './styles';
 
 export default class DetailView extends React.Component { // eslint-disable-line
   static propTypes = {
@@ -11,8 +16,7 @@ export default class DetailView extends React.Component { // eslint-disable-line
     super(props);
 
     this.handleClick = this.handleClick.bind(this);
-    this.renderExhibitDetail = this.renderExhibitDetail.bind(this);
-    this.renderFacilityDetail = this.renderFacilityDetail.bind(this);
+    this.renderPlaceDetail = this.renderPlaceDetail.bind(this);
   }
 
   handleClick() {
@@ -22,92 +26,236 @@ export default class DetailView extends React.Component { // eslint-disable-line
     clearPlaceInfo();
   }
 
-  renderExhibitDetail() {
-    const { place } = this.props;
+  renderSecondaryButtons(Actions) {
+    let index = -1;
+    let btn = null;
 
-    if (!place) return null;
+    const NavigateButtonSecondary = (<Button name={'Navigate'} icon={'ion-navigate'} onClickEvent={this.handleClick} />);
+    const CheckInButtonSecondary = (<Button name={'Check-in'} icon={'ion-checkmark-round'} onClickEvent={this.handleClick} />);
+    // const AddToItineraryButtonSecondary = (<Button name={'Add to Itinerary'} icon={'ion-plus'} onClickEvent={this.handleClick} />);
+    const LikeExhibitButtonSecondary = (<Button name={'Like'} icon={'ion-thumbsup'} onClickEvent={this.handleClick} />);
+    const RemoveLikeExhibitButtonSecondary = (<Button name={'Remove Like'} icon={'ion-thumbsdown'} onClickEvent={this.handleClick} />);
+    const RemoveFromItinerarySecondary = (<Button name={'Remove from Itinerary'} icon={'ion-calendar'} onClickEvent={this.handleClick} />);
+    const RemoveCheckInButtonSecondary = (<Button name={'Remove Check-In'} icon={'ion-close-round'} onClickEvent={this.handleClick} />);
 
-    // Check if first letter or place.location is number '1'
-    // If it is, use exhibit code
-    // Otherwise use location
-    const locationBlurb = (parseInt(place.location.charAt(0), 10) === 1) ? place.exhibitCode : place.location;
 
-    // Subtype Blurb
-    // Tells us whether place is in Itinerary or Recommended
-    let subTypeBlurb;
-    switch (place.subType) {
-      case 'recommended':
-        subTypeBlurb = 'Recommended For You';
-        break;
-      case 'bookmarked':
-        subTypeBlurb = 'In Your Itinerary';
-        break;
-      default:
-        subTypeBlurb = null;
-        break;
-    }
+    return Actions.map((action) => { // eslint-disable-line
+      switch (action) {
+        case 'navigate':
+          btn = NavigateButtonSecondary;
+          break;
+        case 'check-in':
+          btn = CheckInButtonSecondary;
+          break;
+        case 'like-exhibit':
+          btn = LikeExhibitButtonSecondary;
+          break;
+        case 'remove-itinerary':
+          btn = RemoveFromItinerarySecondary;
+          break;
+        case 'remove-check-in':
+          btn = RemoveCheckInButtonSecondary;
+          break;
+        case 'remove-like':
+          btn = RemoveLikeExhibitButtonSecondary;
+          break;
+        default:
+          btn = null;
+          break;
+      }
 
-    const wrapperClasses = (place.colorZone) ? place.colorZone : null;
-    const distanceBlurb = `Distance: ${place.distance}`;
-    const hoursRunningBlurb = (place.hoursRunning) ? `Hours Running: ${place.hoursRunning}` : null;
-    const agesBlurb = (place.ageRange) ? `Ages: ${place.ageRange}` : null;
-    const descBlurb = (place.description.length > 0) ? place.description : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, repellendus, suscipit! Rem velit dolorem molestias exercitationem numquam iure aperiam praesentium non repudiandae labore minima beatae quam ipsum vero, quia, et!';
+      // Increment index
+      index += 1;
 
-    return (
-      <DetailWrapper className={wrapperClasses}>
-        <DetailHeader>
-          <DetailInfo>
-            <span><strong>{locationBlurb}, </strong></span>
-            <span>{place.building}, </span>
-            <span>{place.imagineRitArea}, </span>
-          </DetailInfo>
-          <DetailExitButton onClick={this.handleClick}>X</DetailExitButton>
-        </DetailHeader>
-        <DetailInfo>{distanceBlurb}</DetailInfo>
-        <DetailInfo>{hoursRunningBlurb}</DetailInfo>
-        <DetailInfo>{agesBlurb}</DetailInfo>
-        <DetailInfo>{subTypeBlurb}</DetailInfo>
-        <DetailTitle>{place.name}</DetailTitle>
-        <DetailSectionTitle>Description</DetailSectionTitle>
-        <p>{descBlurb}</p>
-        <DetailSectionTitle>Tags</DetailSectionTitle>
-        <TagListView>{this.renderTags()}</TagListView>
-        <DetailCTAButton>Add to Intinerary</DetailCTAButton>
-      </DetailWrapper>
-    );
+      // Return Button
+      return (
+        <li key={index}>
+          {btn}
+        </li>
+      );
+    });
   }
 
-  renderFacilityDetail() { }
-
   renderTags() {
+    // Get the tags of a place
     const { tags } = this.props.place;
 
+    // If no tags return null
     if (!tags) return null;
 
+    // Start index at negative one
     let index = -1;
 
     return tags.map((tag) => { // eslint-disable-line
+      // If tag is empty string return null
       if (tag.length <= 0) return null;
 
+      // Increment index
       index += 1;
+
+      // Return tag
       return (
         <TagListItem key={index}>{tag}</TagListItem>
       );
     });
   }
 
-  render() {
-    // Get our place from the props
+  renderPlaceDetail() {
     const { place } = this.props;
 
     if (!place) return null;
 
-    // Set render function based on place type
-    const renderDetail = (place.type === 'exhibit') ? this.renderExhibitDetail() : this.renderFacilityDetail();
+    // Check if the second letter or place.location is not a number
+    // If it is, use location
+    // Otherwise use exhibit code
+    const locationBlurb = (isNaN(place.location) && isNaN(place.location.charAt(1))) ? place.location : place.exhibitCode;
+
+    // Subtype Blurb
+    // Tells us whether place is in Itinerary or Recommended
+    // Placeholder these are some of the options for Primary Button
+    const NavigateButtonPrimary = (<DetailCTAButton onClick={this.handleClick}><i className="icon ion-navigate"></i>Navitage</DetailCTAButton>);
+    const CheckInButtonPrimary = (<DetailCTAButton onClick={this.handleClick}><i className="icon ion-checkmark-round"></i>Check-in</DetailCTAButton>);
+    const AddToItineraryButtonPrimary = (<DetailCTAButton onClick={this.handleClick}><i className="icon ion-plus"></i>Add to Itinerary</DetailCTAButton>);
+    const LikeExhibitButtonPrimary = (<DetailCTAButton onClick={this.handleClick}><i className="icon ion-thumbsup"></i>Like</DetailCTAButton>);
+
+    let subTypeBlurb = null;
+    let PrimaryButton = null;
+    const SecondaryButtons = [];
+
+    switch (place.subType) {
+      case 'default':
+        PrimaryButton = AddToItineraryButtonPrimary;
+        SecondaryButtons.push('navigate');
+        SecondaryButtons.push('check-in');
+        SecondaryButtons.push('like-exhibit');
+        break;
+      case 'recommended':
+        subTypeBlurb = 'Recommended For You';
+        PrimaryButton = AddToItineraryButtonPrimary;
+        SecondaryButtons.push('navigate');
+        SecondaryButtons.push('check-in');
+        SecondaryButtons.push('like-exhibit');
+        break;
+      case 'bookmarked':
+        subTypeBlurb = 'In Your Itinerary';
+        PrimaryButton = CheckInButtonPrimary;
+        SecondaryButtons.push('navigate');
+        SecondaryButtons.push('like-exhibit');
+        SecondaryButtons.push('remove-itinerary');
+        break;
+      case 'visited':
+        subTypeBlurb = 'You\'ve Already Been Here';
+        PrimaryButton = LikeExhibitButtonPrimary;
+        SecondaryButtons.push('remove-check-in');
+        break;
+      case 'restroom':
+        PrimaryButton = NavigateButtonPrimary;
+        break;
+      default:
+        PrimaryButton = (place.lat && place.lng) ? NavigateButtonPrimary : null;
+        break;
+    }
+
+    // If the place was a color zone, add that color zone as a class
+    const wrapperClasses = (place.colorZone) ? place.colorZone : null;
+
+    // If a place has a distance then show that distance. Else show alternate text
+    // TODO: Alt text should have an action that allows user to enable Location
+    const distanceComponent = (place.distance > '0') ? (
+      <DetailInfo><i className="icon ion-map"></i> Distance: {place.distance}km</DetailInfo>
+    ) : (
+      <DetailInfo><i className="icon ion-map"></i> <strong>Distance unknown</strong>. Please enable your location.</DetailInfo>
+    );
+
+    // If place has hours running then we add the Item
+    const hoursRunningComponent = (place.hoursRunning) ? (
+      <DetailInfo><i className="icon ion-ios-time-outline"></i> {place.hoursRunning} </DetailInfo>
+    ) : null;
+
+    // If the place has an ageRange display it
+    const agesComponent = (place.ageRange) ? (
+      <DetailInfo><i className="icon ion-ios-people"></i> Ages: {place.ageRange}</DetailInfo>
+    ) : null;
+
+    const genderComponent = (place.subType === 'restroom') ? (
+      <DetailInfo><i className="icon ion-person"></i> {place.category}</DetailInfo>
+    ) : null;
+
+    // Tags
+    const tagsComponent = (place.tags && place.tags.length > 0) ? (
+      <div>
+        <DetailSectionTitle>Tags</DetailSectionTitle>
+        <FlexListView>{this.renderTags()}</FlexListView>
+      </div>
+    ) : null;
+
+    const SecondaryButtonsComponent = (SecondaryButtons.length > 0) ? (
+      <div>
+        <DetailSectionTitle>Actions</DetailSectionTitle>
+        <FlexListView>
+          {this.renderSecondaryButtons(SecondaryButtons)}
+        </FlexListView>
+      </div>
+    ) : null;
+
+    // TODO:
+    // This is a placeholder until we get more text. Should not be in final version
+    const descriptionComponent = (place.description.length > 0) ? (
+      <div>
+        <DetailSectionTitle>Description</DetailSectionTitle>
+        <p>{place.description}</p>
+      </div>
+    ) : (
+      <div>
+        <DetailSectionTitle>Description</DetailSectionTitle>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing
+          elit. Dolores, repellendus, suscipit! Rem velit dolorem
+          molestias exercitationem numquam iure aperiam praesentium
+          non repudiandae labore minima beatae quam ipsum vero, quia, et!
+        </p>
+      </div>
+    );
+
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Return components
+    return (
+      <DetailWrapper className={wrapperClasses}>
+        <DetailHeader>
+          <DetailInfo>
+            <i className="icon ion-location"></i>
+            <span><strong>{locationBlurb}, </strong></span>
+            <span>{place.building}, </span>
+            <span>{place.imagineRitArea}</span>
+          </DetailInfo>
+          <DetailExitButton className="icon ion-close" onClick={this.handleClick}></DetailExitButton>
+        </DetailHeader>
+        <DetailSubHeader>
+          {distanceComponent}
+          {agesComponent}
+          {genderComponent}
+          {hoursRunningComponent}
+        </DetailSubHeader>
+        <DetailInfo>{subTypeBlurb}</DetailInfo>
+        <DetailTitle>{place.name}</DetailTitle>
+        {descriptionComponent}
+        {SecondaryButtonsComponent}
+        {tagsComponent}
+        {PrimaryButton}
+      </DetailWrapper>
+    );
+  }
+
+  render() {
+    // Get our place from the props
+    const { place } = this.props;
+
+    // If no place return null
+    if (!place) return null;
 
     return (
       <div>
-        { renderDetail }
+        {this.renderPlaceDetail()}
       </div>
     );
   }

@@ -13,22 +13,19 @@ export const Wrapper = styled.section`
   @media (min-width: 720px) {
     position: relative;
     bottom: auto;
-    flex-basis: 20%;
+    flex-basis: 30%;
     display: block;
     box-shadow: -10 0px 10px var(--black-background-opaque);
   }
 `;
 
-export const Title = styled.h1`
-  // position: relative;
-  // margin: 0;
-  // font-size: 1.8em;
-  // color: var(--white);
-  // padding: calc(var(--padding) * 2) var(--padding);
-
-  // @media (min-width: 720px) {
-  //   top: var(--topbar-height);
-  // }
+export const Title = styled.h5`
+  position: relative;
+  margin: 0;
+  font-size: 1em;
+  color: var(--white);
+  padding: var(--padding);
+  font-weight: 400;
 `;
 
 export const HandleWrapper = styled.button`
@@ -78,7 +75,6 @@ export const Item = styled.li`
   display: flex;
   flex-direction: column;
   background: var(--foreground-color);
-  border-bottom: 1px solid var(--light);
   margin-bottom: var(--padding);
   padding: var(--padding);
   text-decoration: none;
@@ -143,14 +139,8 @@ export const Item = styled.li`
     border-color: var(--computer-zone);
   }
 
-  &:last-of-type {
-    border: none;
-  }
-
   // Add these later to edit based on type
-  &.exhibit {
-    color: var(--background-color);
-  }
+  &.exhibit { }
 
   // &.facility { }
   // &.restroom { }
@@ -166,9 +156,9 @@ export const ItemCategory = styled.p``;
 
 // Detail View
 export const DetailWrapper = styled.section`
-  padding: var(--padding) var(--padding) 100vh;
+  padding: var(--padding) var(--padding) 75vh;
   display: block;
-  width: 100%;
+  max-width: 100%;
   height: 100vh;
   overflow-y: auto;
   margin: 0 auto;
@@ -248,114 +238,220 @@ export const DetailHeader = styled.section`
   margin-bottom: var(--padding);
 `;
 
+export const DetailSubHeader = styled.section`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin-bottom: var(--padding);
+
+  p:first-of-type {
+    margin-right: calc(var(--padding) * 2);
+  }
+`;
+
 export const DetailExitButton = styled.button`
-  border: none;
-  border-radius: 100%;
+  padding-right: 0;
+  font-size: 1.2em;
+  align-item: flex-end;
+  padding: var(--padding);
+
+  &:focus {
+    outline: 0;
+  }
 `;
 
 export const DetailTitle = styled.h1`
   font-size: 2em;
-  // margin-bottom: var(--padding);
 `;
 
 export const DetailSectionTitle = styled.h3`
   font-size: 1.1em;
   text-transform: uppercase;
   margin-top: var(--padding);
-  margin-bottom: var(--padding);
 `;
 
 export const DetailInfo = styled.p`
-  font-size: 1.1em;
+  font-size: 0.9em;
   font-weight: 300;
-  margin-bottom: var(--padding);
 `;
 
-export const TagListView = styled.ul`
+export const FlexListView = styled.ul`
   display: flex;
-  flex-flow: row-wrap;
+  flex-flow: row wrap;
   list-style-type: none;
+  margin-left: 0;
   padding-left: 0;
+
+  li {
+    margin: 0 var(--padding) var(--padding) 0;
+  }
 `;
 
 export const TagListItem = styled.li`
   border-radius: 50px;
-  padding: var(--padding) calc(var(--padding) * 1.5);
-  background: var(--grey);
+  margin-right: var(--padding);
+  padding: calc(var(--padding) / 2) calc(var(--padding) * 1.5);
+  background: var(--dark);
+  color: var(--foreground-color);
+
+  &:hover {
+    background: var(--grey);
+  }
 `;
 
 export const DetailCTAButton = styled.button`
-  position: fixed;
-  display: block;
+  // position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   align-self: flex-end;
   left: 0;
   bottom: 0;
   border: none;
-  padding: var(--padding);
+  padding: calc(var(--padding) * 2);
   text-align: center;
   text-decoration: none;
   color: var(--foreground-color);
+
 
   &:focus {
     outline: 0;
   }
 
+    @media (min-width: 720px) {
+      // right: 50%;
+      // bottom: 50%;
+      // transform: translateX(50%);
+      // right: 0;
+      // left: auto;
+      // width: 55vh;
+    }
+
   .recreation-zone & {
     background: var(--recreation-zone);
+
+    &:hover {
+      background: var(--grey);
+      color: var(--recreation-zone);
+    }
   }
 
   .rit-central & {
     background: var(--rit-central);
+
+    &:hover {
+      background: var(--grey);
+      color: var(--rit-central);
+    }
   }
 
   .ntid-area & {
     background: var(--ntid-area);
+
+    &:hover {
+      background: var(--grey);
+      color: var(--ntid-area);
+    }
   }
 
   .information-station & {
     background: var(--information-station);
+
+    &:hover {
+      background: var(--grey);
+      color: var(--information-station);
+    }
   }
 
   .think-tank & {
     background: var(--think-tank);
+
+    &:hover {
+      background: var(--grey);
+      color: var(--think-tank);
+    }
   }
 
   .artistic-alley & {
     background: var(--artistic-alley);
+
+    &:hover {
+      background: var(--grey);
+      color: var(--artistic-alley);
+    }
   }
 
   .engineering-park & {
     background: var(--engineering-park);
+
+    &:hover {
+      background: var(--grey);
+      color: var(--engineering-park);
+    }
   }
 
   .science-center & {
     background: var(--science-center);
     color: var(--background-color);
+
+    &:hover {
+      background: var(--grey);
+      color: var(--science-center);
+    }
   }
 
   .business-district & {
     background: var(--business-district);
+
+    &:hover {
+      background: var(--grey);
+      color: var(--business-district);
+    }
   }
 
   .innovation-center & {
     background: var(--innovation-center);
+
+    &:hover {
+      background: var(--grey);
+      color: var(--innovation-center);
+    }
   }
 
   .global-village & {
     background: var(--global-village);
+
+    &:hover {
+      background: var(--grey);
+      color: var(--global-village);
+    }
   }
 
   .green-place & {
     background: var(--green-place);
+
+    &:hover {
+      background: var(--grey);
+      color: var(--green-place);
+    }
   }
 
   .technology-quarter & {
     background: var(--technology-quarter);
+    
+    &:hover {
+      background: var(--grey);
+      color: var(--technology-quarter);
+    }
   }
 
   .computer-zone & {
     background: var(--computer-zone);
+
+    &:hover {
+      background: var(--grey);
+      color: var(--computer-zone);
+    }
   }
 `;
-
