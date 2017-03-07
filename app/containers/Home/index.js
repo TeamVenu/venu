@@ -10,7 +10,7 @@ export default class Home extends React.PureComponent { // eslint-disable-line r
     if (React.Children.count(children) > 0) {
       return React.Children.map(children, (c) => { // eslint-disable-line
         return React.cloneElement(c, this.props, {
-          dev: 'Erick',
+          dev: 'Test',
         });
       });
     }

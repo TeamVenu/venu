@@ -247,6 +247,7 @@ export default class Main extends React.Component { // eslint-disable-line react
     // Use the new places array
     this.setState({
       places,
+      mapMode: 'Discover',
     });
   }
 
