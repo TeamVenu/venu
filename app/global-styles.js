@@ -46,6 +46,9 @@ injectGlobal`
     --blue-green-gradient-opaque: linear-gradient(to bottom, var(--light-green-opaque), var(--light-blue-opaque));
     --blue-green-gradient: linear-gradient(to bottom, var(--light-green), var(--light-blue));
     --blue-red-gradient: linear-gradient(to bottom, var(--red), var(--blue));
+
+    --pin-background-gradient: var(--blue-green-gradient);
+    --pin-background-gradient-opaque: var(--blue-green-gradient-opaque);
     --header-background-gradient: linear-gradient(to bottom, var(--black-background), var(--black-background-opaque));
     --panel-background-gradient: linear-gradient(to bottom, var(--black-background-opaque), var(--black-background));
     --card-background-gradient: linear-gradient(to bottom, var(--white), var(--grey));

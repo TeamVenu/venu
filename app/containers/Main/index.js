@@ -3,22 +3,26 @@
  *
  * This is the first thing users see of our App, at the '/' route
  */
-import React from 'react';
-import axios from 'axios';
+import React, { PropTypes as T } from 'react';
 import Header from 'components/Header';
 import PlacesPanel from 'containers/PlacesPanel';
-import placeData from 'fixtures/places.json';
+import { getExhibitsArray, getFacilitiesArray, getPlacesArray } from 'utils/helpers';
 import Map from './Map';
 import { Wrapper, MapWrapper } from './styles';
 
 export default class Main extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  static propTypes = {
+    children: T.object,
+  };
+
   constructor(props, context) {
     super(props, context);
+    const { children } = this.props;
 
     this.state = {
-      places: [],
-      exhibits: {},
-      facilities: {},
+      places: children.places,
+      exhibits: children.exhibits,
+      facilities: children.facilities,
       mapMode: 'Discover',
       detailedPlace: null,
       userLocation: {
@@ -54,8 +58,7 @@ export default class Main extends React.Component { // eslint-disable-line react
   componentWillMount() { }
 
   componentDidMount() {
-    this.getPlacesData();
-    this.getUserLocation();
+    this.askUserForLocation();
   }
 
   /**
@@ -78,20 +81,20 @@ export default class Main extends React.Component { // eslint-disable-line react
     switch (mode) {
       case 'Discover':
         newState.mapMode = 'Discover';
-        newState.exhibits = this.getExhibitsArray(exhibits);
-        newState.facilities = this.getFacilitiesArray(facilities);
+        newState.exhibits = getExhibitsArray(exhibits);
+        newState.facilities = getFacilitiesArray(facilities);
         break;
       case 'Itinerary':
         newState.mapMode = 'Itinerary';
-        newState.exhibits = this.getExhibitsArray(exhibits).filter((exhibit) => { // eslint-disable-line
+        newState.exhibits = getExhibitsArray(exhibits).filter((exhibit) => { // eslint-disable-line
           return exhibit.subType === 'bookmarked';
         });
-        newState.facilities = this.getFacilitiesArray(facilities);
+        newState.facilities = getFacilitiesArray(facilities);
         break;
       case 'Facilities':
         newState.mapMode = 'Facilities';
         newState.exhibits = [];
-        newState.facilities = this.getFacilitiesArray(facilities);
+        newState.facilities = getFacilitiesArray(facilities);
         break;
       default:
         newState.mapMode = 'none';
@@ -110,125 +113,6 @@ export default class Main extends React.Component { // eslint-disable-line react
   }
 
   /**
-   * getPlacesData
-   * Fetches our api using axios
-   * If the api fails we use the imported json
-   */
-  getPlacesData() {
-    // Get Places through AJAX or fetch here from our API
-    axios.get('/api/places')
-      .then((response) => {
-        if (response.data.exhibits && response.data.facilities) {
-          this.setPlacesData(response.data);
-        } else {
-          this.setPlacesData(placeData);
-        }
-      })
-      .catch((error) => {
-        console.error('Error getting API ', error);
-        this.setPlacesData(placeData);
-      });
-  }
-
-  /**
-   * setPlacesData
-   * Initializes our data from json
-   * @param  {Object} data
-   */
-  setPlacesData(data) {
-    // Get exhibits object
-    const exhibits = data.exhibits;
-
-    // Get facilities object
-    const facilities = data.facilities;
-
-    // Put both arrays together
-    const places = this.getPlacesArray(exhibits, facilities);
-
-    // Set state to save our data
-    this.setState({
-      places,
-      exhibits,
-      facilities,
-    });
-  }
-
-  /* Helper Methods */
-  /**
-   * getFacilitiesArray
-   * Returns an array of all facilities based on facilities object
-   * @param  {Object} facilities
-   * @return {Array}
-   */
-  getFacilitiesArray(facilities) {
-    return facilities.food.concat(facilities.information, facilities.medical, facilities.restrooms);
-  }
-
-  /**
-   * getFacilitiesArray
-   * Returns an array of all exhibits based on exhibits object
-   * @param  {Object} exhibits
-   * @return {Array}
-   */
-  getExhibitsArray(exhibits) {
-    return exhibits.recreationZone.concat(
-      exhibits.ritCentral, exhibits.ntidArea, exhibits.informationStation, exhibits.thinkTank, exhibits.artisticAlley,
-      exhibits.engineeringPark, exhibits.scienceCenter, exhibits.businessDistrict, exhibits.innovationCenter, exhibits.globalVillage,
-      exhibits.greenPlace, exhibits.technologyQuarter, exhibits.computerZone
-    );
-  }
-
-  /**
-   * getPlacesArray
-   * Returns an array of all exhibits and facilities based on exhibits and facilities objects
-   * @param  {Object} exhibits
-   * @param  {Object} facilities
-   * @return {Array}
-   */
-  getPlacesArray(exhibits, facilities) {
-    const exhibitsArray = this.getExhibitsArray(exhibits);
-    const facilitiesArray = this.getFacilitiesArray(facilities);
-
-    return exhibitsArray.concat(facilitiesArray);
-  }
-  /* End of Places Helper Methods */
-
-  /**
-   * getUserLocation
-   * Prompts the user for access to their location
-   */
-  getUserLocation() {
-    const location = {};
-
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(this.retrieveUsersLocation.bind(this), () => {
-        // Error
-        console.warn('Unable to retrieve location, user might have declined to use location');
-        location.lat = 43.08516;
-        location.lng = -77.677192;
-
-        this.setState({
-          userLocation: location,
-          center: location,
-          locationEnabled: false,
-        });
-      });
-    } else {
-      console.warn('Geolocation is not available');
-      location.lat = 43.08516;
-      location.lng = -77.677192;
-      // this.centerMap(location);
-      this.setState({
-        userLocation: location,
-        center: location,
-        location: false,
-      });
-    }
-
-    this.centerMap(this.state.userLocation);
-  }
-
-  /**
    * setExhibitToDefault
    * Sets an exhibit's subType to default based
    * on the exhibits key and colorZone
@@ -242,11 +126,12 @@ export default class Main extends React.Component { // eslint-disable-line react
     this.state.exhibits[colorZone][key].subType = 'default';
 
     // Recreate the places array
-    const places = this.getPlacesArray(this.state.exhibits, this.state.facilities);
+    const places = getPlacesArray(this.state.exhibits, this.state.facilities);
 
     // Use the new places array
     this.setState({
       places,
+      mapMode: 'Discover',
     });
   }
 
@@ -264,7 +149,7 @@ export default class Main extends React.Component { // eslint-disable-line react
     this.state.exhibits[colorZone][key].subType = 'recommended';
 
     // Recreate the places array
-    const places = this.getPlacesArray(this.state.exhibits, this.state.facilities);
+    const places = getPlacesArray(this.state.exhibits, this.state.facilities);
 
     // Use the new places array
     this.setState({
@@ -286,7 +171,7 @@ export default class Main extends React.Component { // eslint-disable-line react
     this.state.exhibits[colorZone][key].subType = 'bookmarked';
 
     // Recreate the places array
-    const places = this.getPlacesArray(this.state.exhibits, this.state.facilities);
+    const places = getPlacesArray(this.state.exhibits, this.state.facilities);
 
     // Use the new places array
     this.setState({
@@ -308,12 +193,47 @@ export default class Main extends React.Component { // eslint-disable-line react
     this.state.exhibits[colorZone][key].subType = 'visited';
 
     // Recreate the places array
-    const places = this.getPlacesArray(this.state.exhibits, this.state.facilities);
+    const places = getPlacesArray(this.state.exhibits, this.state.facilities);
 
     // Use the new places array
     this.setState({
       places,
     });
+  }
+
+    /**
+   * askUserForLocation
+   * Prompts the user for access to their location
+   */
+  askUserForLocation() {
+    const location = {};
+
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(this.retrieveUsersLocation.bind(this), () => {
+        // Error
+        console.warn(' ⛔️ 📍 Unable to retrieve location, user might have declined to use location');
+        location.lat = 43.08516;
+        location.lng = -77.677192;
+
+        this.setState({
+          userLocation: location,
+          center: location,
+          locationEnabled: false,
+        });
+      });
+    } else {
+      console.warn('⚠️🗺 Geolocation is not available');
+      location.lat = 43.08516;
+      location.lng = -77.677192;
+      // this.centerMap(location);
+      this.setState({
+        userLocation: location,
+        center: location,
+        location: false,
+      });
+    }
+
+    this.centerMap(this.state.userLocation);
   }
 
   /**
@@ -393,7 +313,7 @@ export default class Main extends React.Component { // eslint-disable-line react
    * @param  {Object} place
    */
   navigateToPlace(place) {
-    console.log(`Take me to ${place.name} which has a latitude of ${place.lat} and a longitude of ${place.lng}`);
+    console.log(`🚶🏻‍ Take me to ${place.name} which has a latitude of ${place.lat} and a longitude of ${place.lng}.`);
     this.clearPlaceInfo();
   }
 
@@ -403,7 +323,7 @@ export default class Main extends React.Component { // eslint-disable-line react
    * @param  {Object} place
    */
   likeExhibit(place) {
-    console.log(`I liked the ${place.name} exhibit.`);
+    console.log(`👍🏻 I liked the ${place.name} exhibit.`);
     this.clearPlaceInfo();
   }
 
@@ -413,7 +333,7 @@ export default class Main extends React.Component { // eslint-disable-line react
    * @param  {Object} place
    */
   unLikeExhibit(place) {
-    console.log(`I removed my like from the ${place.name} exhibit.`);
+    console.log(`😕 I removed my like from the ${place.name} exhibit.`);
     this.clearPlaceInfo();
   }
 
@@ -434,6 +354,7 @@ export default class Main extends React.Component { // eslint-disable-line react
         </MapWrapper>
         <PlacesPanel
           places={this.state.places}
+          mapMode={this.state.mapMode}
           clearPlaceInfo={this.clearPlaceInfo}
           detailedPlace={this.state.detailedPlace}
           clickOnPlaceCard={this.clickOnPlaceCard}

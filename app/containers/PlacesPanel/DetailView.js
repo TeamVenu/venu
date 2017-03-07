@@ -1,4 +1,5 @@
 import React, { PropTypes as T } from 'react';
+import Ionicon from 'react-ionicons';
 import Button from 'components/Button';
 import {
   DetailWrapper, DetailHeader, DetailSubHeader,
@@ -161,10 +162,10 @@ export default class DetailView extends React.Component { // eslint-disable-line
     // Subtype Blurb
     // Tells us whether place is in Itinerary or Recommended
     // Placeholder these are some of the options for Primary Button
-    const NavigateButtonPrimary = (<DetailCTAButton onClick={this.navigateToPlace}><i className="icon ion-navigate"></i>Navitage</DetailCTAButton>);
-    const CheckInButtonPrimary = (<DetailCTAButton onClick={this.setExhibitToVisited}><i className="icon ion-checkmark-round"></i>Check-in</DetailCTAButton>);
-    const AddToItineraryButtonPrimary = (<DetailCTAButton onClick={this.setExhibitToBookmarked}><i className="icon ion-plus"></i>Add to Itinerary</DetailCTAButton>);
-    const LikeExhibitButtonPrimary = (<DetailCTAButton onClick={this.likeExhibit}><i className="icon ion-thumbsup"></i>Like</DetailCTAButton>);
+    const NavigateButtonPrimary = (<DetailCTAButton onClick={this.navigateToPlace}><Ionicon icon={'icon ion-navigate'} /> Navitage</DetailCTAButton>);
+    const CheckInButtonPrimary = (<DetailCTAButton onClick={this.setExhibitToVisited}><Ionicon icon={'icon ion-checkmark-round'} /> Check-in</DetailCTAButton>);
+    const AddToItineraryButtonPrimary = (<DetailCTAButton onClick={this.setExhibitToBookmarked}><Ionicon icon={'icon ion-plus'} /> Add to Itinerary</DetailCTAButton>);
+    const LikeExhibitButtonPrimary = (<DetailCTAButton onClick={this.likeExhibit}><Ionicon icon={'icon ion-thumbsup'} /> Like</DetailCTAButton>);
 
     let subTypeBlurb = null;
     let PrimaryButton = null;
@@ -210,23 +211,23 @@ export default class DetailView extends React.Component { // eslint-disable-line
     // If a place has a distance then show that distance. Else show alternate text
     // TODO: Alt text should have an action that allows user to enable Location
     const distanceComponent = (place.distance > '0') ? (
-      <DetailInfo><i className="icon ion-map"></i> Distance: {place.distance}km</DetailInfo>
+      <DetailInfo><Ionicon icon={'icon ion-map'} /> Distance: {place.distance}km</DetailInfo>
     ) : (
-      <DetailInfo><i className="icon ion-map"></i> <strong>Distance unknown</strong>. Please enable your location.</DetailInfo>
+      <DetailInfo><Ionicon icon={'icon ion-map'} /> <strong>Distance unknown</strong>. Please enable your location.</DetailInfo>
     );
 
     // If place has hours running then we add the Item
     const hoursRunningComponent = (place.hoursRunning) ? (
-      <DetailInfo><i className="icon ion-ios-time-outline"></i> {place.hoursRunning} </DetailInfo>
+      <DetailInfo><Ionicon icon={'icon ion-ios-time-outline'} /> {place.hoursRunning} </DetailInfo>
     ) : null;
 
     // If the place has an ageRange display it
     const agesComponent = (place.ageRange) ? (
-      <DetailInfo><i className="icon ion-ios-people"></i> Ages: {place.ageRange}</DetailInfo>
+      <DetailInfo><Ionicon icon={'icon ion-ios-people'} /> Ages: {place.ageRange}</DetailInfo>
     ) : null;
 
     const genderComponent = (place.subType === 'restroom') ? (
-      <DetailInfo><i className="icon ion-person"></i> {place.category}</DetailInfo>
+      <DetailInfo><Ionicon icon={'icon ion-person'} /> {place.category}</DetailInfo>
     ) : null;
 
     // Tags
@@ -271,7 +272,7 @@ export default class DetailView extends React.Component { // eslint-disable-line
       <DetailWrapper className={wrapperClasses}>
         <DetailHeader>
           <DetailInfo>
-            <i className="icon ion-location"></i>
+            <Ionicon icon={'icon ion-location'} />
             <span><strong>{locationBlurb}, </strong></span>
             <span>{place.building}, </span>
             <span>{place.imagineRitArea}</span>

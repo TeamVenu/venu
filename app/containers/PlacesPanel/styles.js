@@ -40,7 +40,6 @@ export const HandleWrapper = styled.button`
 
   &:focus {
     outline: 0;
-    // cursor: grabbing;
   }
 
   @media (min-width: 720px) {
@@ -49,6 +48,11 @@ export const HandleWrapper = styled.button`
 `;
 
 export const Handle = styled.span`
+ /* Because Safari 😩 */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: 100px;
   height: 10px;
   border: none;
@@ -293,6 +297,7 @@ export const TagListItem = styled.li`
   padding: calc(var(--padding) / 2) calc(var(--padding) * 1.5);
   background: var(--dark);
   color: var(--foreground-color);
+  font-size: 0.85em;
 
   &:hover {
     // background: var(--grey);
