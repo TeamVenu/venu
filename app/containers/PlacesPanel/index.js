@@ -1,5 +1,5 @@
 import React, { PropTypes as T } from 'react';
-
+import DetailView from './DetailView';
 import ListView from './ListView';
 import { Wrapper, HandleWrapper, Handle } from './styles';
 
@@ -7,15 +7,27 @@ export default class PlacesPanel extends React.Component {
 
   static propTypes = {
     places: T.array,
+    mapMode: T.string,
     clickOnPlaceCard: T.func,
+    clearPlaceInfo: T.func,
+    detailedPlace: T.object,
+    navigateToPlace: T.func,
+    likeExhibit: T.func,
+    unLikeExhibit: T.func,
+    setExhibitToDefault: T.func,
+    setExhibitToRecommended: T.func,
+    setExhibitToBookmarked: T.func,
+    setExhibitToVisited: T.func,
   };
 
   static defaultProps = {
     title: 'Places',
+    detailedPlace: null,
   }
 
   constructor(props) {
     super(props);
+
     this.state = {
       pressing: false,
       dragging: false,
@@ -39,18 +51,53 @@ export default class PlacesPanel extends React.Component {
     this.handlePanelPress = this.handlePanelPress.bind(this);
     this.handlePanelDrag = this.handlePanelDrag.bind(this);
     this.handlePanelRelease = this.handlePanelRelease.bind(this);
+    this.handleWindowResize = this.handleWindowResize.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.handleWindowResize);
+  }
+
+  handleWindowResize() {
+    const { innerWidth } = window;
+    const MIN_WIDTH = 720;
+
+    // If window width is 720 or greater
+    if (innerWidth >= MIN_WIDTH) {
+      // We want to remove event listeners
+
+      // Remove mouse event listeners
+      document.removeEventListener('mousemove', this.handleMouseMove.bind(this));
+      document.removeEventListener('mouseup', this.handleMouseUp.bind(this));
+
+      // Remove touch event listeners
+      document.removeEventListener('touchmove', this.handleTouchMove.bind(this));
+      document.removeEventListener('touchend', this.handleTouchEnd.bind(this));
+      document.removeEventListener('touchcancel', this.handleTouchEnd.bind(this));
+
+      // We want to remove inline styles
+      this.setState({
+        wrapperStyle: null,
+      });
+    }
   }
 
   handleMouseDown(e) {
-    // Get the position
-    const position = e.pageY;
+    const { innerWidth } = window;
+    const MAX_WIDTH = 720;
 
-    // Activate event listeners
-    document.addEventListener('mousemove', this.handleMouseMove.bind(this));
-    document.addEventListener('mouseup', this.handleMouseUp.bind(this));
+    // If window width is less than 720
+    if (innerWidth < MAX_WIDTH) {
+      // Get the position
+      const position = e.pageY;
 
-    // Call function which handles press event
-    this.handlePanelPress(position);
+      // Activate event listeners
+      document.addEventListener('mousemove', this.handleMouseMove.bind(this));
+      document.addEventListener('mouseup', this.handleMouseUp.bind(this));
+
+      // Call function which handles press event
+      this.handlePanelPress(position);
+    }
   }
 
   handleMouseMove(e) {
@@ -81,19 +128,25 @@ export default class PlacesPanel extends React.Component {
   }
 
   handleTouchStart(e) {
-    // Prevent default action
-    e.preventDefault();
+    const { innerWidth } = window;
+    const MAX_WIDTH = 720;
 
-    // Get the position
-    const position = e.changedTouches[0].pageY;
+    // If window width is less than 720
+    if (innerWidth < MAX_WIDTH) {
+      // Prevent default action
+      e.preventDefault();
 
-    // Activate event listeners
-    document.addEventListener('touchmove', this.handleTouchMove.bind(this));
-    document.addEventListener('touchend', this.handleTouchEnd.bind(this));
-    document.addEventListener('touchcancel', this.handleTouchEnd.bind(this));
+      // Get the position
+      const position = e.changedTouches[0].pageY;
 
-    // Call function which handles press event
-    this.handlePanelPress(position);
+      // Activate event listeners
+      document.addEventListener('touchmove', this.handleTouchMove.bind(this));
+      document.addEventListener('touchend', this.handleTouchEnd.bind(this));
+      document.addEventListener('touchcancel', this.handleTouchEnd.bind(this));
+
+      // Call function which handles press event
+      this.handlePanelPress(position);
+    }
   }
 
   handleTouchMove(e) {
@@ -155,7 +208,7 @@ export default class PlacesPanel extends React.Component {
 
   handlePanelDrag(position) {
     const HEADER_HEIGHT = 80; // Height of the header
-    const HANDLE_HEIGHT = 30; // Height of the handle
+    const HANDLE_HEIGHT = 70; // Height of the handle
     const appContainer = document.getElementById('app'); // Get app container as reference
     const appBottom = appContainer.getBoundingClientRect().bottom; // Get the bottom of the app
     const HANDLE_OFFSET = appBottom - HANDLE_HEIGHT; // calculcate the bottom of the app minus the handle height
@@ -191,7 +244,42 @@ export default class PlacesPanel extends React.Component {
     });
   }
 
+  renderPlacesListView() {
+    return (
+      <ListView places={this.props.places} mapMode={this.props.mapMode} clickOnPlaceCard={this.props.clickOnPlaceCard} />
+    );
+  }
+
+  renderPlaceDetailView() {
+    const { detailedPlace, clearPlaceInfo,
+      navigateToPlace, likeExhibit, unLikeExhibit,
+      setExhibitToDefault, setExhibitToRecommended,
+      setExhibitToBookmarked, setExhibitToVisited } = this.props;
+
+    return (
+      <DetailView
+        place={detailedPlace}
+        clearPlaceInfo={clearPlaceInfo}
+        navigateToPlace={navigateToPlace}
+        likeExhibit={likeExhibit}
+        unLikeExhibit={unLikeExhibit}
+        setExhibitToDefault={setExhibitToDefault}
+        setExhibitToRecommended={setExhibitToRecommended}
+        setExhibitToBookmarked={setExhibitToBookmarked}
+        setExhibitToVisited={setExhibitToVisited}
+      />
+    );
+  }
+
   render() {
+    // Get Details Place prop
+    const { detailedPlace } = this.props;
+
+    // If we have a detailedPlace prop
+    // Set viewMode to render that place detail view
+    // Otherwise set viewMode to render the ListView
+    const viewMode = (detailedPlace) ? this.renderPlaceDetailView() : this.renderPlacesListView();
+
     return (
       <Wrapper style={this.state.wrapperStyle}>
         <HandleWrapper
@@ -201,7 +289,7 @@ export default class PlacesPanel extends React.Component {
         >
           <Handle />
         </HandleWrapper>
-        <ListView places={this.props.places} clickOnPlaceCard={this.props.clickOnPlaceCard} />
+        { viewMode }
       </Wrapper>
     );
   }

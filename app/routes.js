@@ -22,7 +22,7 @@ export default function createRoutes(store) {
       name: 'home',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/Main'),
+          import('containers/Home'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -33,7 +33,23 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, {
+      indexRoute: {
+        getComponent(partialNextState, cb) {
+          const importModules = Promise.all([
+            import('containers/Main'),
+          ]);
+
+          const renderRoute = loadModule(cb);
+
+          importModules.then(([component]) => {
+            renderRoute(component);
+          });
+
+          importModules.catch(errorLoading);
+        },
+      },
+    },
+    {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
