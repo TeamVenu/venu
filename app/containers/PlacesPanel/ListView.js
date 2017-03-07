@@ -8,6 +8,7 @@ export default class ListView extends React.Component { //eslint-disable-line
   // Specify which prop Type
   static propTypes = {
     places: T.array,
+    mapMode: T.string,
     clickOnPlaceCard: T.func,
   }
 
@@ -26,10 +27,34 @@ export default class ListView extends React.Component { //eslint-disable-line
     });
   }
 
+  renderTitle() {
+    const { mapMode } = this.props;
+    let titleString = '';
+
+    switch (mapMode) {
+      case 'Discover':
+        titleString = 'Recommended For You';
+        break;
+      case 'Itinerary':
+        titleString = 'In Your Itinerary';
+        break;
+      case 'Facilities':
+        titleString = 'Facilities In Your Area';
+        break;
+      default:
+        titleString = null;
+        break;
+    }
+
+    return (
+      <Title>{titleString}</Title>
+    );
+  }
+
   render() {
     return (
       <List>
-        <Title>Recommended For You</Title>
+        {this.renderTitle()}
         {this.renderPlaces()}
       </List>
     );

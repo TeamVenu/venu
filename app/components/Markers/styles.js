@@ -76,6 +76,14 @@ export const PinWrapper = styled.section`
     background: var(--pin-background-gradient-opaque);
   }
 
+  .visited & {
+    opacity: 0.3;
+  }
+
+  .hidden & {
+    display: none;
+  }
+
   .facility & {
     background: var(--foreground-color);
   }

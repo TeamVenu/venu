@@ -7,6 +7,7 @@ export default class PlacesPanel extends React.Component {
 
   static propTypes = {
     places: T.array,
+    mapMode: T.string,
     clickOnPlaceCard: T.func,
     clearPlaceInfo: T.func,
     detailedPlace: T.object,
@@ -245,7 +246,7 @@ export default class PlacesPanel extends React.Component {
 
   renderPlacesListView() {
     return (
-      <ListView places={this.props.places} clickOnPlaceCard={this.props.clickOnPlaceCard} />
+      <ListView places={this.props.places} mapMode={this.props.mapMode} clickOnPlaceCard={this.props.clickOnPlaceCard} />
     );
   }
 

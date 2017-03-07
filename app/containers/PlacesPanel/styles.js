@@ -40,7 +40,6 @@ export const HandleWrapper = styled.button`
 
   &:focus {
     outline: 0;
-    // cursor: grabbing;
   }
 
   @media (min-width: 720px) {

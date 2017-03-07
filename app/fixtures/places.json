@@ -1,6 +1,32 @@
 {
   "exhibits": {
-    "recreationZone": [],
+    "recreationZone": [
+      {
+        "key": 0,
+        "id": 1003,
+        "name": "Bike Blender",
+        "type": "exhibit",
+        "subType": "recommended",
+        "colorZone": "recreationZone",
+        "imagineRitArea": "Recreation Zone",
+        "building": "Outside",
+        "location": "RIT Bengal Statue",
+        "ageRange": "all",
+        "exhibitCode": "OUT-0500",
+        "category": "",
+        "tags": [
+          "General",
+          "Physical"
+        ],
+        "lat": 43.084248,
+        "lng": -77.675547,
+        "alt": 0,
+        "distance": 0,
+        "description": "",
+        "year": 2016,
+        "devComments": "old"
+      }
+    ],
     "ritCentral": [
       {
         "key": 0,
