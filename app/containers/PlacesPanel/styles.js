@@ -49,6 +49,11 @@ export const HandleWrapper = styled.button`
 `;
 
 export const Handle = styled.span`
+ /* Because Safari 😩 */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: 100px;
   height: 10px;
   border: none;
