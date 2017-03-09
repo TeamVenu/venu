@@ -1,13 +1,15 @@
 import React, { PropTypes as T } from 'react';
 import DetailView from './DetailView';
 import ListView from './ListView';
-import { Wrapper, HandleWrapper, Handle } from './styles';
+import { Wrapper, HandleWrapper, Handle, Title } from './styles';
 
 export default class PlacesPanel extends React.Component {
 
   static propTypes = {
-    places: T.array,
-    mapMode: T.string,
+    exhibits: T.object.isRequired,
+    facilities: T.object.isRequired,
+    mapMode: T.string.isRequired,
+    locationEnabled: T.bool.isRequired,
     clickOnPlaceCard: T.func,
     clearPlaceInfo: T.func,
     detailedPlace: T.object,
@@ -32,9 +34,11 @@ export default class PlacesPanel extends React.Component {
       pressing: false,
       dragging: false,
       initialPositionY: null,
+      previousPositionY: null,
       newPositionY: null,
       absolutePos: null,
       wrapperStyle: {},
+      positionClass: 'collapsed',
     };
 
     // Bind Mouse events
@@ -58,6 +62,9 @@ export default class PlacesPanel extends React.Component {
     window.addEventListener('resize', this.handleWindowResize);
   }
 
+  /**
+   * handleWindowResize
+   */
   handleWindowResize() {
     const { innerWidth } = window;
     const MIN_WIDTH = 720;
@@ -82,6 +89,7 @@ export default class PlacesPanel extends React.Component {
     }
   }
 
+  /* Mouse Events */
   handleMouseDown(e) {
     const { innerWidth } = window;
     const MAX_WIDTH = 720;
@@ -113,20 +121,24 @@ export default class PlacesPanel extends React.Component {
     this.handlePanelDrag(position);
   }
 
-  handleMouseUp() {
+  handleMouseUp(e) {
     const { pressing, dragging } = this.state;
 
     // If user is not pressing or dragging exit
     if (!pressing || !dragging) return;
+
+    // Get the position where user let go of mouse
+    const position = e.pageY;
 
     // Remove event listeners
     document.removeEventListener('mousemove', this.handleMouseMove.bind(this));
     document.removeEventListener('mouseup', this.handleMouseUp.bind(this));
 
     // Call function which cancels moving
-    this.handlePanelRelease();
+    this.handlePanelRelease(position);
   }
 
+  /* Touch Events */
   handleTouchStart(e) {
     const { innerWidth } = window;
     const MAX_WIDTH = 720;
@@ -171,11 +183,20 @@ export default class PlacesPanel extends React.Component {
     });
   }
 
-  handleTouchEnd() {
+  handleTouchEnd(e) {
     const { pressing, dragging } = this.state;
 
     // If user is not pressing or dragging exit
     if (!pressing || !dragging) return;
+
+    // Get the array of touches
+    const touches = Array.from(e.changedTouches);
+
+    // Get the index of the last touch
+    const index = touches.length - 1;
+
+    // Get the position of last touch
+    const position = touches[index].pageY;
 
     // Remove event listeners
     document.removeEventListener('touchmove', this.handleTouchMove.bind(this));
@@ -183,75 +204,159 @@ export default class PlacesPanel extends React.Component {
     document.removeEventListener('touchcancel', this.handleTouchEnd.bind(this));
 
     // Call function which cancels moving
-    this.handlePanelRelease();
+    this.handlePanelRelease(position);
   }
 
+  /* Panel Movement Functions */
   handlePanelPress(position) {
     const button = document.getElementById('places-list-slider');
     const buttonTop = button.getBoundingClientRect().top;
     const offset = position - buttonTop;
     const absolutePos = position - offset;
-    const newAbsolute = absolutePos + 'px'; //eslint-disable-line
 
     // Update state
     this.setState({
       pressing: true,
       absolutePos,
       initialPositionY: position,
+      previousPositionY: position,
       wrapperStyle: {
-        width: '100%',
-        position: 'absolute',
-        top: newAbsolute,
+        top: `${absolutePos}px`,
       },
     });
   }
 
   handlePanelDrag(position) {
-    const HEADER_HEIGHT = 80; // Height of the header
-    const HANDLE_HEIGHT = 70; // Height of the handle
-    const appContainer = document.getElementById('app'); // Get app container as reference
-    const appBottom = appContainer.getBoundingClientRect().bottom; // Get the bottom of the app
-    const HANDLE_OFFSET = appBottom - HANDLE_HEIGHT; // calculcate the bottom of the app minus the handle height
+    // Get the values from state
+    const { absolutePos, previousPositionY } = this.state;
 
-    // Make sure we stay within bounds
-    // Can't go over header
-    // And always show the handle
-    if (position < HEADER_HEIGHT || position > HANDLE_OFFSET) return;
+    // Calculate new slide value
+    // Take the intialPosition and subtract from it new position
+    // Then multiply it by negative one to get direction
+    const newSlideValue = (previousPositionY - position) * -1;
 
-    const { initialPositionY } = this.state;
-    const { absolutePos } = this.state;
-    const newSlideValue = (initialPositionY - position) * -1;
+    // Add the absolutePos to the new newSlideValue
+    // To get new absolute position
     const result = absolutePos + newSlideValue;
-    const newAbsolute = result + 'px'; //eslint-disable-line
 
     this.setState({
       dragging: true,
-      initialPositionY: position,
+      previousPositionY: position,
       absolutePos: result,
       wrapperStyle: {
-        width: '100%',
-        position: 'absolute',
-        top: newAbsolute,
+        top: `${result}px`,
       },
     });
   }
 
-  handlePanelRelease() {
-    // Set to false
+  handlePanelRelease(position) {
+    // Get the state properties
+    const { positionClass, initialPositionY } = this.state;
+
+    // Make a new variable for the new positionClass
+    // Set it to the current one
+    let newPositionClass = positionClass;
+
+    // Set a SWIPE_FORCE
+    const SWIPE_FORCE = 200;
+
+    // Calculate force
+    const force = position - initialPositionY;
+
+    // If force changed
+    if (force !== 0) {
+      switch (positionClass) {
+        case 'collapsed':
+          // If user swiped up
+          if (initialPositionY > position) {
+            // If swipe is greater than SWIPE_FORCE
+            if (Math.abs(force) > SWIPE_FORCE) {
+              // Set class to fullpage
+              newPositionClass = 'full';
+            } else {
+              // Else set to null (middle)
+              newPositionClass = null;
+            }
+          }
+          break;
+        case 'full':
+          // If user swiped down
+          if (position > initialPositionY) {
+            // If swipe is greater than SWIPE_FORCE
+            if (Math.abs(force) > SWIPE_FORCE) {
+              // Set class to collapsed
+              newPositionClass = 'collapsed';
+            } else {
+              // Otherwise set to null (middle)
+              newPositionClass = null;
+            }
+          }
+          break;
+        default:
+          // If user swiped up
+          if (initialPositionY > position) {
+            // Set class to full
+            newPositionClass = 'full';
+          } else {
+            // Set class to collapsed
+            newPositionClass = 'collapsed';
+          }
+          break;
+      }
+    }
+
+    // Set new state with newPositionClass and set wrapperStyle to empty
     this.setState({
       dragging: false,
       pressing: false,
+      wrapperStyle: {},
+      positionClass: newPositionClass,
     });
   }
 
-  renderPlacesListView() {
+  renderTitle() {
+    const { detailedPlace, mapMode } = this.props;
+
+    if (detailedPlace) return null;
+
+    let titleString = '';
+
+    switch (mapMode) {
+      case 'Discover':
+        titleString = 'Recommended For You';
+        break;
+      case 'Itinerary':
+        titleString = 'In Your Itinerary';
+        break;
+      case 'Facilities':
+        titleString = 'Facilities In Your Area';
+        break;
+      default:
+        titleString = null;
+        break;
+    }
+
     return (
-      <ListView places={this.props.places} mapMode={this.props.mapMode} clickOnPlaceCard={this.props.clickOnPlaceCard} />
+      <Title>{titleString}</Title>
+    );
+  }
+
+  renderPlacesListView() {
+    const { exhibits, facilities, mapMode, locationEnabled, clickOnPlaceCard } = this.props;
+
+    return (
+      <ListView
+        exhibits={exhibits}
+        facilities={facilities}
+        mapMode={mapMode}
+        locationEnabled={locationEnabled}
+        clickOnPlaceCard={clickOnPlaceCard}
+      />
     );
   }
 
   renderPlaceDetailView() {
-    const { detailedPlace, clearPlaceInfo,
+    const { detailedPlace, locationEnabled, clearPlaceInfo,
       navigateToPlace, likeExhibit, unLikeExhibit,
       setExhibitToDefault, setExhibitToRecommended,
       setExhibitToBookmarked, setExhibitToVisited } = this.props;
@@ -259,6 +364,7 @@ export default class PlacesPanel extends React.Component {
     return (
       <DetailView
         place={detailedPlace}
+        locationEnabled={locationEnabled}
         clearPlaceInfo={clearPlaceInfo}
         navigateToPlace={navigateToPlace}
         likeExhibit={likeExhibit}
@@ -275,13 +381,16 @@ export default class PlacesPanel extends React.Component {
     // Get Details Place prop
     const { detailedPlace } = this.props;
 
+    // Get the wrapperStyle and positionClass
+    const { wrapperStyle, positionClass } = this.state;
+
     // If we have a detailedPlace prop
     // Set viewMode to render that place detail view
     // Otherwise set viewMode to render the ListView
     const viewMode = (detailedPlace) ? this.renderPlaceDetailView() : this.renderPlacesListView();
 
     return (
-      <Wrapper style={this.state.wrapperStyle}>
+      <Wrapper style={wrapperStyle} className={positionClass}>
         <HandleWrapper
           id="places-list-slider"
           onMouseDown={this.handleMouseDown}
@@ -289,6 +398,7 @@ export default class PlacesPanel extends React.Component {
         >
           <Handle />
         </HandleWrapper>
+        { this.renderTitle() }
         { viewMode }
       </Wrapper>
     );

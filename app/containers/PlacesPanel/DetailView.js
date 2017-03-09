@@ -2,9 +2,8 @@ import React, { PropTypes as T } from 'react';
 import Ionicon from 'react-ionicons';
 import Button from 'components/Button';
 import {
-  DetailWrapper, DetailHeader, DetailSubHeader,
-  DetailExitButton, DetailTitle, DetailSectionTitle,
-  DetailInfo, FlexListView, TagListItem, DetailCTAButton,
+  DetailWrapper, DetailHeader, DetailExitButton, DetailTitle,
+  DetailSectionTitle, DetailInfo, FlexListView, TagListItem, DetailCTAButton,
 } from './styles';
 
 export default class DetailView extends React.Component { // eslint-disable-line
@@ -210,8 +209,8 @@ export default class DetailView extends React.Component { // eslint-disable-line
 
     // If a place has a distance then show that distance. Else show alternate text
     // TODO: Alt text should have an action that allows user to enable Location
-    const distanceComponent = (place.distance > '0') ? (
-      <DetailInfo><Ionicon icon={'icon ion-map'} /> Distance: {place.distance}km</DetailInfo>
+    const distanceComponent = (place.distance) ? (
+      <DetailInfo><Ionicon icon={'icon ion-map'} /> Distance: {place.distance} mi</DetailInfo>
     ) : (
       <DetailInfo><Ionicon icon={'icon ion-map'} /> <strong>Distance unknown</strong>. Please enable your location.</DetailInfo>
     );
@@ -279,12 +278,10 @@ export default class DetailView extends React.Component { // eslint-disable-line
           </DetailInfo>
           <DetailExitButton className="icon ion-close" onClick={this.handleClick}></DetailExitButton>
         </DetailHeader>
-        <DetailSubHeader>
-          {distanceComponent}
-          {agesComponent}
-          {genderComponent}
-          {hoursRunningComponent}
-        </DetailSubHeader>
+        {distanceComponent}
+        {agesComponent}
+        {genderComponent}
+        {hoursRunningComponent}
         <DetailInfo>{subTypeBlurb}</DetailInfo>
         <DetailTitle>{place.name}</DetailTitle>
         {descriptionComponent}

@@ -6,7 +6,6 @@
 import React, { PropTypes as T } from 'react';
 import Header from 'components/Header';
 import PlacesPanel from 'containers/PlacesPanel';
-import { getExhibitsArray, getFacilitiesArray, getPlacesArray } from 'utils/helpers';
 import Map from './Map';
 import { Wrapper, MapWrapper } from './styles';
 
@@ -20,7 +19,6 @@ export default class Main extends React.Component { // eslint-disable-line react
     const { children } = this.props;
 
     this.state = {
-      places: children.places,
       exhibits: children.exhibits,
       facilities: children.facilities,
       mapMode: 'Discover',
@@ -63,50 +61,16 @@ export default class Main extends React.Component { // eslint-disable-line react
 
   /**
    * onChangeMapMode
-   * Recreates our places based on the chose map mode
-   * @param  {Object} e
+   * Changes our Map mode
+   * @param {Object} e
    */
   onChangeMapMode(e) {
     e.preventDefault();
 
     const mode = e.target.textContent;
-    const { exhibits, facilities } = this.state;
-
-    const newState = {
-      exhibits: [],
-      facilities: [],
-      mapMode: '',
-    };
-
-    switch (mode) {
-      case 'Discover':
-        newState.mapMode = 'Discover';
-        newState.exhibits = getExhibitsArray(exhibits);
-        newState.facilities = getFacilitiesArray(facilities);
-        break;
-      case 'Itinerary':
-        newState.mapMode = 'Itinerary';
-        newState.exhibits = getExhibitsArray(exhibits).filter((exhibit) => { // eslint-disable-line
-          return exhibit.subType === 'bookmarked';
-        });
-        newState.facilities = getFacilitiesArray(facilities);
-        break;
-      case 'Facilities':
-        newState.mapMode = 'Facilities';
-        newState.exhibits = [];
-        newState.facilities = getFacilitiesArray(facilities);
-        break;
-      default:
-        newState.mapMode = 'none';
-        newState.exhibits = [];
-        newState.facilities = [];
-        break;
-    }
-    const newPlaces = newState.exhibits.concat(newState.facilities);
 
     this.setState({
-      places: newPlaces,
-      mapMode: newState.mapMode,
+      mapMode: mode,
     });
 
     this.clearPlaceInfo();
@@ -119,19 +83,18 @@ export default class Main extends React.Component { // eslint-disable-line react
    * @param  {Object} place
    */
   setExhibitToDefault(place) {
+    // Get the exhibits
+    const { exhibits } = this.state;
+
     // Get the key and the colorZone from the place
     const { key, colorZone } = place;
 
     // Set the specific exhibit to default
-    this.state.exhibits[colorZone][key].subType = 'default';
+    exhibits[colorZone][key].subType = 'default';
 
-    // Recreate the places array
-    const places = getPlacesArray(this.state.exhibits, this.state.facilities);
-
-    // Use the new places array
+    // Use the new exhibits object
     this.setState({
-      places,
-      mapMode: 'Discover',
+      exhibits,
     });
   }
 
@@ -142,18 +105,18 @@ export default class Main extends React.Component { // eslint-disable-line react
    * @param  {Object} place
    */
   setExhibitToRecommended(place) {
+    // Get the exhibits
+    const { exhibits } = this.state;
+
     // Get the key and the colorZone from the place
     const { key, colorZone } = place;
 
     // Set the specific exhibit to recommended
-    this.state.exhibits[colorZone][key].subType = 'recommended';
+    exhibits[colorZone][key].subType = 'recommended';
 
-    // Recreate the places array
-    const places = getPlacesArray(this.state.exhibits, this.state.facilities);
-
-    // Use the new places array
+    // Use the new exhibits object
     this.setState({
-      places,
+      exhibits,
     });
   }
 
@@ -164,18 +127,18 @@ export default class Main extends React.Component { // eslint-disable-line react
    * @param  {Object} place
    */
   setExhibitToBookmarked(place) {
+    // Get the exhibits
+    const { exhibits } = this.state;
+
     // Get the key and the colorZone from the place
     const { key, colorZone } = place;
 
     // Set the specific exhibit to bookmarked
-    this.state.exhibits[colorZone][key].subType = 'bookmarked';
+    exhibits[colorZone][key].subType = 'bookmarked';
 
-    // Recreate the places array
-    const places = getPlacesArray(this.state.exhibits, this.state.facilities);
-
-    // Use the new places array
+    // Use the new exhibits object
     this.setState({
-      places,
+      exhibits,
     });
   }
 
@@ -186,18 +149,18 @@ export default class Main extends React.Component { // eslint-disable-line react
    * @param  {Object} place
    */
   setExhibitToVisited(place) {
+    // Get the exhibits
+    const { exhibits } = this.state;
+
     // Get the key and the colorZone from the place
     const { key, colorZone } = place;
 
     // Set the specific exhibit to visited
-    this.state.exhibits[colorZone][key].subType = 'visited';
+    exhibits[colorZone][key].subType = 'visited';
 
-    // Recreate the places array
-    const places = getPlacesArray(this.state.exhibits, this.state.facilities);
-
-    // Use the new places array
+    // Use the new exhibits object
     this.setState({
-      places,
+      exhibits,
     });
   }
 
@@ -338,25 +301,32 @@ export default class Main extends React.Component { // eslint-disable-line react
   }
 
   render() {
+    const { exhibits, facilities, mapMode, zoom, center, detailedPlace, currentMarker, userLocation, locationEnabled } = this.state;
+
     return (
       <Wrapper>
         <Header onChangeMapMode={this.onChangeMapMode} mapMode={this.state.mapMode} />
         <MapWrapper>
           <Map
-            places={this.state.places}
-            zoom={this.state.zoom}
-            center={this.state.center}
-            userLocation={this.state.userLocation}
+            exhibits={exhibits}
+            facilities={facilities}
+            mapMode={mapMode}
+            zoom={zoom}
+            center={center}
+            userLocation={userLocation}
+            locationEnabled={locationEnabled}
+            currentMarker={currentMarker}
             clearPlaceInfo={this.clearPlaceInfo}
-            currentMarker={this.state.currentMarker}
             clickOnPlaceCard={this.clickOnPlaceCard}
           />
         </MapWrapper>
         <PlacesPanel
-          places={this.state.places}
-          mapMode={this.state.mapMode}
+          exhibits={exhibits}
+          facilities={facilities}
+          mapMode={mapMode}
+          detailedPlace={detailedPlace}
+          locationEnabled={locationEnabled}
           clearPlaceInfo={this.clearPlaceInfo}
-          detailedPlace={this.state.detailedPlace}
           clickOnPlaceCard={this.clickOnPlaceCard}
           navigateToPlace={this.navigateToPlace}
           likeExhibit={this.likeExhibit}

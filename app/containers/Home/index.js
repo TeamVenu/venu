@@ -1,6 +1,5 @@
 import React from 'react';
 import imagineRITData from 'fixtures/places.json';
-import { getPlacesArray } from 'utils/helpers';
 export default class Home extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     children: React.PropTypes.node,
@@ -32,12 +31,8 @@ export default class Home extends React.PureComponent { // eslint-disable-line r
     // Get facilities object
     const facilities = data.facilities;
 
-    // Put both arrays together
-    const places = getPlacesArray(exhibits, facilities);
-
     // Set state to save our data
     this.setState({
-      places,
       exhibits,
       facilities,
     });
@@ -45,14 +40,13 @@ export default class Home extends React.PureComponent { // eslint-disable-line r
 
   renderChildren() {
     const { children } = this.props;
-    const { exhibits, facilities, places } = this.state;
+    const { exhibits, facilities } = this.state;
 
     if (React.Children.count(children) > 0) {
       return React.Children.map(children, (c) => { // eslint-disable-line
         return React.cloneElement(c, this.props, {
           userName: 'Erick',
           userEmail: 'ejs3863@rit.edu',
-          places,
           exhibits,
           facilities,
         });

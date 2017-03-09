@@ -1,21 +1,54 @@
 import React, { PropTypes as T } from 'react';
+import { getExhibitsArray,
+  getFacilitiesArray,
+  filterExhibitsBy,
+} from 'utils/helpers';
 
 import Item from './Item';
 
-import { ListView as List, Title } from './styles';
+import { ListView as List } from './styles';
 
 export default class ListView extends React.Component { //eslint-disable-line
   // Specify which prop Type
   static propTypes = {
-    places: T.array,
-    mapMode: T.string,
+    exhibits: T.object.isRequired,
+    facilities: T.object.isRequired,
+    mapMode: T.string.isRequired,
     clickOnPlaceCard: T.func,
   }
 
   renderPlaces() {
-    const { places } = this.props;
+    // Get the props
+    const { exhibits, facilities, mapMode } = this.props;
 
-    if (!places) { return null; }
+    if (!exhibits || !facilities || !mapMode) { return null; }
+
+    // Initialize places
+    let places;
+
+    // For Itinerary
+    const property = 'subType'; // Filter with subType
+    const value = 'bookmarked'; // Value bookmarked
+
+    // Verify mapMode
+    switch (mapMode) {
+      // If mode is Itinerary
+      case 'Itinerary':
+        // We want to just show bookmarked places
+        places = filterExhibitsBy(exhibits, property, value);
+        break;
+      // If mode is Facilities
+      case 'Facilities':
+        // We want to just show facilities
+        places = getFacilitiesArray(facilities);
+        break;
+      // Otherwise mode is Discover
+      default:
+        // We want to show all exhibits
+        places = getExhibitsArray(exhibits, facilities);
+        break;
+    }
+
     return places.map((place) => { //eslint-disable-line
       return (
         <Item
@@ -27,34 +60,9 @@ export default class ListView extends React.Component { //eslint-disable-line
     });
   }
 
-  renderTitle() {
-    const { mapMode } = this.props;
-    let titleString = '';
-
-    switch (mapMode) {
-      case 'Discover':
-        titleString = 'Recommended For You';
-        break;
-      case 'Itinerary':
-        titleString = 'In Your Itinerary';
-        break;
-      case 'Facilities':
-        titleString = 'Facilities In Your Area';
-        break;
-      default:
-        titleString = null;
-        break;
-    }
-
-    return (
-      <Title>{titleString}</Title>
-    );
-  }
-
   render() {
     return (
       <List>
-        {this.renderTitle()}
         {this.renderPlaces()}
       </List>
     );

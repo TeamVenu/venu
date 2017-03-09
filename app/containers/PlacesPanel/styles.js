@@ -1,31 +1,64 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const scaleUp = keyframes`
+  0% {
+    transform: scale(0.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+`;
 
 export const Wrapper = styled.section`
+  height: 100%;
+  left: 0;
+  top: 50%;
   position: absolute;
-  bottom: -400px;
+  flex-direction: column;
+  order: 2;
+  flex: 1;
   background: var(--panel-background-gradient);
   box-shadow: 0 -10px 10px var(--black-background-opaque);
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
   z-index: 15;
+  transition: top 0.2s;
+  width: 100%;
+
+  &.full {
+    top: var(--topbar-height);
+  }
+
+  &.collapsed {
+    top: 75%;
+  }
 
   @media (min-width: 720px) {
     position: relative;
-    bottom: auto;
-    flex-basis: 30%;
     display: block;
+    flex-direction: row;
+    flex: 1;
+    flex-basis: 30%;
     box-shadow: -10 0px 10px var(--black-background-opaque);
-  }
+    top: 0;
+
+    &.full,
+    &.collapsed {
+      top: 0;
+    }
 `;
 
 export const Title = styled.h5`
   position: relative;
-  margin: 0;
+  width: 90%;
+  margin: 0 auto;
   font-size: 1em;
   color: var(--white);
   padding: var(--padding);
   font-weight: 400;
+
+  @media (min-width: 720px) {
+    width: 100%;
+  }
 `;
 
 export const HandleWrapper = styled.button`
@@ -48,7 +81,7 @@ export const HandleWrapper = styled.button`
 `;
 
 export const Handle = styled.span`
- /* Because Safari 😩 */
+ /* Center it lame way because Safari 😩 */
   position: absolute;
   left: 50%;
   top: 50%;
@@ -62,7 +95,8 @@ export const Handle = styled.span`
 
 // List View
 export const ListView = styled.ul`
-  display: block;
+  display: flex;
+  flex-direction: column;
   max-width: 90%;
   height: 100%;
   overflow-y: auto;
@@ -70,14 +104,21 @@ export const ListView = styled.ul`
   // Needs to be altered
   padding: 0 0 75vh;
 
+  .full & {
+    padding-bottom: 25vh;
+  }
+
+  .collapsed & {
+    padding-bottom: 90vh;
+  }
+
   @media (min-width: 720px) {
     max-width: none;
+    padding-bottom: 200px;
   }
 `;
 
 export const Item = styled.li`
-  display: flex;
-  flex-direction: column;
   background: var(--foreground-color);
   margin-bottom: var(--padding);
   padding: var(--padding);
@@ -160,7 +201,7 @@ export const ItemCategory = styled.p``;
 
 // Detail View
 export const DetailWrapper = styled.section`
-  padding: var(--padding) var(--padding) 75vh;
+  padding: var(--padding) var(--padding) 60vh;
   display: block;
   max-width: 100%;
   height: 100vh;
@@ -169,6 +210,15 @@ export const DetailWrapper = styled.section`
   background: var(--foreground-color);
   color: var(--background-color);
   border-top: 10px solid transparent;
+  animation: ${scaleUp} 0.2s;
+
+  .full & {
+    padding-bottom: 25vh;
+  }
+
+  .collapsed & {
+    padding-bottom: 85vh;
+  }
 
   &.recreationZone {
     border-color: var(--recreation-zone);
@@ -228,6 +278,7 @@ export const DetailWrapper = styled.section`
 
   @media (min-width: 720px) {
     // padding: 4.5em 2.5em;
+    padding-bottom: 200px;
   }
 
   @media (min-width: 1200px) {
@@ -239,7 +290,6 @@ export const DetailHeader = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: var(--padding);
 `;
 
 export const DetailSubHeader = styled.section`
@@ -277,6 +327,7 @@ export const DetailSectionTitle = styled.h3`
 export const DetailInfo = styled.p`
   font-size: 0.9em;
   font-weight: 300;
+  margin-bottom: var(--padding);
 `;
 
 export const FlexListView = styled.ul`
@@ -306,9 +357,6 @@ export const TagListItem = styled.li`
 
 export const DetailCTAButton = styled.button`
   // position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   align-self: flex-end;
   left: 0;
@@ -325,12 +373,7 @@ export const DetailCTAButton = styled.button`
   }
 
   @media (min-width: 720px) {
-      // right: 50%;
-      // bottom: 50%;
-      // transform: translateX(50%);
-      // right: 0;
-      // left: auto;
-      // width: 55vh;
+    position: relative;
   }
 
   .recreationZone & {
