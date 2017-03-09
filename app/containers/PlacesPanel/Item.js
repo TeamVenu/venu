@@ -69,7 +69,7 @@ export default class Item extends React.Component {
     // If a place has a distance then show that distance. Else show alternate text
     // TODO: Alt text should have an action that allows user to enable Location
     const distanceComponent = (place.distance) ? (
-      <DetailInfo>Distance: {place.distance}km</DetailInfo>
+      <DetailInfo>Distance: {place.distance} mi</DetailInfo>
     ) : null;
 
     // Tags
@@ -83,8 +83,7 @@ export default class Item extends React.Component {
         <DetailSubHeader>
           <DetailInfo>
             <span><strong>{locationBlurb}, </strong></span>
-            <span>{place.building}, </span>
-            <span>{place.imagineRitArea}</span>
+            <span>{place.building}</span>
           </DetailInfo>
           {distanceComponent}
         </DetailSubHeader>

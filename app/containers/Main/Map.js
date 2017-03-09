@@ -2,20 +2,22 @@ import React, { PropTypes as T, Component } from 'react';
 import GoogleMap from 'google-map-react';
 import Marker from 'components/Markers';
 import UserIcon from 'media/icons/user.png';
+import { getFacilitiesArray, getPlacesArray, filterExhibitsBy } from 'utils/helpers';
 import mapStyles from 'fixtures/map-styles.json';
 import { UserPinWrapper, UserPin, UserImage } from './styles';
-
 
 const MARKER_SIZE = 40;
 
 export default class Map extends Component {
   // Specifies the type of each prop
   static propTypes = {
-    bootStrapURLKeys: T.object,
-    center: T.object,
-    userLocation: T.object,
     zoom: T.number,
-    places: T.array,
+    center: T.object,
+    mapMode: T.string.isRequired,
+    exhibits: T.object.isRequired,
+    facilities: T.object.isRequired,
+    userLocation: T.object,
+    bootStrapURLKeys: T.object,
     defaultCenter: T.object,
     defaultZoom: T.number,
     onBoundsChange: T.func,
@@ -91,9 +93,35 @@ export default class Map extends Component {
    * If there are then it displays Markers for each place
    */
   renderPlaces() {
-    const { places } = this.props;
+    // Get the props
+    const { exhibits, facilities, mapMode } = this.props;
 
-    if (!places) { return null; }
+    if (!exhibits || !facilities || !mapMode) { return null; }
+
+    // Initialize places
+    let places;
+    // For Itinerary
+    const property = 'subType'; // Filter with subType
+    const value = 'bookmarked'; // Value bookmarked
+
+    // Verify mapMode
+    switch (mapMode) {
+      // If mode is Itinerary
+      case 'Itinerary':
+        // We want to just show bookmarked places
+        places = filterExhibitsBy(exhibits, property, value);
+        break;
+      // If mode is Facilities
+      case 'Facilities':
+        // We want to just show facilities
+        places = getFacilitiesArray(facilities);
+        break;
+      // Otherwise mode is Discover
+      default:
+        // We want to show all places
+        places = getPlacesArray(exhibits, facilities);
+        break;
+    }
 
     return places.map((place) => { //eslint-disable-line
       return (
