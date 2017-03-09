@@ -4,6 +4,7 @@
  * This is the first thing users see of our App, at the '/' route
  */
 import React, { PropTypes as T } from 'react';
+import { browserHistory } from 'react-router';
 import Header from 'components/Header';
 import PlacesPanel from 'containers/PlacesPanel';
 import Map from './Map';
@@ -12,6 +13,7 @@ import { Wrapper, MapWrapper } from './styles';
 export default class Main extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     children: T.object,
+    location: T.object,
   };
 
   constructor(props, context) {
@@ -33,8 +35,13 @@ export default class Main extends React.Component { // eslint-disable-line react
       },
       zoom: 20,
       currentMarker: {},
-      locationEnabled: false,
+      userName: children.userName,
+      userEmail: children.userEmail,
+      userInterests: children.userInterests,
+      locationEnabled: children.locationEnabled,
     };
+
+    this.onboardingFinish = this.onboardingFinish.bind(this);
 
     // Exhibit Settings
     this.setExhibitToDefault = this.setExhibitToDefault.bind(this);
@@ -56,7 +63,38 @@ export default class Main extends React.Component { // eslint-disable-line react
   componentWillMount() { }
 
   componentDidMount() {
-    this.askUserForLocation();
+    if (!this.props.location.state) {
+      browserHistory.push({
+        pathname: '/onboarding',
+        state: {
+          firstTime: true,
+        },
+      });
+    } else {
+      this.onboardingFinish(this.props.location.state).bind(this);
+    }
+  }
+
+  onboardingFinish(obj) {
+    console.log(obj);
+    const { userName, userEmail, userInterests, userLocation, locationEnabled } = obj;
+
+    // const { exhibits } = this.state;
+    // console.log(exhibits);
+    // userInterests.forEach((category) => {
+    //   // exhibits[category].forEach((exhibit) => {
+    //   //   console.log(exhibit.name);
+    //   // });
+    //   console.log(exhibits[category]);
+    // });
+
+    this.setState({
+      userName,
+      userEmail,
+      userInterests,
+      userLocation,
+      locationEnabled,
+    });
   }
 
   /**
@@ -164,7 +202,7 @@ export default class Main extends React.Component { // eslint-disable-line react
     });
   }
 
-    /**
+  /**
    * askUserForLocation
    * Prompts the user for access to their location
    */
@@ -262,6 +300,13 @@ export default class Main extends React.Component { // eslint-disable-line react
       lat: place.lat,
       lng: place.lng,
     };
+
+    // Crappy way
+    // Get the Panel Wrapper
+    const panel = document.getElementById('places-list-slider').parentNode;
+
+    // Remove collapsed class
+    panel.classList.remove('collapsed');
 
     this.setState({
       center: location,

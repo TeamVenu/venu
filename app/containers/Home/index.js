@@ -47,6 +47,8 @@ export default class Home extends React.PureComponent { // eslint-disable-line r
         return React.cloneElement(c, this.props, {
           userName: 'Erick',
           userEmail: 'ejs3863@rit.edu',
+          userInterests: null,
+          locationEnabled: false,
           exhibits,
           facilities,
         });

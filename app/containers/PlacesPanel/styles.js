@@ -1,19 +1,9 @@
-import styled, { keyframes } from 'styled-components';
-
-const scaleUp = keyframes`
-  0% {
-    transform: scale(0.5);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-`;
+import styled from 'styled-components';
 
 export const Wrapper = styled.section`
   height: 100%;
   left: 0;
-  top: 50%;
+  top: 55%;
   position: absolute;
   flex-direction: column;
   order: 2;
@@ -210,7 +200,6 @@ export const DetailWrapper = styled.section`
   background: var(--foreground-color);
   color: var(--background-color);
   border-top: 10px solid transparent;
-  animation: ${scaleUp} 0.2s;
 
   .full & {
     padding-bottom: 25vh;

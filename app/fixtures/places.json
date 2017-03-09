@@ -14,7 +14,7 @@
         "location": "RIT Bengal Statue",
         "ageRange": "all",
         "exhibitCode": "OUT-0500",
-        "category": "",
+        "category": "Physical Activity",
         "tags": [
           "General",
           "Physical"
@@ -65,7 +65,7 @@
         "location": "0100",
         "ageRange": "all",
         "exhibitCode": "SAU-0100",
-        "category": "General",
+        "category": "Books",
         "tags": [
           "General",
           "Books",
@@ -117,7 +117,7 @@
         "location": "Fireside Lounge",
         "ageRange": "all",
         "exhibitCode": "SAU-0130",
-        "category": "General",
+        "category": "Books",
         "tags": [
           "General",
           "ASL",
@@ -174,7 +174,7 @@
         "location": "1303",
         "ageRange": "all",
         "exhibitCode": "BOO-1303",
-        "category": "Art",
+        "category": "Visual",
         "tags": [
           "Music",
           "Visual",
@@ -200,7 +200,7 @@
         "location": "1320",
         "ageRange": "all",
         "exhibitCode": "BOO-1320",
-        "category": "Art",
+        "category": "Music",
         "tags": [
           "Music"
         ],
@@ -224,7 +224,7 @@
         "location": "Webb Auditorium",
         "ageRange": "all",
         "exhibitCode": "BOO-1350",
-        "category": "Art",
+        "category": "Installation",
         "tags": [
           "3D",
           "Installation"
@@ -249,7 +249,7 @@
         "location": "1420",
         "ageRange": "all",
         "exhibitCode": "BOO-1420",
-        "category": "Art",
+        "category": "Visual",
         "tags": [
           "Art"
         ],
@@ -273,7 +273,7 @@
         "location": "1440",
         "ageRange": "all",
         "exhibitCode": "BOO-1440",
-        "category": "Art",
+        "category": "Music",
         "tags": [
           "Music",
           "Interactive"
@@ -298,7 +298,7 @@
         "location": "1441",
         "ageRange": "all",
         "exhibitCode": "BOO-1441",
-        "category": "Art",
+        "category": "Music",
         "tags": [
           "Music",
           "Interactive"
@@ -323,7 +323,7 @@
         "location": "1480",
         "ageRange": "all",
         "exhibitCode": "BOO-1480",
-        "category": "Art",
+        "category": "Interactive",
         "tags": [
           "Interactive"
         ],
@@ -347,7 +347,7 @@
         "location": "Hallway near University Gallery",
         "ageRange": "all",
         "exhibitCode": "BOO-2917",
-        "category": "Art",
+        "category": "Books",
         "tags": [
           "Books",
           "Design"
