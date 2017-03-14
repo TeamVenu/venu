@@ -1,11 +1,6 @@
 import React, { PropTypes as T } from 'react';
-import { getExhibitsArray,
-  getFacilitiesArray,
-  filterExhibitsBy,
-} from 'utils/helpers';
-
+import { getFacilitiesArray, filterExhibitsBy } from 'utils/helpers';
 import Item from './Item';
-
 import { ListView as List } from './styles';
 
 export default class ListView extends React.Component { //eslint-disable-line
@@ -28,14 +23,15 @@ export default class ListView extends React.Component { //eslint-disable-line
 
     // For Itinerary
     const property = 'subType'; // Filter with subType
-    const value = 'bookmarked'; // Value bookmarked
+    const bookmarked = 'bookmarked'; // Value bookmarked
+    const recommended = 'recommended'; // Value recommended
 
     // Verify mapMode
     switch (mapMode) {
       // If mode is Itinerary
       case 'Itinerary':
         // We want to just show bookmarked places
-        places = filterExhibitsBy(exhibits, property, value);
+        places = filterExhibitsBy(exhibits, property, bookmarked);
         break;
       // If mode is Facilities
       case 'Facilities':
@@ -44,8 +40,8 @@ export default class ListView extends React.Component { //eslint-disable-line
         break;
       // Otherwise mode is Discover
       default:
-        // We want to show all exhibits
-        places = getExhibitsArray(exhibits, facilities);
+        // We want to just show bookmarked places
+        places = filterExhibitsBy(exhibits, property, recommended);
         break;
     }
 

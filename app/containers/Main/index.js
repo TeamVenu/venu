@@ -33,7 +33,7 @@ export default class Main extends React.Component { // eslint-disable-line react
         lat: 43.08516,
         lng: -77.677192,
       },
-      zoom: 20,
+      zoom: 19,
       currentMarker: {},
       userName: children.userName,
       userEmail: children.userEmail,
