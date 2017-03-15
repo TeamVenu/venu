@@ -102,3 +102,24 @@ export const OptionButton = styled.button`
     }
   }
 `;
+
+export const Header = styled.header`
+  margin-bottom: calc(var(--padding) * 2);
+`;
+
+export const Body = styled.section`
+  margin-bottom: calc(var(--padding) * 2);
+`;
+
+export const DescriptionList = styled.dl`
+
+`;
+
+export const DescriptionTitle = styled.dt`
+  margin-bottom: var(--padding);
+`;
+
+export const DescriptionDefinition = styled.dd`
+  margin-left: 0;
+  margin-bottom: calc(var(--padding) * 2);
+`;
