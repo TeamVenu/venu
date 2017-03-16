@@ -32,12 +32,24 @@ const makeSelectOnboardingValidation = () => createSelector(
   (onboardingState) => onboardingState.get('validation')
 );
 
+const makeSelectUserLocation = () => createSelector(
+  selectOnboarding,
+  (onboardingState) => onboardingState.get('userLocation')
+);
+
+const makeSelectGeolocationEnabled = () => createSelector(
+  selectOnboarding,
+  (onboardingState) => onboardingState.get('locationEnabled')
+);
+
 export {
   selectOnboarding,
   makeSelectOnboardingStage,
   makeSelectUser,
   makeSelectUserDisplayName,
   makeSelectUserEmail,
-  makeSelectOnboardingErrorMessages,
+  makeSelectUserLocation,
+  makeSelectGeolocationEnabled,
   makeSelectOnboardingValidation,
+  makeSelectOnboardingErrorMessages,
 };

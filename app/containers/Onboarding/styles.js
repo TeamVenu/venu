@@ -55,7 +55,7 @@ export const PrimaryButton = styled.button`
   width: 100%;
 `;
 
-export const Notification = styled.p`
+export const Alert = styled.p`
   margin-top: 2em;
   display: none;
   padding: var(--padding);
@@ -84,6 +84,7 @@ export const OptionList = styled.ul`
 `;
 
 export const OptionItem = styled.li`
+  padding: var(--padding);
   border-bottom: 1px solid var(--foreground-color);
 `;
 
@@ -130,4 +131,10 @@ export const DescriptionTitle = styled.dt`
 export const DescriptionDefinition = styled.dd`
   margin-left: 0;
   margin-bottom: calc(var(--padding) * 2);
+`;
+
+export const NumberedList = styled.ol`
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 `;

@@ -4,6 +4,7 @@ import { createStructuredSelector } from 'reselect';
 
 // Containers
 import AccountCreation from './AccountCreation';
+import GeolocationSetup from './GeolocationSetup';
 
 // Redux
 import { makeSelectOnboardingStage } from './selectors';
@@ -23,6 +24,9 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
       case 0:
         // Render Account Creation
         stageToRender = (<AccountCreation />);
+        break;
+      case 1:
+        stageToRender = (<GeolocationSetup />);
         break;
       // On default render AccountCreation
       default:
@@ -49,5 +53,5 @@ const mapStateToProps = createStructuredSelector({
   stage: makeSelectOnboardingStage(),
 });
 
-// Connect our app
+// Connect our Onboarding
 export default connect(mapStateToProps)(Onboarding);

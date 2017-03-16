@@ -7,6 +7,9 @@ import SmallWrapper from 'components/SmallWrapper';
 import TextField from 'components/TextField';
 import Button from 'components/Button';
 
+// Messages
+import messages from './messages';
+
 // Local Styles
 import {
   Header,
@@ -17,12 +20,20 @@ import {
   DescriptionDefinition,
 } from './styles';
 
-// Redux
-import { makeSelectUser, makeSelectOnboardingValidation, makeSelectOnboardingErrorMessages } from './selectors';
+// Selectors
+import {
+  makeSelectUser,
+  makeSelectOnboardingValidation,
+} from './selectors';
 
 // Dispatch Methods
-import { dispatchChangeDisplayName, dispatchChangeEmail, dispatchSubmitAccountCreation } from './helpers';
+import {
+  dispatchChangeDisplayName,
+  dispatchChangeEmail,
+  dispatchSubmitAccountCreation,
+} from './helpers';
 
+// AccountCreation
 export class AccountCreation extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   render() {
@@ -83,11 +94,13 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
     return (
       <SmallWrapper className="centered">
         <Header>
-          <h1>Welcome to Venu!</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam rem distinctio fugit et, consequatur molestias laudantium placeat laboriosam dolorum a voluptatum autem ipsa quasi quo minus, debitis nihil quaerat officia.</p>
+          <h1>{ messages.accountCreation.messages.title.defaultMessage }</h1>
+          <p>{ messages.accountCreation.messages.intro.defaultMessage }</p>
         </Header>
         <Body>
-          <h3>Create an account</h3>
+          <h3>
+            { messages.accountCreation.messages.subtitle.defaultMessage }
+          </h3>
           <DescriptionList>
             <DescriptionTitle>
               <Label
@@ -95,7 +108,7 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
                 id="usernameLabel"
                 className={usernameValidationClass}
               >
-                Enter your name:
+                { messages.accountCreation.messages.nameLabel.defaultMessage }
               </Label>
             </DescriptionTitle>
             <DescriptionDefinition>
@@ -116,7 +129,7 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
                 id="emailLabel"
                 className={emailValidationClass}
               >
-                Enter a valid email:
+                { messages.accountCreation.messages.emailLabel.defaultMessage }
               </Label>
             </DescriptionTitle>
             <DescriptionDefinition>
@@ -135,8 +148,8 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
           </DescriptionList>
         </Body>
         <Button
-          btnClasses="reversed full bordered"
-          name={'Next'}
+          btnClasses={'reversed full bordered'}
+          name={messages.buttons.messages.next.defaultMessage}
           onClickEvent={(e) => { onSubmitAccountCreation(e, this.props.user); }}
           isDisabled={!validData}
         />
@@ -167,8 +180,7 @@ export function mapDispatchToProps(dispatch) {
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
   validation: makeSelectOnboardingValidation(),
-  errorMessages: makeSelectOnboardingErrorMessages(),
 });
 
-// Connect our app
+// Connect our AccountCreation
 export default connect(mapStateToProps, mapDispatchToProps)(AccountCreation);

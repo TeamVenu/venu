@@ -3,6 +3,7 @@ import {
   CHANGE_USER_EMAIL,
   CHANGE_USER_DISPLAYNAME,
   ERROR_USER_ACCOUNT_CREATION,
+  SETUP_GEOLOCATION,
 } from './constants';
 
 export function changeUserDisplayName(name, valid) {
@@ -33,5 +34,14 @@ export function errorUserAccountCreation(errors) {
   return {
     type: ERROR_USER_ACCOUNT_CREATION,
     value: errors,
+  };
+}
+
+export function setupGeolocation(location, isEnabled, mode) {
+  return {
+    type: SETUP_GEOLOCATION,
+    value: location,
+    isEnabled,
+    mode,
   };
 }

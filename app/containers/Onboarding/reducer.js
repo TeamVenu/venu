@@ -4,7 +4,7 @@ import {
   CREATE_USER_ACCOUNT,
   CHANGE_USER_EMAIL,
   CHANGE_USER_DISPLAYNAME,
-  ERROR_USER_ACCOUNT_CREATION,
+  SETUP_GEOLOCATION,
 } from './constants';
 
 // Create our initial State
@@ -19,12 +19,15 @@ const initialState = fromJS({
       username: null,
       email: null,
     },
+    geolocationSetup: {
+      mode: '',
+    },
   },
-  errorMessages: {
-    accountCreation: [],
-    geolocation: [],
-    interestSelection: [],
+  userLocation: {
+    lat: 43.08516,
+    lng: -77.677192,
   },
+  locationEnabled: false,
 });
 
 function onboardingReducer(state = initialState, action) {
@@ -37,12 +40,15 @@ function onboardingReducer(state = initialState, action) {
       return state
               .setIn(['user', 'email'], action.value)
               .setIn(['validation', 'accountCreation', 'email'], action.valid);
-    case ERROR_USER_ACCOUNT_CREATION:
-      return state.setIn(['errorMessages', 'accountCreation'], action.value);
     case CREATE_USER_ACCOUNT:
       return state
-        .set('user', action.value)
-        .set('stage', action.stage);
+              .set('user', action.value)
+              .set('stage', action.stage);
+    case SETUP_GEOLOCATION:
+      return state
+              .set('userLocation', action.value)
+              .set('locationEnabled', action.isEnabled)
+              .setIn(['validation', 'geolocationSetup', 'mode'], action.mode);
     default:
       return state;
   }
