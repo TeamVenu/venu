@@ -45,7 +45,7 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
 
 // Set our PropTypes
 Onboarding.propTypes = {
-  stage: T.number,
+  stage: T.any,
 };
 
 // Map state to props

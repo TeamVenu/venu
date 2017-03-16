@@ -5,14 +5,22 @@ import {
   CHANGE_USER_EMAIL,
   CHANGE_USER_DISPLAYNAME,
   SETUP_GEOLOCATION,
+  CHANGE_PARKING_LOCATION,
+  ONBOARDING_PREV_STAGE,
+  ONBOARDING_NEXT_STAGE,
+  ONBOARDING_START_VENU,
 } from './constants';
 
 // Create our initial State
 const initialState = fromJS({
-  stage: 0,
+  stage: 1,
   user: {
     name: '',
     email: '',
+    location: {},
+    locationEnabled: null,
+    parking: {},
+    interests: [],
   },
   validation: {
     accountCreation: {
@@ -23,15 +31,15 @@ const initialState = fromJS({
       mode: '',
     },
   },
-  userLocation: {
-    lat: 43.08516,
-    lng: -77.677192,
-  },
-  locationEnabled: false,
 });
 
 function onboardingReducer(state = initialState, action) {
   switch (action.type) {
+    case ONBOARDING_PREV_STAGE:
+    case ONBOARDING_NEXT_STAGE:
+    case ONBOARDING_START_VENU:
+      return state
+              .set('stage', action.value);
     case CHANGE_USER_DISPLAYNAME:
       return state
               .setIn(['user', 'name'], action.value)
@@ -42,13 +50,15 @@ function onboardingReducer(state = initialState, action) {
               .setIn(['validation', 'accountCreation', 'email'], action.valid);
     case CREATE_USER_ACCOUNT:
       return state
-              .set('user', action.value)
               .set('stage', action.stage);
     case SETUP_GEOLOCATION:
       return state
-              .set('userLocation', action.value)
-              .set('locationEnabled', action.isEnabled)
+              .setIn(['user', 'location'], action.value)
+              .setIn(['user', 'locationEnabled'], action.isEnabled)
               .setIn(['validation', 'geolocationSetup', 'mode'], action.mode);
+    case CHANGE_PARKING_LOCATION:
+      return state
+              .setIn(['user', 'parking'], action.value);
     default:
       return state;
   }

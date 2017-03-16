@@ -23,6 +23,7 @@ import {
 // Selectors
 import {
   makeSelectUser,
+  makeSelectOnboardingStage,
   makeSelectOnboardingValidation,
 } from './selectors';
 
@@ -39,6 +40,7 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
   render() {
     // Get the props we need
     const {
+      stage,
       user,
       validation,
       onChangeDisplayName,
@@ -94,12 +96,12 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
     return (
       <SmallWrapper className="centered">
         <Header>
-          <h1>{ messages.accountCreation.messages.title.defaultMessage }</h1>
-          <p>{ messages.accountCreation.messages.intro.defaultMessage }</p>
+          <h1>{ messages.accountCreation.title.defaultMessage }</h1>
+          <p>{ messages.accountCreation.intro.defaultMessage }</p>
         </Header>
         <Body>
           <h3>
-            { messages.accountCreation.messages.subtitle.defaultMessage }
+            { messages.accountCreation.subtitle.defaultMessage }
           </h3>
           <DescriptionList>
             <DescriptionTitle>
@@ -108,7 +110,7 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
                 id="usernameLabel"
                 className={usernameValidationClass}
               >
-                { messages.accountCreation.messages.nameLabel.defaultMessage }
+                { messages.accountCreation.nameLabel.defaultMessage }
               </Label>
             </DescriptionTitle>
             <DescriptionDefinition>
@@ -129,7 +131,7 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
                 id="emailLabel"
                 className={emailValidationClass}
               >
-                { messages.accountCreation.messages.emailLabel.defaultMessage }
+                { messages.accountCreation.emailLabel.defaultMessage }
               </Label>
             </DescriptionTitle>
             <DescriptionDefinition>
@@ -149,8 +151,8 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
         </Body>
         <Button
           btnClasses={'reversed full bordered'}
-          name={messages.buttons.messages.next.defaultMessage}
-          onClickEvent={(e) => { onSubmitAccountCreation(e, this.props.user); }}
+          name={messages.buttons.next.defaultMessage}
+          onClickEvent={(e) => { onSubmitAccountCreation(e, this.props.user, stage); }}
           isDisabled={!validData}
         />
       </SmallWrapper>
@@ -160,6 +162,7 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
 
 // Set our PropTypes
 AccountCreation.propTypes = {
+  stage: T.any.isRequired,
   user: T.object,
   validation: T.object,
   onChangeDisplayName: T.func,
@@ -172,13 +175,14 @@ export function mapDispatchToProps(dispatch) {
   return {
     onChangeDisplayName: (event) => dispatchChangeDisplayName(dispatch, event),
     onChangeEmail: (event) => dispatchChangeEmail(dispatch, event),
-    onSubmitAccountCreation: (event, user) => dispatchSubmitAccountCreation(dispatch, event, user),
+    onSubmitAccountCreation: (event, user, stage) => dispatchSubmitAccountCreation(dispatch, event, user, stage),
   };
 }
 
 // Map state to props
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
+  stage: makeSelectOnboardingStage(),
   validation: makeSelectOnboardingValidation(),
 });
 

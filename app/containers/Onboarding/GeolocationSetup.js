@@ -6,6 +6,7 @@ import Ionicon from 'react-ionicons';
 // Components
 import SmallWrapper from 'components/SmallWrapper';
 import Button from 'components/Button';
+import Radio from 'components/Radio';
 
 // Messages
 import messages from './messages';
@@ -16,76 +17,185 @@ import {
   Body,
   Alert,
   // NumberedList,
-  // OptionItem,
+  OptionList,
+  OptionItem,
+  ButtonRow,
+  ButtonItem,
 } from './styles';
 
 // Selectors
 import {
   makeSelectUser,
-  makeSelectUserLocation,
-  makeSelectGeolocationEnabled,
+  makeSelectOnboardingStage,
   makeSelectOnboardingValidation,
 } from './selectors';
 
 // Dispatch Methods
 import {
   askUserToEnableLocation,
+  dispatchChangeParkingLocation,
+  dispatchGoToPreviousStage,
+  dispatchGoToNextStageFromGeolocation,
 } from './helpers';
 
 // GeolocationSetup
 export class GeolocationSetup extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
 
+    this.renderBodyContent = this.renderBodyContent.bind(this);
+    this.renderParkingLots = this.renderParkingLots.bind(this);
+  }
   componentDidMount() {
     const { onAskUserToEnableLocation } = this.props;
     onAskUserToEnableLocation();
   }
 
-  render() {
-    const { user, userLocation, validation, onAskUserToEnableLocation } = this.props;
+  renderParkingLots() {
+    const { onSetParkingLocation } = this.props;
+    const { lots } = messages.geolocationSetup.parking.lot;
+    return lots.map((lot) => { // eslint-disable-line
+      return (
+        <OptionItem key={lot.id}>
+          <Radio
+            id={lot.name}
+            name={'parkingLot'}
+            value={lot.value}
+            text={lot.defaultMessage}
+            type={'radio'}
+            onChangeEvent={(e) => {
+              // Get the array index from the value or the input
+              const index = e.target.value;
 
-    console.log(validation.get('geolocationSetup'));
-    console.log(userLocation);
+              // Get the location using the index
+              const location = lots[index].location;
+
+              // Set parking location using the location of the lot
+              onSetParkingLocation(location);
+            }}
+          />
+        </OptionItem>
+      );
+    });
+  }
+
+  renderBodyContent() {
+    const { user, validation, onSetParkingLocation } = this.props;
+    const mode = validation.getIn(['geolocationSetup', 'mode']);
+    const userLocation = user.get('location');
+
+    switch (mode) {
+      case 'succeeded':
+        return (
+          <section>
+            <Alert className={'show success'}>
+              <Ionicon icon={'icon ion-checkmark-round'} />
+              { messages.geolocationSetup.location.succeeded.defaultMessage }
+            </Alert>
+            <h4>{ messages.geolocationSetup.parking.title.defaultMessage }</h4>
+            <p>
+              { messages.geolocationSetup.parking.description.defaultMessage }
+            </p>
+            <OptionList>
+              <OptionItem>
+                <Radio
+                  id={'currentLocation'}
+                  name={'parkingLot'}
+                  value={'currentLocation'}
+                  text={'Set parking to current location'}
+                  type={'radio'}
+                  onChangeEvent={() => {
+                    // Set parking location using current location
+                    onSetParkingLocation(userLocation);
+                  }}
+                />
+              </OptionItem>
+              {this.renderParkingLots()}
+            </OptionList>
+          </section>
+        );
+      case 'failed':
+        return (
+          <div>
+            <Alert className={'show warning'}>
+              <Ionicon icon={'icon ion-alert'} />
+              { messages.geolocationSetup.location.failed.defaultMessage }
+            </Alert>
+            <Button
+              btnClasses={'reversed bordered full'}
+              name={messages.buttons.retryGeolocation.defaultMessage}
+              onClickEvent={() => { window.location.reload(); }}
+            />
+          </div>
+        );
+      case 'unavailable':
+        return (
+          <div>
+            <Alert className={'show error'}>
+              <Ionicon icon={'icon ion-close-round'} />
+              { messages.geolocationSetup.location.unavailable.defaultMessage }
+            </Alert>
+            <Button
+              btnClasses={'reversed bordered full'}
+              name={messages.buttons.retryGeolocation.defaultMessage}
+              onClickEvent={() => { window.location.reload(); }}
+            />
+          </div>
+        );
+      default:
+        return (
+          <Alert className={'show'}>
+            <Ionicon icon={'icon ion-load-d'} rotate />
+            { messages.geolocationSetup.location.retrieving.defaultMessage }
+          </Alert>
+        );
+    }
+  }
+
+  render() {
+    // Get the props we need
+    const { user, stage, onPrevStage, onNextStage } = this.props;
+    // Will show the update alert to user
+    const bodyContent = this.renderBodyContent;
+    // Store the user props we will use in an object
+    const userProps = {
+      stage,
+      name: user.get('name'),
+      location: user.get('location'),
+      locationEnabled: user.get('locationEnabled'),
+    };
+
+    // Checl if geolocation process is complete
+    const geolocationComplete = (userProps.location && (userProps.locationEnabled !== null));
+
     return (
       <SmallWrapper>
         <Header>
-          <h1>{messages.geolocationSetup.messages.title.defaultMessage}</h1>
+          <h1>{ messages.geolocationSetup.title.defaultMessage }</h1>
           <p>
-            Welcome {user.name}!
-            {messages.geolocationSetup.messages.intro.defaultMessage}
+            Welcome { userProps.name }!
+            { messages.geolocationSetup.intro.defaultMessage }
           </p>
         </Header>
         <Body>
-          <Alert className={'show'}>
-            <Ionicon icon={'icon ion-load-d'} rotate />
-            {messages.geolocationSetup.messages.location.retrieving.defaultMessage}
-          </Alert>
-          <Alert className={'show success'}>
-            <Ionicon icon={'icon ion-checkmark-round'} />
-            {messages.geolocationSetup.messages.location.succeeded.defaultMessage}
-          </Alert>
-          <Alert className={'show warning'}>
-            <Ionicon icon={'icon ion-alert'} />
-            {messages.geolocationSetup.messages.location.failed.defaultMessage}
-          </Alert>
-          <Alert className={'show error'}>
-            <Ionicon icon={'icon ion-close-round'} />
-            {messages.geolocationSetup.messages.location.unavailable.defaultMessage}
-          </Alert>
-          <Button
-            btnClasses={'reversed bordered full'}
-            name={messages.buttons.messages.retryGeolocation.defaultMessage}
-            onClickEvent={onAskUserToEnableLocation}
-          />
-          <Button
-            btnClasses={'reversed bordered'}
-            name={messages.buttons.messages.back.defaultMessage}
-            isDisabled
-          />
-          <Button
-            btnClasses={'reversed bordered'}
-            name={messages.buttons.messages.next.defaultMessage}
-            isDisabled
-          />
+          { bodyContent() }
+          <ButtonRow>
+            <ButtonItem>
+              <Button
+                btnClasses={'reversed bordered full'}
+                name={messages.buttons.back.defaultMessage}
+                onClickEvent={() => { onPrevStage(stage); }}
+              />
+            </ButtonItem>
+            <ButtonItem>
+              <Button
+                btnClasses={'reversed bordered full'}
+                name={messages.buttons.next.defaultMessage}
+                isDisabled={!geolocationComplete}
+                onClickEvent={() => { onNextStage(userProps); }}
+              />
+            </ButtonItem>
+          </ButtonRow>
         </Body>
       </SmallWrapper>
     );
@@ -95,22 +205,26 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
 // Set our PropTypes
 GeolocationSetup.propTypes = {
   user: T.object.isRequired,
-  userLocation: T.object,
-  // locationEnabled: T.bool,
+  stage: T.any.isRequired,
   validation: T.object,
   onAskUserToEnableLocation: T.func,
+  onSetParkingLocation: T.func,
+  onPrevStage: T.func,
+  onNextStage: T.func,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
     onAskUserToEnableLocation: () => askUserToEnableLocation(dispatch),
+    onSetParkingLocation: (location) => dispatchChangeParkingLocation(dispatch, location),
+    onPrevStage: (stage) => dispatchGoToPreviousStage(dispatch, stage),
+    onNextStage: (props) => dispatchGoToNextStageFromGeolocation(dispatch, props),
   };
 }
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
-  userLocation: makeSelectUserLocation(),
-  locationEnabled: makeSelectGeolocationEnabled(),
+  stage: makeSelectOnboardingStage(),
   validation: makeSelectOnboardingValidation(),
 });
 

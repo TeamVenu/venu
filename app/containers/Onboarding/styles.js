@@ -56,7 +56,7 @@ export const PrimaryButton = styled.button`
 `;
 
 export const Alert = styled.p`
-  margin-top: 2em;
+  margin: 2em 0;
   display: none;
   padding: var(--padding);
 
@@ -81,10 +81,10 @@ export const OptionList = styled.ul`
   margin-left: 0;
   padding-left: 0;
   list-style-type: none;
+  margin-bottom: 1em;
 `;
 
 export const OptionItem = styled.li`
-  padding: var(--padding);
   border-bottom: 1px solid var(--foreground-color);
 `;
 
@@ -137,4 +137,17 @@ export const NumberedList = styled.ol`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  margin-bottom: 1em;
+`;
+
+export const ButtonRow = styled.ul`
+  padding: 0;
+  list-style-type: none;
+  width: 100%;
+  display: flex;
+  flex-flow: row no-wrap;
+`;
+
+export const ButtonItem = styled.li`
+  flex-basis: 50%;
 `;
