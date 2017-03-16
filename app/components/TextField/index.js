@@ -1,5 +1,4 @@
 import React, { PropTypes as T } from 'react';
-import Ionicon from 'react-ionicons';
 import styled from 'styled-components';
 
 const Input = styled.input`
@@ -21,7 +20,6 @@ const Input = styled.input`
   &.invalid {
     border-color: var(--error-color-accent);
   }
-
 `;
 
 export default class TextField extends React.Component {
@@ -30,12 +28,12 @@ export default class TextField extends React.Component {
     inputClasses: T.string,
     isDisabled: T.bool,
     isRequired: T.bool,
-    isValid: T.bool,
     name: T.string,
     onChangeEvent: T.func,
     placeholderText: T.string,
     title: T.string,
     type: T.string,
+    value: T.string,
   };
 
   constructor(props) {
@@ -53,13 +51,14 @@ export default class TextField extends React.Component {
   }
 
   render() {
-    const { 
+    const {
       id,
       inputClasses,
       isDisabled,
       isRequired,
       name,
       placeholderText,
+      title,
       type,
       value,
     } = this.props;
@@ -71,6 +70,7 @@ export default class TextField extends React.Component {
         name={name}
         placeholder={placeholderText}
         type={type}
+        title={title}
         value={value}
         required={isRequired}
         disabled={isDisabled}

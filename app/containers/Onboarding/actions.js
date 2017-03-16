@@ -1,4 +1,4 @@
-import { 
+import {
   CREATE_USER_ACCOUNT,
   CHANGE_USER_EMAIL,
   CHANGE_USER_DISPLAYNAME,
@@ -9,7 +9,7 @@ export function changeUserDisplayName(name, valid) {
   return {
     type: CHANGE_USER_DISPLAYNAME,
     value: name,
-    valid: valid,
+    valid,
   };
 }
 
@@ -17,14 +17,15 @@ export function changeUserEmail(email, valid) {
   return {
     type: CHANGE_USER_EMAIL,
     value: email,
-    valid: valid,
+    valid,
   };
 }
 
-export function createUserAccount(user) {
+export function createUserAccount(user, stage) {
   return {
     type: CREATE_USER_ACCOUNT,
     value: user,
+    stage,
   };
 }
 

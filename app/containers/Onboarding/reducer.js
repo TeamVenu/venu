@@ -1,13 +1,15 @@
 import { fromJS } from 'immutable';
-import update from 'immutability-helper';
-import { 
+
+import {
   CREATE_USER_ACCOUNT,
   CHANGE_USER_EMAIL,
   CHANGE_USER_DISPLAYNAME,
   ERROR_USER_ACCOUNT_CREATION,
 } from './constants';
 
+// Create our initial State
 const initialState = fromJS({
+  stage: 0,
   user: {
     name: '',
     email: '',
@@ -37,6 +39,10 @@ function onboardingReducer(state = initialState, action) {
               .setIn(['validation', 'accountCreation', 'email'], action.valid);
     case ERROR_USER_ACCOUNT_CREATION:
       return state.setIn(['errorMessages', 'accountCreation'], action.value);
+    case CREATE_USER_ACCOUNT:
+      return state
+        .set('user', action.value)
+        .set('stage', action.stage);
     default:
       return state;
   }

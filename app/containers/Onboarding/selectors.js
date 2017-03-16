@@ -2,6 +2,11 @@ import { createSelector } from 'reselect';
 
 const selectOnboarding = (state) => state.get('onboarding');
 
+const makeSelectOnboardingStage = () => createSelector(
+  selectOnboarding,
+  (onboardingState) => onboardingState.get('stage')
+);
+
 const makeSelectUser = () => createSelector(
   selectOnboarding,
   (onboardingState) => onboardingState.get('user')
@@ -29,6 +34,7 @@ const makeSelectOnboardingValidation = () => createSelector(
 
 export {
   selectOnboarding,
+  makeSelectOnboardingStage,
   makeSelectUser,
   makeSelectUserDisplayName,
   makeSelectUserEmail,

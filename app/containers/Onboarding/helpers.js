@@ -2,17 +2,17 @@
 import isEmail from 'validator/lib/isEmail';
 
 // Actions
-import { changeUserDisplayName, changeUserEmail, createUserAccount, errorUserAccountCreation } from './actions';
+import { changeUserDisplayName, changeUserEmail, createUserAccount } from './actions';
 
 // Methods
 
 /**
- * onChangeDisplayName
+ * dispatchChangeDisplayName
  * Validates the name input and dispatches to redux
- * @param {Function} dispatch 
- * @param {Object} event 
+ * @param {Function} dispatch
+ * @param {Object} event
  */
-export function onChangeDisplayName(dispatch, event) {
+export function dispatchChangeDisplayName(dispatch, event) {
   // Cache the name
   const name = event.target.value;
 
@@ -24,12 +24,12 @@ export function onChangeDisplayName(dispatch, event) {
 }
 
 /**
- * onChangeEmail
+ * dispatchChangeEmail
  * Validates the email input and dispatches to redux
- * @param {Function} dispatch 
- * @param {Object} event 
+ * @param {Function} dispatch
+ * @param {Object} event
  */
-export function onChangeEmail(dispatch, event) {
+export function dispatchChangeEmail(dispatch, event) {
   // Cache the email
   const email = event.target.value;
 
@@ -44,10 +44,21 @@ export function onChangeEmail(dispatch, event) {
 /**
  * onSubmitAccountCreation
  * Dispatches username and email to redux
- * @param {Function} dispatch 
- * @param {Object} event 
+ * @param {Function} dispatch
+ * @param {Object} event
  */
-export function onSubmitAccountCreation (dispatch, event) {
-  // Dispatch our action
-  dispatch(createUserAccount(user));
+export function dispatchSubmitAccountCreation(dispatch, event, userProp) {
+  // Cache the user prop
+  const user = {
+    name: userProp.get('name'),
+    email: userProp.get('email'),
+  };
+
+  const stage = 1;
+
+  // Make on final validation check
+  if (user.name.length > 0 && isEmail(user.email)) {
+    // Dispatch our action
+    dispatch(createUserAccount(user, stage));
+  }
 }

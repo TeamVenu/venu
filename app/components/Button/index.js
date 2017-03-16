@@ -58,7 +58,7 @@ export default class Button extends React.Component {
   }
 
   render() {
-    const { name, icon, btnClasses, isDisabled, onClickEvent } = this.props;
+    const { name, icon, type, btnClasses, isDisabled, onClickEvent } = this.props;
 
     const iconComponent = (icon) ? (
       <Ionicon className={'icon'} icon={`icon ${icon}`} />
@@ -67,7 +67,7 @@ export default class Button extends React.Component {
     const clickEvent = (onClickEvent) ? this.handleClick : null;
 
     return (
-      <Btn className={btnClasses} onClick={clickEvent} disabled={isDisabled}>
+      <Btn type={type} className={btnClasses} onClick={clickEvent} disabled={isDisabled}>
         {iconComponent}
         {name}
       </Btn>

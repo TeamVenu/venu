@@ -1,11 +1,11 @@
 import React, { PropTypes as T } from 'react';
-import Ionicon from 'react-ionicons';
+
 import { NotificationList, NotificationHeader, NotificationItem } from './styles';
 
 export default class Notifiations extends React.Component {
   static propTypes = {
     type: T.string.isRequired,
-    visible: T.bool.isRequired,
+    messages: T.array,
   };
 
   constructor(props) {
@@ -23,7 +23,7 @@ export default class Notifiations extends React.Component {
 
     if (!messages) return null;
 
-    return messages.map((message) => {
+    return messages.map((message) => { // eslint-disable-line
       return (
         <NotificationItem key={messages.indexOf(message)}>{message}</NotificationItem>
       );
@@ -31,7 +31,7 @@ export default class Notifiations extends React.Component {
   }
 
   render() {
-    const { messages, type, visible } = this.props;
+    const { messages, type } = this.props;
 
     const notificationClass = (messages && messages.length > 0) ? `${type} visible` : type;
 
