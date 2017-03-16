@@ -12,6 +12,12 @@ const initialState = fromJS({
     name: '',
     email: '',
   },
+  validation: {
+    accountCreation: {
+      username: null,
+      email: null,
+    },
+  },
   errorMessages: {
     accountCreation: [],
     geolocation: [],
@@ -22,9 +28,13 @@ const initialState = fromJS({
 function onboardingReducer(state = initialState, action) {
   switch (action.type) {
     case CHANGE_USER_DISPLAYNAME:
-      return state.setIn(['user', 'name'], action.value);
+      return state
+              .setIn(['user', 'name'], action.value)
+              .setIn(['validation', 'accountCreation', 'username'], action.valid);
     case CHANGE_USER_EMAIL:
-      return state.setIn(['user', 'email'], action.value);
+      return state
+              .setIn(['user', 'email'], action.value)
+              .setIn(['validation', 'accountCreation', 'email'], action.valid);
     case ERROR_USER_ACCOUNT_CREATION:
       return state.setIn(['errorMessages', 'accountCreation'], action.value);
     default:

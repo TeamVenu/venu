@@ -5,17 +5,19 @@ import {
   ERROR_USER_ACCOUNT_CREATION,
 } from './constants';
 
-export function changeUserDisplayName(name) {
+export function changeUserDisplayName(name, valid) {
   return {
     type: CHANGE_USER_DISPLAYNAME,
     value: name,
+    valid: valid,
   };
 }
 
-export function changeUserEmail(email) {
+export function changeUserEmail(email, valid) {
   return {
     type: CHANGE_USER_EMAIL,
     value: email,
+    valid: valid,
   };
 }
 

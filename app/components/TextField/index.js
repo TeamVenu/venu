@@ -27,6 +27,7 @@ const Input = styled.input`
 export default class TextField extends React.Component {
   static propTypes = {
     id: T.string,
+    inputClasses: T.string,
     isDisabled: T.bool,
     isRequired: T.bool,
     isValid: T.bool,
@@ -54,6 +55,7 @@ export default class TextField extends React.Component {
   render() {
     const { 
       id,
+      inputClasses,
       isDisabled,
       isRequired,
       name,
@@ -64,6 +66,7 @@ export default class TextField extends React.Component {
 
     return (
       <Input
+        className={inputClasses}
         id={id}
         name={name}
         placeholder={placeholderText}

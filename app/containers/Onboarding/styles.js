@@ -20,6 +20,14 @@ export const Label = styled.label`
   display: block;
   text-align: left;
   margin-bottom: var(--padding);
+
+  &.valid {
+    color: var(--success-color-accent);
+  }
+
+  &.invalid {
+    color: var(--error-color-accent);
+  }
 `;
 
 export const Input = styled.input`

@@ -22,10 +22,16 @@ const makeSelectOnboardingErrorMessages = () => createSelector(
   (onboardingState) => onboardingState.get('errorMessages')
 );
 
+const makeSelectOnboardingValidation = () => createSelector(
+  selectOnboarding,
+  (onboardingState) => onboardingState.get('validation')
+);
+
 export {
   selectOnboarding,
   makeSelectUser,
   makeSelectUserDisplayName,
   makeSelectUserEmail,
   makeSelectOnboardingErrorMessages,
+  makeSelectOnboardingValidation,
 };

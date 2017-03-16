@@ -2,10 +2,6 @@ import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-// Validation
-import isAlphaNumeric from 'validator/lib/isAlphanumeric';
-import isEmail from 'validator/lib/isEmail';
-
 // Components
 import SmallWrapper from 'components/SmallWrapper';
 import TextField from 'components/TextField';
@@ -16,27 +12,72 @@ import Notifications from 'components/Notifications';
 import {
   Header,
   Body,
+  Label,
   DescriptionList,
   DescriptionTitle,
   DescriptionDefinition,
 } from './styles';
 
 // Redux
-import { changeUserDisplayName, changeUserEmail, createUserAccount, errorUserAccountCreation } from './actions';
-import {  makeSelectUser, makeSelectOnboardingErrorMessages } from './selectors';
+import {  makeSelectUser, makeSelectOnboardingValidation, makeSelectOnboardingErrorMessages } from './selectors';
+
+// Helper Methods
+import { onChangeDisplayName, onChangeEmail, onSubmitAccountCreation } from './helpers';
 
 export class Onboarding extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  static defaultProps = {
-    user: {
-      name: '',
-      email: '',
-    },
-  };
 
   render() {
-    const { user, errorMessages, onChangeDisplayName, onChangeEmail, onSubmitAccountCreation } = this.props;
+    // Get the props we need
+    const { 
+      user, 
+      validation, 
+      errorMessages, 
+      onChangeDisplayName, 
+      onChangeEmail, 
+      onSubmitAccountCreation 
+    } = this.props;
+
+    // Cache the username and email validation bool
+    const accountCreationValidation = {
+      username: validation.getIn(['accountCreation', 'username']),
+      email: validation.getIn(['accountCreation', 'email']),
+    };
+
+    // Verify that the data is valid so we can enable to button
+    const validData = (accountCreationValidation.username && accountCreationValidation.email) ? true : false;
+
+    // For input classes
+    let emailValidationClass,
+        usernameValidationClass;
+    
+    // Set a class for username based on whether it is valid or not
+    switch (accountCreationValidation.username) {
+      case null:
+        usernameValidationClass = null;
+        break;
+      case false:
+        usernameValidationClass = 'invalid';
+        break;
+      case true:
+        usernameValidationClass = 'valid';
+        break;
+    }
+
+    // Set a class for email based on whether it is valid or not
+    switch (accountCreationValidation.email) {
+      case null:
+        emailValidationClass = null;
+        break;
+      case false:
+        emailValidationClass = 'invalid';
+        break;
+      case true:
+        emailValidationClass = 'valid';
+        break;
+    }
+
     return (
-      <SmallWrapper className='cen2tered'>
+      <SmallWrapper className='centered'>
         <Notifications type='error' messages={errorMessages.get('accountCreation')} visible={false} />
         <Header>
           <h1>Welcome to Venu!</h1>
@@ -46,7 +87,7 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
           <h3>Create an account</h3>
           <DescriptionList>
             <DescriptionTitle>
-              <label htmlFor='usernameField' id='usernameLabel'>Enter your name:</label>
+              <Label htmlFor='usernameField' id='usernameLabel' className={usernameValidationClass}>Enter your name:</Label>
             </DescriptionTitle>
             <DescriptionDefinition>
               <TextField 
@@ -56,12 +97,13 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
                 type='text'
                 placeholderText='Jane'
                 value={user.name}
+                inputClasses={usernameValidationClass}
                 onChangeEvent={onChangeDisplayName}
                 isRequired={true}
               />
             </DescriptionDefinition>
             <DescriptionTitle>
-              <label htmlFor='emailField' label='emailLabel'>Enter your email:</label>
+              <Label htmlFor='emailField' id='emailLabel' className={emailValidationClass}>Enter a valid email:</Label>
             </DescriptionTitle>
             <DescriptionDefinition>
               <TextField
@@ -71,6 +113,7 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
                 placeholderText='jane@rit.edu'
                 title='Please enter a valid email.'
                 value={user.email}
+                inputClasses={emailValidationClass}
                 onChangeEvent={onChangeEmail}
                 isRequired={true}
                 />
@@ -81,16 +124,20 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
           btnClasses='reversed full bordered'
           name='Next'
           onClickEvent={onSubmitAccountCreation}
+          isDisabled={!validData}
           />
       </SmallWrapper>
     );
   }
 }
 
+// Set our PropTypes
 Onboarding.propTypes = {
   user: T.object,
+  validation: T.object,
 };
 
+// Map dispatch functions to props so we can call them
 export function mapDispatchToProps(dispatch) {
   return {
     onChangeDisplayName: (event) => onChangeDisplayName(dispatch, event),
@@ -99,72 +146,12 @@ export function mapDispatchToProps(dispatch) {
   };
 }
 
+// Map state to props
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
+  validation: makeSelectOnboardingValidation(),
   errorMessages: makeSelectOnboardingErrorMessages(),
 });
 
+// Connect our app
 export default connect(mapStateToProps, mapDispatchToProps)(Onboarding);
-
-function onChangeDisplayName(dispatch, event) {
-  const name = event.target.value;
-  const node = event.target;
-
-  if (isAlphaNumeric(name)) {
-    node.classList.remove('invalid');
-    node.classList.add('valid');
-  } else if(name === '') {
-    node.classList.remove('valid');
-    node.classList.remove('invalid');
-  } else {
-    node.classList.remove('valid');
-    node.classList.add('invalid');
-  }
-
-  dispatch(changeUserDisplayName(name));
-}
-
-function onChangeEmail(dispatch, event) {
-  const email = event.target.value;
-  const node = event.target;
-
-  if (isEmail(email)) {
-    node.classList.remove('invalid');
-    node.classList.add('valid');
-  } else if(email === '') {
-    node.classList.remove('valid');
-    node.classList.remove('invalid');
-  } else {
-    node.classList.remove('valid');
-    node.classList.add('invalid');
-  }
-
-  dispatch(changeUserEmail(email));
-}
-
-function onSubmitAccountCreation (dispatch, event) {
-  const name = document.getElementById('usernameField').value;
-  const email = document.getElementById('emailField').value;
-  const user = {
-    name,
-    email,
-  };
-  const errors = [];
-  let valid = true;
-
-  if (!isAlphaNumeric(user.name)) {
-    errors.push('Please enter a valid name!');
-    valid = false;
-  }
-
-  if (!isEmail(user.email)) {
-    errors.push('Please enter a valid email');
-    valid = false;
-  }
-
-  if (valid) {
-    dispatch(createUserAccount(user));
-  } else {
-    dispatch(errorUserAccountCreation(errors));
-  }
-}

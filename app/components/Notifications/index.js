@@ -14,8 +14,8 @@ export default class Notifiations extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
-    console.log('clicked');
+  handleClick(event) {
+    event.target.parentNode.classList.remove('visible');
   }
 
   renderMessages() {

@@ -27,6 +27,10 @@ const Btn = styled.button`
   &:focus {
     outline: 0;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
 
 export default class Button extends React.Component {
@@ -36,6 +40,7 @@ export default class Button extends React.Component {
     name: T.string,
     type: T.string,
     onClickEvent: T.func,
+    isDisabled: T.bool,
   }
 
   constructor(props) {
@@ -53,7 +58,7 @@ export default class Button extends React.Component {
   }
 
   render() {
-    const { name, icon, btnClasses, onClickEvent } = this.props;
+    const { name, icon, btnClasses, isDisabled, onClickEvent } = this.props;
 
     const iconComponent = (icon) ? (
       <Ionicon className={'icon'} icon={`icon ${icon}`} />
@@ -62,7 +67,7 @@ export default class Button extends React.Component {
     const clickEvent = (onClickEvent) ? this.handleClick : null;
 
     return (
-      <Btn className={btnClasses} onClick={clickEvent}>
+      <Btn className={btnClasses} onClick={clickEvent} disabled={isDisabled}>
         {iconComponent}
         {name}
       </Btn>
