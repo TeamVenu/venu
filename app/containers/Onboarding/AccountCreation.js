@@ -7,6 +7,18 @@ import SmallWrapper from 'components/SmallWrapper';
 import TextField from 'components/TextField';
 import Button from 'components/Button';
 
+// Global Selectors
+import {
+  makeSelectUser,
+  makeSelectOnboardingValidation,
+} from 'containers/App/selectors';
+
+// Global Helpers
+import {
+  dispatchChangeDisplayName,
+  dispatchChangeEmail,
+} from 'utils/helpers';
+
 // Messages
 import messages from './messages';
 
@@ -22,16 +34,14 @@ import {
 
 // Selectors
 import {
-  makeSelectUser,
+  // makeSelectUser,
   makeSelectOnboardingStage,
-  makeSelectOnboardingValidation,
+  // makeSelectOnboardingValidation,
 } from './selectors';
 
 // Dispatch Methods
 import {
-  dispatchChangeDisplayName,
-  dispatchChangeEmail,
-  dispatchSubmitAccountCreation,
+  dispatchGoToNextStageFromAccountCreation,
 } from './helpers';
 
 // AccountCreation
@@ -49,10 +59,7 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
     } = this.props;
 
     // Cache the username and email validation bool
-    const accountCreationValidation = {
-      username: validation.getIn(['accountCreation', 'username']),
-      email: validation.getIn(['accountCreation', 'email']),
-    };
+    const accountCreationValidation = validation.get('accountCreation').toJS();
 
     // Verify that the data is valid so we can enable to button
     const validData = (accountCreationValidation.username && accountCreationValidation.email);
@@ -119,7 +126,7 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
                 id="usernameField"
                 type="text"
                 placeholderText="Jane"
-                value={user.name}
+                value={user.get('name')}
                 inputClasses={usernameValidationClass}
                 onChangeEvent={onChangeDisplayName}
                 isRequired
@@ -141,7 +148,7 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
                 type="email"
                 placeholderText="jane@rit.edu"
                 title="Please enter a valid email."
-                value={user.email}
+                value={user.get('email')}
                 inputClasses={emailValidationClass}
                 onChangeEvent={onChangeEmail}
                 isRequired
@@ -175,7 +182,7 @@ export function mapDispatchToProps(dispatch) {
   return {
     onChangeDisplayName: (event) => dispatchChangeDisplayName(dispatch, event),
     onChangeEmail: (event) => dispatchChangeEmail(dispatch, event),
-    onSubmitAccountCreation: (event, user, stage) => dispatchSubmitAccountCreation(dispatch, event, user, stage),
+    onSubmitAccountCreation: (event, user, stage) => dispatchGoToNextStageFromAccountCreation(dispatch, event, user, stage),
   };
 }
 

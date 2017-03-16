@@ -8,6 +8,18 @@ import SmallWrapper from 'components/SmallWrapper';
 import Button from 'components/Button';
 import Radio from 'components/Radio';
 
+// Global Selectors
+import {
+  makeSelectUser,
+  makeSelectOnboardingValidation,
+} from 'containers/App/selectors';
+
+// Global Helpers
+import {
+  askUserToEnableLocation,
+  dispatchChangeParkingLocation,
+} from 'utils/helpers';
+
 // Messages
 import messages from './messages';
 
@@ -23,17 +35,13 @@ import {
   ButtonItem,
 } from './styles';
 
-// Selectors
+// Local Selectors
 import {
-  makeSelectUser,
   makeSelectOnboardingStage,
-  makeSelectOnboardingValidation,
 } from './selectors';
 
-// Dispatch Methods
+// Local Dispatch Methods
 import {
-  askUserToEnableLocation,
-  dispatchChangeParkingLocation,
   dispatchGoToPreviousStage,
   dispatchGoToNextStageFromGeolocation,
 } from './helpers';
@@ -165,7 +173,7 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
       locationEnabled: user.get('locationEnabled'),
     };
 
-    // Checl if geolocation process is complete
+    // Check if geolocation process is complete
     const geolocationComplete = (userProps.location && (userProps.locationEnabled !== null));
 
     return (
@@ -224,6 +232,7 @@ export function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
+  user2: makeSelectUser(),
   stage: makeSelectOnboardingStage(),
   validation: makeSelectOnboardingValidation(),
 });

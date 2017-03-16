@@ -12,16 +12,6 @@ const makeSelectUser = () => createSelector(
   (onboardingState) => onboardingState.get('user')
 );
 
-const makeSelectUserDisplayName = () => createSelector(
-  selectOnboarding,
-  (onboardingState) => onboardingState.getIn(['user', 'name'])
-);
-
-const makeSelectUserEmail = () => createSelector(
-  selectOnboarding,
-  (onboardingState) => onboardingState.getIn(['user', 'email'])
-);
-
 const makeSelectOnboardingErrorMessages = () => createSelector(
   selectOnboarding,
   (onboardingState) => onboardingState.get('errorMessages')
@@ -36,8 +26,6 @@ export {
   selectOnboarding,
   makeSelectOnboardingStage,
   makeSelectUser,
-  makeSelectUserDisplayName,
-  makeSelectUserEmail,
   makeSelectOnboardingValidation,
   makeSelectOnboardingErrorMessages,
 };
