@@ -30,10 +30,10 @@ export function changeUserLocation(location) {
   };
 }
 
-export function changeUserInterests(interest) {
+export function changeUserInterests(interests) {
   return {
     type: CHANGE_USER_INTERESTS,
-    value: interest,
+    value: interests,
   };
 }
 

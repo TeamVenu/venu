@@ -5,12 +5,15 @@ import { createStructuredSelector } from 'reselect';
 // Containers
 import AccountCreation from './AccountCreation';
 import GeolocationSetup from './GeolocationSetup';
+import InterestSelection from './InterestSelection';
 
 // Redux
 import { makeSelectOnboardingStage } from './selectors';
 
 export class Onboarding extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
+    // TODO: on case 3 start our app
+
     // Get the stage prop
     const { stage } = this.props;
 
@@ -25,8 +28,13 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
         // Render Account Creation
         stageToRender = (<AccountCreation />);
         break;
+      // Case 1: Render GeolocationSetup
       case 1:
         stageToRender = (<GeolocationSetup />);
+        break;
+      // Case 2: Render InterestSelection
+      case 2:
+        stageToRender = (<InterestSelection />);
         break;
       // On default render AccountCreation
       default:

@@ -310,4 +310,76 @@ export default defineMessages({
       },
     },
   },
+  interestSelection: {
+    id: 'venu.components.Onboarding.interestSelection',
+    title: {
+      id: 'venu.components.Onboarding.interestSelection.title',
+      defaultMessage: 'One last thing',
+    },
+    intro: {
+      id: 'venu.components.Onboarding.interestSelection.intro',
+      defaultMessage: 'Venu makes recommendations on activities you may enjoy. To tailor this process to meet your preferences, please select that following categories that may interest you.',
+    },
+    subtitle: {
+      id: 'venu.components.Onboarding.interestSelection.title',
+      defaultMessage: 'Choose your interests',
+    },
+    interests: [
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.asl',
+        defaultMessage: 'American Sign Language',
+        name: 'asl',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.general',
+        defaultMessage: 'General',
+        name: 'general',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.art',
+        defaultMessage: 'Art',
+        name: 'art',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.cultural',
+        defaultMessage: 'Cultural',
+        name: 'cultural',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.engineering',
+        defaultMessage: 'Engineering',
+        name: 'engineering',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.experimental',
+        defaultMessage: 'Experimental',
+        name: 'experimental',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.physicalActivity',
+        defaultMessage: 'Physical Activities',
+        name: 'physicalActivity',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.science',
+        defaultMessage: 'Science',
+        name: 'science',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.sustainability',
+        defaultMessage: 'Sustainability',
+        name: 'sustainability',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.technology',
+        defaultMessage: 'Technology',
+        name: 'technology',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.videoGames',
+        defaultMessage: 'Video Games',
+        name: 'videoGames',
+      },
+    ],
+  },
 });

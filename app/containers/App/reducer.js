@@ -17,8 +17,8 @@ import { fromJS } from 'immutable';
 import {
   CHANGE_USER_NAME,
   CHANGE_USER_EMAIL,
-  // CHANGE_USER_LOCATION,
-  // CHANGE_USER_INTERESTS,
+  CHANGE_USER_LOCATION,
+  CHANGE_USER_INTERESTS,
   CHANGE_PARKING_LOCATION,
   SETUP_GEOLOCATION,
 } from './constants';
@@ -68,6 +68,12 @@ function appReducer(state = initialState, action) {
     case CHANGE_PARKING_LOCATION:
       return state
               .setIn(['user', 'parking'], action.value);
+    case CHANGE_USER_LOCATION:
+      return state
+              .setIn(['user', 'location'], action.value);
+    case CHANGE_USER_INTERESTS:
+      return state
+              .setIn(['user', 'interests'], action.value);
     default:
       return state;
   }

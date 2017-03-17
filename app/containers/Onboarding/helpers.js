@@ -21,6 +21,17 @@ export function dispatchGoToPreviousStage(dispatch, stage) {
 }
 
 /**
+ * dispatchGoToNextStage
+ * Dispatches to the next stage
+ * @param {Function} dispatch
+ * @param {Number} stage
+ */
+export function dispatchGoToNextStage(dispatch, stage) {
+  const nextStage = stage + 1;
+  dispatch(goToNextStage(nextStage));
+}
+
+/**
  * dispatchGoToNextStageFromAccountCreation
  * Dispatches to next stage if email and name are valid
  * @param {Function} dispatch

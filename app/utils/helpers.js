@@ -6,6 +6,8 @@ import {
   changeUserEmail,
   changeParkingLocation,
   setupGeolocation,
+  changeUserInterests,
+  changeUserLocation,
 } from 'containers/App/actions';
 
 /**
@@ -45,6 +47,18 @@ export function dispatchChangeEmail(dispatch, event) {
 
 export function dispatchChangeParkingLocation(dispatch, location) {
   dispatch(changeParkingLocation(location));
+}
+
+export function dispatchChangeUserLocation(dispatch, location) {
+  if (location.lat && location.lng) {
+    dispatch(changeUserLocation(location));
+  }
+}
+
+export function dispatchChangeUserInterests(dispatch, interests) {
+  if (interests.length > 0) {
+    dispatch(changeUserInterests(interests));
+  }
 }
 
 /* Helper Methods */

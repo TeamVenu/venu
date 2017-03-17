@@ -4,7 +4,7 @@
  * This is the first thing users see of our App, at the '/' route
  */
 import React, { PropTypes as T } from 'react';
-import { browserHistory } from 'react-router';
+// import { browserHistory } from 'react-router';
 import Header from 'components/Header';
 import PlacesPanel from 'containers/PlacesPanel';
 import Map from './Map';
@@ -13,7 +13,7 @@ import { Wrapper, MapWrapper } from './styles';
 export default class Main extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     children: T.object,
-    location: T.object,
+    // location: T.object,
   };
 
   constructor(props, context) {
@@ -41,8 +41,6 @@ export default class Main extends React.Component { // eslint-disable-line react
       locationEnabled: children.locationEnabled,
     };
 
-    this.onboardingFinish = this.onboardingFinish.bind(this);
-
     // Exhibit Settings
     this.setExhibitToDefault = this.setExhibitToDefault.bind(this);
     this.setExhibitToRecommended = this.setExhibitToRecommended.bind(this);
@@ -63,38 +61,16 @@ export default class Main extends React.Component { // eslint-disable-line react
   componentWillMount() { }
 
   componentDidMount() {
-    if (!this.props.location.state) {
-      browserHistory.push({
-        pathname: '/onboarding',
-        state: {
-          firstTime: true,
-        },
-      });
-    } else {
-      this.onboardingFinish(this.props.location.state).bind(this);
-    }
-  }
-
-  onboardingFinish(obj) {
-    console.log(obj);
-    const { userName, userEmail, userInterests, userLocation, locationEnabled } = obj;
-
-    // const { exhibits } = this.state;
-    // console.log(exhibits);
-    // userInterests.forEach((category) => {
-    //   // exhibits[category].forEach((exhibit) => {
-    //   //   console.log(exhibit.name);
-    //   // });
-    //   console.log(exhibits[category]);
-    // });
-
-    this.setState({
-      userName,
-      userEmail,
-      userInterests,
-      userLocation,
-      locationEnabled,
-    });
+    // if (!this.props.location.state) {
+    //   browserHistory.push({
+    //     pathname: '/onboarding',
+    //     state: {
+    //       firstTime: true,
+    //     },
+    //   });
+    // } else {
+    //   this.onboardingFinish(this.props.location.state).bind(this);
+    // }
   }
 
   /**

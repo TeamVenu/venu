@@ -20,6 +20,17 @@ import {
   dispatchChangeParkingLocation,
 } from 'utils/helpers';
 
+// Local Selectors
+import {
+  makeSelectOnboardingStage,
+} from './selectors';
+
+// Local Dispatch Methods
+import {
+  dispatchGoToPreviousStage,
+  dispatchGoToNextStageFromGeolocation,
+} from './helpers';
+
 // Messages
 import messages from './messages';
 
@@ -34,17 +45,6 @@ import {
   ButtonRow,
   ButtonItem,
 } from './styles';
-
-// Local Selectors
-import {
-  makeSelectOnboardingStage,
-} from './selectors';
-
-// Local Dispatch Methods
-import {
-  dispatchGoToPreviousStage,
-  dispatchGoToNextStageFromGeolocation,
-} from './helpers';
 
 // GeolocationSetup
 export class GeolocationSetup extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function

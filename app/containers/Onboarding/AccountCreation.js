@@ -34,9 +34,7 @@ import {
 
 // Selectors
 import {
-  // makeSelectUser,
   makeSelectOnboardingStage,
-  // makeSelectOnboardingValidation,
 } from './selectors';
 
 // Dispatch Methods
