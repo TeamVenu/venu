@@ -18,7 +18,7 @@ import {
 import {
   askUserToEnableLocation,
   dispatchChangeParkingLocation,
-} from 'utils/helpers';
+} from 'containers/App/dispatches';
 
 // Local Selectors
 import {
@@ -29,7 +29,7 @@ import {
 import {
   dispatchGoToPreviousStage,
   dispatchGoToNextStageFromGeolocation,
-} from './helpers';
+} from './dispatches';
 
 // Messages
 import messages from './messages';
@@ -232,7 +232,6 @@ export function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
-  user2: makeSelectUser(),
   stage: makeSelectOnboardingStage(),
   validation: makeSelectOnboardingValidation(),
 });

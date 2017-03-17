@@ -17,7 +17,7 @@ import {
 import {
   dispatchChangeDisplayName,
   dispatchChangeEmail,
-} from 'utils/helpers';
+} from 'containers/App/dispatches';
 
 // Messages
 import messages from './messages';
@@ -40,7 +40,7 @@ import {
 // Dispatch Methods
 import {
   dispatchGoToNextStageFromAccountCreation,
-} from './helpers';
+} from './dispatches';
 
 // AccountCreation
 export class AccountCreation extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function

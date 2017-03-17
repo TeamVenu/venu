@@ -16,7 +16,7 @@ import {
 // Global Helpers
 import {
   dispatchChangeUserInterests,
-} from 'utils/helpers';
+} from 'containers/App/dispatches';
 
 // Selectors
 import {
@@ -27,7 +27,7 @@ import {
 import {
   dispatchGoToPreviousStage,
   dispatchGoToNextStage,
-} from './helpers';
+} from './dispatches';
 
 // Messages
 import messages from './messages';

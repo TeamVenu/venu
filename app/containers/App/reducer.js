@@ -13,6 +13,8 @@
  */
 
 import { fromJS } from 'immutable';
+import imagineRITData from 'fixtures/places.json';
+import mapStyles from 'fixtures/map-styles.json';
 
 import {
   CHANGE_USER_NAME,
@@ -21,18 +23,24 @@ import {
   CHANGE_USER_INTERESTS,
   CHANGE_PARKING_LOCATION,
   SETUP_GEOLOCATION,
+  CHANGE_MAP_MODE,
 } from './constants';
 
 // Initial State of the App
 const initialState = fromJS({
+  // User props
   user: {
     name: '',
     email: '',
-    location: {},
+    location: {
+      lat: 43.084167,
+      lng: -77.677085,
+    },
     locationEnabled: null,
     parking: {},
     interests: [],
   },
+  // Onboarding validation props
   validation: {
     accountCreation: {
       username: null,
@@ -42,6 +50,32 @@ const initialState = fromJS({
       mode: '',
     },
   },
+  // Main props
+  exhibits: imagineRITData.exhibits,
+  facilities: imagineRITData.facilities,
+  mapMode: 'Discover',
+  // Map props
+  venuMap: {
+    bootstrapURLKeys: {
+      key: 'AIzaSyCC_hT5gMai_hZh8JSnlFzFOCTetRBYhQg',
+      language: 'en',
+    },
+    center: {
+      lat: 43.084167,
+      lng: -77.677085,
+    },
+    markerSize: 40,
+    options: {
+      clickableIcons: false,
+      zoomControl: true,
+      styles: mapStyles,
+    },
+    zoom: 20,
+  },
+  // Current place
+  currentPlace: {},
+  // Detail View props
+  detailViewActions: {},
 });
 
 /**
@@ -74,6 +108,9 @@ function appReducer(state = initialState, action) {
     case CHANGE_USER_INTERESTS:
       return state
               .setIn(['user', 'interests'], action.value);
+    case CHANGE_MAP_MODE:
+      return state
+              .set('mapMode', action.value);
     default:
       return state;
   }
