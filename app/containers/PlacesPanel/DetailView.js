@@ -161,7 +161,7 @@ export default class DetailView extends React.Component { // eslint-disable-line
     // Subtype Blurb
     // Tells us whether place is in Itinerary or Recommended
     // Placeholder these are some of the options for Primary Button
-    const NavigateButtonPrimary = (<DetailCTAButton onClick={this.navigateToPlace}><Ionicon icon={'icon ion-navigate'} /> Navitage</DetailCTAButton>);
+    const NavigateButtonPrimary = (<DetailCTAButton onClick={this.navigateToPlace}><Ionicon icon={'icon ion-navigate'} /> Navigate</DetailCTAButton>);
     const CheckInButtonPrimary = (<DetailCTAButton onClick={this.setExhibitToVisited}><Ionicon icon={'icon ion-checkmark-round'} /> Check-in</DetailCTAButton>);
     const AddToItineraryButtonPrimary = (<DetailCTAButton onClick={this.setExhibitToBookmarked}><Ionicon icon={'icon ion-plus'} /> Add to Itinerary</DetailCTAButton>);
     const LikeExhibitButtonPrimary = (<DetailCTAButton onClick={this.likeExhibit}><Ionicon icon={'icon ion-thumbsup'} /> Like</DetailCTAButton>);

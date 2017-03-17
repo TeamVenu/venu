@@ -6,7 +6,7 @@ import Ionicon from 'react-ionicons';
 // Components
 import SmallWrapper from 'components/SmallWrapper';
 import Button from 'components/Button';
-import Radio from 'components/Radio';
+import Radio from 'components/Input';
 
 // Global Selectors
 import {

@@ -5,7 +5,7 @@ import { createStructuredSelector } from 'reselect';
 // Components
 import SmallWrapper from 'components/SmallWrapper';
 import Button from 'components/Button';
-import Radio from 'components/Radio';
+import Checkbox from 'components/Input';
 
 // Global Selectors
 import {
@@ -73,7 +73,7 @@ export class InterestSelection extends React.PureComponent { // eslint-disable-l
     return interests.map((interest) => { // eslint-disable-line
       return (
         <OptionItem key={interest.name}>
-          <Radio
+          <Checkbox
             id={interest.name}
             name={'interests'}
             value={interest.defaultMessage}

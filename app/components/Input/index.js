@@ -2,7 +2,7 @@ import React, { PropTypes as T } from 'react';
 import styled from 'styled-components';
 import Ionicon from 'react-ionicons';
 
-const Input = styled.input`
+const HiddenInput = styled.input`
   display: none;
 
   &:checked + label {
@@ -26,7 +26,7 @@ const Label = styled.label`
   }
 `;
 
-export default class Radio extends React.Component {
+export default class Input extends React.Component {
   static propTypes = {
     id: T.string.isRequired,
     name: T.string.isRequired,
@@ -55,7 +55,7 @@ export default class Radio extends React.Component {
 
     return (
       <div>
-        <Input
+        <HiddenInput
           id={id}
           type={type}
           name={name}
