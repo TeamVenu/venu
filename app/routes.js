@@ -50,6 +50,15 @@ export default function createRoutes(store) {
       },
     },
     {
+      path: '/onboarding',
+      name: 'onboarding',
+      getComponent(nextState, cb) {
+        import('containers/Onboarding')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    },
+    {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
