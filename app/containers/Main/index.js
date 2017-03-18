@@ -22,6 +22,7 @@ import {
 import Header from './Header';
 // import PlacesPanel from 'containers/PlacesPanel'; // Change to be local
 import VenuMap from './Map';
+import Panel from './Panel';
 
 // Local components
 import {
@@ -40,6 +41,7 @@ export class Main extends React.PureComponent { // eslint-disable-line react/pre
         <MapWrapper>
           <VenuMap />
         </MapWrapper>
+        <Panel />
       </Wrapper>
     );
   }
