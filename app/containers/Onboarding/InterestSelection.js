@@ -53,16 +53,19 @@ export class InterestSelection extends React.PureComponent { // eslint-disable-l
     const allInterests = document.getElementsByName('interests');
     const { stage, onNextStage } = this.props;
     const interests = [];
+    let interestString = '';
 
     // Loop through elements
     allInterests.forEach((interest) => {
       if (interest.checked) {
+        interestString += `${interest.value}-`;
         interests.push(interest.value);
       }
     });
 
     // If we have interests then finish onboarding
     if (interests.length > 0) {
+      localStorage.setItem('venuUserInterests', interestString);
       onNextStage(stage, interests);
     }
   }

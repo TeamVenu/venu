@@ -28,25 +28,46 @@ import {
   CHANGE_SELECTED_PLACE,
 } from './constants';
 
+// Returns intial user stage with localStorage
+function createInitialUserState() {
+  const name = (localStorage.getItem('venuUserName')) ? localStorage.getItem('venuUserName') : '';
+  const email = (localStorage.getItem('venuUserEmail')) ? localStorage.getItem('venuUserEmail') : '';
+  const locationLat = (localStorage.getItem('venuUserLocationLat')) ? parseFloat(localStorage.getItem('venuUserLocationLat')) : 43.084167;
+  const locationLng = (localStorage.getItem('venuUserLocationLng')) ? parseFloat(localStorage.getItem('venuUserLocationLng')) : -77.677085;
+  const locationEnabled = (localStorage.getItem('venuUserLocationEnabled')) ? localStorage.getItem('venuUserLocationEnabled') : null;
+  const parkingLat = (localStorage.getItem('venuParkingLocationLat')) ? parseFloat(localStorage.getItem('venuParkingLocationLat')) : null;
+  const parkingLng = (localStorage.getItem('venuParkingLocationLng')) ? parseFloat(localStorage.getItem('venuParkingLocationLng')) : null;
+  const interestString = (localStorage.getItem('venuUserInterests')) ? localStorage.getItem('venuUserInterests').slice(0, -1) : '';
+  const interests = (interestString.length > 0) ? interestString.split('-') : [];
+
+  return {
+    name,
+    email,
+    location: {
+      lat: locationLat,
+      lng: locationLng,
+    },
+    locationEnabled,
+    parking: {
+      lat: parkingLat,
+      lng: parkingLng,
+    },
+    interests,
+  };
+}
+
+// Create an intial user state with localStorage
+const initialUserState = createInitialUserState();
+
 // Initial State of the App
 const initialState = fromJS({
   // User props
-  user: {
-    name: '',
-    email: '',
-    location: {
-      lat: 43.084167,
-      lng: -77.677085,
-    },
-    locationEnabled: null,
-    parking: {},
-    interests: [],
-  },
+  user: initialUserState,
   // Onboarding validation props
   validation: {
     accountCreation: {
-      username: null,
-      email: null,
+      username: (localStorage.getItem('venuAccountValidationName')) ? true : null,
+      email: (localStorage.getItem('venuAccountValidationEmail')) ? true : null,
     },
     geolocationSetup: {
       mode: '',

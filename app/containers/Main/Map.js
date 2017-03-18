@@ -40,7 +40,11 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
 
   renderUserPin() {
     const { user, onChangeMapCenter } = this.props;
-    const location = user.get('location').toJS();
+
+    // user location may be an immutable or an object so make a check
+    // If it is an object we can use it
+    // Otherwise turn it into a JS object using .JS()
+    const location = (user.get('location').lat) ? user.get('location') : user.get('location').toJS();
     const name = (user.get('name') !== '') ? user.get('name') : 'User';
 
     return (

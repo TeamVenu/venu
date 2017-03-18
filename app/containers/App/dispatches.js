@@ -26,6 +26,12 @@ export function dispatchChangeDisplayName(dispatch, event) {
   // If name is not empty string set to true
   const valid = (name.length > 0) ? true : null;
 
+  if (valid) {
+    // Set local storage so we don't have to repeat these steps on reload
+    localStorage.setItem('venuUserName', name);
+    localStorage.setItem('venuAccountValidationName', valid);
+  }
+
   // Dispatch our action
   dispatch(changeUserName(name, valid));
 }
@@ -44,6 +50,12 @@ export function dispatchChangeEmail(dispatch, event) {
   // Check if email is a valid email
   const valid = (email.length > 0) ? isEmail(email) : null;
 
+  if (valid) {
+    // Set local storage so we don't have to repeat these steps on reload
+    localStorage.setItem('venuUserEmail', email);
+    localStorage.setItem('venuAccountValidationEmail', valid);
+  }
+
   // Dispatch our action
   dispatch(changeUserEmail(email, valid));
 }
@@ -55,6 +67,8 @@ export function dispatchChangeEmail(dispatch, event) {
  * @param {Object} location
  */
 export function dispatchChangeParkingLocation(dispatch, location) {
+  localStorage.setItem('venuParkingLocationLat', location.lat);
+  localStorage.setItem('venuParkingLocationLng', location.lng);
   dispatch(changeParkingLocation(location));
 }
 
@@ -113,6 +127,10 @@ export function askUserToEnableLocation(dispatch) {
     // a. Not supported by device or
     // b. Disabled by device
     console.warn('⚠️🗺 Geolocation is not available');
+    // Set local storage so we don't have to repeat these steps on reload
+    localStorage.setItem('venuUserLocationLat', location.lat);
+    localStorage.setItem('venuUserLocationLng', location.lng);
+    localStorage.setItem('venuUserLocationEnabled', enabled);
     dispatch(setupGeolocation(location, enabled, 'unavailable'));
   }
 }
@@ -130,6 +148,10 @@ export function retrieveUserLocationSucceeded(dispatch, position) {
   };
 
   const enabled = true;
+  // Set local storage so we don't have to repeat these steps on reload
+  localStorage.setItem('venuUserLocationLat', location.lat);
+  localStorage.setItem('venuUserLocationLng', location.lng);
+  localStorage.setItem('venuUserLocationEnabled', enabled);
   dispatch(setupGeolocation(location, enabled, 'succeeded'));
 }
 
@@ -142,6 +164,10 @@ export function retrieveUserLocationSucceeded(dispatch, position) {
 export function retrieveUserLocationFailed(dispatch, location) {
   const enabled = false;
   console.warn(' ⛔️ 📍 Unable to retrieve location, user might have declined to use location');
+  // Set local storage so we don't have to repeat these steps on reload
+  localStorage.setItem('venuUserLocationLat', location.lat);
+  localStorage.setItem('venuUserLocationLng', location.lng);
+  localStorage.setItem('venuUserLocationEnabled', enabled);
   dispatch(setupGeolocation(location, enabled, 'failed'));
 }
 

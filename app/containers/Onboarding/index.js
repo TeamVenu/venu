@@ -1,5 +1,6 @@
 import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 
 // Containers
@@ -11,6 +12,18 @@ import InterestSelection from './InterestSelection';
 import { makeSelectOnboardingStage } from './selectors';
 
 export class Onboarding extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
+  // Occurs after component updated
+  componentDidUpdate() {
+    const { stage } = this.props;
+
+    if (stage > 2) {
+      browserHistory.push({
+        pathname: '/',
+      });
+    }
+  }
+
   render() {
     // TODO: on case 3 start our app
 
@@ -35,6 +48,11 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
       // Case 2: Render InterestSelection
       case 2:
         stageToRender = (<InterestSelection />);
+        break;
+      case 3:
+        // Empty div, we're leaving Onboarding
+        // TODO: Make this display a loading screen
+        stageToRender = (<div />);
         break;
       // On default render AccountCreation
       default:

@@ -36,6 +36,7 @@ export class ListView extends React.PureComponent { // eslint-disable-line react
 
     const exhibitsObj = exhibits.toJS();
     const facilitiesObj = facilities.toJS();
+    const detailedPlace = (currentPlace.name) ? currentPlace : currentPlace.toJS();
 
     if (!exhibits || !facilities) return null;
 
@@ -65,13 +66,12 @@ export class ListView extends React.PureComponent { // eslint-disable-line react
         places = filterExhibitsBy(exhibitsObj, property, recommended);
         break;
     }
-
     return places.map((place) => { // eslint-disable-line
       return (
         <Item
           key={place.id}
           place={place}
-          currentPlace={currentPlace.toJS()}
+          currentPlace={detailedPlace}
           onClickEvent={onSelectPlace}
         />
       );
