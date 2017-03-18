@@ -24,6 +24,8 @@ import {
   CHANGE_PARKING_LOCATION,
   SETUP_GEOLOCATION,
   CHANGE_MAP_MODE,
+  CHANGE_MAP_CENTER,
+  CHANGE_SELECTED_PLACE,
 } from './constants';
 
 // Initial State of the App
@@ -67,7 +69,7 @@ const initialState = fromJS({
     markerSize: 40,
     options: {
       clickableIcons: false,
-      zoomControl: true,
+      zoomControl: false,
       styles: mapStyles,
     },
     zoom: 20,
@@ -111,6 +113,12 @@ function appReducer(state = initialState, action) {
     case CHANGE_MAP_MODE:
       return state
               .set('mapMode', action.value);
+    case CHANGE_SELECTED_PLACE:
+      return state
+              .set('currentPlace', action.value);
+    case CHANGE_MAP_CENTER:
+      return state
+              .setIn(['venuMap', 'center'], action.value);
     default:
       return state;
   }

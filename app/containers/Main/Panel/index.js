@@ -28,8 +28,7 @@ import {
 import messages from './messages';
 
 // Local components
-// import DetailView from './DetailView';
-// import ListView from './ListView';
+import ListView from './ListView';
 
 import {
   Wrapper,
@@ -44,8 +43,6 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
 
     // Bind Render events
     this.renderTitle = this.renderTitle.bind(this);
-    this.renderPlacesListView = this.renderPlacesListView.bind(this);
-    this.renderPlaceDetailView = this.renderPlaceDetailView.bind(this);
 
     // Bind Mouse events
     this.handleMouseDown = this.handleMouseDown.bind(this);
@@ -341,28 +338,8 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
     );
   }
 
-  renderPlacesListView() {
-    return null;
-  }
-
-  renderPlaceDetailView() {
-    return null;
-  }
-
   render() {
-    const { currentPlace, panelProps } = this.props;
-
-    // const props = panelProps.toJS();
-
-    // console.log('current place');
-    // console.log(currentPlace);
-
-    const detailedPlace = currentPlace.toJS();
-
-    // console.log('detailed place');
-    // console.log(detailedPlace);
-
-    const viewMode = (detailedPlace) ? this.renderPlaceDetailView() : this.renderPlacesListView();
+    const { panelProps } = this.props;
 
     return (
       <Wrapper style={panelProps.inlineStyles} className={panelProps.panelClass}>
@@ -374,7 +351,7 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
           <Handle />
         </HandleWrapper>
         { this.renderTitle() }
-        { viewMode }
+        <ListView />
       </Wrapper>
     );
   }

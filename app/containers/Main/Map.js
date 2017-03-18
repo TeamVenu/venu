@@ -13,13 +13,21 @@ import {
   makeSelectCurrentPlace,
 } from 'containers/App/selectors';
 
+// Dispatches
+import {
+  dispatchChangeMapCenter,
+  dispatchChangeCurrentPlace,
+} from 'containers/App/dispatches';
+
 import Marker from 'components/Markers';
 import UserIcon from 'media/icons/user.png';
+
 import {
-  // getFacilitiesArray,
   getPlacesArray,
-  // filterExhibitsBy,
+  filterExhibitsBy,
+  getFacilitiesArray,
 } from 'utils/helpers';
+
 import { UserPinWrapper, UserPin, UserImage } from './styles';
 
 export class VenuMap extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -31,12 +39,12 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
   }
 
   renderUserPin() {
-    const { user } = this.props;
+    const { user, onChangeMapCenter } = this.props;
     const location = user.get('location').toJS();
     const name = (user.get('name') !== '') ? user.get('name') : 'User';
 
     return (
-      <UserPinWrapper lat={location.lat} lng={location.lng}>
+      <UserPinWrapper lat={location.lat} lng={location.lng} onClick={() => { onChangeMapCenter(location); }}>
         <UserPin>
           <UserImage alt={`${name}'s Profile Picture`} src={UserIcon} />
         </UserPin>
@@ -45,14 +53,28 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
   }
 
   renderPlacesPin() {
-    const { exhibits, facilities } = this.props;
+    const { mapMode, exhibits, facilities, currentPlace, onSelectPlace } = this.props;
 
     const exhibitsObj = exhibits.toJS();
     const facilitiesObj = facilities.toJS();
+    let places;
+    const placeProperty = 'subType';
+    const bookmarked = 'bookmarked';
 
     if (!exhibits || !facilities) return null;
 
-    const places = getPlacesArray(exhibitsObj, facilitiesObj);
+    switch (mapMode) {
+      case 'Itinerary':
+        places = filterExhibitsBy(exhibitsObj, placeProperty, bookmarked);
+        break;
+      case 'Facilities':
+        places = getFacilitiesArray(facilitiesObj);
+        break;
+      case 'Discover':
+      default:
+        places = getPlacesArray(exhibitsObj, facilitiesObj);
+        break;
+    }
 
     return places.map((place) => { // eslint-disable-line
       return (
@@ -61,7 +83,8 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
           lat={place.lat}
           lng={place.lng}
           place={place}
-          currentMarker={this.props.currentPlace}
+          currentPlace={currentPlace}
+          onClickEvent={(p) => { onSelectPlace(p); }}
         />
       );
     });
@@ -90,12 +113,13 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
 
 VenuMap.propTypes = {
   user: T.object,
-  // testFunc: T.func,
+  onSelectPlace: T.func,
+  currentPlace: T.object,
+  onChangeMapCenter: T.func,
   venuMap: T.object.isRequired,
-  // mapMode: T.string.isRequired,
+  mapMode: T.string.isRequired,
   exhibits: T.object.isRequired,
   facilities: T.object.isRequired,
-  currentPlace: T.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -107,10 +131,18 @@ const mapStateToProps = createStructuredSelector({
   currentPlace: makeSelectCurrentPlace(),
 });
 
-// Replace in the future
+// Map dispatches to props
 export function mapDispatchToProps(dispatch) {
   return {
-    testFunc: () => dispatch,
+    onChangeMapCenter: (center) => dispatchChangeMapCenter(dispatch, center),
+    onSelectPlace: (place) => {
+      const center = {
+        lat: place.lat,
+        lng: place.lng,
+      };
+      dispatchChangeCurrentPlace(dispatch, place);
+      dispatchChangeMapCenter(dispatch, center);
+    },
   };
 }
 

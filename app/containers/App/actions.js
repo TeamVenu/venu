@@ -6,6 +6,8 @@ import {
   CHANGE_PARKING_LOCATION,
   SETUP_GEOLOCATION,
   CHANGE_MAP_MODE,
+  CHANGE_MAP_CENTER,
+  CHANGE_SELECTED_PLACE,
 } from './constants';
 
 /**
@@ -97,5 +99,29 @@ export function changeMapMode(mode) {
   return {
     type: CHANGE_MAP_MODE,
     value: mode,
+  };
+}
+
+/**
+ * changeCurrentPlace
+ * Returns the new selected place
+ * @param  {Object} place
+ */
+export function changeCurrentPlace(place) {
+  return {
+    type: CHANGE_SELECTED_PLACE,
+    value: place,
+  };
+}
+
+/**
+ * changeMapCenter
+ * Returns the new map center
+ * @param  {Object} center
+ */
+export function changeMapCenter(center) {
+  return {
+    type: CHANGE_MAP_CENTER,
+    value: center,
   };
 }

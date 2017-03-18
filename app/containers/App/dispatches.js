@@ -9,6 +9,8 @@ import {
   changeUserInterests,
   changeUserLocation,
   changeMapMode,
+  changeCurrentPlace,
+  changeMapCenter,
 } from 'containers/App/actions';
 
 /**
@@ -161,4 +163,24 @@ export function dispatchChangeMapMode(dispatch, mode) {
     // Otherwise set to Discover as fallback
     dispatch(changeMapMode('Discover'));
   }
+}
+
+/**
+ * dispatchChangeCurrentPlace
+ * Dispatches action to change currently selected place
+ * @param {Function} dispatch
+ * @param {Object} place
+ */
+export function dispatchChangeCurrentPlace(dispatch, place) {
+  dispatch(changeCurrentPlace(place));
+}
+
+/**
+ * dispatchChangeMapCenter
+ * Dispatches action to change the map's center
+ * @param {Function} dispatch
+ * @param {Object} center
+ */
+export function dispatchChangeMapCenter(dispatch, center) {
+  dispatch(changeMapCenter(center));
 }
