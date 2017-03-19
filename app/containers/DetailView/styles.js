@@ -26,13 +26,25 @@ export const NavBar = styled.ul`
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
 `;
 
-export const NavItem = styled.li``;
+export const NavItem = styled.li`
+  flex-basis: 33.3%;
+  
+  h3 {
+    text-align: center;
+    line-height: 1.65;
+  }
+
+  &:last-of-type {
+    text-align: right;
+  }
+`;
 
 export const BackButton = styled(Link)`
   color: var(--foreground-color);
+  text-decoration: none;
 `;
 
 export const MapWrapper = styled.section`

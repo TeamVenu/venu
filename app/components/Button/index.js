@@ -15,6 +15,22 @@ const Btn = styled.button`
     border: 3px solid currentColor;
   }
 
+  &.cta {
+    background: var(--foreground-color);
+
+    &.bordered {
+      border-color: var(--foreground-color);
+    }
+
+    &.reversed {
+      background: var(--background-color);
+
+      &.bordered {
+        border-color: var(--background-color);
+      }
+    }
+  }
+
   &.full {
     display: block;
     width: 100%;

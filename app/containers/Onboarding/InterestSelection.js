@@ -55,16 +55,21 @@ export class InterestSelection extends React.PureComponent { // eslint-disable-l
     const interests = [];
     let interestString = '';
 
+    const allInterestsLength = allInterests.length;
     // Loop through elements
-    allInterests.forEach((interest) => {
+    for (let i = 0; i < allInterestsLength; i += 1) {
+      const interest = allInterests[i];
+
       if (interest.checked) {
         interestString += `${interest.value}-`;
         interests.push(interest.value);
       }
-    });
+    }
 
     // If we have interests then finish onboarding
     if (interests.length > 0) {
+      // Remove the last dash from the string
+      interestString = interestString.slice(0, -1);
       localStorage.setItem('venuUserInterests', interestString);
       onNextStage(stage, interests);
     }
