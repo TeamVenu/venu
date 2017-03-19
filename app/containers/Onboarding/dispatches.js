@@ -17,6 +17,8 @@ import {
  */
 export function dispatchGoToPreviousStage(dispatch, stage) {
   const previousStage = stage - 1;
+    // Set localStorage to save stage
+  localStorage.setItem('venuOnboardingStage', previousStage);
   dispatch(goToPreviousStage(previousStage));
 }
 
@@ -28,6 +30,8 @@ export function dispatchGoToPreviousStage(dispatch, stage) {
  */
 export function dispatchGoToNextStage(dispatch, stage) {
   const nextStage = stage + 1;
+    // Set localStorage to save stage
+  localStorage.setItem('venuOnboardingStage', nextStage);
   dispatch(goToNextStage(nextStage));
 }
 
@@ -47,8 +51,9 @@ export function dispatchGoToNextStageFromAccountCreation(dispatch, event, userPr
   // Make on final validation check
   if (user.name.length > 0 && isEmail(user.email)) {
     const nextStage = stage + 1;
-
     // Dispatch our action
+    // Set localStorage to save stage
+    localStorage.setItem('venuOnboardingStage', nextStage);
     dispatch(goToNextStage(nextStage));
   }
 }
@@ -62,6 +67,8 @@ export function dispatchGoToNextStageFromAccountCreation(dispatch, event, userPr
 export function dispatchGoToNextStageFromGeolocation(dispatch, props) {
   if (props.location && props.locationEnabled !== null) {
     const stage = props.stage + 1;
+    // Set localStorage to save stage
+    localStorage.setItem('venuOnboardingStage', stage);
     dispatch(goToNextStage(stage));
   }
 }

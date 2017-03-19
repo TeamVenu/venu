@@ -7,9 +7,9 @@ import { POIContainer, PinPulse, PinWrapper, PinBackground, Pin, PinImage } from
 
 export default class Marker extends Component {
   static propTypes = {
-    currentMarker: T.object,
+    currentPlace: T.object,
     place: T.object.isRequired,
-    clickOnPlaceCard: T.func,
+    onClickEvent: T.func,
   }
 
   static defaultProps = {};
@@ -21,24 +21,24 @@ export default class Marker extends Component {
   }
 
   handlePinClick() {
-    const { place } = this.props;
-    this.props.clickOnPlaceCard(place);
+    const { place, onClickEvent } = this.props;
+    onClickEvent(place);
   }
 
   renderPin() {
     const { place } = this.props;
     if (!place) { return null; }
-    const { currentMarker } = this.props;
+    const { currentPlace } = this.props;
     let placePinClasses = place.type + ' ' + place.subType; // eslint-disable-line
 
-    if (currentMarker && (currentMarker.lat === place.lat && currentMarker.lng === place.lng)) {
+    if (currentPlace && (currentPlace.lat === place.lat && currentPlace.lng === place.lng)) {
       placePinClasses += ' selected';
     }
 
     return (
       <POIContainer className={placePinClasses} onClick={this.handlePinClick}>
         <PinPulse>
-          <PinWrapper>
+          <PinWrapper to={`/place/${place.type}/${place.id}`}>
             <PinBackground>
               <Pin>
                 { this.renderPinImage(place) }

@@ -1,11 +1,21 @@
 import React, { PropTypes as T } from 'react';
 
-import { Item as ItemContainer, ItemTitle, DetailSubHeader, DetailInfo, FlexListView, TagListItem } from './styles';
+import FlexListView from 'components/FlexListView';
+import Tag from 'components/Tag';
+
+import P from 'components/P';
+
+import {
+  Item as ItemContainer,
+  ItemLink,
+  ItemTitle,
+  DetailSubHeader,
+} from './styles';
 
 export default class Item extends React.Component {
   static propTypes = {
     place: T.object.isRequired,
-    clickOnPlaceCard: T.func,
+    onClickEvent: T.func,
   }
 
   constructor(props) {
@@ -19,8 +29,8 @@ export default class Item extends React.Component {
   }
 
   handleCardClick() {
-    const { place } = this.props;
-    this.props.clickOnPlaceCard(place);
+    const { place, onClickEvent } = this.props;
+    onClickEvent(place);
   }
 
   renderTags() {
@@ -49,7 +59,7 @@ export default class Item extends React.Component {
 
       // Return tag
       return (
-        <TagListItem key={index}>{tag}</TagListItem>
+        <Tag key={index}>{tag}</Tag>
       );
     });
   }
@@ -59,8 +69,6 @@ export default class Item extends React.Component {
 
     if (!place) { return null; }
 
-    const placeClass = place.type + ' ' + place.subType + ' ' + place.colorZone; //eslint-disable-line
-
     // Check if the second letter or place.location is not a number
     // If it is, use location
     // Otherwise use exhibit code
@@ -69,25 +77,33 @@ export default class Item extends React.Component {
     // If a place has a distance then show that distance. Else show alternate text
     // TODO: Alt text should have an action that allows user to enable Location
     const distanceComponent = (place.distance) ? (
-      <DetailInfo>Distance: {place.distance} mi</DetailInfo>
+      <P className={'small'}>Distance: {place.distance} mi</P>
     ) : null;
 
     // Tags
     const tagsComponent = (place.tags && place.tags.length > 0) ? (
       <FlexListView>{this.renderTags()}</FlexListView>
     ) : null;
-
     return (
-      <ItemContainer className={`${place.type} ${place.subType} ${place.colorZone}`} onClick={this.handleCardClick}>
-        <ItemTitle>{place.name}</ItemTitle>
-        <DetailSubHeader>
-          <DetailInfo>
-            <span><strong>{locationBlurb}, </strong></span>
-            <span>{place.building}</span>
-          </DetailInfo>
-          {distanceComponent}
-        </DetailSubHeader>
-        {tagsComponent}
+      <ItemContainer
+        className={`${place.type} ${place.subType} ${place.colorZone}`}
+        onClick={this.handleCardClick}
+      >
+        <ItemLink to={`/place/${place.type}/${place.id}`}>
+          <ItemTitle>
+            {place.name}
+          </ItemTitle>
+          <DetailSubHeader>
+            <P className={'small'}>
+              <span>
+                <strong>{locationBlurb}, </strong>
+              </span>
+              <span>{place.building}</span>
+            </P>
+            {distanceComponent}
+          </DetailSubHeader>
+          {tagsComponent}
+        </ItemLink>
       </ItemContainer>
     );
   }

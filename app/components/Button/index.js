@@ -6,7 +6,7 @@ const Btn = styled.button`
   color: var(--background-color);
   padding: 1em;
   text-transform: uppercase;
-  
+
   &.reversed {
     color: var(--foreground-color);
   }
@@ -45,7 +45,6 @@ export default class Button extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.handleClick = this.handleClick.bind(this);
   }
 

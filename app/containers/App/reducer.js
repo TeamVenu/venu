@@ -13,6 +13,8 @@
  */
 
 import { fromJS } from 'immutable';
+import imagineRITData from 'fixtures/places.json';
+import mapStyles from 'fixtures/map-styles.json';
 
 import {
   CHANGE_USER_NAME,
@@ -21,27 +23,84 @@ import {
   CHANGE_USER_INTERESTS,
   CHANGE_PARKING_LOCATION,
   SETUP_GEOLOCATION,
+  CHANGE_MAP_MODE,
+  CHANGE_MAP_CENTER,
+  CHANGE_SELECTED_PLACE,
+  NAVIGATE_TO_PLACE,
+  LIKE_PLACE,
+  UNLIKE_PLACE,
+  CHANGE_EXHIBIT,
 } from './constants';
+
+// Returns intial user stage with localStorage
+function createInitialUserState() {
+  const name = (localStorage.getItem('venuUserName')) ? localStorage.getItem('venuUserName') : '';
+  const email = (localStorage.getItem('venuUserEmail')) ? localStorage.getItem('venuUserEmail') : '';
+  const locationLat = (localStorage.getItem('venuUserLocationLat')) ? parseFloat(localStorage.getItem('venuUserLocationLat')) : 43.084167;
+  const locationLng = (localStorage.getItem('venuUserLocationLng')) ? parseFloat(localStorage.getItem('venuUserLocationLng')) : -77.677085;
+  const locationEnabled = (localStorage.getItem('venuUserLocationEnabled')) ? localStorage.getItem('venuUserLocationEnabled') : null;
+  const parkingLat = (localStorage.getItem('venuParkingLocationLat')) ? parseFloat(localStorage.getItem('venuParkingLocationLat')) : null;
+  const parkingLng = (localStorage.getItem('venuParkingLocationLng')) ? parseFloat(localStorage.getItem('venuParkingLocationLng')) : null;
+  const interestString = (localStorage.getItem('venuUserInterests')) ? localStorage.getItem('venuUserInterests').slice(0, -1) : '';
+  const interests = (interestString.length > 0) ? interestString.split('-') : [];
+
+  return {
+    name,
+    email,
+    location: {
+      lat: locationLat,
+      lng: locationLng,
+    },
+    locationEnabled,
+    parking: {
+      lat: parkingLat,
+      lng: parkingLng,
+    },
+    interests,
+  };
+}
+
+// Create an intial user state with localStorage
+const initialUserState = createInitialUserState();
 
 // Initial State of the App
 const initialState = fromJS({
-  user: {
-    name: '',
-    email: '',
-    location: {},
-    locationEnabled: null,
-    parking: {},
-    interests: [],
-  },
+  // User props
+  user: initialUserState,
+  // Onboarding validation props
   validation: {
     accountCreation: {
-      username: null,
-      email: null,
+      username: (localStorage.getItem('venuAccountValidationName')) ? true : null,
+      email: (localStorage.getItem('venuAccountValidationEmail')) ? true : null,
     },
     geolocationSetup: {
       mode: '',
     },
   },
+  // Main props
+  exhibits: imagineRITData.exhibits,
+  facilities: imagineRITData.facilities,
+  mapMode: 'Discover',
+  // Map props
+  venuMap: {
+    bootstrapURLKeys: {
+      key: 'AIzaSyCC_hT5gMai_hZh8JSnlFzFOCTetRBYhQg',
+      language: 'en',
+    },
+    center: {
+      lat: 43.084167,
+      lng: -77.677085,
+    },
+    markerSize: 40,
+    options: {
+      clickableIcons: false,
+      zoomControl: false,
+      styles: mapStyles,
+    },
+    zoom: 20,
+  },
+  // Current place
+  currentPlace: {},
 });
 
 /**
@@ -74,6 +133,24 @@ function appReducer(state = initialState, action) {
     case CHANGE_USER_INTERESTS:
       return state
               .setIn(['user', 'interests'], action.value);
+    case CHANGE_MAP_MODE:
+      return state
+              .set('mapMode', action.value);
+    case CHANGE_SELECTED_PLACE:
+      return state
+              .set('currentPlace', action.value);
+    case CHANGE_MAP_CENTER:
+      return state
+              .setIn(['venuMap', 'center'], action.value);
+    case CHANGE_EXHIBIT:
+      // Change exhibits prop
+      // Go to colorZone which our exhibit belongs
+      // Using the key which is the position in the array
+      return state
+              .setIn(['exhibits', action.value.colorZone, action.value.key], action.value);
+    case NAVIGATE_TO_PLACE:
+    case LIKE_PLACE:
+    case UNLIKE_PLACE:
     default:
       return state;
   }

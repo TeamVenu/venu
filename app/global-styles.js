@@ -102,7 +102,7 @@ injectGlobal`
   body {
     font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Open Sans", sans-serif;
     font-smoothing: antialiased;
-    background-color: var(--background-color);
+    background-color: var(--foreground-color);
     color: var(--foreground-color);
   }
 
@@ -111,7 +111,8 @@ injectGlobal`
   }
 
   #app {
-    /*min-height: 100%;*/
+    background-color: var(--background-color);
+    min-height: 100%;
     min-width: 100%;
     font-size: 0.875rem;
     overflow: hidden;

@@ -8,7 +8,7 @@ import {
 
 // Create our initial State
 const initialState = fromJS({
-  stage: 0,
+  stage: (localStorage.getItem('venuOnboardingStage')) ? parseInt(localStorage.getItem('venuOnboardingStage'), 10) : 0,
 });
 
 function onboardingReducer(state = initialState, action) {
