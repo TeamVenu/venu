@@ -11,6 +11,10 @@ import {
   changeMapMode,
   changeCurrentPlace,
   changeMapCenter,
+  navigateToPlace,
+  likePlace,
+  unLikePlace,
+  changeExhibit,
 } from 'containers/App/actions';
 
 /**
@@ -209,4 +213,44 @@ export function dispatchChangeCurrentPlace(dispatch, place) {
  */
 export function dispatchChangeMapCenter(dispatch, center) {
   dispatch(changeMapCenter(center));
+}
+
+/**
+ * dispatchNavigateToPlace
+ * Dispatches action to navigate to location
+ * @param {Function} dispatch
+ * @param {Object} location
+ */
+export function dispatchNavigateToPlace(dispatch, location) {
+  dispatch(navigateToPlace(location));
+}
+
+/**
+ * dispatchLikePlace
+ * Dispatches action to like a place
+ * @param {Function} dispatch
+ * @param {Object} place
+ */
+export function dispatchLikePlace(dispatch, place) {
+  dispatch(likePlace(place));
+}
+
+/**
+ * dispatchUnlikePlace
+ * Dispatches action to unlike a place
+ * @param {Function} dispatch
+ * @param {Object} place
+ */
+export function dispatchUnlikePlace(dispatch, place) {
+  dispatch(unLikePlace(place));
+}
+
+/**
+ * dispatchChangeExhibit
+ * Dispatches action to change an exhibit
+ * @param {Function} dispatch
+ * @param {Object} place
+ */
+export function dispatchChangeExhibit(dispatch, place) {
+  dispatch(changeExhibit(place));
 }

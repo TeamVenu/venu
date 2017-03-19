@@ -8,6 +8,10 @@ import {
   CHANGE_MAP_MODE,
   CHANGE_MAP_CENTER,
   CHANGE_SELECTED_PLACE,
+  NAVIGATE_TO_PLACE,
+  LIKE_PLACE,
+  UNLIKE_PLACE,
+  CHANGE_EXHIBIT,
 } from './constants';
 
 /**
@@ -123,5 +127,53 @@ export function changeMapCenter(center) {
   return {
     type: CHANGE_MAP_CENTER,
     value: center,
+  };
+}
+
+/**
+ * navigateToPlace
+ * Returns the location to navigate to
+ * @param  {Object} location
+ */
+export function navigateToPlace(location) {
+  return {
+    type: NAVIGATE_TO_PLACE,
+    value: location,
+  };
+}
+
+/**
+ * likePlace
+ * Returns exhibit to like
+ * @param  {Object} place
+ */
+export function likePlace(place) {
+  return {
+    type: LIKE_PLACE,
+    value: place,
+  };
+}
+
+/**
+ * unLikePlace
+ * Returns exhibit to unlike
+ * @param  {Object} place
+ */
+export function unLikePlace(place) {
+  return {
+    type: UNLIKE_PLACE,
+    value: place,
+  };
+}
+
+/**
+ * changeExhibit
+ * Returns newly changed exhibit
+ * @param  {Object} place
+ */
+export function changeExhibit(place) {
+  return {
+    type: CHANGE_EXHIBIT,
+    value: place,
   };
 }

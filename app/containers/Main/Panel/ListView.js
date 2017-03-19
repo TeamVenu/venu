@@ -36,7 +36,7 @@ export class ListView extends React.PureComponent { // eslint-disable-line react
 
     const exhibitsObj = exhibits.toJS();
     const facilitiesObj = facilities.toJS();
-    const detailedPlace = (currentPlace.name) ? currentPlace : currentPlace.toJS();
+    const detailedPlace = (typeof currentPlace === 'object') ? currentPlace : currentPlace.toJS();
 
     if (!exhibits || !facilities) return null;
 
@@ -111,6 +111,7 @@ export function mapDispatchToProps(dispatch) {
         lat: place.lat,
         lng: place.lng,
       };
+      // console.log(place);
       dispatchChangeCurrentPlace(dispatch, place);
       dispatchChangeMapCenter(dispatch, center);
     },

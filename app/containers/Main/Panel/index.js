@@ -11,11 +11,6 @@ import {
   makeSelectCurrentPlace,
 } from 'containers/App/selectors';
 
-// Global Helpers
-import {
-
-} from 'containers/App/dispatches';
-
 import { makePanelSelect } from './selectors';
 
 import {
@@ -340,7 +335,6 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
 
   render() {
     const { panelProps } = this.props;
-
     return (
       <Wrapper style={panelProps.inlineStyles} className={panelProps.panelClass}>
         <HandleWrapper

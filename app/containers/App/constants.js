@@ -19,3 +19,10 @@ export const SETUP_GEOLOCATION = 'venu/App/SETUP_GEOLOCATION';
 export const CHANGE_MAP_MODE = 'venu/App/CHANGE_MAP_MODE';
 export const CHANGE_SELECTED_PLACE = 'venu/App/CHANGE_SELECTED_PLACE';
 export const CHANGE_MAP_CENTER = 'venu/App/CHANGE_MAP_CENTER';
+
+// Detail View
+export const CHANGE_EXHIBIT = 'venu/App/CHANGE_EXHIBIT';
+export const NAVIGATE_TO_PLACE = 'venu/App/NAVIGATE_TO_PLACE';
+export const LIKE_PLACE = 'venu/App/LIKE_PLACE';
+export const UNLIKE_PLACE = 'venu/App/UNLIKE_PLACE';
+

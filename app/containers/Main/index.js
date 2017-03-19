@@ -15,7 +15,6 @@ import {
   makeSelectExhibits,
   makeSelectFacilities,
   makeSelectCurrentPlace,
-  makeSelectDetailViewActions,
 } from 'containers/App/selectors';
 
 // Containers
@@ -54,7 +53,6 @@ Main.propTypes = {
   exhibits: T.object,
   facilities: T.object,
   currentPlace: T.object,
-  detailViewActions: T.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -64,14 +62,7 @@ const mapStateToProps = createStructuredSelector({
   exhibits: makeSelectExhibits(),
   facilities: makeSelectFacilities(),
   currentPlace: makeSelectCurrentPlace(),
-  detailViewActions: makeSelectDetailViewActions(),
 });
-
-// export function mapDispatchToProps(dispatch) {
-//   return {
-//     ojue: dispatch(null),
-//   };
-// }
 
 // Connect our props to Main
 export default connect(mapStateToProps)(Main);

@@ -38,7 +38,7 @@ export default class Marker extends Component {
     return (
       <POIContainer className={placePinClasses} onClick={this.handlePinClick}>
         <PinPulse>
-          <PinWrapper>
+          <PinWrapper to={`/place/${place.type}/${place.id}`}>
             <PinBackground>
               <Pin>
                 { this.renderPinImage(place) }

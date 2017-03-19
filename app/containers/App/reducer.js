@@ -26,6 +26,10 @@ import {
   CHANGE_MAP_MODE,
   CHANGE_MAP_CENTER,
   CHANGE_SELECTED_PLACE,
+  NAVIGATE_TO_PLACE,
+  LIKE_PLACE,
+  UNLIKE_PLACE,
+  CHANGE_EXHIBIT,
 } from './constants';
 
 // Returns intial user stage with localStorage
@@ -97,8 +101,6 @@ const initialState = fromJS({
   },
   // Current place
   currentPlace: {},
-  // Detail View props
-  detailViewActions: {},
 });
 
 /**
@@ -140,6 +142,15 @@ function appReducer(state = initialState, action) {
     case CHANGE_MAP_CENTER:
       return state
               .setIn(['venuMap', 'center'], action.value);
+    case CHANGE_EXHIBIT:
+      // Change exhibits prop
+      // Go to colorZone which our exhibit belongs
+      // Using the key which is the position in the array
+      return state
+              .setIn(['exhibits', action.value.colorZone, action.value.key], action.value);
+    case NAVIGATE_TO_PLACE:
+    case LIKE_PLACE:
+    case UNLIKE_PLACE:
     default:
       return state;
   }

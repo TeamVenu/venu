@@ -1,12 +1,15 @@
 import React, { PropTypes as T } from 'react';
 
+import FlexListView from 'components/FlexListView';
+import Tag from 'components/Tag';
+
+import P from 'components/P';
+
 import {
   Item as ItemContainer,
+  ItemLink,
   ItemTitle,
   DetailSubHeader,
-  DetailInfo,
-  FlexListView,
-  TagListItem,
 } from './styles';
 
 export default class Item extends React.Component {
@@ -56,7 +59,7 @@ export default class Item extends React.Component {
 
       // Return tag
       return (
-        <TagListItem key={index}>{tag}</TagListItem>
+        <Tag key={index}>{tag}</Tag>
       );
     });
   }
@@ -74,32 +77,33 @@ export default class Item extends React.Component {
     // If a place has a distance then show that distance. Else show alternate text
     // TODO: Alt text should have an action that allows user to enable Location
     const distanceComponent = (place.distance) ? (
-      <DetailInfo>Distance: {place.distance} mi</DetailInfo>
+      <P className={'small'}>Distance: {place.distance} mi</P>
     ) : null;
 
     // Tags
     const tagsComponent = (place.tags && place.tags.length > 0) ? (
       <FlexListView>{this.renderTags()}</FlexListView>
     ) : null;
-
     return (
       <ItemContainer
         className={`${place.type} ${place.subType} ${place.colorZone}`}
         onClick={this.handleCardClick}
       >
-        <ItemTitle>
-          {place.name}
-        </ItemTitle>
-        <DetailSubHeader>
-          <DetailInfo>
-            <span>
-              <strong>{locationBlurb}, </strong>
-            </span>
-            <span>{place.building}</span>
-          </DetailInfo>
-          {distanceComponent}
-        </DetailSubHeader>
-        {tagsComponent}
+        <ItemLink to={`/place/${place.type}/${place.id}`}>
+          <ItemTitle>
+            {place.name}
+          </ItemTitle>
+          <DetailSubHeader>
+            <P className={'small'}>
+              <span>
+                <strong>{locationBlurb}, </strong>
+              </span>
+              <span>{place.building}</span>
+            </P>
+            {distanceComponent}
+          </DetailSubHeader>
+          {tagsComponent}
+        </ItemLink>
       </ItemContainer>
     );
   }

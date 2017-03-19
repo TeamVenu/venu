@@ -44,11 +44,17 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
     // user location may be an immutable or an object so make a check
     // If it is an object we can use it
     // Otherwise turn it into a JS object using .JS()
-    const location = (user.get('location').lat) ? user.get('location') : user.get('location').toJS();
     const name = (user.get('name') !== '') ? user.get('name') : 'User';
+    const location = Object.assign({}, { lat: user.getIn(['location', 'lat']), lng: user.getIn(['location', 'lng']) });
 
     return (
-      <UserPinWrapper lat={location.lat} lng={location.lng} onClick={() => { onChangeMapCenter(location); }}>
+      <UserPinWrapper
+        lat={location.lat}
+        lng={location.lng}
+        onClick={() => {
+          onChangeMapCenter(location);
+        }}
+      >
         <UserPin>
           <UserImage alt={`${name}'s Profile Picture`} src={UserIcon} />
         </UserPin>
@@ -95,7 +101,9 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
   }
 
   render() {
-    const { venuMap } = this.props;
+    const { user, venuMap } = this.props;
+
+    const location = (user.get('location').lat) ? user.get('location') : user.get('location').toJS();
 
     // Convert venuMap to a JS object
     const mapProps = venuMap.toJS();
@@ -103,7 +111,7 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
     return (
       <GoogleMap
         bootstrapURLKeys={mapProps.bootstrapURLKeys}
-        center={mapProps.center}
+        center={location}
         zoom={mapProps.zoom}
         options={mapProps.options}
         hoverDistance={mapProps.markerSize}
@@ -140,12 +148,9 @@ export function mapDispatchToProps(dispatch) {
   return {
     onChangeMapCenter: (center) => dispatchChangeMapCenter(dispatch, center),
     onSelectPlace: (place) => {
-      const center = {
-        lat: place.lat,
-        lng: place.lng,
-      };
-      dispatchChangeCurrentPlace(dispatch, place);
+      const center = Object.assign({}, { lat: place.lat, lng: place.lng });
       dispatchChangeMapCenter(dispatch, center);
+      dispatchChangeCurrentPlace(dispatch, place);
     },
   };
 }

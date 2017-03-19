@@ -48,11 +48,6 @@ const makeSelectVenuMap = () => createSelector(
   (globalState) => globalState.get('venuMap')
 );
 
-const makeSelectDetailViewActions = () => createSelector(
-  selectGlobal,
-  (globalState) => globalState.get('detailViewActions')
-);
-
 // makeSelectLocationState expects a plain JS object for the routing state
 const makeSelectLocationState = () => {
   let prevRoutingState;
@@ -79,6 +74,5 @@ export {
   makeSelectFacilities,
   makeSelectCurrentPlace,
   makeSelectLocationState,
-  makeSelectDetailViewActions,
   makeSelectOnboardingValidation,
 };

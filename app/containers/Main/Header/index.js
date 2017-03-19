@@ -55,7 +55,7 @@ export class Header extends React.PureComponent { // eslint-disable-line react/p
   render() {
     return (
       <Topbar>
-        <AppTitle href={'/onboarding'}>
+        <AppTitle to={'/'}>
           <FormattedMessage {...messages.appName} />
         </AppTitle>
         <ModeWrapper>
