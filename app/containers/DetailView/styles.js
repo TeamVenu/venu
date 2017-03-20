@@ -51,8 +51,12 @@ export const MapWrapper = styled.section`
   position: relative;
   top: 0;
   width: 100%;
-  height: 300px;
+  height: 250px;
   cursor: auto;
+
+  @media (min-width: 1170px) {
+    height: 300px;
+  }
 `;
 
 export const DetailWrapper = styled.section`
