@@ -48,6 +48,34 @@ export default function createRoutes(store) {
           importModules.catch(errorLoading);
         },
       },
+      childRoutes: [
+        {
+          path: '/place/:placeType/:placeId',
+          name: 'place',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              import('containers/DetailView'),
+            ]);
+
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([component]) => {
+              renderRoute(component);
+            });
+
+            importModules.catch(errorLoading);
+          },
+        },
+      ],
+    },
+    {
+      path: '/onboarding',
+      name: 'onboarding',
+      getComponent(nextState, cb) {
+        import('containers/Onboarding')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
     },
     {
       path: '*',

@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { Link } from 'react-router';
 
 // Animations
 const pulse = keyframes`
@@ -59,7 +60,7 @@ export const PinPulse = styled.section`
   }
 `;
 
-export const PinWrapper = styled.section`
+export const PinWrapper = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;

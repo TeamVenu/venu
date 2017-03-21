@@ -5,6 +5,20 @@ import styled from 'styled-components';
 const Btn = styled.button`
   color: var(--background-color);
   padding: 1em;
+  text-transform: uppercase;
+
+  &.reversed {
+    color: var(--foreground-color);
+  }
+
+  &.bordered {
+    border: 3px solid currentColor;
+  }
+
+  &.full {
+    display: block;
+    width: 100%;
+  }
 
   &:hover {
     // background: var(--grey);
@@ -13,18 +27,24 @@ const Btn = styled.button`
   &:focus {
     outline: 0;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
 
-export default class Button extends React.Component { //eslint-disable-line
+export default class Button extends React.Component {
   static propTypes = {
-    onClickEvent: T.func,
-    name: T.string,
+    btnClasses: T.string,
     icon: T.string,
+    name: T.string,
+    type: T.string,
+    onClickEvent: T.func,
+    isDisabled: T.bool,
   }
 
   constructor(props) {
     super(props);
-
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -36,10 +56,8 @@ export default class Button extends React.Component { //eslint-disable-line
     }
   }
 
-  renderButton() {
-    const { name } = this.props;
-    const { icon } = this.props;
-    const { onClickEvent } = this.props;
+  render() {
+    const { name, icon, type, btnClasses, isDisabled, onClickEvent } = this.props;
 
     const iconComponent = (icon) ? (
       <Ionicon className={'icon'} icon={`icon ${icon}`} />
@@ -48,18 +66,10 @@ export default class Button extends React.Component { //eslint-disable-line
     const clickEvent = (onClickEvent) ? this.handleClick : null;
 
     return (
-      <Btn onClick={clickEvent}>
+      <Btn type={type} className={btnClasses} onClick={clickEvent} disabled={isDisabled}>
         {iconComponent}
         {name}
       </Btn>
-    );
-  }
-
-  render() {
-    return (
-      <div>
-        {this.renderButton()}
-      </div>
     );
   }
 }

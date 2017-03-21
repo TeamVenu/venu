@@ -43,6 +43,12 @@ injectGlobal`
     /* */
     --background-color: var(--black);
     --foreground-color: var(--white);
+    --success-color: #62d2a2;
+    --success-color-accent: #2aaf74;
+    --error-color: #fa7f7f;
+    --error-color-accent: #e84a5f;
+    --warning-color: #f8fba2;
+    --warning-color-accent: #f8da5b;
     --blue-green-gradient-opaque: linear-gradient(to bottom, var(--light-green-opaque), var(--light-blue-opaque));
     --blue-green-gradient: linear-gradient(to bottom, var(--light-green), var(--light-blue));
     --blue-red-gradient: linear-gradient(to bottom, var(--red), var(--blue));
@@ -96,7 +102,7 @@ injectGlobal`
   body {
     font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Open Sans", sans-serif;
     font-smoothing: antialiased;
-    overflow: hidden;
+    background-color: var(--foreground-color);
     color: var(--foreground-color);
   }
 
@@ -108,6 +114,8 @@ injectGlobal`
     background-color: var(--background-color);
     min-height: 100%;
     min-width: 100%;
+    font-size: 0.875rem;
+    overflow: hidden;
   }
 
   h1, h2, h3, h4, h5, h6, p {
@@ -123,22 +131,20 @@ injectGlobal`
     margin-right: 0.5em;
     font-size: 1.2em;
   }
+
+  button:focus {
+    outline: 0;
+  }
+
+  @media screen and (min-width: 20rem) {
+    #app {
+      font-size: calc(0.875rem + 0.5 * ((100vw - 20rem) / 60));
+    }
+  }
+
+  @media screen and (min-width: 80rem) {
+    #app {
+      font-size: 1.375rem;
+    }
+  }
 `;
-  // Hide Google Maps Attribution
-  // .gm-style a[title='Click to see this area on Google Maps']{ display: none!important; }
-
-  // .gm-style a[href^="https://maps.google.com/maps"] {
-  //   display: none !important;
-  // }
-
-  // .gm-style-cc {
-  //   display: none !important;
-  // }
-
-  // a[href$="google.com/maps"], .gmnoprint:not(.gm-bundled-control) {
-  //   display: none !important
-  // }
-
-  // .gm-bundled-control .gmnoprint {
-  //     display: block;
-  // }
