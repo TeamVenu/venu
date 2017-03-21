@@ -26,7 +26,7 @@ import {
 
 export class Header extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { onGoBack } = this.props;
+    const { place, onGoBack } = this.props;
 
     // Create an empty immutable place
     const emptyPlace = {};
@@ -39,14 +39,14 @@ export class Header extends React.PureComponent { // eslint-disable-line react/p
               to={'/'}
               onClick={() => { onGoBack(emptyPlace); }}
             >
-              <Ionicon icon={'ion-ios-arrow-thin-left'} />
+              <Ionicon fontSize={'1.5em'} icon={'icon ion-ios-arrow-thin-left'} />
             </BackButton>
           </NavItem>
           <NavItem>
-            <H3>Detail View</H3>
+            <H3>{place.name}</H3>
           </NavItem>
           <NavItem>
-            <Ionicon icon={'ion-ios-heart-outline'} />
+            <Ionicon fontSize={'1.5em'} icon={'ion-ios-heart-outline'} />
           </NavItem>
         </NavBar>
       </Topbar>
@@ -56,6 +56,7 @@ export class Header extends React.PureComponent { // eslint-disable-line react/p
 
 Header.propTypes = {
   onGoBack: T.func.isRequired,
+  place: T.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

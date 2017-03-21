@@ -41,8 +41,7 @@ function createInitialUserState() {
   const locationEnabled = (localStorage.getItem('venuUserLocationEnabled')) ? localStorage.getItem('venuUserLocationEnabled') : null;
   const parkingLat = (localStorage.getItem('venuParkingLocationLat')) ? parseFloat(localStorage.getItem('venuParkingLocationLat')) : null;
   const parkingLng = (localStorage.getItem('venuParkingLocationLng')) ? parseFloat(localStorage.getItem('venuParkingLocationLng')) : null;
-  const interestString = (localStorage.getItem('venuUserInterests')) ? localStorage.getItem('venuUserInterests').slice(0, -1) : '';
-  const interests = (interestString.length > 0) ? interestString.split('-') : [];
+  const interests = (localStorage.getItem('venuUserInterests')) ? localStorage.getItem('venuUserInterests').split('-') : [];
 
   return {
     name,
@@ -88,8 +87,8 @@ const initialState = fromJS({
       language: 'en',
     },
     center: {
-      lat: 43.084167,
-      lng: -77.677085,
+      lat: (localStorage.getItem('venuUserLocationLat')) ? parseFloat(localStorage.getItem('venuUserLocationLat')) : 43.084167,
+      lng: (localStorage.getItem('venuUserLocationLng')) ? parseFloat(localStorage.getItem('venuUserLocationLng')) : -77.677085,
     },
     markerSize: 40,
     options: {
