@@ -6,12 +6,12 @@
 
 For a container to access the ```store``` there we need to get our data and connect it. We'll need to add several files or edit them.
 
-* Selector
-* Constants
-* Actions
-* Reducer
-* Dispatch
-* Container
+* [Selector] (#selector)
+* [Constants] (#constants)
+* [Actions] (#actions)
+* [Reducer] (#reducer)
+* [Dispatch] (#dispatch)
+* [MyContainer] (#MyContainer)
 
 ### Selector
 
@@ -37,7 +37,7 @@ export {
 
 * For adding to the global simply create the new ```makeSelect``` function and remember to export it
 
-### Contants
+### Constants
 
 * To change our state we call actions. Each action should have a unique ```type``` property. The properties are stored in the ```constants.js``` file.
 
@@ -146,7 +146,7 @@ export function dispatchChangeDisplayName(dispatch, event) {
   dispatch(changeUserName(name, valid));
 }
 ```
-### Container
+### MyContainer
 
 Now that we have data management set up we can integrate it to our containers.
 
