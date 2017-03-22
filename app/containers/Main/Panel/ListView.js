@@ -15,13 +15,14 @@ import {
 import {
   dispatchChangeMapCenter,
   dispatchChangeCurrentPlace,
+  dispatchChangeMapMode,
 } from 'containers/App/dispatches';
 
 import {
   filterExhibitsBy,
   getFacilitiesArray,
 } from 'utils/helpers';
-
+import Button from 'components/Button';
 import Item from './Item';
 import { ListView as List } from './styles';
 
@@ -32,7 +33,7 @@ export class ListView extends React.PureComponent { // eslint-disable-line react
   }
 
   renderPlaces() {
-    const { mapMode, exhibits, facilities, currentPlace, onSelectPlace } = this.props;
+    const { mapMode, exhibits, facilities, currentPlace, onSelectPlace, onChangeMapMode } = this.props;
 
     const exhibitsObj = exhibits.toJS();
     const facilitiesObj = facilities.toJS();
@@ -66,6 +67,20 @@ export class ListView extends React.PureComponent { // eslint-disable-line react
         places = filterExhibitsBy(exhibitsObj, property, recommended);
         break;
     }
+
+    if (places.length === 0 && mapMode === 'Itinerary') {
+      return (
+        <Button
+          icon={'ion-plus'}
+          btnClasses={'cta full'}
+          name={'Add activities to your itinerary'}
+          onClickEvent={() => {
+            onChangeMapMode('Discover');
+          }}
+        />
+      );
+    }
+
     return places.map((place) => { // eslint-disable-line
       return (
         <Item
@@ -88,12 +103,12 @@ export class ListView extends React.PureComponent { // eslint-disable-line react
 }
 
 ListView.propTypes = {
-  // user: T.object,
   exhibits: T.object,
   facilities: T.object,
   mapMode: T.string,
   currentPlace: T.object,
   onSelectPlace: T.func,
+  onChangeMapMode: T.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -111,10 +126,10 @@ export function mapDispatchToProps(dispatch) {
         lat: place.lat,
         lng: place.lng,
       };
-      // console.log(place);
       dispatchChangeCurrentPlace(dispatch, place);
       dispatchChangeMapCenter(dispatch, center);
     },
+    onChangeMapMode: (mode) => dispatchChangeMapMode(dispatch, mode),
   };
 }
 

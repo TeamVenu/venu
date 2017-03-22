@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router';
 
 export const Topbar = styled.header`
   position: relative;
@@ -13,21 +14,27 @@ export const Topbar = styled.header`
 
   display: flex;
   flex: 1;
-  justify-content: space-between;
+  justify-content: center;
   align-items: baseline;
 
   @media (min-width: 720px) {
     flex-basis: 100%;
     padding: 0 25px;
+    justify-content: space-between;
     align-items: center;
   }
 `;
 
-export const AppTitle = styled.a`
+export const AppTitle = styled(Link)`
+  display: none;
   color: var(--white);
   text-decoration: none;
   letter-spacing: 1px;
   font-size: 1.5em;
+
+  @media (min-width: 720px) {
+    display: block;
+  }
 `;
 
 export const ModeWrapper = styled.nav`
@@ -42,10 +49,11 @@ export const ModeList = styled.ul`
 export const ModeListItem = styled.li`
   display: inline;
   padding: var(--padding);
-  font-size: 1em;
   letter-spacing: 1px;
+  color: var(--grey);
 
   &.selected {
-    border-bottom: 3px solid var(--white);
+    color: var(--foreground-color);
+    border-bottom: 3px solid var(--foreground-color);
   }
 `;

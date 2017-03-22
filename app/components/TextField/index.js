@@ -8,6 +8,7 @@ const Input = styled.input`
   background: var(--foreground-color);
   color: var(--background-color);
   border: 3px solid var(--foreground-color);
+  font-size: 16px;
 
   &:focus {
     outline: 0;

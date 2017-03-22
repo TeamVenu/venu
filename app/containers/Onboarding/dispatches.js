@@ -1,6 +1,11 @@
 // Validation
 import isEmail from 'validator/lib/isEmail';
 
+// Global actions
+import {
+  changeMapCenter,
+} from 'containers/App/actions';
+
 // Actions
 import {
   goToPreviousStage,
@@ -70,5 +75,6 @@ export function dispatchGoToNextStageFromGeolocation(dispatch, props) {
     // Set localStorage to save stage
     localStorage.setItem('venuOnboardingStage', stage);
     dispatch(goToNextStage(stage));
+    dispatch(changeMapCenter(props.location));
   }
 }
