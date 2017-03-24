@@ -6,13 +6,14 @@
 
 For a container to access the ```store``` there we need to get our data and connect it. We'll need to add several files or edit them.
 
-- [Selector] (#selector)
-- [Constants] (#constants)
-- [Actions] (#actions)
-- [Reducer] (#reducer)
-- [Dispatch] (#dispatch)
-- [MyContainer] (#MyContainer)
-- [Example] (#Example)
+* [Selector](#selector)
+* [Constants](#constants)
+* [Actions](#actions)
+* [Reducer](#reducer)
+* [Dispatch](#dispatch)
+* [MyContainer](#myContainer)
+* [Combining reducers](#combining-reducers)
+* [Example](#example)
 
 ### Selector
 
