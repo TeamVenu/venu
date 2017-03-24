@@ -25,7 +25,7 @@ export class DetailView extends React.PureComponent { // eslint-disable-line rea
 
     // If no place redirect back to main
     if (place === {} || place.size === 0) {
-      // Redirect to onboarding
+      // Redirect to main
       browserHistory.push({
         pathname: '/',
       });

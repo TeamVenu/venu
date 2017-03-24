@@ -1,6 +1,7 @@
 import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { browserHistory } from 'react-router';
 import Ionicon from 'react-ionicons';
 
 // Import Components
@@ -207,12 +208,7 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
             name={'Navigate'}
             icon={'ion-navigate'}
             onClickEvent={() => {
-              const location = {
-                lat: place.lat,
-                lng: place.lng,
-              };
-
-              onDispatchNavigateToPlace(location);
+              onDispatchNavigateToPlace(place);
             }}
           />
         </li>
@@ -250,12 +246,7 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
             name={'Navigate'}
             icon={'ion-navigate'}
             onClickEvent={() => {
-              const location = {
-                lat: place.lat,
-                lng: place.lng,
-              };
-
-              onDispatchNavigateToPlace(location);
+              onDispatchNavigateToPlace(place);
             }}
           />
         </li>
@@ -287,12 +278,7 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
             name={'Navigate'}
             icon={'ion-navigate'}
             onClickEvent={() => {
-              const location = {
-                lat: place.lat,
-                lng: place.lng,
-              };
-
-              onDispatchNavigateToPlace(location);
+              onDispatchNavigateToPlace(place);
             }}
           />
         </li>
@@ -379,11 +365,7 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
         primaryAction = (
           <PrimaryButton
             onClick={() => {
-              const location = {
-                lat: place.lat,
-                lng: place.lng,
-              };
-              onDispatchNavigateToPlace(location);
+              onDispatchNavigateToPlace(place);
             }}
           >
             <Ionicon icon={'icon ion-navigate'} />
@@ -473,7 +455,9 @@ export function mapDispatchToProps(dispatch) {
   return {
     onDispatchNavigateToPlace: (location) => {
       dispatchNavigateToPlace(dispatch, location);
-      // dispatchChangeCurrentPlace(dispatch, null);
+      dispatchChangeCurrentPlace(dispatch, {});
+      // Redirect to main
+      browserHistory.push({ pathname: '/' });
     },
     onDispatchLikePlace: (place) => {
       dispatchLikePlace(dispatch, place);

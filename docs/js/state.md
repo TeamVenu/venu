@@ -6,12 +6,13 @@
 
 For a container to access the ```store``` there we need to get our data and connect it. We'll need to add several files or edit them.
 
-* [Selector] (#selector)
-* [Constants] (#constants)
-* [Actions] (#actions)
-* [Reducer] (#reducer)
-* [Dispatch] (#dispatch)
-* [MyContainer] (#MyContainer)
+- [Selector] (#selector)
+- [Constants] (#constants)
+- [Actions] (#actions)
+- [Reducer] (#reducer)
+- [Dispatch] (#dispatch)
+- [MyContainer] (#MyContainer)
+- [Example] (#Example)
 
 ### Selector
 
@@ -202,4 +203,269 @@ export function mapDispatchToProps(dispatch) {
 // Connect the props we created from selectors
 // And our dispatch function props to MyContainer
 export default connect(mapStateToProps, mapDispatchToProps)(MyContainer);
+
+### Adding all reducers
 ```
+
+### Combining reducers
+
+One final step takes place in ```app/reducers.js```. Here we want to import our reducer.
+
+* Example
+
+``` js
+import myContainerReducer from 'containers/MyContainer';
+```
+
+Then we want to add it to the ```createReducer``` function.
+
+* Example:
+
+``` js
+export default function createReducer(asyncReducers) {
+  return combineReducers({
+    ...
+    myContainer: myContainerReducer,
+    ...
+  });
+}
+```
+## Example
+
+For our example we are going to add a property to our global state which will contain the coordinates for the destination of the place user wants to navigate to.
+
+We're going to store our destination in our global state in case we want other containers to access it. All of these steps take place in the ```containers/App``` folder.
+
+- [Adding Property to our state] (#)
+
+### Adding Property to our state
+In our global ```reducer.js``` file we specify the initial state of our App. We declare a variable and create an immutable Map node using ```immutable```. This immutable variable takes an object as a parameter. We need this to be immutable so we never change the value.
+
+* Example:
+
+``` js
+const immutable = fromJS({
+  ready: false,
+});
+```
+
+In our reducer file we call have the ```initialState``` variable declared. We want to add a new property for ```destination```, which will be an object.
+
+Go ahead and add the destination prop at the end of the object.
+
+``` js
+  // Holds our destination place
+  destination: {},
+```
+
+### Accessing prop
+Now that we have the property we want to be able to access it. To do this we go to our ```selectors.js``` file in ```App```.
+
+In the selectors we get the props we want. We can either get the entire state (which in the global case is the ```selectGlobal``` variable).
+
+But we want to get just the destination not the entire state so lets create a closure function to access it.
+
+* Right before we export the functions add a the following:
+
+``` js
+// Access the state's destination property
+const makeSelectDestination = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('destination')
+);
+```
+
+We're creating a selector which uses the ```selectGlobal``` var which contains the entire state. Then it pases that variable as ```globalState``` and using the ```immutable``` function we can get the prop. In this case we use ```globalState.get('destination')``` since the ```destination prop``` is a direct child of our state.
+
+If instead we wanted to get the name of the destination we would use the ```getIn``` function. We must remember that immutable vars are not objects as such we can't call ```destination.name```. Instead ```immutable``` provides a function for accessing children props which is ```getIn``` and it takes an array of strings which correspond to prop names from top to bottom as a parameter. Such as ```globalState.getIn(['destination', 'name'])```.
+
+Finally we need to export this variable we just created
+
+* The end of export should look like this:
+
+``` js
+  ...
+  makeSelectDestination,
+};
+```
+
+### Giving our actions a type
+
+Each action (when we want to update the state) we take requires a unique type. To tidy things up we store this in the ```constants.js``` file. With this type the reducer will know what to update. We prefix the type with the name of the app followed by the container it is located in, and finally the name of the type
+
+* For this example the constant has already been done for you but it looks like this:
+
+``` js
+export const NAVIGATE_TO_PLACE = 'venu/App/NAVIGATE_TO_PLACE';
+```
+
+### Creating an action
+
+Now that we have the prop in place, we have a way of accessing it, and have a type we can create the action. In the ```actions.js``` file we first import the constant.
+
+* This has already been done for you and it looks like this:
+
+``` js
+import { NAVIGATE_TO_PLACE } from './constants'
+```
+
+Then we create the function which will return an object that holds the type and the updated value the prop.
+
+* The function has already been created for you and it looks like this:
+
+``` js
+/**
+ * navigateToPlace
+ * Returns the place to navigate to
+ * @param  {Object} place
+ */
+export function navigateToPlace(place) {
+  return {
+    type: NAVIGATE_TO_PLACE,
+    value: place,
+  };
+}
+```
+
+In some cases you may want additional values if you want to change more than one thing with a single action.
+
+That is fine you can simply add the parameter and create a new property. The property of the value doesn't have to be ```value``` it can be anything. *However*, each action *needs* a type. So there should always be a type (which we set to the imported constant) and it should be unique.
+
+### Dispatching an action
+
+Now that we have our action set up we want to dispatch it. We create a dispatch function in ```dispatches.js```. First we import the action we want to dispatch and then we create a function to dispatch that action. Before we dispatch we might want to do validation to make sure our prop is correct.
+
+* The function has already been created and it looks like this:
+
+``` js
+import {  navigateToPlace } from 'containers/App/actions';
+
+/**
+ * dispatchNavigateToPlace
+ * Dispatches action to navigate to place
+ * @param {Function} dispatch
+ * @param {Object} place
+ */
+export function dispatchNavigateToPlace(dispatch, place) {
+  dispatch(navigateToPlace(place));
+}
+```
+
+### Updating the state
+
+Alright, now we can update our state. But first we need to finish the reducer so that it actualed changes the destination. Go back to ```reducer.js```.
+
+* First we import the constant which holds the type of the action. This has already been done for you but it looks like this:
+
+``` js
+import { NAVIGATE_TO_PLACE } from './constants';
+```
+
+Now we add it to our switch statement and return the new state.
+
+* We already added the case to the switch but we are returning the default state so nothing changes. Make it look like this:
+
+``` js
+    ...
+    case NAVIGATE_TO_PLACE:
+      return state
+              .set('destination', action.value);
+    case LIKE_PLACE:
+    ...
+```
+
+We call ```set``` on the immutable state to update the value of destination. We then give it the value of the action. If we wanted to update multiple props we could do chaining ```return state.set().set();```. If we wanted to just change the destination name we would use ```setIn``` instead for example ```state.setIn(['destination', 'name'], action.value)```.
+
+### Interacting with Component
+
+Now that we have our redux setup we want to go to the component that dispatches the action. First we want to go to the ```containers/DetailView/Detail.js``` file. This is were we are going to call the action.
+
+* In order to call the action we need the dispatch. To do that we get the dispatch function. Since the file is not in our current folder we can't user ```./``` and instead go to the folder with ```containers/App/```. This has already been done and it looks like this:
+
+``` js
+import { dispatchNavigateToPlace } from 'containers/App/dispatches';
+```
+
+Then we want map the dispatch to the props so we can access it through ```this.props```. 
+
+* In ```mapDispatchToProps(dispatch)``` this has already been done and it looks like this:
+
+``` js
+  return {
+    ...
+    onDispatchNavigateToPlace: (location) => {
+      // Update navigate
+      dispatchNavigateToPlace(dispatch, location);
+
+      // Set current place to empty
+      dispatchChangeCurrentPlace(dispatch, {});
+
+      // Redirect to main
+      browserHistory.push({ pathname: '/' });
+    }, 
+  };
+```
+
+* We also want to add the newly created prop function to our ```propTypes``` for validation. This has already been done and looks like:
+
+``` js
+Detail.propTypes = {
+  onDispatchNavigateToPlace: T.func,
+}
+```
+
+* Finally we want to call that props function when the button is tapped. This has already been done for you but it looks like this:
+
+``` js
+  <Button
+    name={'Navigate'}
+    icon={'ion-navigate'}
+    onClickEvent={() => { onDispatchNavigateToPlace(place); }}
+  />
+```
+
+### Making sure it all works
+
+Go to the ```VenuMap``` class file in ```containers/Main/Map.js```. This is where we'll get the destination. 
+
+* First we want to get the destination using our selector. Add the following where we are importing the global selectors
+
+``` js
+import {
+  ...
+  makeSelectDestination,
+  ...
+} from 'container/App/selectors'
+```
+
+* Now we want to create a property with the value returned from above. In the ```mapStateToProps``` variable near the end of the file add the following line:
+
+``` js
+const mapStateToProps = createStructuredSelector({
+  ...
+  destination: makeSelectDestination(),
+  ...
+});
+```
+
+* Validate that prop in ```Venu.propTypes```
+
+``` js
+VenuMap.propTypes = {
+  ...
+  destination: T.object,
+  ...
+};
+```
+
+* Now in the ```render``` function add the change the following and console log it.
+
+``` js
+    const { venuMap, destination } = this.props;
+    console.log('Destination:');
+    console.log(destination);
+```
+
+When we have a destination we should get a MapNode back with size of 0. This means we are getting an immutable object but it has no value inside. When we first select a destination we get the object itself.
+
+Now you have a better understanding of the *lengthy* but organized process of updating our state and getting the state back.
