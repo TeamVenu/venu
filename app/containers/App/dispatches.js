@@ -217,12 +217,12 @@ export function dispatchChangeMapCenter(dispatch, center) {
 
 /**
  * dispatchNavigateToPlace
- * Dispatches action to navigate to location
+ * Dispatches action to navigate to place
  * @param {Function} dispatch
- * @param {Object} location
+ * @param {Object} place
  */
-export function dispatchNavigateToPlace(dispatch, location) {
-  dispatch(navigateToPlace(location));
+export function dispatchNavigateToPlace(dispatch, place) {
+  dispatch(navigateToPlace(place));
 }
 
 /**
