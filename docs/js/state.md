@@ -6,14 +6,14 @@
 
 For a container to access the ```store``` there we need to get our data and connect it. We'll need to add several files or edit them.
 
-* [Selector](#selector)
-* [Constants](#constants)
-* [Actions](#actions)
-* [Reducer](#reducer)
-* [Dispatch](#dispatch)
-* [MyContainer](#myContainer)
-* [Combining reducers](#combining-reducers)
-* [Example](#example)
+- [Selector](#selector)
+- [Constants](#constants)
+- [Actions](#actions)
+- [Reducer](#reducer)
+- [Dispatch](#dispatch)
+- [MyContainer](#mycontainer)
+- [Combining reducers](#combining-reducers)
+- [Tutorial](#tutorial)
 
 ### Selector
 
@@ -231,13 +231,20 @@ export default function createReducer(asyncReducers) {
   });
 }
 ```
-## Example
+## Tutorial
 
 For our example we are going to add a property to our global state which will contain the coordinates for the destination of the place user wants to navigate to.
 
-We're going to store our destination in our global state in case we want other containers to access it. All of these steps take place in the ```containers/App``` folder.
+We're going to store our destination in our global state in case we want other containers to access it. Most of these steps take place in the ```containers/App``` folder.
 
-- [Adding Property to our state] (#)
+- [Adding Property to our state](#adding-property-to-our-state)
+- [Accessing props](#accessing-props)
+- [Giving our actions a type](#giving-our-actions-a-type)
+- [Creating an action](#creating-an-action)
+- [Dispatching an action](#dispatching-an-action)
+- [Updating the state](#updating-the-state)
+- [Interacting with Component](#interacting-with-component)
+- [Making sure it all works](#making-sure-it-all-works)
 
 ### Adding Property to our state
 In our global ```reducer.js``` file we specify the initial state of our App. We declare a variable and create an immutable Map node using ```immutable```. This immutable variable takes an object as a parameter. We need this to be immutable so we never change the value.
@@ -259,7 +266,7 @@ Go ahead and add the destination prop at the end of the object.
   destination: {},
 ```
 
-### Accessing prop
+### Accessing props
 Now that we have the property we want to be able to access it. To do this we go to our ```selectors.js``` file in ```App```.
 
 In the selectors we get the props we want. We can either get the entire state (which in the global case is the ```selectGlobal``` variable).
