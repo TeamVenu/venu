@@ -132,13 +132,13 @@ export function changeMapCenter(center) {
 
 /**
  * navigateToPlace
- * Returns the location to navigate to
- * @param  {Object} location
+ * Returns the place to navigate to
+ * @param  {Object} place
  */
-export function navigateToPlace(location) {
+export function navigateToPlace(place) {
   return {
     type: NAVIGATE_TO_PLACE,
-    value: location,
+    value: place,
   };
 }
 
