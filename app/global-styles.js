@@ -5,24 +5,22 @@ injectGlobal`
   :root {
     /* Base colors */
     --black: #1e1e1e;
-    --white: #f1f1f1;
-    --light: #e2e2e3;
+    --white: #fff;
+    --light: #edeeef;
     --dark: #2b2b2b;
     --dark-grey: #444444;
-    --red: #f9000c;
-    --blue: #00d8f9;
-    --dark-blue: #66b4d8;
-    --blue-pin-accent-color: #1b80a5;
-    --blue-pin-color: #24bdf6;
-    --blue-pin-accent-color-opaque: rgba(29, 131, 168, 0.9);
-    --light-blue: #0dfff9;
-    --light-green: #7aea35;
-    --light-blue-opaque: rgba(13, 255, 249, 0.3);
-    --light-green-opaque: rgba(122, 234, 53, 0.3);
+    --light-gray: #dddfe0;
+    --grey: #9e9e9e;
+    --red: #fb433b;
+    --red-opaque: rgba(251, 67, 59, 0.3);
+    --orange: #fa8d39;
+    --orange-opaque: rgba(250, 141, 57, 0.3);
+    --yellow: #f9af3a;
+    --yellow-opaque: rgba(249, 175, 58, 0.3);
     --black-background: #201f1e;
+    --white-background: #f1f1f1;
     --black-background-opaque: rgba(32, 31, 30, 0.4);
     --white-background-opaque: rgba(241, 241, 241, 0.8);
-    --grey: #9e9e9e;
 
     /* Imagine RIT Zone Colors */
     --recreation-zone: #19a3d2;
@@ -41,8 +39,8 @@ injectGlobal`
     --computer-zone: #37a19d;
 
     /* */
-    --background-color: var(--black);
-    --foreground-color: var(--white);
+    --background-color: var(--white);
+    --foreground-color: var(--black);
     --success-color: #62d2a2;
     --success-color-accent: #2aaf74;
     --error-color: #fa7f7f;
@@ -53,14 +51,13 @@ injectGlobal`
     --blue-green-gradient: linear-gradient(to bottom, var(--light-green), var(--light-blue));
     --blue-red-gradient: linear-gradient(to bottom, var(--red), var(--blue));
 
-    --pin-background-gradient: var(--blue-green-gradient);
-    --pin-background-gradient-opaque: var(--blue-green-gradient-opaque);
-    --header-background-gradient: linear-gradient(to bottom, var(--black-background), var(--black-background-opaque));
-    --panel-background-gradient: linear-gradient(to bottom, var(--black-background-opaque), var(--black-background));
-    --card-background-gradient: linear-gradient(to bottom, var(--white), var(--grey));
-    --detail-background-gradient: linear-gradient(to bottom, var(--white-background-opaque), var(--white));
-    --primary-color: var(--blue);
-    --accent-color: var(--dark-blue);
+
+    --warm-gradient: linear-gradient(to top right, var(--red), var(--orange), var(--yellow));
+    --warm-gradient-opaque: linear-gradient(to top right, var(--red-opaque), var(--orange-opaque), var(--yellow-opaque));;
+    --pin-background-gradient: var(--warm-gradient);
+    --pin-background-gradient-opaque: var(--warm-gradient-opaque);
+    
+    --panel-background-gradient: linear-gradient(to bottom, var(--white-background-opaque), var(--white-background));
 
     /* */
     --padding: 10px;

@@ -2,17 +2,15 @@ import styled from 'styled-components';
 import { Link } from 'react-router';
 
 export const ViewWrapper = styled.section`
-  background: var(--foreground-color);
-  color: var(--background-color);
+  // background: var(--foreground-color);
+  // color: var(--background-color);
 `;
 
 export const Topbar = styled.header`
   position: absolute;
   width: 100%;
   height: var(--topbar-height);
-  background: var(--header-background-gradient);
-  box-shadow: 0 10px 10px var(--black-background-opaque);
-  color: var(--white);
+  background: var(--light);
   display: flex;
   justify-content: center;
   z-index: 10;

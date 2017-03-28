@@ -1,9 +1,10 @@
 [
+  { "stylers": [ { "hue": "#00ffe6" }, { "saturation": -20 } ] },
   {
     "elementType": "geometry.fill",
     "stylers": [
       {
-        "color": "#1e1e1e"
+        "color": "#eeeeee"
       }
     ]
   },
@@ -11,7 +12,7 @@
     "elementType": "labels.text.fill",
     "stylers": [
       {
-        "color": "#ffffff"
+        "color": "#a0a0a0"
       }
     ]
   },
@@ -28,7 +29,7 @@
     "elementType": "geometry.fill",
     "stylers": [
       {
-        "color": "#2b2b2b"
+        "color": "#e0e0e0"
       }
     ]
   },
@@ -37,7 +38,7 @@
     "elementType": "geometry.stroke",
     "stylers": [
       {
-        "color": "#2b2b2b"
+        "color": "#e0e0e0"
       }
     ]
   },
@@ -46,7 +47,7 @@
     "elementType": "geometry.fill",
     "stylers": [
       {
-        "color": "#444444"
+        "color": "#f6f6f6"
       }
     ]
   }

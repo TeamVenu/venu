@@ -5,9 +5,10 @@ const Input = styled.input`
   display: block;
   width: 100%;
   padding: var(--padding);
-  background: var(--foreground-color);
-  color: var(--background-color);
-  border: 3px solid var(--foreground-color);
+  background: none;
+  color: var(--foreground-color);
+  border: none;
+  border-bottom: 3px solid var(--foreground-color);
   font-size: 16px;
 
   &:focus {

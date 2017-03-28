@@ -3,12 +3,12 @@ import Ionicon from 'react-ionicons';
 import styled from 'styled-components';
 
 const Btn = styled.button`
-  color: var(--background-color);
+  // color: var(--background-color);
   padding: 1em;
   text-transform: uppercase;
 
   &.reversed {
-    color: var(--foreground-color);
+    color: var(--background-color);
   }
 
   &.bordered {
@@ -17,13 +17,15 @@ const Btn = styled.button`
 
   &.cta {
     background: var(--foreground-color);
+    color: var(--background-color);
 
     &.bordered {
       border-color: var(--foreground-color);
     }
 
     &.reversed {
-      background: var(--background-color);
+      background: var(--foreround-color);
+      color: var(--background-color);
 
       &.bordered {
         border-color: var(--background-color);

@@ -6,7 +6,6 @@ const HiddenInput = styled.input`
   display: none;
 
   &:checked + label {
-    color: var(--blue);
 
     .icon {
       display: inline;

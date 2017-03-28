@@ -155,7 +155,7 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
           </DescriptionList>
         </Body>
         <Button
-          btnClasses={'reversed full bordered'}
+          btnClasses={'full bordered'}
           name={messages.buttons.next.defaultMessage}
           onClickEvent={(e) => { onSubmitAccountCreation(e, this.props.user, stage); }}
           isDisabled={!validData}

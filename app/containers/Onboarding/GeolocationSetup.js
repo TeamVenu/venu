@@ -190,14 +190,14 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
           <ButtonRow>
             <ButtonItem>
               <Button
-                btnClasses={'reversed bordered full'}
+                btnClasses={'bordered full'}
                 name={messages.buttons.back.defaultMessage}
                 onClickEvent={() => { onPrevStage(stage); }}
               />
             </ButtonItem>
             <ButtonItem>
               <Button
-                btnClasses={'reversed bordered full'}
+                btnClasses={'bordered full'}
                 name={messages.buttons.next.defaultMessage}
                 isDisabled={!geolocationComplete}
                 onClickEvent={() => { onNextStage(userProps); }}

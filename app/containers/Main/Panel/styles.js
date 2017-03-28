@@ -10,7 +10,7 @@ export const Wrapper = styled.section`
   order: 2;
   flex: 1;
   background: var(--panel-background-gradient);
-  box-shadow: 0 -10px 10px var(--black-background-opaque);
+  box-shadow: 0 -10px 10px var(--white-background-opaque);
   z-index: 15;
   transition: top 0.2s;
   width: 100%;
@@ -43,7 +43,6 @@ export const Title = styled.h5`
   width: 90%;
   margin: 0 auto;
   font-size: 1em;
-  color: var(--white);
   padding: var(--padding);
   font-weight: 400;
 
@@ -55,7 +54,7 @@ export const Title = styled.h5`
 export const HandleWrapper = styled.button`
   position: relative;
   width: 100%;
-  height: 40px;
+  height: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -81,7 +80,7 @@ export const Handle = styled.span`
   height: 10px;
   border: none;
   border-radius: 8px;
-  background: var(--white);
+  background: var(--light-gray);
 `;
 
 // List View
@@ -136,12 +135,13 @@ export const ItemLink = styled(Link)`
   display: block;
   height: 100%;
   padding: var(--padding);
-  background: var(--foreground-color);
-  color: var(--background-color);
+  background: var(--background-color);
+  color: var(--foreground-color);
   text-decoration: none;
 
   border-top: 5px solid transparent;
-  
+  // border-radius: 0 0 10px 10px;
+
   .recreationZone & {
     border-color: var(--recreation-zone);
   }

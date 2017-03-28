@@ -116,14 +116,14 @@ export class InterestSelection extends React.PureComponent { // eslint-disable-l
           <ButtonRow>
             <ButtonItem>
               <Button
-                btnClasses={'reversed bordered full'}
+                btnClasses={'bordered full'}
                 name={messages.buttons.back.defaultMessage}
                 onClickEvent={() => { onPrevStage(stage); }}
               />
             </ButtonItem>
             <ButtonItem>
               <Button
-                btnClasses={'reversed bordered full'}
+                btnClasses={'bordered full'}
                 name={messages.buttons.finish.defaultMessage}
                 onClickEvent={() => { this.verifyInterests(stage); }}
               />

@@ -4,7 +4,7 @@ const Tag = styled.li`
   border-radius: 50px;
   margin-right: var(--padding);
   padding: calc(var(--padding) / 2) calc(var(--padding) * 1.5);
-  background: var(--dark);
+  background: var(--light-gray);
   color: var(--foreground-color);
   font-size: 0.85em;
 
