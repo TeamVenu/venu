@@ -4,9 +4,7 @@ import Ionicon from 'react-ionicons';
 
 const HiddenInput = styled.input`
   display: none;
-
   &:checked + label {
-
     .icon {
       display: inline;
     }

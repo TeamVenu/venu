@@ -1,13 +1,11 @@
 /**
  * Create the store with asynchronously loaded reducers
  */
-
 import { createStore, applyMiddleware, compose } from 'redux';
 import { fromJS } from 'immutable';
 import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import createReducer from './reducers';
-
 const sagaMiddleware = createSagaMiddleware();
 
 export default function configureStore(initialState = {}, history) {
@@ -32,6 +30,7 @@ export default function configureStore(initialState = {}, history) {
       window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
   /* eslint-enable */
 
+  // Create Store
   const store = createStore(
     createReducer(),
     fromJS(initialState),

@@ -7,20 +7,22 @@ injectGlobal`
     --black: #1e1e1e;
     --white: #fff;
     --light: #edeeef;
-    --dark: #2b2b2b;
+    --dark: #222222;
     --dark-grey: #444444;
     --light-gray: #dddfe0;
     --grey: #9e9e9e;
-    --red: #fb433b;
-    --red-opaque: rgba(251, 67, 59, 0.3);
-    --orange: #fa8d39;
-    --orange-opaque: rgba(250, 141, 57, 0.3);
-    --yellow: #f9af3a;
-    --yellow-opaque: rgba(249, 175, 58, 0.3);
-    --black-background: #201f1e;
-    --white-background: #f1f1f1;
-    --black-background-opaque: rgba(32, 31, 30, 0.4);
-    --white-background-opaque: rgba(241, 241, 241, 0.8);
+    --green: #62d2a2;
+    --green-accent: #2aaf74;
+    --red: #ff2e35;
+    --red-accent: #cc252a;
+    --red-opaque: rgba(255, 46, 53, 0.3);
+    --yellow: #faa842;
+    --yellow-accent: #e0973b;
+    --yellow-opaque: rgba(250, 168, 66, 0.3);
+    --black-background: #222222;
+    --white-background: #dddcde;
+    --black-background-opaque: rgba(34, 34, 34, 0.4);
+    --white-background-opaque: rgba(221, 220, 222, 0.8);
 
     /* Imagine RIT Zone Colors */
     --recreation-zone: #19a3d2;
@@ -41,19 +43,19 @@ injectGlobal`
     /* */
     --background-color: var(--white);
     --foreground-color: var(--black);
-    --success-color: #62d2a2;
-    --success-color-accent: #2aaf74;
-    --error-color: #fa7f7f;
-    --error-color-accent: #e84a5f;
-    --warning-color: #f8fba2;
-    --warning-color-accent: #f8da5b;
+    --success-color: var(--green);
+    --success-color-accent: var(--green-accent);
+    --error-color: var(--red);
+    --error-color-accent: var(--red-accent);
+    --warning-color: var(--yellow);
+    --warning-color-accent: var(--yellow-accent);
     --blue-green-gradient-opaque: linear-gradient(to bottom, var(--light-green-opaque), var(--light-blue-opaque));
     --blue-green-gradient: linear-gradient(to bottom, var(--light-green), var(--light-blue));
     --blue-red-gradient: linear-gradient(to bottom, var(--red), var(--blue));
 
 
-    --warm-gradient: linear-gradient(to top right, var(--red), var(--orange), var(--yellow));
-    --warm-gradient-opaque: linear-gradient(to top right, var(--red-opaque), var(--orange-opaque), var(--yellow-opaque));;
+    --warm-gradient: linear-gradient(to top right, var(--red), var(--yellow));
+    --warm-gradient-opaque: linear-gradient(to top right, var(--red-opaque), var(--yellow-opaque));;
     --pin-background-gradient: var(--warm-gradient);
     --pin-background-gradient-opaque: var(--warm-gradient-opaque);
     
@@ -125,6 +127,7 @@ injectGlobal`
   }
 
   i.icon {
+    margin-left: 0.5em;
     margin-right: 0.5em;
     font-size: 1.2em;
   }

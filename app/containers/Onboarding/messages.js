@@ -51,6 +51,18 @@ export default defineMessages({
       id: 'venu.components.Onboarding.accountCreation.emailLabel',
       defaultMessage: 'Enter a valid email:',
     },
+    passwordLabel: {
+      id: 'venu.components.Onboarding.accountCreation.passwordLabel',
+      defaultMessage: 'Enter password:',
+    },
+    passwordCheckLabel: {
+      id: 'venu.components.Onboarding.accountCreation.passwordCheckLabel',
+      defaultMessage: 'Re-enter password:',
+    },
+    ageLabel: {
+      id: 'venu.components.Onboarding.accountCreation.ageLabel',
+      defaultMessage: 'Enter your age:',
+    },
   },
   geolocationSetup: {
     id: 'venu.components.Onboarding.geolocationSetup',

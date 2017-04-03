@@ -3,16 +3,40 @@ import isEmail from 'validator/lib/isEmail';
 
 // Global actions
 import {
+  createUserAccount,
   changeMapCenter,
 } from 'containers/App/actions';
 
 // Actions
 import {
+  changeUserEmail,
+  changeUserPassword,
+  changeUserRePassword,
   goToPreviousStage,
   goToNextStage,
 } from './actions';
 
 // Methods
+export function dispatchChangeUserEmail(dispatch, event) {
+  const email = event.target.value;
+  const valid = isEmail(email);
+
+  dispatch(changeUserEmail(email, valid));
+}
+
+export function dispatchChangeUserPassword(dispatch, event, otherPassword) {
+  const password = event.target.value;
+  const valid = (password.length >= 6 && password === otherPassword);
+
+  dispatch(changeUserPassword(password, valid));
+}
+
+export function dispatchChangeUserRePassword(dispatch, event, otherPassword) {
+  const password = event.target.value;
+  const valid = (password.length >= 6 && password === otherPassword);
+
+  dispatch(changeUserRePassword(password, valid));
+}
 
 /**
  * dispatchGoToPreviousStage
@@ -56,9 +80,6 @@ export function dispatchGoToNextStageFromAccountCreation(dispatch, event, userPr
   // Make on final validation check
   if (user.name.length > 0 && isEmail(user.email)) {
     const nextStage = stage + 1;
-    // Dispatch our action
-    // Set localStorage to save stage
-    localStorage.setItem('venuOnboardingStage', nextStage);
     dispatch(goToNextStage(nextStage));
   }
 }

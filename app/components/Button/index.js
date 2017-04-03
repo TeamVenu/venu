@@ -3,33 +3,33 @@ import Ionicon from 'react-ionicons';
 import styled from 'styled-components';
 
 const Btn = styled.button`
-  // color: var(--background-color);
   padding: 1em;
-  text-transform: uppercase;
-
-  &.reversed {
-    color: var(--background-color);
-  }
 
   &.bordered {
     border: 3px solid currentColor;
   }
 
-  &.cta {
-    background: var(--foreground-color);
-    color: var(--background-color);
+  &.rounded {
+    border-radius: 2em;
+  }
 
-    &.bordered {
-      border-color: var(--foreground-color);
-    }
+  &.special {
+    background: var(--red);
+    color: var(--background-color);
+    border-color: var(--red);;
 
     &.reversed {
-      background: var(--foreround-color);
-      color: var(--background-color);
+      background: var(--background-color);
+      color: var(--red);
+      border-color: var(--background-color);
 
-      &.bordered {
-        border-color: var(--background-color);
+      &:disabled {
+        border-color: var(--light-gray);
       }
+    }
+
+    &:disabled {
+      background: var(--light-gray);
     }
   }
 
@@ -38,16 +38,14 @@ const Btn = styled.button`
     width: 100%;
   }
 
-  &:hover {
-    // background: var(--grey);
-  }
-
-  &:focus {
-    outline: 0;
+  &.fixed {
+    position: fixed;
+    bottom: 0;
   }
 
   &:disabled {
     cursor: not-allowed;
+    color: var(--light-gray);
   }
 `;
 
@@ -59,6 +57,7 @@ export default class Button extends React.Component {
     type: T.string,
     onClickEvent: T.func,
     isDisabled: T.bool,
+    isIconAfter: T.bool,
   }
 
   constructor(props) {
@@ -75,13 +74,22 @@ export default class Button extends React.Component {
   }
 
   render() {
-    const { name, icon, type, btnClasses, isDisabled, onClickEvent } = this.props;
+    const { name, icon, type, btnClasses, isDisabled, isIconAfter, onClickEvent } = this.props;
 
     const iconComponent = (icon) ? (
       <Ionicon className={'icon'} icon={`icon ${icon}`} />
     ) : null;
 
     const clickEvent = (onClickEvent) ? this.handleClick : null;
+
+    if (isIconAfter) {
+      return (
+        <Btn type={type} className={btnClasses} onClick={clickEvent} disabled={isDisabled}>
+          {name}
+          {iconComponent}
+        </Btn>
+      );
+    }
 
     return (
       <Btn type={type} className={btnClasses} onClick={clickEvent} disabled={isDisabled}>

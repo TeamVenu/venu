@@ -1,11 +1,15 @@
 import React, { PropTypes as T } from 'react';
+import Ionicon from 'react-ionicons';
 
-import { NotificationList, NotificationHeader, NotificationItem } from './styles';
+import P from 'components/P';
 
-export default class Notifiations extends React.Component {
+import { Wrapper, IconWrapper, Button } from './styles';
+
+export default class Notification extends React.Component {
   static propTypes = {
     type: T.string.isRequired,
-    messages: T.array,
+    message: T.string,
+    onClickEvent: T.func,
   };
 
   constructor(props) {
@@ -14,34 +18,42 @@ export default class Notifiations extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(event) {
-    event.target.parentNode.classList.remove('visible');
-  }
-
-  renderMessages() {
-    const { messages } = this.props;
-
-    if (!messages) return null;
-
-    return messages.map((message) => { // eslint-disable-line
-      return (
-        <NotificationItem key={messages.indexOf(message)}>{message}</NotificationItem>
-      );
-    });
+  handleClick() {
+    const { onClickEvent } = this.props;
+    onClickEvent();
   }
 
   render() {
-    const { messages, type } = this.props;
+    const { message, type } = this.props;
 
-    const notificationClass = (messages && messages.length > 0) ? `${type} visible` : type;
+    if (!message) return null;
 
+    let icon = '';
+
+    switch (type) {
+      case 'error':
+        icon = 'ion-close-round';
+        break;
+      case 'warning':
+        icon = 'ion-alert';
+        break;
+      case 'success':
+        icon = 'ion-checkmark-round';
+        break;
+      default:
+        icon = '';
+        break;
+    }
     return (
-      <NotificationList className={notificationClass}>
-        <NotificationHeader onClick={this.handleClick}>
-          Dismiss
-        </NotificationHeader>
-        {this.renderMessages()}
-      </NotificationList>
+      <Wrapper className={type}>
+        <IconWrapper>
+          <Ionicon icon={icon} />
+        </IconWrapper>
+        <P>
+          {message}
+        </P>
+        <Button onClick={this.handleClick}>Dismiss</Button>
+      </Wrapper>
     );
   }
 }

@@ -4,7 +4,10 @@ import { browserHistory } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 
 // Selector
+import { makeSelectUser, makeSelectIsSignedIn } from 'containers/App/selectors';
 import { makeSelectOnboardingStage } from 'containers/Onboarding/selectors';
+import { dispatchGetAuthenticatedUser } from 'containers/App/dispatches';
+import { isUserOnboardingComplete } from 'utils/helpers';
 
 export class Home extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
@@ -12,23 +15,27 @@ export class Home extends React.PureComponent { // eslint-disable-line react/pre
   };
 
   componentWillMount() {
-    // Grab the onboarding stage
-    const { onboardingStage } = this.props;
+    const { onGetAuthenticatedUser } = this.props;
+    // Check if the user is already logged in
+    onGetAuthenticatedUser();
+  }
 
-    // If no stage or it is less than 3
-    if (!onboardingStage || onboardingStage < 3) {
-      // Redirect to onboarding
+  componentDidUpdate() {
+    const { isSignedIn, userProp } = this.props;
+    const user = (userProp.name) ? userProp : userProp.toJS();
+
+    // If not signed in redirect to sign in
+    if (!isSignedIn && !isUserOnboardingComplete(user)) {
       browserHistory.push({
-        pathname: '/onboarding',
+        pathname: '/login',
       });
     }
   }
 
   renderChildren() {
-    const { children, onboardingStage } = this.props;
+    const { children, isSignedIn } = this.props;
 
-    // Don't show anything until we render the Onboarding
-    if (!onboardingStage || onboardingStage < 3) return null;
+    if (!isSignedIn) return null;
 
     if (React.Children.count(children) > 0) {
       return React.Children.map(children, (c) => { // eslint-disable-line
@@ -49,11 +56,22 @@ export class Home extends React.PureComponent { // eslint-disable-line react/pre
 }
 
 Home.propTypes = {
+  userProp: T.object,
+  isSignedIn: T.bool,
   onboardingStage: T.any,
+  onGetAuthenticatedUser: T.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
+  userProp: makeSelectUser(),
+  isSignedIn: makeSelectIsSignedIn(),
   onboardingStage: makeSelectOnboardingStage(),
 });
 
-export default connect(mapStateToProps)(Home);
+export function mapDispatchToProps(dispatch) {
+  return {
+    onGetAuthenticatedUser: () => dispatchGetAuthenticatedUser(dispatch),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

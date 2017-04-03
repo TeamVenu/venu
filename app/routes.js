@@ -36,12 +36,14 @@ export default function createRoutes(store) {
       indexRoute: {
         getComponent(partialNextState, cb) {
           const importModules = Promise.all([
+            import('containers/App/sagas'),
             import('containers/Main'),
           ]);
 
           const renderRoute = loadModule(cb);
 
-          importModules.then(([component]) => {
+          importModules.then(([sagas, component]) => {
+            injectSagas(sagas.default);
             renderRoute(component);
           });
 
@@ -72,9 +74,38 @@ export default function createRoutes(store) {
       path: '/onboarding',
       name: 'onboarding',
       getComponent(nextState, cb) {
-        import('containers/Onboarding')
-          .then(loadModule(cb))
-          .catch(errorLoading);
+        const importModules = Promise.all([
+          import('containers/App/sagas'),
+          import('containers/Onboarding'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([sagas, component]) => {
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
+      path: '/login',
+      name: 'signIn',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/App/sagas'),
+          import('containers/SignIn'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([sagas, component]) => {
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
       },
     },
     {

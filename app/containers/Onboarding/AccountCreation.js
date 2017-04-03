@@ -3,20 +3,18 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 // Components
-import SmallWrapper from 'components/SmallWrapper';
 import TextField from 'components/TextField';
 import Button from 'components/Button';
+import A from 'components/A';
+import Notifications from 'components/Notifications';
 
 // Global Selectors
-import {
-  makeSelectUser,
-  makeSelectOnboardingValidation,
-} from 'containers/App/selectors';
+import { makeSelectError } from 'containers/App/selectors';
 
 // Global Helpers
 import {
-  dispatchChangeDisplayName,
-  dispatchChangeEmail,
+  dispatchSetErrorMessages,
+  dispatchCreateUserAccount,
 } from 'containers/App/dispatches';
 
 // Messages
@@ -24,22 +22,27 @@ import messages from './messages';
 
 // Local Styles
 import {
+  Container,
   Header,
   Body,
-  Label,
-  DescriptionList,
-  DescriptionTitle,
-  DescriptionDefinition,
+  Footer,
 } from './styles';
 
 // Selectors
 import {
+  makeSelectEmail,
+  makeSelectPassword,
+  makeSelectRePassword,
+  makeSelectEmailValid,
+  makeSelectPasswordValid,
   makeSelectOnboardingStage,
 } from './selectors';
 
 // Dispatch Methods
 import {
-  dispatchGoToNextStageFromAccountCreation,
+  dispatchChangeUserEmail,
+  dispatchChangeUserPassword,
+  dispatchChangeUserRePassword,
 } from './dispatches';
 
 // AccountCreation
@@ -48,119 +51,90 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
   render() {
     // Get the props we need
     const {
+      error,
       stage,
-      user,
-      validation,
-      onChangeDisplayName,
+      email,
+      password,
+      rePassword,
+      isEmailValid,
+      isPasswordValid,
       onChangeEmail,
+      onChangePassword,
+      onChangeRePassword,
+      onClearErrorMessages,
       onSubmitAccountCreation,
     } = this.props;
 
-    // Cache the username and email validation bool
-    const accountCreationValidation = validation.get('accountCreation').toJS();
-
     // Verify that the data is valid so we can enable to button
-    const validData = (accountCreationValidation.username && accountCreationValidation.email);
-
-    // For input classes
-    let emailValidationClass;
-    let usernameValidationClass;
-
-    // Set a class for username based on whether it is valid or not
-    switch (accountCreationValidation.username) {
-      case null:
-        usernameValidationClass = null;
-        break;
-      case false:
-        usernameValidationClass = 'invalid';
-        break;
-      case true:
-        usernameValidationClass = 'valid';
-        break;
-      default:
-        usernameValidationClass = null;
-        break;
-    }
-
-    // Set a class for email based on whether it is valid or not
-    switch (accountCreationValidation.email) {
-      case null:
-        emailValidationClass = null;
-        break;
-      case false:
-        emailValidationClass = 'invalid';
-        break;
-      case true:
-        emailValidationClass = 'valid';
-        break;
-      default:
-        emailValidationClass = null;
-        break;
-    }
+    const validData = (isEmailValid && isPasswordValid);
 
     return (
-      <SmallWrapper className="centered">
+      <Container>
+        <Notifications
+          type={'error'}
+          message={error}
+          onClickEvent={onClearErrorMessages}
+        />
         <Header>
-          <h1>{ messages.accountCreation.title.defaultMessage }</h1>
-          <p>{ messages.accountCreation.intro.defaultMessage }</p>
-        </Header>
-        <Body>
           <h3>
             { messages.accountCreation.subtitle.defaultMessage }
           </h3>
-          <DescriptionList>
-            <DescriptionTitle>
-              <Label
-                htmlFor="usernameField"
-                id="usernameLabel"
-                className={usernameValidationClass}
-              >
-                { messages.accountCreation.nameLabel.defaultMessage }
-              </Label>
-            </DescriptionTitle>
-            <DescriptionDefinition>
-              <TextField
-                name="username"
-                id="usernameField"
-                type="text"
-                placeholderText="Jane"
-                value={user.get('name')}
-                inputClasses={usernameValidationClass}
-                onChangeEvent={onChangeDisplayName}
-                isRequired
-              />
-            </DescriptionDefinition>
-            <DescriptionTitle>
-              <Label
-                htmlFor="emailField"
-                id="emailLabel"
-                className={emailValidationClass}
-              >
-                { messages.accountCreation.emailLabel.defaultMessage }
-              </Label>
-            </DescriptionTitle>
-            <DescriptionDefinition>
-              <TextField
-                name="email"
-                id="emailField"
-                type="email"
-                placeholderText="jane@rit.edu"
-                title="Please enter a valid email."
-                value={user.get('email')}
-                inputClasses={emailValidationClass}
-                onChangeEvent={onChangeEmail}
-                isRequired
-              />
-            </DescriptionDefinition>
-          </DescriptionList>
+        </Header>
+        <Body>
+          <TextField
+            name={'email'}
+            id={'emailField'}
+            type={'text'}
+            value={email}
+            isValid={isEmailValid}
+            labelText={messages.accountCreation.emailLabel.defaultMessage}
+            onChangeEvent={onChangeEmail}
+            isRequired
+          />
+          <TextField
+            name={'password'}
+            id={'passwordField'}
+            type={'password'}
+            labelText={messages.accountCreation.passwordLabel.defaultMessage}
+            isValid={isPasswordValid}
+            value={password}
+            onChangeEvent={(e) => {
+              onChangePassword(e, rePassword);
+            }}
+            isRequired
+          />
+          <TextField
+            name={'passwordCheck'}
+            id={'passwordCheckField'}
+            type={'password'}
+            labelText={messages.accountCreation.passwordCheckLabel.defaultMessage}
+            isValid={isPasswordValid}
+            value={rePassword}
+            onChangeEvent={(e) => {
+              onChangeRePassword(e, password);
+            }}
+            isRequired
+          />
         </Body>
-        <Button
-          btnClasses={'full bordered'}
-          name={messages.buttons.next.defaultMessage}
-          onClickEvent={(e) => { onSubmitAccountCreation(e, this.props.user, stage); }}
-          isDisabled={!validData}
-        />
-      </SmallWrapper>
+        <Footer>
+          <Button
+            btnClasses={''}
+            icon={'ion-ios-arrow-thin-right'}
+            name={messages.buttons.next.defaultMessage}
+            onClickEvent={() => {
+              const credentials = {
+                email,
+                password,
+              };
+
+              onSubmitAccountCreation(credentials);
+            }}
+            isDisabled={!validData}
+            isIconAfter
+          />
+          <A className={'btn full'} to={'/login'}>I already have an account</A>
+        </Footer>
+      </Container>
     );
   }
 }
@@ -168,28 +142,56 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
 // Set our PropTypes
 AccountCreation.propTypes = {
   stage: T.any.isRequired,
-  user: T.object,
-  validation: T.object,
-  onChangeDisplayName: T.func,
+  error: T.string,
+  email: T.string,
+  password: T.string,
+  rePassword: T.string,
+  isEmailValid: T.bool,
+  isPasswordValid: T.bool,
   onChangeEmail: T.func,
+  onChangePassword: T.func,
+  onChangeRePassword: T.func,
+  onClearErrorMessages: T.func,
   onSubmitAccountCreation: T.func,
 };
 
 // Map dispatch functions to props so we can call them
 export function mapDispatchToProps(dispatch) {
   return {
-    onChangeDisplayName: (event) => dispatchChangeDisplayName(dispatch, event),
-    onChangeEmail: (event) => dispatchChangeEmail(dispatch, event),
-    onSubmitAccountCreation: (event, user, stage) => dispatchGoToNextStageFromAccountCreation(dispatch, event, user, stage),
+    onChangeEmail: (event) => dispatchChangeUserEmail(dispatch, event),
+    onClearErrorMessages: () => dispatchSetErrorMessages(dispatch, null),
+    onChangePassword: (event, password) => dispatchChangeUserPassword(dispatch, event, password),
+    onChangeRePassword: (event, password) => dispatchChangeUserRePassword(dispatch, event, password),
+    onSubmitAccountCreation: (user) => dispatchCreateUserAccount(dispatch, user),
   };
 }
 
 // Map state to props
 const mapStateToProps = createStructuredSelector({
-  user: makeSelectUser(),
+  error: makeSelectError(),
+  email: makeSelectEmail(),
+  password: makeSelectPassword(),
+  rePassword: makeSelectRePassword(),
+  isEmailValid: makeSelectEmailValid(),
+  isPasswordValid: makeSelectPasswordValid(),
   stage: makeSelectOnboardingStage(),
-  validation: makeSelectOnboardingValidation(),
 });
 
 // Connect our AccountCreation
 export default connect(mapStateToProps, mapDispatchToProps)(AccountCreation);
+
+// <TextField
+//   name={'name'}
+//   id={'nameField'}
+//   type={'text'}
+//   labelText={messages.accountCreation.nameLabel.defaultMessage}
+//   onChangeEvent={}
+//   isRequired
+// />
+// <TextField
+//   name={'age'}
+//   id={'ageField'}
+//   type={'number'}
+//   labelText={messages.accountCreation.ageLabel.defaultMessage}
+//   isRequired
+// />
