@@ -26,6 +26,8 @@ import {
   Header,
   Body,
   Footer,
+  ButtonRow,
+  ButtonItem,
 } from './styles';
 
 // Selectors
@@ -118,21 +120,25 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
           />
         </Body>
         <Footer>
-          <Button
-            btnClasses={''}
-            icon={'ion-ios-arrow-thin-right'}
-            name={messages.buttons.next.defaultMessage}
-            onClickEvent={() => {
-              const credentials = {
-                email,
-                password,
-              };
+          <ButtonRow>
+            <ButtonItem>
+              <Button
+                btnClasses={''}
+                icon={'ion-ios-arrow-thin-right'}
+                name={messages.buttons.next.defaultMessage}
+                onClickEvent={() => {
+                  const credentials = {
+                    email,
+                    password,
+                  };
 
-              onSubmitAccountCreation(credentials);
-            }}
-            isDisabled={!validData}
-            isIconAfter
-          />
+                  onSubmitAccountCreation(credentials);
+                }}
+                isDisabled={!validData}
+                isIconAfter
+              />
+            </ButtonItem>
+          </ButtonRow>
           <A className={'btn full'} to={'/login'}>I already have an account</A>
         </Footer>
       </Container>
