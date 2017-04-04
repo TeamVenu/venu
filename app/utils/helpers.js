@@ -148,3 +148,12 @@ export function getBroswer() {
     version: broswerArray[1],
   };
 }
+
+export function isUserOnboardingComplete(user) {
+  return (user.name.length > 0
+    && user.age.length > 0
+    && user.location.lat !== ''
+    && user.location.lng !== ''
+    && user.interests.length > 0
+  );
+}

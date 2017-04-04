@@ -3,23 +3,19 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 // Components
-import SmallWrapper from 'components/SmallWrapper';
 import Button from 'components/Button';
 import Checkbox from 'components/Input';
+import FlexListView from 'components/FlexListView';
 
 // Global Selectors
 import {
   makeSelectUser,
-  makeSelectOnboardingValidation,
 } from 'containers/App/selectors';
-
-// Global Helpers
-import {
-  dispatchChangeUserInterests,
-} from 'containers/App/dispatches';
 
 // Selectors
 import {
+  makeSelectInterests,
+  makeSelectInterestsValid,
   makeSelectOnboardingStage,
 } from './selectors';
 
@@ -27,6 +23,7 @@ import {
 import {
   dispatchGoToPreviousStage,
   dispatchGoToNextStage,
+  dispatchChangeUserInterests,
 } from './dispatches';
 
 // Messages
@@ -34,9 +31,10 @@ import messages from './messages';
 
 // Local Styles
 import {
+  Container,
   Header,
   Body,
-  OptionList,
+  Footer,
   OptionItem,
   ButtonRow,
   ButtonItem,
@@ -50,29 +48,21 @@ export class InterestSelection extends React.PureComponent { // eslint-disable-l
   }
 
   verifyInterests() {
-    const allInterests = document.getElementsByName('interests');
-    const { stage, onNextStage } = this.props;
-    const interests = [];
-    let interestString = '';
+    const { onUpdateInterests } = this.props;
 
+    const allInterests = document.getElementsByName('interests');
+    const interests = [];
     const allInterestsLength = allInterests.length;
     // Loop through elements
     for (let i = 0; i < allInterestsLength; i += 1) {
       const interest = allInterests[i];
 
       if (interest.checked) {
-        interestString += `${interest.value}-`;
         interests.push(interest.value);
       }
     }
 
-    // If we have interests then finish onboarding
-    if (interests.length > 0) {
-      // Remove the last dash from the string
-      interestString = interestString.slice(0, -1);
-      localStorage.setItem('venuUserInterests', interestString);
-      onNextStage(stage, interests);
-    }
+    onUpdateInterests(interests);
   }
 
   renderInterestList() {
@@ -87,6 +77,7 @@ export class InterestSelection extends React.PureComponent { // eslint-disable-l
             value={interest.defaultMessage}
             text={interest.defaultMessage}
             type={'checkbox'}
+            onChangeEvent={this.verifyInterests}
           />
         </OptionItem>
       );
@@ -94,68 +85,78 @@ export class InterestSelection extends React.PureComponent { // eslint-disable-l
   }
 
   render() {
-    const { stage, onPrevStage } = this.props;
-
+    const { userProps, stage, interests, areInterestsValid, onPrevStage, onSubmitProfile } = this.props;
+    const user = (userProps.location) ? userProps : userProps.toJS();
     return (
-      <SmallWrapper>
+      <Container>
         <Header>
           <h1>
             { messages.interestSelection.title.defaultMessage }
           </h1>
-          <p>
-            { messages.interestSelection.intro.defaultMessage }
-          </p>
         </Header>
         <Body>
           <h4>
             { messages.interestSelection.subtitle.defaultMessage }
           </h4>
-          <OptionList>
+          <p>
+            { messages.interestSelection.intro.defaultMessage }
+          </p>
+          <FlexListView>
             { this.renderInterestList() }
-          </OptionList>
+          </FlexListView>
+        </Body>
+        <Footer>
           <ButtonRow>
             <ButtonItem>
               <Button
-                btnClasses={'bordered full'}
+                icon={'ion-ios-arrow-thin-left'}
                 name={messages.buttons.back.defaultMessage}
                 onClickEvent={() => { onPrevStage(stage); }}
               />
             </ButtonItem>
             <ButtonItem>
               <Button
-                btnClasses={'bordered full'}
                 name={messages.buttons.finish.defaultMessage}
-                onClickEvent={() => { this.verifyInterests(stage); }}
+                isIconAfter
+                isDisabled={!areInterestsValid}
+                icon={'ion-ios-arrow-thin-right'}
+                onClickEvent={() => {
+                  const newUser = Object.assign({}, user, { interests });
+                  onSubmitProfile(newUser, stage);
+                }}
               />
             </ButtonItem>
           </ButtonRow>
-        </Body>
-      </SmallWrapper>
+        </Footer>
+      </Container>
     );
   }
 }
 
 InterestSelection.propTypes = {
+  userProps: T.object,
+  interests: T.any,
+  areInterestsValid: T.bool,
   stage: T.any.isRequired,
   onPrevStage: T.func,
-  onNextStage: T.func,
+  onSubmitProfile: T.func,
+  onUpdateInterests: T.func,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
+    onUpdateInterests: (interests) => dispatchChangeUserInterests(dispatch, interests),
     onPrevStage: (stage) => dispatchGoToPreviousStage(dispatch, stage),
-    onNextStage: (stage, interests) => {
-      dispatchChangeUserInterests(dispatch, interests);
-      dispatchGoToNextStage(dispatch, stage);
-    },
+    onSubmitProfile: (newUser, stage) => dispatchGoToNextStage(dispatch, newUser, stage),
   };
 }
 
 // Map state to props
 const mapStateToProps = createStructuredSelector({
-  user: makeSelectUser(),
+  userProps: makeSelectUser(),
   stage: makeSelectOnboardingStage(),
-  validation: makeSelectOnboardingValidation(),
+  interests: makeSelectInterests(),
+  areInterestsValid: makeSelectInterestsValid(),
 });
 
 // Connect our AccountCreation

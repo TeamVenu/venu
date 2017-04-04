@@ -18,7 +18,7 @@ export default defineMessages({
     },
     next: {
       id: 'venu.components.Onboarding.buttons.next',
-      defaultMessage: 'Proceed',
+      defaultMessage: 'Continue',
     },
     finish: {
       id: 'venu.components.Onboarding.buttons.finish',
@@ -50,6 +50,18 @@ export default defineMessages({
     emailLabel: {
       id: 'venu.components.Onboarding.accountCreation.emailLabel',
       defaultMessage: 'Enter a valid email:',
+    },
+    passwordLabel: {
+      id: 'venu.components.Onboarding.accountCreation.passwordLabel',
+      defaultMessage: 'Enter password:',
+    },
+    passwordCheckLabel: {
+      id: 'venu.components.Onboarding.accountCreation.passwordCheckLabel',
+      defaultMessage: 'Re-enter password:',
+    },
+    ageLabel: {
+      id: 'venu.components.Onboarding.accountCreation.ageLabel',
+      defaultMessage: 'Enter your age:',
     },
   },
   geolocationSetup: {
