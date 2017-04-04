@@ -34,6 +34,10 @@ export const SYNC_USER_DATA_ERROR = 'venu/App/SYNC_USER_DATA_ERROR';
 export const SYNC_USER_DATA_ADDED = 'venu/App/SYNC_USER_DATA_ADDED';
 export const SYNC_USER_DATA_REMOVED = 'venu/App/SYNC_USER_DATA_REMOVED';
 
+export const UPDATE_USER_DATA = 'venu/App/UPDATE_USER_DATA';
+export const UPDATE_USER_DATA_ERROR = 'venu/App/UPDATE_USER_DATA_ERROR';
+export const UPDATE_USER_DATA_SUCCESS = 'venu/App/UPDATE_USER_DATA_SUCCESS';
+
 //
 export const CHANGE_USER_NAME = 'venu/App/CHANGE_USER_NAME';
 export const CHANGE_USER_EMAIL = 'venu/App/CHANGE_USER_EMAIL';
@@ -54,3 +58,5 @@ export const UNLIKE_PLACE = 'venu/App/UNLIKE_PLACE';
 
 // Error
 export const SET_ERROR_MESSAGES = 'venu/App/SET_ERROR_MESSAGES';
+
+export const SET_USER = 'venu/App/SET_USER';

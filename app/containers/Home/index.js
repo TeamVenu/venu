@@ -22,7 +22,7 @@ export class Home extends React.PureComponent { // eslint-disable-line react/pre
 
   componentDidUpdate() {
     const { isSignedIn, userProp } = this.props;
-    const user = (userProp.name) ? userProp : userProp.toJS();
+    const user = (userProp.location) ? userProp : userProp.toJS();
 
     // If not signed in redirect to sign in
     if (!isSignedIn && !isUserOnboardingComplete(user)) {

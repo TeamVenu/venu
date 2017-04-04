@@ -19,6 +19,7 @@ import {
   CREATE_USER_ACCOUNT,
   LOAD_USER_DATA,
   SYNC_USER_DATA,
+  UPDATE_USER_DATA,
 } from './constants';
 
 import {
@@ -33,14 +34,16 @@ import {
   createUserAccountSuccess,
   loadUserDataError,
   loadUserDataSuccess,
+  updateUserDataError,
+  updateUserDataSuccess,
   syncUserDataAdded,
   syncUserDataRemoved,
 } from './actions';
 
 export function* syncUserData() {
   // Get the user email
-  const { email } = yield select(makeSelectUser);
-  const requestURL = `users/${email}`;
+  const { userId } = yield select(makeSelectUserId);
+  const requestURL = `users/${userId}`;
 
   // Yield fork for syncing user data
   yield fork(sync, requestURL, {
@@ -98,14 +101,42 @@ export function* createUser() {
   }
 }
 
+export function* updateUser() {
+  try {
+    const userId = yield select(makeSelectUserId());
+    const userProp = yield select(makeSelectUser());
+    console.log('In saga');
+    console.log(userProp);
+    const user = (userProp.location) ? userProp : userProp.toJS();
+    console.log(user);
+    yield call(update, 'users', userId, {
+      age: user.age,
+      email: user.email,
+      interests: user.interests,
+      location: user.location,
+      locationEnabled: user.locationEnabled,
+      name: user.name,
+      parking: user.parking,
+      role: user.role,
+      uid: user.uid,
+    });
+
+    yield put(updateUserDataSuccess());
+  } catch (error) {
+    yield put(updateUserDataError(error.message));
+  }
+}
+
 export function* firebaseData() {
   const createUserWatcher = yield takeLatest(CREATE_USER_ACCOUNT, createUser);
   const loadUserWatcher = yield takeLatest(LOAD_USER_DATA, fetchUserData);
   const syncUserDataWatcher = yield takeLatest(SYNC_USER_DATA, syncUserData);
+  const updateUserWatcher = yield takeLatest(UPDATE_USER_DATA, updateUser);
 
   yield take(LOCATION_CHANGE);
   yield cancel(createUserWatcher);
   yield cancel(loadUserWatcher);
+  yield cancel(updateUserWatcher);
   yield cancel(syncUserDataWatcher);
 }
 

@@ -1,4 +1,5 @@
 import {
+  SET_USER,
   SIGN_IN_USER,
   SIGN_IN_USER_ERROR,
   SIGN_IN_USER_SUCCESS,
@@ -14,6 +15,9 @@ import {
   SYNC_USER_DATA_ERROR,
   SYNC_USER_DATA_ADDED,
   SYNC_USER_DATA_REMOVED,
+  UPDATE_USER_DATA,
+  UPDATE_USER_DATA_ERROR,
+  UPDATE_USER_DATA_SUCCESS,
   CHANGE_USER_NAME,
   CHANGE_USER_AGE,
   CHANGE_USER_EMAIL,
@@ -30,6 +34,17 @@ import {
   CHANGE_EXHIBIT,
   SET_ERROR_MESSAGES,
 } from './constants';
+
+/**
+ * setUser
+ * Sets user
+ */
+export function setUser(user) {
+  return {
+    type: SET_USER,
+    value: user,
+  };
+}
 
 /**
  * signInUser
@@ -195,7 +210,7 @@ export function syncUserDataRemoved(user) {
 
 /**
  * syncUserDataError
- * Dispatched when syncing user data failes
+ * Dispatched when syncing user data fails
  * @param  {Object} error
  */
 export function syncUserDataError(error) {
@@ -206,6 +221,39 @@ export function syncUserDataError(error) {
     value: error,
   };
 }
+
+/**
+ * updateUserData
+ * Dispatched when updating user data
+ */
+export function updateUserData() {
+  return {
+    type: UPDATE_USER_DATA,
+  };
+}
+
+/**
+ * updateUserDataError
+ * Dispatched when updating user data fails
+ */
+export function updateUserDataError(error) {
+  return {
+    type: UPDATE_USER_DATA_ERROR,
+    value: error,
+  };
+}
+
+/**
+ * updateUserDataSuccess
+ * Dispatched when updating user data succeeds
+ * @param  {Object} user
+ */
+export function updateUserDataSuccess() {
+  return {
+    type: UPDATE_USER_DATA_SUCCESS,
+  };
+}
+
 
 /**
  * changeUserName
@@ -226,7 +274,7 @@ export function changeUserName(name) {
  */
 export function changeUserAge(age) {
   return {
-    type: CHANGE_USER_NAME,
+    type: CHANGE_USER_AGE,
     value: age,
   };
 }

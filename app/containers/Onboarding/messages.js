@@ -18,7 +18,7 @@ export default defineMessages({
     },
     next: {
       id: 'venu.components.Onboarding.buttons.next',
-      defaultMessage: 'Proceed',
+      defaultMessage: 'Continue',
     },
     finish: {
       id: 'venu.components.Onboarding.buttons.finish',

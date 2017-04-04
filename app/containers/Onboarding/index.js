@@ -8,26 +8,55 @@ import Wrapper from 'components/FullWrapper';
 
 import { makeSelectUser } from 'containers/App/selectors';
 
-import { isUserOnboardingComplete } from 'utils/helpers';
+import { dispatchGetAuthenticatedUser } from 'containers/App/dispatches';
 
 // Containers
 import AccountCreation from './AccountCreation';
+import Profile from './Profile';
 import GeolocationSetup from './GeolocationSetup';
 import InterestSelection from './InterestSelection';
 
 // Redux
 import { makeSelectOnboardingStage } from './selectors';
 
+import { dispatchSetStage } from './dispatches';
 
 export class Onboarding extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  componentWillMount() {
+    const { onGetAuthenticatedUser } = this.props;
+    // Check if the user is already logged in
+    onGetAuthenticatedUser();
+  }
+
+  componentDidMount() {
+
+  }
 
   // Occurs after component updated
   componentDidUpdate() {
-    const { userProp } = this.props;
+    const { userProp, onSetStage } = this.props;
 
-    const user = (userProp.uid) ? userProp : userProp.toJS();
+    const user = (userProp.location) ? userProp : userProp.toJS();
+    console.log(user);
+    let newStage = 0;
 
-    if (isUserOnboardingComplete(user)) {
+    if (user.email.length === 0 || user.uid.length === 0) {
+      newStage = 0;
+    } else if (user.name.length === 0 || user.age.length === 0) {
+      newStage = 1;
+    } else if (user.location.lat === '' || user.location.lng === '') {
+      newStage = 2;
+    } else if (user.interests.length === 0) {
+      newStage = 3;
+    } else {
+      newStage = 4;
+    }
+
+    onSetStage(newStage);
+
+    const { stage } = this.props;
+
+    if (stage > 3) {
       browserHistory.push({
         pathname: '/',
       });
@@ -35,48 +64,29 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
   }
 
   render() {
-    // TODO: on case 3 start our app
-    const { userProp } = this.props;
-
-    const user = (userProp.uid) ? userProp : userProp.toJS();
-    let stage = 0;
-    console.log(user);
-
-    if (user.email.length === 0 || user.uid.length === 0) {
-      stage = 0;
-    } else if (user.name.length === 0 || user.age.length === 0) {
-      stage = 1;
-    } else if (user.location.lat === '' || user.location.lng === '') {
-      stage = 2;
-    } else if (user.interests.length === 0) {
-      stage = 3;
-    } else {
-      stage = 0;
-    }
-
+    const { stage } = this.props;
+    console.log(this.props.userProp);
     // Initialize stage we will render
     let stageToRender;
 
     // Using the stage number
     // Figure out what container to render
     switch (stage) {
-      // If case 0 we want to render AccountCreation
+      // Case 0: Account Creation
       case 0:
-        // Render Account Creation
         stageToRender = (<AccountCreation />);
         break;
-      // Case 1: Render GeolocationSetup
+      // Case 2: Render Profile
       case 1:
+        stageToRender = (<Profile />);
+        break;
+      // Case 3: Render GeolocationSetup
+      case 2:
         stageToRender = (<GeolocationSetup />);
         break;
-      // Case 2: Render InterestSelection
-      case 2:
-        stageToRender = (<InterestSelection />);
-        break;
+      // Case 4: Render InterestSelection
       case 3:
-        // Empty div, we're leaving Onboarding
-        // TODO: Make this display a loading screen
-        stageToRender = (<div />);
+        stageToRender = (<InterestSelection />);
         break;
       // On default render AccountCreation
       default:
@@ -95,8 +105,10 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
 
 // Set our PropTypes
 Onboarding.propTypes = {
-  stage: T.any,
   userProp: T.object,
+  stage: T.number.isRequired,
+  onSetStage: T.func.isRequired,
+  onGetAuthenticatedUser: T.func.isRequired,
 };
 
 // Map state to props
@@ -105,5 +117,12 @@ const mapStateToProps = createStructuredSelector({
   userProp: makeSelectUser(),
 });
 
+export function mapDispatchToProps(dispatch) {
+  return {
+    onGetAuthenticatedUser: () => dispatchGetAuthenticatedUser(dispatch),
+    onSetStage: (stage) => dispatchSetStage(dispatch, stage),
+  };
+}
+
 // Connect our Onboarding
-export default connect(mapStateToProps)(Onboarding);
+export default connect(mapStateToProps, mapDispatchToProps)(Onboarding);

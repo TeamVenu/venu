@@ -84,7 +84,7 @@ export const OptionList = styled.ul`
 `;
 
 export const OptionItem = styled.li`
-  border-bottom: 1px solid var(--foreground-color);
+  padding-bottom: var(--padding);
 `;
 
 // export const Header = styled.header`

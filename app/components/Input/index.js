@@ -1,26 +1,19 @@
 import React, { PropTypes as T } from 'react';
 import styled from 'styled-components';
-import Ionicon from 'react-ionicons';
 
 const HiddenInput = styled.input`
   display: none;
   &:checked + label {
-    .icon {
-      display: inline;
-    }
+    background: var(--background-color);
+    color: var(--foreground-color);
   }
 `;
 
 const Label = styled.label`
   position: relative;
-  display: block;
   padding: var(--padding);
-
-  .icon {
-    position: absolute;
-    right: 0;
-    display: none;
-  }
+  background: var(--dark);
+  border-radius: 2em;
 `;
 
 export default class Input extends React.Component {
@@ -51,7 +44,7 @@ export default class Input extends React.Component {
     const { name, id, text, value, type, isRequired } = this.props;
 
     return (
-      <div>
+      <span>
         <HiddenInput
           id={id}
           type={type}
@@ -65,9 +58,8 @@ export default class Input extends React.Component {
           htmlFor={id}
         >
           {text}
-          <Ionicon icon={'icon ion-checkmark-round'} />
         </Label>
-      </div>
+      </span>
     );
   }
 }

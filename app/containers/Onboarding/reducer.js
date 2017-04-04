@@ -1,9 +1,16 @@
 import { fromJS } from 'immutable';
 
 import {
+  CHANGE_USER_AGE,
+  CHANGE_USER_NAME,
   CHANGE_USER_EMAIL,
   CHANGE_USER_PASSWORD,
   CHANGE_USER_REPASSWORD,
+  CHANGE_USER_LOCATION,
+  CHANGE_PARKING_LOCATION,
+  CHANGE_USER_INTERESTS,
+  SETUP_GEOLOCATION,
+  ONBOARDING_SET_STAGE,
   ONBOARDING_PREV_STAGE,
   ONBOARDING_NEXT_STAGE,
   ONBOARDING_START_VENU,
@@ -11,12 +18,22 @@ import {
 
 // Create our initial State
 const initialState = fromJS({
-  stage: (localStorage.getItem('venuOnboardingStage')) ? parseInt(localStorage.getItem('venuOnboardingStage'), 10) : 0,
+  stage: 0,
   email: '',
   password: '',
   rePassword: '',
+  name: '',
+  age: '',
+  location: {},
+  parking: {},
+  interests: [],
+  geolocationMode: '',
   isEmailValid: false,
   isPasswordValid: false,
+  isNameValid: false,
+  isAgeValid: false,
+  isLocationValid: false,
+  areInterestsValid: false,
 });
 
 function onboardingReducer(state = initialState, action) {
@@ -33,6 +50,31 @@ function onboardingReducer(state = initialState, action) {
       return state
         .set('rePassword', action.value)
         .set('isPasswordValid', action.valid);
+    case CHANGE_USER_AGE:
+      return state
+        .set('age', action.value)
+        .set('isAgeValid', action.valid);
+    case CHANGE_USER_NAME:
+      return state
+        .set('name', action.value)
+        .set('isNameValid', action.valid);
+    case CHANGE_USER_LOCATION:
+      return state
+        .set('location', action.value)
+        .set('isLocationValid', action.valid);
+    case CHANGE_PARKING_LOCATION:
+      return state
+        .set('parking', action.value);
+    case CHANGE_USER_INTERESTS:
+      return state
+        .set('interests', action.value)
+        .set('areInterestsValid', action.valid);
+    case SETUP_GEOLOCATION:
+      return state
+        .set('location', action.value)
+        .set('geolocationMode', action.mode)
+        .set('isLocationValid', action.valid);
+    case ONBOARDING_SET_STAGE:
     case ONBOARDING_PREV_STAGE:
     case ONBOARDING_NEXT_STAGE:
     case ONBOARDING_START_VENU:

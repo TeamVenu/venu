@@ -7,6 +7,7 @@ import {
   signInUserSuccess,
   signOutUser,
   createUserAccount,
+  updateUserData,
   changeUserId,
   loadUserData,
   changeUserName,
@@ -25,6 +26,8 @@ import {
   changeExhibit,
   setErrorMessages,
 } from 'containers/App/actions';
+
+import { dispatchSetStage } from 'containers/Onboarding/dispatches';
 
 export function dispatchGetAuthenticatedUser(dispatch) {
   // Check if there is someone signed in
@@ -161,9 +164,6 @@ export function askUserToEnableLocation(dispatch) {
     // b. Disabled by device
     console.warn('⚠️🗺 Geolocation is not available');
     // Set local storage so we don't have to repeat these steps on reload
-    localStorage.setItem('venuUserLocationLat', location.lat);
-    localStorage.setItem('venuUserLocationLng', location.lng);
-    localStorage.setItem('venuUserLocationEnabled', enabled);
     dispatch(setupGeolocation(location, enabled, 'unavailable'));
   }
 }
@@ -181,10 +181,6 @@ export function retrieveUserLocationSucceeded(dispatch, position) {
   };
 
   const enabled = true;
-  // Set local storage so we don't have to repeat these steps on reload
-  localStorage.setItem('venuUserLocationLat', location.lat);
-  localStorage.setItem('venuUserLocationLng', location.lng);
-  localStorage.setItem('venuUserLocationEnabled', enabled);
   dispatch(setupGeolocation(location, enabled, 'succeeded'));
 }
 
@@ -197,10 +193,6 @@ export function retrieveUserLocationSucceeded(dispatch, position) {
 export function retrieveUserLocationFailed(dispatch, location) {
   const enabled = false;
   console.warn(' ⛔️ 📍 Unable to retrieve location, user might have declined to use location');
-  // Set local storage so we don't have to repeat these steps on reload
-  localStorage.setItem('venuUserLocationLat', location.lat);
-  localStorage.setItem('venuUserLocationLng', location.lng);
-  localStorage.setItem('venuUserLocationEnabled', enabled);
   dispatch(setupGeolocation(location, enabled, 'failed'));
 }
 
@@ -335,9 +327,19 @@ export function dispatchCreateUserAccount(dispatch, credentials) {
       dispatch(signInUserSuccess(user.uid));
       // Send out dispatch saying we are creating user account
       dispatch(createUserAccount());
+      dispatchSetStage(dispatch, 1);
     })
     .catch((error) => {
       // Dispatch error message
       dispatch(signInUserError(error.message));
     });
+}
+
+/**
+ * dispatchUpdateUserData
+ * Dispatches actions and updates user account
+ * @param {Function} dispatch
+ */
+export function dispatchUpdateUserData(dispatch) {
+  dispatch(updateUserData());
 }

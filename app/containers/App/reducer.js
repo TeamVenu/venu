@@ -17,6 +17,7 @@ import imagineRITData from 'fixtures/places.json';
 import mapStyles from 'fixtures/map-styles.json';
 
 import {
+  SET_USER,
   SIGN_IN_USER,
   SIGN_IN_USER_ERROR,
   SIGN_IN_USER_SUCCESS,
@@ -32,6 +33,9 @@ import {
   SYNC_USER_DATA_ERROR,
   SYNC_USER_DATA_ADDED,
   SYNC_USER_DATA_REMOVED,
+  UPDATE_USER_DATA,
+  UPDATE_USER_DATA_ERROR,
+  UPDATE_USER_DATA_SUCCESS,
   CHANGE_USER_NAME,
   CHANGE_USER_AGE,
   CHANGE_USER_EMAIL,
@@ -135,6 +139,9 @@ const initialState = fromJS({
  */
 function appReducer(state = initialState, action) {
   switch (action.type) {
+    case SET_USER:
+      return state
+        .set('user', action.value);
     case SIGN_IN_USER:
       return state
         .set('loading', true);
@@ -152,6 +159,16 @@ function appReducer(state = initialState, action) {
         .set('uid', '')
         .set('isSignedIn', false)
         .set('user', fromJS(initialUserState));
+    case UPDATE_USER_DATA:
+      return state
+        .set('loading', true);
+    case UPDATE_USER_DATA_ERROR:
+      return state
+        .set('loading', false)
+        .set('error', action.value);
+    case UPDATE_USER_DATA_SUCCESS:
+      return state
+        .set('loading', false);
     case CHANGE_USER_ID:
       return state
         .set('uid', action.value);
