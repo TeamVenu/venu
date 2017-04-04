@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'venu.components.Onboarding.header',
-    defaultMessage: 'Venu',
+    defaultMessage: 'VENU',
   },
   buttons: {
     id: 'venu.components.Onboarding.buttons',
@@ -33,11 +33,7 @@ export default defineMessages({
     id: 'venu.components.Onboarding.accountCreation',
     title: {
       id: 'venu.components.Onboarding.accountCreation.title',
-      defaultMessage: 'Welcome to Venu!',
-    },
-    intro: {
-      id: 'venu.components.Onboarding.accountCreation.intro',
-      defaultMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam rem distinctio fugit et, consequatur molestias laudantium placeat laboriosam dolorum a voluptatum autem ipsa quasi quo minus, debitis nihil quaerat officia.',
+      defaultMessage: 'Welcome to VENU!',
     },
     subtitle: {
       id: 'venu.components.Onboarding.accountCreation.subtitle',
@@ -49,7 +45,7 @@ export default defineMessages({
     },
     emailLabel: {
       id: 'venu.components.Onboarding.accountCreation.emailLabel',
-      defaultMessage: 'Enter a valid email:',
+      defaultMessage: 'Enter your email:',
     },
     passwordLabel: {
       id: 'venu.components.Onboarding.accountCreation.passwordLabel',
@@ -68,11 +64,11 @@ export default defineMessages({
     id: 'venu.components.Onboarding.geolocationSetup',
     title: {
       id: 'venu.components.Onboarding.geolocationSetup.title',
-      defaultMessage: 'Allow Venu to access your location',
+      defaultMessage: 'Allow VENU to access your location',
     },
     intro: {
       id: 'venu.components.Onboarding.geolocationSetup.intro',
-      defaultMessage: ' Venu is a wayfinding app that assists you in finding nearby activities that you might be interested in. For a better experience Venu will need access to your location. Is that ok?',
+      defaultMessage: ' VENU is a wayfinding app that assists you in finding nearby activities that you might be interested in. For a better experience VENU will need access to your location. Is that ok?',
     },
     location: {
       id: 'venu.components.Onboarding.geolocationSetup.location',
@@ -326,11 +322,11 @@ export default defineMessages({
     id: 'venu.components.Onboarding.interestSelection',
     title: {
       id: 'venu.components.Onboarding.interestSelection.title',
-      defaultMessage: 'One last thing',
+      defaultMessage: 'Personalize',
     },
     intro: {
       id: 'venu.components.Onboarding.interestSelection.intro',
-      defaultMessage: 'Venu makes recommendations on activities you may enjoy. To tailor this process to meet your preferences, please select that following categories that may interest you.',
+      defaultMessage: 'VENU makes recommendations on activities you may enjoy. To tailor this process to meet your preferences, please select that following categories that may interest you.',
     },
     subtitle: {
       id: 'venu.components.Onboarding.interestSelection.title',

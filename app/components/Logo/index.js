@@ -4,7 +4,6 @@ import {
   LogoWrapper,
   LogoOuterWhite,
   LogoGradientOpaque,
-  LogoWhiteStroke,
   LogoInnerGradient,
 } from './styles';
 
@@ -14,9 +13,7 @@ export default class Logo extends React.PureComponent { // eslint-disable-line r
       <LogoWrapper>
         <LogoOuterWhite>
           <LogoGradientOpaque>
-            <LogoWhiteStroke>
-              <LogoInnerGradient />
-            </LogoWhiteStroke>
+            <LogoInnerGradient />
           </LogoGradientOpaque>
         </LogoOuterWhite>
       </LogoWrapper>

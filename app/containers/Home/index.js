@@ -5,7 +5,6 @@ import { createStructuredSelector } from 'reselect';
 
 // Selector
 import { makeSelectUser, makeSelectIsSignedIn } from 'containers/App/selectors';
-import { makeSelectOnboardingStage } from 'containers/Onboarding/selectors';
 import { dispatchGetAuthenticatedUser } from 'containers/App/dispatches';
 import { isUserOnboardingComplete } from 'utils/helpers';
 
@@ -58,14 +57,12 @@ export class Home extends React.PureComponent { // eslint-disable-line react/pre
 Home.propTypes = {
   userProp: T.object,
   isSignedIn: T.bool,
-  onboardingStage: T.any,
   onGetAuthenticatedUser: T.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   userProp: makeSelectUser(),
   isSignedIn: makeSelectIsSignedIn(),
-  onboardingStage: makeSelectOnboardingStage(),
 });
 
 export function mapDispatchToProps(dispatch) {

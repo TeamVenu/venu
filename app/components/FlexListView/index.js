@@ -9,6 +9,10 @@ const FlexListView = styled.ul`
   li {
     margin: 0 var(--padding) var(--padding) 0;
   }
+
+  &.spaced li {
+    margin: 0 calc(var(--padding) * 1.5) calc(var(--padding) * 1.5) 0;
+  }
 `;
 
 export default FlexListView;

@@ -104,7 +104,6 @@ export function changeUserId(uid) {
  * Dispatched when user data is being sent to database to create account
  */
 export function createUserAccount(userId) {
-  console.log('creating user account');
   return {
     type: CREATE_USER_ACCOUNT,
     value: userId,
@@ -186,8 +185,6 @@ export function syncUserData() {
  * @param  {Object} user
  */
 export function syncUserDataAdded(user) {
-  console.log('Sync User Data Added');
-  console.log(user);
   return {
     type: SYNC_USER_DATA_ADDED,
     value: user,
@@ -200,8 +197,6 @@ export function syncUserDataAdded(user) {
  * @param  {Object} user
  */
 export function syncUserDataRemoved(user) {
-  console.log('Sync User Data Removed');
-  console.log(user);
   return {
     type: SYNC_USER_DATA_REMOVED,
     value: user,
@@ -214,8 +209,6 @@ export function syncUserDataRemoved(user) {
  * @param  {Object} error
  */
 export function syncUserDataError(error) {
-  console.log('Sync User Data error');
-  console.log(error);
   return {
     type: SYNC_USER_DATA_ERROR,
     value: error,

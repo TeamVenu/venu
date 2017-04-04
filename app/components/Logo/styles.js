@@ -43,6 +43,7 @@ export const LogoInnerGradient = styled.section`
   align-items: center;
   width: calc(var(--pin-size) - 4px);
   height: calc(var(--pin-size) - 4px);
+  // border: 1px solid var(--background-color);
   background: var(--pin-background-gradient);
   border-radius: 100%;
 `;

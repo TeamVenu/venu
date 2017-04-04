@@ -1,12 +1,11 @@
-import { takeEvery } from 'redux-saga';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { take, takeLatest, call, cancel, put, fork, select } from 'redux-saga/effects';
 import {
   getAll,
-  get,
+  // get,
   create,
-  push,
-  remove,
+  // push,
+  // remove,
   update,
   sync,
   CHILD_ADDED,
@@ -105,10 +104,8 @@ export function* updateUser() {
   try {
     const userId = yield select(makeSelectUserId());
     const userProp = yield select(makeSelectUser());
-    console.log('In saga');
-    console.log(userProp);
     const user = (userProp.location) ? userProp : userProp.toJS();
-    console.log(user);
+
     yield call(update, 'users', userId, {
       age: user.age,
       email: user.email,

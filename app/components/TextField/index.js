@@ -17,7 +17,6 @@ export default class TextField extends React.Component {
     isRequired: T.bool,
     name: T.string,
     onChangeEvent: T.func,
-    placeholderText: T.string,
     title: T.string,
     isValid: T.bool,
     type: T.string,
@@ -45,10 +44,10 @@ export default class TextField extends React.Component {
 
     if (!requirements || requirements.length === 0) return null;
 
-    return requirements.map((requirement) => { // eslint-disable-line
+    return requirements.map((requirement, index) => { // eslint-disable-line
       return (
-        <Item key={requirement.id}>
-          {requirement.msg}
+        <Item key={index}>
+          {requirement}
         </Item>
       );
     });

@@ -35,7 +35,6 @@ import {
   makeSelectRePassword,
   makeSelectEmailValid,
   makeSelectPasswordValid,
-  makeSelectOnboardingStage,
 } from './selectors';
 
 // Dispatch Methods
@@ -52,7 +51,6 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
     // Get the props we need
     const {
       error,
-      stage,
       email,
       password,
       rePassword,
@@ -67,6 +65,7 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
 
     // Verify that the data is valid so we can enable to button
     const validData = (isEmailValid && isPasswordValid);
+    const passwordRequirements = ['Must be at least 6 characters long', 'Must match'];
 
     return (
       <Container>
@@ -98,6 +97,7 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
             labelText={messages.accountCreation.passwordLabel.defaultMessage}
             isValid={isPasswordValid}
             value={password}
+            requirements={passwordRequirements}
             onChangeEvent={(e) => {
               onChangePassword(e, rePassword);
             }}
@@ -110,6 +110,7 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
             labelText={messages.accountCreation.passwordCheckLabel.defaultMessage}
             isValid={isPasswordValid}
             value={rePassword}
+            requirements={passwordRequirements}
             onChangeEvent={(e) => {
               onChangeRePassword(e, password);
             }}
@@ -141,7 +142,6 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
 
 // Set our PropTypes
 AccountCreation.propTypes = {
-  stage: T.any.isRequired,
   error: T.string,
   email: T.string,
   password: T.string,
@@ -174,24 +174,7 @@ const mapStateToProps = createStructuredSelector({
   rePassword: makeSelectRePassword(),
   isEmailValid: makeSelectEmailValid(),
   isPasswordValid: makeSelectPasswordValid(),
-  stage: makeSelectOnboardingStage(),
 });
 
 // Connect our AccountCreation
 export default connect(mapStateToProps, mapDispatchToProps)(AccountCreation);
-
-// <TextField
-//   name={'name'}
-//   id={'nameField'}
-//   type={'text'}
-//   labelText={messages.accountCreation.nameLabel.defaultMessage}
-//   onChangeEvent={}
-//   isRequired
-// />
-// <TextField
-//   name={'age'}
-//   id={'ageField'}
-//   type={'number'}
-//   labelText={messages.accountCreation.ageLabel.defaultMessage}
-//   isRequired
-// />

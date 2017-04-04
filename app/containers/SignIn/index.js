@@ -46,7 +46,6 @@ export class SignIn extends React.PureComponent { // eslint-disable-line react/p
   // Occurs after component updated
   componentDidUpdate() {
     const { userId, user } = this.props;
-    console.log(user);
 
     if (userId || user.get('uid') !== '') {
       browserHistory.push({

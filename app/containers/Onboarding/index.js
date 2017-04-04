@@ -35,9 +35,7 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
   // Occurs after component updated
   componentDidUpdate() {
     const { userProp, onSetStage } = this.props;
-
     const user = (userProp.location) ? userProp : userProp.toJS();
-    console.log(user);
     let newStage = 0;
 
     if (user.email.length === 0 || user.uid.length === 0) {
@@ -65,7 +63,7 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
 
   render() {
     const { stage } = this.props;
-    console.log(this.props.userProp);
+
     // Initialize stage we will render
     let stageToRender;
 

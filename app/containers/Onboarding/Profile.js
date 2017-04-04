@@ -24,6 +24,8 @@ import {
   Header,
   Body,
   Footer,
+  ButtonRow,
+  ButtonItem,
 } from './styles';
 
 // Selectors
@@ -65,6 +67,7 @@ export class Profile extends React.PureComponent { // eslint-disable-line react/
 
     // Verify that the data is valid so we can enable to button
     const validData = (isNameValid && isAgeValid);
+    const ageRequirements = ['Must be a number'];
 
     return (
       <Container>
@@ -94,22 +97,27 @@ export class Profile extends React.PureComponent { // eslint-disable-line react/
             labelText={messages.accountCreation.ageLabel.defaultMessage}
             isValid={isAgeValid}
             value={age}
+            requirements={ageRequirements}
             onChangeEvent={onChangeAge}
             isRequired
           />
         </Body>
         <Footer>
-          <Button
-            btnClasses={''}
-            icon={'ion-ios-arrow-thin-right'}
-            name={messages.buttons.next.defaultMessage}
-            onClickEvent={() => {
-              const newUser = Object.assign({}, user, { name, age });
-              onSubmitProfile(newUser, stage);
-            }}
-            isDisabled={!validData}
-            isIconAfter
-          />
+          <ButtonRow>
+            <ButtonItem>
+              <Button
+                btnClasses={''}
+                icon={'ion-ios-arrow-thin-right'}
+                name={messages.buttons.next.defaultMessage}
+                onClickEvent={() => {
+                  const newUser = Object.assign({}, user, { name, age });
+                  onSubmitProfile(newUser, stage);
+                }}
+                isDisabled={!validData}
+                isIconAfter
+              />
+            </ButtonItem>
+          </ButtonRow>
         </Footer>
       </Container>
     );

@@ -102,7 +102,7 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
             <p>
               { messages.geolocationSetup.parking.description.defaultMessage }
             </p>
-            <FlexListView>
+            <FlexListView className={'spaced'}>
               <OptionItem>
                 <Radio
                   id={'currentLocation'}
@@ -160,7 +160,7 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
 
   render() {
     // Get the props we need
-    const { userProps, stage, location, parking, isLocationValid, onPrevStage, onNextStage } = this.props;
+    const { userProps, stage, location, parking, isLocationValid, onNextStage } = this.props;
     // Will show the update alert to userProps
     const bodyContent = this.renderBodyContent;
     // Store the userProps props we will use in an object
@@ -180,14 +180,6 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
         </Body>
         <Footer>
           <ButtonRow>
-            <ButtonItem>
-              <Button
-                btnClasses={''}
-                icon={'ion-ios-arrow-thin-left'}
-                name={messages.buttons.back.defaultMessage}
-                onClickEvent={() => { onPrevStage(stage); }}
-              />
-            </ButtonItem>
             <ButtonItem>
               <Button
                 btnClasses={''}
@@ -218,7 +210,6 @@ GeolocationSetup.propTypes = {
   isLocationValid: T.bool,
   onAskUserToEnableLocation: T.func,
   onSetParkingLocation: T.func,
-  onPrevStage: T.func,
   onNextStage: T.func,
 };
 

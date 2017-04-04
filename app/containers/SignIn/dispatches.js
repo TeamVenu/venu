@@ -2,7 +2,6 @@ import isEmail from 'validator/lib/isEmail';
 
 // Actions
 import {
-  signInMode,
   changeEmail,
   changePassword,
 } from './actions';

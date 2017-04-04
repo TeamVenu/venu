@@ -38,8 +38,6 @@ export const Footer = styled.ul`
   }
 `;
 
-///
-
 export const Label = styled.label`
   display: block;
   text-align: left;
@@ -87,14 +85,6 @@ export const OptionItem = styled.li`
   padding-bottom: var(--padding);
 `;
 
-// export const Header = styled.header`
-//   margin-bottom: calc(var(--padding) * 2);
-// `;
-
-// export const Body = styled.section`
-//   margin-bottom: calc(var(--padding) * 2);
-// `;
-
 export const DescriptionList = styled.dl``;
 
 export const DescriptionTitle = styled.dt`
@@ -119,6 +109,7 @@ export const ButtonRow = styled.ul`
   width: 100%;
   display: flex;
   flex-flow: row no-wrap;
+  justify-content: flex-end;
 `;
 
 export const ButtonItem = styled.li`

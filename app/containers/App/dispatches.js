@@ -33,8 +33,6 @@ export function dispatchGetAuthenticatedUser(dispatch) {
   // Check if there is someone signed in
   window.firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      console.log('A user is sign in');
-      console.log(user);
       // Set the userId to uid returned
       dispatch(changeUserId(user.uid));
 
@@ -42,7 +40,6 @@ export function dispatchGetAuthenticatedUser(dispatch) {
       dispatch(loadUserData());
     } else {
       // No user is signed in
-      console.log('no user signed in');
       dispatch(signOutUser());
     }
   });
@@ -162,7 +159,6 @@ export function askUserToEnableLocation(dispatch) {
     // Geolocation is
     // a. Not supported by device or
     // b. Disabled by device
-    console.warn('⚠️🗺 Geolocation is not available');
     // Set local storage so we don't have to repeat these steps on reload
     dispatch(setupGeolocation(location, enabled, 'unavailable'));
   }
@@ -192,7 +188,6 @@ export function retrieveUserLocationSucceeded(dispatch, position) {
  */
 export function retrieveUserLocationFailed(dispatch, location) {
   const enabled = false;
-  console.warn(' ⛔️ 📍 Unable to retrieve location, user might have declined to use location');
   dispatch(setupGeolocation(location, enabled, 'failed'));
 }
 

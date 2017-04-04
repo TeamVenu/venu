@@ -11,9 +11,10 @@ const HiddenInput = styled.input`
 
 const Label = styled.label`
   position: relative;
-  padding: var(--padding);
+  padding: var(--padding) calc(var(--padding) * 2);
   background: var(--dark);
   border-radius: 2em;
+  min-width: 60px;
 `;
 
 export default class Input extends React.Component {

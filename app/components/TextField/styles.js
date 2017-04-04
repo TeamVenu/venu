@@ -9,8 +9,7 @@ export const Wrapper = styled.section`
     display: none;
     position: absolute;
     right: 0;
-    top: 50%;
-    transform: translateY(-50%);
+    top: calc(var(--padding) * 1.5);
   }
 
   &.valid {
@@ -34,7 +33,7 @@ export const List = styled.ul`
 `;
 
 export const Item = styled.li`
-  padding: var(--padding);
+  padding: calc(var(--padding) / 2);
 `;
 
 export const Input = styled.input`

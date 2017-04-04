@@ -85,7 +85,7 @@ export class InterestSelection extends React.PureComponent { // eslint-disable-l
   }
 
   render() {
-    const { userProps, stage, interests, areInterestsValid, onPrevStage, onSubmitProfile } = this.props;
+    const { userProps, stage, interests, areInterestsValid, onSubmitProfile } = this.props;
     const user = (userProps.location) ? userProps : userProps.toJS();
     return (
       <Container>
@@ -101,19 +101,12 @@ export class InterestSelection extends React.PureComponent { // eslint-disable-l
           <p>
             { messages.interestSelection.intro.defaultMessage }
           </p>
-          <FlexListView>
+          <FlexListView className={'spaced'}>
             { this.renderInterestList() }
           </FlexListView>
         </Body>
         <Footer>
           <ButtonRow>
-            <ButtonItem>
-              <Button
-                icon={'ion-ios-arrow-thin-left'}
-                name={messages.buttons.back.defaultMessage}
-                onClickEvent={() => { onPrevStage(stage); }}
-              />
-            </ButtonItem>
             <ButtonItem>
               <Button
                 name={messages.buttons.finish.defaultMessage}
@@ -138,7 +131,6 @@ InterestSelection.propTypes = {
   interests: T.any,
   areInterestsValid: T.bool,
   stage: T.any.isRequired,
-  onPrevStage: T.func,
   onSubmitProfile: T.func,
   onUpdateInterests: T.func,
 };
