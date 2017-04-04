@@ -78,7 +78,7 @@ export default defineMessages({
       },
       succeeded: {
         id: 'venu.components.Onboarding.geolocationSetup.location.succeeded',
-        defaultMessage: 'We have successfuly retrieved your location! You may now continue the setup process.',
+        defaultMessage: 'We have successfully retrieved your location! You may now continue the setup process.',
       },
       failed: {
         id: 'venu.components.Onboarding.geolocationSetup.location.failed',
