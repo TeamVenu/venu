@@ -1,27 +1,13 @@
 import React, { PropTypes as T } from 'react';
-import styled from 'styled-components';
+import Ionicon from 'react-ionicons';
 
-const Input = styled.input`
-  display: block;
-  width: 100%;
-  padding: var(--padding);
-  background: var(--foreground-color);
-  color: var(--background-color);
-  border: 3px solid var(--foreground-color);
-  font-size: 16px;
-
-  &:focus {
-    outline: 0;
-  }
-
-  &.valid {
-    border-color: var(--success-color-accent);
-  }
-
-  &.invalid {
-    border-color: var(--error-color-accent);
-  }
-`;
+import {
+  Wrapper,
+  List,
+  Item,
+  Label,
+  Input,
+} from './styles';
 
 export default class TextField extends React.Component {
   static propTypes = {
@@ -31,9 +17,11 @@ export default class TextField extends React.Component {
     isRequired: T.bool,
     name: T.string,
     onChangeEvent: T.func,
-    placeholderText: T.string,
     title: T.string,
+    isValid: T.bool,
     type: T.string,
+    labelText: T.string,
+    requirements: T.array,
     value: T.string,
   };
 
@@ -51,6 +39,20 @@ export default class TextField extends React.Component {
     }
   }
 
+  renderRequirements() {
+    const { requirements } = this.props;
+
+    if (!requirements || requirements.length === 0) return null;
+
+    return requirements.map((requirement, index) => { // eslint-disable-line
+      return (
+        <Item key={index}>
+          {requirement}
+        </Item>
+      );
+    });
+  }
+
   render() {
     const {
       id,
@@ -58,25 +60,39 @@ export default class TextField extends React.Component {
       isDisabled,
       isRequired,
       name,
-      placeholderText,
       title,
       type,
       value,
+      labelText,
+      isValid,
     } = this.props;
 
+    const validInput = (isValid) ? 'valid' : 'invalid';
     return (
-      <Input
-        className={inputClasses}
-        id={id}
-        name={name}
-        placeholder={placeholderText}
-        type={type}
-        title={title}
-        value={value}
-        required={isRequired}
-        disabled={isDisabled}
-        onChange={this.handleOnChange}
-      />
+      <Wrapper className={validInput}>
+        <Input
+          className={inputClasses}
+          id={id}
+          name={name}
+          type={type}
+          title={title}
+          value={value}
+          required={isRequired}
+          disabled={isDisabled}
+          onChange={this.handleOnChange}
+        />
+        <Label
+          htmlFor={`${id}`}
+          id={`${name}Label`}
+          className={inputClasses}
+        >
+          {labelText}
+        </Label>
+        <Ionicon icon={'icon ion-checkmark-round'} />
+        <List>
+          { this.renderRequirements() }
+        </List>
+      </Wrapper>
     );
   }
 }

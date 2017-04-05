@@ -2,43 +2,48 @@ import styled from 'styled-components';
 import { Link } from 'react-router';
 
 export const ViewWrapper = styled.section`
-  background: var(--foreground-color);
-  color: var(--background-color);
+  // background: var(--foreground-color);
+  // color: var(--background-color);
 `;
 
 export const Topbar = styled.header`
   position: absolute;
   width: 100%;
   height: var(--topbar-height);
-  background: var(--header-background-gradient);
-  box-shadow: 0 10px 10px var(--black-background-opaque);
-  color: var(--white);
+  background: var(--background-color);
   display: flex;
-  justify-content: center;
+  // justify-content: center;
   z-index: 10;
 `;
 
 export const NavBar = styled.ul`
-    width: 90%;
+    position: relative;
+    width: 100%;
+    height: 100%;
     max-width: 720px;
+    margin: 0;
     padding: 0;
     list-style-type: none;
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: baseline;
+    justify-content: center;
+    align-items: center;
 `;
 
 export const NavItem = styled.li`
-  flex-basis: 33.3%;
-  
-  h3 {
-    text-align: center;
-    line-height: 1.65;
-  }
+  display: flex;
+  justify-content: center;
+  flex-basis: 20%;
+  padding: var(--padding);
 
-  &:last-of-type {
-    text-align: right;
+  &:nth-of-type(2) {
+    flex-basis: 60%;
+    white-space: nowrap;
+    overflow: hidden;
+
+    h3 {
+      padding: 0;
+    }
   }
 `;
 

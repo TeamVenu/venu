@@ -41,27 +41,18 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
   renderUserPin() {
     const { user, onChangeMapCenter } = this.props;
 
-    // user location may be an immutable or an object so make a check
-    // If it is an object we can use it
-    // Otherwise turn it into a JS object using .JS()
-    const name = (user.get('name') !== '') ? user.get('name') : 'User';
+    if (!user.name) return null;
 
-    // If user location is not an immutable
-    // Assign its object
-    // Otherwise we have to dig to get our coordinates
-    const location = (user.get('location').lat !== undefined)
-      ? Object.assign({}, user.get('location'))
-      : Object.assign({}, { lat: user.getIn(['location', 'lat']), lng: user.getIn(['location', 'lng']) });
     return (
       <UserPinWrapper
-        lat={location.lat}
-        lng={location.lng}
+        lat={user.location.lat}
+        lng={user.location.lng}
         onClick={() => {
-          onChangeMapCenter(location);
+          onChangeMapCenter(user.location);
         }}
       >
         <UserPin>
-          <UserImage alt={`${name}'s Profile Picture`} src={UserIcon} />
+          <UserImage alt={`${user.name}'s Profile Picture`} src={UserIcon} />
         </UserPin>
       </UserPinWrapper>
     );

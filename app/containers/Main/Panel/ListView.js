@@ -72,7 +72,7 @@ export class ListView extends React.PureComponent { // eslint-disable-line react
       return (
         <Button
           icon={'ion-plus'}
-          btnClasses={'cta full'}
+          btnClasses={'rounded bordered full'}
           name={'Add activities to your itinerary'}
           onClickEvent={() => {
             onChangeMapMode('Discover');

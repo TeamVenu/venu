@@ -1,54 +1,96 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-export const NotificationList = styled.ul`
+const pop = keyframes`
+  0% {
+    transform: scale(0);
+  }
+
+  90% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+`;
+
+export const Wrapper = styled.section`
   position: absolute;
-  display: none;
-  background: none;
-  padding: 0;
+  top: var(--topbar-height);
   right: 1rem;
-  color: var(--foreground-color);
-  list-style-type: none;
-  font-size: 1rem;
+  color: var(--background-color);
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  animation: ${pop} 0.4s;
 
   &.error {
     background: var(--error-color);
-    border-color: var(--error-color-accent);
-  }
-
-  &.success {
-    background: var(--success-color);
-    border-color: var(--success-color-accent);
   }
 
   &.warning {
     background: var(--warning-color);
-    border-color: var(--warning-color-accent);
-    color: var(--background-color);
   }
 
-  &.visible {
-    display: block;
+  &.success {
+    background: var(--success-color);
+  }
+
+  p {
+    padding: var(--padding);
   }
 `;
 
-export const NotificationItem = styled.li`
-  padding: calc(var(--padding) / 2) var(--padding);
-`;
-
-export const NotificationHeader = styled.button`
-  padding: calc(var(--padding) / 2) var(--padding);
-  width: 100%;
-  text-align: left;
+export const IconWrapper = styled.section`
+  padding: var(--padding);
 
   .error & {
-    background: var(--error-color-accent);
-  }
-
-  .success & {
-    background: var(--success-color-accent);
+    color: var(--error-color-accent);
   }
 
   .warning & {
-    background: var(--warning-color-accent);
+    color: var(--warning-color-accent);
+  }
+
+  .success & {
+    color: var(--success-color-accent);
+  }
+`;
+
+export const Button = styled.button`
+  background: none;
+  padding: var(--padding);
+  text-transform: uppercase;
+  border-top: 1px solid transparent;
+
+  .error & {
+    color: var(--error-color-accent);
+    border-color: var(--error-color-accent);
+  }
+
+  .warning & {
+    color: var(--warning-color-accent);
+    border-color: var(--warning-color-accent);
+  }
+
+  .success & {
+    color: var(--success-color-accent);
+    border-color: var(--success-color-accent);
+  }
+
+  &:hover {
+    color: var(--background-color);
+
+    .error & {
+      background: var(--error-color-accent);
+    }
+
+    .warning & {
+      background: var(--warning-color-accent);
+    }
+
+    .success & {
+      background: var(--success-color-accent);
+    }
   }
 `;

@@ -2,7 +2,16 @@
 import isEmail from 'validator/lib/isEmail';
 
 import {
+  signInUser,
+  signInUserError,
+  signInUserSuccess,
+  signOutUser,
+  createUserAccount,
+  updateUserData,
+  changeUserId,
+  loadUserData,
   changeUserName,
+  changeUserAge,
   changeUserEmail,
   changeParkingLocation,
   setupGeolocation,
@@ -15,7 +24,26 @@ import {
   likePlace,
   unLikePlace,
   changeExhibit,
+  setErrorMessages,
 } from 'containers/App/actions';
+
+import { dispatchSetStage } from 'containers/Onboarding/dispatches';
+
+export function dispatchGetAuthenticatedUser(dispatch) {
+  // Check if there is someone signed in
+  window.firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // Set the userId to uid returned
+      dispatch(changeUserId(user.uid));
+
+      // Load user
+      dispatch(loadUserData());
+    } else {
+      // No user is signed in
+      dispatch(signOutUser());
+    }
+  });
+}
 
 /**
  * dispatchChangeDisplayName
@@ -27,17 +55,22 @@ export function dispatchChangeDisplayName(dispatch, event) {
   // Cache the name
   const name = event.target.value;
 
-  // If name is not empty string set to true
-  const valid = (name.length > 0) ? true : null;
+  // Dispatch our action
+  dispatch(changeUserName(name));
+}
 
-  if (valid) {
-    // Set local storage so we don't have to repeat these steps on reload
-    localStorage.setItem('venuUserName', name);
-    localStorage.setItem('venuAccountValidationName', valid);
-  }
+/**
+ * dispatchChangeUserAge
+ * Changes the user's age
+ * @param {Function} dispatch
+ * @param {Object} event
+ */
+export function dispatchChangeUserAge(dispatch, event) {
+  // Cache the name
+  const age = event.target.value;
 
   // Dispatch our action
-  dispatch(changeUserName(name, valid));
+  dispatch(changeUserAge(age));
 }
 
 /**
@@ -55,13 +88,9 @@ export function dispatchChangeEmail(dispatch, event) {
   const valid = (email.length > 0) ? isEmail(email) : null;
 
   if (valid) {
-    // Set local storage so we don't have to repeat these steps on reload
-    localStorage.setItem('venuUserEmail', email);
-    localStorage.setItem('venuAccountValidationEmail', valid);
+    // Dispatch our action
+    dispatch(changeUserEmail(email));
   }
-
-  // Dispatch our action
-  dispatch(changeUserEmail(email, valid));
 }
 
 /**
@@ -130,11 +159,7 @@ export function askUserToEnableLocation(dispatch) {
     // Geolocation is
     // a. Not supported by device or
     // b. Disabled by device
-    console.warn('⚠️🗺 Geolocation is not available');
     // Set local storage so we don't have to repeat these steps on reload
-    localStorage.setItem('venuUserLocationLat', location.lat);
-    localStorage.setItem('venuUserLocationLng', location.lng);
-    localStorage.setItem('venuUserLocationEnabled', enabled);
     dispatch(setupGeolocation(location, enabled, 'unavailable'));
   }
 }
@@ -152,10 +177,6 @@ export function retrieveUserLocationSucceeded(dispatch, position) {
   };
 
   const enabled = true;
-  // Set local storage so we don't have to repeat these steps on reload
-  localStorage.setItem('venuUserLocationLat', location.lat);
-  localStorage.setItem('venuUserLocationLng', location.lng);
-  localStorage.setItem('venuUserLocationEnabled', enabled);
   dispatch(setupGeolocation(location, enabled, 'succeeded'));
 }
 
@@ -167,11 +188,6 @@ export function retrieveUserLocationSucceeded(dispatch, position) {
  */
 export function retrieveUserLocationFailed(dispatch, location) {
   const enabled = false;
-  console.warn(' ⛔️ 📍 Unable to retrieve location, user might have declined to use location');
-  // Set local storage so we don't have to repeat these steps on reload
-  localStorage.setItem('venuUserLocationLat', location.lat);
-  localStorage.setItem('venuUserLocationLng', location.lng);
-  localStorage.setItem('venuUserLocationEnabled', enabled);
   dispatch(setupGeolocation(location, enabled, 'failed'));
 }
 
@@ -253,4 +269,72 @@ export function dispatchUnlikePlace(dispatch, place) {
  */
 export function dispatchChangeExhibit(dispatch, place) {
   dispatch(changeExhibit(place));
+}
+
+/**
+ * dispatchSetErrorMessages
+ * Dispatches action to set error messages
+ * @param {Function} dispatch
+ * @param {String} error
+ */
+export function dispatchSetErrorMessages(dispatch, error) {
+  dispatch(setErrorMessages(error));
+}
+
+/**
+ * authenticateUser
+ * Dispatches actions about user authentication
+ * @param {Function} dispatch
+ * @param {Object} credentials
+ */
+export function authenticateUser(dispatch, credentials) {
+  // Send out dispatch saying we are signing in
+  dispatch(signInUser());
+
+  // Authenticate user
+  window.firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
+    .then((user) => {
+      // Authentication succeeded
+      // Dispatch with uid
+      dispatch(signInUserSuccess(user.uid));
+
+      // Load the user's data
+      dispatch(loadUserData());
+    })
+    .catch((error) => {
+      // Dispatch error message
+      dispatch(signInUserError(error.message));
+    });
+}
+
+/**
+ * dispatchCreateUserAccount
+ * Dispatches actions and creates user account
+ * @param {Function} dispatch
+ * @param {Object} credentials
+ */
+export function dispatchCreateUserAccount(dispatch, credentials) {
+  // Create user account
+  window.firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)
+    .then((user) => {
+      // Account creation succeeded
+      // Dispatch with uid
+      dispatch(signInUserSuccess(user.uid));
+      // Send out dispatch saying we are creating user account
+      dispatch(createUserAccount());
+      dispatchSetStage(dispatch, 1);
+    })
+    .catch((error) => {
+      // Dispatch error message
+      dispatch(signInUserError(error.message));
+    });
+}
+
+/**
+ * dispatchUpdateUserData
+ * Dispatches actions and updates user account
+ * @param {Function} dispatch
+ */
+export function dispatchUpdateUserData(dispatch) {
+  dispatch(updateUserData());
 }

@@ -5,7 +5,7 @@ import { browserHistory } from 'react-router';
 import Ionicon from 'react-ionicons';
 
 // Import Components
-import H1 from 'components/H1';
+import H2 from 'components/H2';
 import H4 from 'components/H4';
 import P from 'components/P';
 import Tag from 'components/Tag';
@@ -78,9 +78,9 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
     return (
       <div>
         { placeSubTypeComponent }
-        <H1>
+        <H2>
           { place.name }
-        </H1>
+        </H2>
         <H4>
           { 'Description' }
         </H4>

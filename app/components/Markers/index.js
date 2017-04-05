@@ -3,7 +3,7 @@ import FoodIcon from 'media/icons/food.png';
 import RestroomIcon from 'media/icons/restroom.png';
 import ManIcon from 'media/icons/man.png';
 import WomanIcon from 'media/icons/woman.png';
-import { POIContainer, PinPulse, PinWrapper, PinBackground, Pin, PinImage } from './styles';
+import { POIContainer, PinPulse, PinWrapper, Pin, PinImage } from './styles';
 
 export default class Marker extends Component {
   static propTypes = {
@@ -39,11 +39,9 @@ export default class Marker extends Component {
       <POIContainer className={placePinClasses} onClick={this.handlePinClick}>
         <PinPulse>
           <PinWrapper to={`/place/${place.type}/${place.id}`}>
-            <PinBackground>
-              <Pin>
-                { this.renderPinImage(place) }
-              </Pin>
-            </PinBackground>
+            <Pin>
+              { this.renderPinImage(place) }
+            </Pin>
           </PinWrapper>
         </PinPulse>
       </POIContainer>

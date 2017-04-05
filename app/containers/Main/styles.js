@@ -42,7 +42,7 @@ export const UserPin = styled.section`
   height: 40px;
   background: var(--white);
   border: 3px solid var(--black);
-  box-shadow: 0 0 40px black;
+  // box-shadow: 0 0 40px black;
   border-radius: 100%;
   display: flex;
   justify-content: center;

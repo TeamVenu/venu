@@ -1,59 +1,45 @@
 import styled from 'styled-components';
-import { Link } from 'react-router';
+// import { Link } from 'react-router';
 
 export const Topbar = styled.header`
   position: relative;
   width: 100%;
-  padding: 0 var(--padding);
   height: var(--topbar-height);
   line-height: var(--topbar-height);
-  background: var(--header-background-gradient);
-  box-shadow: 0 10px 10px var(--black-background-opaque);
-  color: var(--white);
+  background: var(--background-color);
   z-index: 10;
-
   display: flex;
-  flex: 1;
-  justify-content: center;
-  align-items: baseline;
 
   @media (min-width: 720px) {
-    flex-basis: 100%;
     padding: 0 25px;
-    justify-content: space-between;
-    align-items: center;
-  }
-`;
-
-export const AppTitle = styled(Link)`
-  display: none;
-  color: var(--white);
-  text-decoration: none;
-  letter-spacing: 1px;
-  font-size: 1.5em;
-
-  @media (min-width: 720px) {
-    display: block;
   }
 `;
 
 export const ModeWrapper = styled.nav`
+  position: relative;
+  width: 100%;
+  height: var(--topbar-height);
   overflow-x: auto;
 `;
 
 export const ModeList = styled.ul`
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 `;
 
 export const ModeListItem = styled.li`
-  display: inline;
-  padding: var(--padding);
+  margin: 0 var(--padding);
+  display: block;
   letter-spacing: 1px;
-  color: var(--grey);
+  border-bottom: 5px solid transparent;
 
   &.selected {
     color: var(--foreground-color);
-    border-bottom: 3px solid var(--foreground-color);
+    border-color: var(--foreground-color);
   }
 `;
