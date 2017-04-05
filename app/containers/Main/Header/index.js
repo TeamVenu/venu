@@ -1,7 +1,6 @@
 import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { FormattedMessage } from 'react-intl';
 
 // Global Selectors
 import {
@@ -19,7 +18,6 @@ import messages from './messages';
 // Get our styles
 import {
   Topbar,
-  AppTitle,
   ModeWrapper,
   ModeList,
   ModeListItem,
@@ -55,9 +53,6 @@ export class Header extends React.PureComponent { // eslint-disable-line react/p
   render() {
     return (
       <Topbar>
-        <AppTitle to={'/'}>
-          <FormattedMessage {...messages.appName} />
-        </AppTitle>
         <ModeWrapper>
           <ModeList>
             {this.renderModeItems()}

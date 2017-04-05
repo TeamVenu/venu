@@ -4,8 +4,11 @@ import { createStructuredSelector } from 'reselect';
 import Ionicon from 'react-ionicons';
 
 // Components
-import Button from 'components/Button';
+import P from 'components/P';
+import H3 from 'components/H3';
+import H4 from 'components/H4';
 import Radio from 'components/Input';
+import Button from 'components/Button';
 import FlexListView from 'components/FlexListView';
 
 // Global Selectors
@@ -88,7 +91,8 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
   }
 
   renderBodyContent() {
-    const { mode, location, onSetParkingLocation } = this.props;
+    const { userProps, mode, location, onSetParkingLocation } = this.props;
+    const user = (userProps.location) ? userProps : userProps.toJS();
 
     switch (mode) {
       case 'succeeded':
@@ -98,10 +102,10 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
               <Ionicon icon={'icon ion-checkmark-round'} />
               { messages.geolocationSetup.location.succeeded.defaultMessage }
             </Alert>
-            <h4>{ messages.geolocationSetup.parking.title.defaultMessage }</h4>
-            <p>
+            <H4>{ messages.geolocationSetup.parking.title.defaultMessage }</H4>
+            <P>
               { messages.geolocationSetup.parking.description.defaultMessage }
-            </p>
+            </P>
             <FlexListView className={'spaced'}>
               <OptionItem>
                 <Radio
@@ -128,7 +132,9 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
               { messages.geolocationSetup.location.failed.defaultMessage }
             </Alert>
             <Button
-              btnClasses={'reversed bordered full'}
+              isIconAfter
+              btnClasses={'full'}
+              icon={'ion-android-locate'}
               name={messages.buttons.retryGeolocation.defaultMessage}
               onClickEvent={() => { window.location.reload(); }}
             />
@@ -142,7 +148,9 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
               { messages.geolocationSetup.location.unavailable.defaultMessage }
             </Alert>
             <Button
-              btnClasses={'reversed bordered full'}
+              isIconAfter
+              btnClasses={'full'}
+              icon={'ion-android-locate'}
               name={messages.buttons.retryGeolocation.defaultMessage}
               onClickEvent={() => { window.location.reload(); }}
             />
@@ -152,6 +160,7 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
         return (
           <Alert className={'show'}>
             <Ionicon icon={'icon ion-load-d'} rotate />
+            Welcome { user.name }!
             { messages.geolocationSetup.location.retrieving.defaultMessage }
           </Alert>
         );
@@ -160,7 +169,7 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
 
   render() {
     // Get the props we need
-    const { userProps, stage, location, parking, isLocationValid, onNextStage } = this.props;
+    const { userProps, stage, location, parking, isLocationValid, onPreviousStage, onNextStage } = this.props;
     // Will show the update alert to userProps
     const bodyContent = this.renderBodyContent;
     // Store the userProps props we will use in an object
@@ -169,20 +178,24 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
     return (
       <Container>
         <Header>
-          <h3>{ messages.geolocationSetup.title.defaultMessage }</h3>
+          <H3>{ messages.geolocationSetup.title.defaultMessage }</H3>
         </Header>
         <Body>
-          <p>
-            Welcome { user.name }!
-            { messages.geolocationSetup.intro.defaultMessage }
-          </p>
           { bodyContent() }
         </Body>
         <Footer>
           <ButtonRow>
             <ButtonItem>
               <Button
-                btnClasses={''}
+                icon={'ion-ios-arrow-thin-left'}
+                name={messages.buttons.previous.defaultMessage}
+                onClickEvent={() => {
+                  onPreviousStage(stage);
+                }}
+              />
+            </ButtonItem>
+            <ButtonItem>
+              <Button
                 isIconAfter
                 icon={'ion-ios-arrow-thin-right'}
                 name={messages.buttons.next.defaultMessage}
@@ -210,6 +223,7 @@ GeolocationSetup.propTypes = {
   isLocationValid: T.bool,
   onAskUserToEnableLocation: T.func,
   onSetParkingLocation: T.func,
+  onPreviousStage: T.func,
   onNextStage: T.func,
 };
 
@@ -217,7 +231,7 @@ export function mapDispatchToProps(dispatch) {
   return {
     onAskUserToEnableLocation: () => askUserToEnableLocation(dispatch),
     onSetParkingLocation: (location) => dispatchChangeParkingLocation(dispatch, location),
-    onPrevStage: (stage) => dispatchGoToPreviousStage(dispatch, stage),
+    onPreviousStage: (stage) => dispatchGoToPreviousStage(dispatch, stage),
     onNextStage: (user, stage) => dispatchGoToNextStage(dispatch, user, stage),
   };
 }

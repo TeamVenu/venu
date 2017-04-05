@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 // Components
+import P from 'components/P';
+import H3 from 'components/H3';
+import H4 from 'components/H4';
 import Button from 'components/Button';
 import Checkbox from 'components/Input';
 import FlexListView from 'components/FlexListView';
@@ -85,28 +88,37 @@ export class InterestSelection extends React.PureComponent { // eslint-disable-l
   }
 
   render() {
-    const { userProps, stage, interests, areInterestsValid, onSubmitProfile } = this.props;
+    const { userProps, stage, interests, areInterestsValid, onPrevStage, onSubmitProfile } = this.props;
     const user = (userProps.location) ? userProps : userProps.toJS();
     return (
       <Container>
         <Header>
-          <h1>
+          <H3>
             { messages.interestSelection.title.defaultMessage }
-          </h1>
+          </H3>
         </Header>
         <Body>
-          <h4>
+          <H4>
             { messages.interestSelection.subtitle.defaultMessage }
-          </h4>
-          <p>
+          </H4>
+          <P>
             { messages.interestSelection.intro.defaultMessage }
-          </p>
+          </P>
           <FlexListView className={'spaced'}>
             { this.renderInterestList() }
           </FlexListView>
         </Body>
         <Footer>
           <ButtonRow>
+            <ButtonItem>
+              <Button
+                name={messages.buttons.previous.defaultMessage}
+                icon={'ion-ios-arrow-thin-left'}
+                onClickEvent={() => {
+                  onPrevStage(stage);
+                }}
+              />
+            </ButtonItem>
             <ButtonItem>
               <Button
                 name={messages.buttons.finish.defaultMessage}
@@ -131,6 +143,7 @@ InterestSelection.propTypes = {
   interests: T.any,
   areInterestsValid: T.bool,
   stage: T.any.isRequired,
+  onPrevStage: T.func.isRequired,
   onSubmitProfile: T.func,
   onUpdateInterests: T.func,
 };

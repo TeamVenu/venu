@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 const H3 = styled.h3`
-  margin-bottom: var(--padding-bottom);
+  padding-top: var(--padding);
+  padding-bottom: var(--padding);
 `;
 
 export default H3;

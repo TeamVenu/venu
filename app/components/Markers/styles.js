@@ -43,17 +43,17 @@ export const PinPulse = styled.section`
     transform: rotate(45deg);
   }
 
-  .recommended &:before {
-      content: '';
-      position: absolute;
-      width: var(--pin-size);
-      height: var(--pin-size);
-      background: var(--pin-background-gradient-opaque);
-      z-index: -1;
-      opacity: 0.3;
-      border-radius: 100%;
-      // animation: ${pulse} 4s ease-out infinite;
-  }
+  // .recommended &:before {
+  //     content: '';
+  //     position: absolute;
+  //     width: var(--pin-size);
+  //     height: var(--pin-size);
+  //     background: var(--pin-background-gradient-opaque);
+  //     z-index: -1;
+  //     opacity: 0.3;
+  //     border-radius: 100%;
+  //     // animation: ${pulse} 4s ease-out infinite;
+  // }
 
   .visited & {
     background: var(--pin-background-gradient-opaque);
@@ -84,7 +84,8 @@ export const PinWrapper = styled(Link)`
   }
 
   .facility & {
-    background: var(--foreground-color);
+    background: var(--gray);
+    border-radius: 4px;
   }
 `;
 

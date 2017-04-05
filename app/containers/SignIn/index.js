@@ -18,6 +18,9 @@ import Notifications from 'components/Notifications';
 import { makeSelectUser, makeSelectUserId, makeSelectError } from 'containers/App/selectors';
 import { authenticateUser, dispatchSetErrorMessages } from 'containers/App/dispatches';
 
+// Utils
+import { isUserOnboardingComplete } from 'utils/helpers';
+
 // Redux
 import {
   makeSelectEmail,
@@ -41,16 +44,23 @@ import {
 // Messages
 import messages from './messages';
 
+
 export class SignIn extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
+  componentDidMount() {
+    const { user } = this.props;
+
+    if (user.uid && isUserOnboardingComplete(user)) {
+      browserHistory.push('/');
+    }
+  }
 
   // Occurs after component updated
   componentDidUpdate() {
-    const { userId, user } = this.props;
+    const { user } = this.props;
 
-    if (userId || user.get('uid') !== '') {
-      browserHistory.push({
-        pathname: '/',
-      });
+    if (user.uid && isUserOnboardingComplete(user)) {
+      browserHistory.push('/');
     }
   }
 
@@ -139,7 +149,6 @@ export class SignIn extends React.PureComponent { // eslint-disable-line react/p
 // Set our PropTypes
 SignIn.propTypes = {
   user: T.object,
-  userId: T.string,
   error: T.string,
   email: T.string.isRequired,
   password: T.string.isRequired,

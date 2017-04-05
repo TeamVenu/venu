@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import TextField from 'components/TextField';
 import Button from 'components/Button';
 import Notifications from 'components/Notifications';
+import H3 from 'components/H3';
 
 // Global Selectors
 import { makeSelectUser, makeSelectError } from 'containers/App/selectors';
@@ -41,6 +42,7 @@ import {
 import {
   dispatchChangeDisplayName,
   dispatchChangeUserAge,
+  dispatchGoToPreviousStage,
   dispatchGoToNextStage,
 } from './dispatches';
 
@@ -77,7 +79,7 @@ export class Profile extends React.PureComponent { // eslint-disable-line react/
           onClickEvent={onClearErrorMessages}
         />
         <Header>
-          <h3>Profile</h3>
+          <H3>Profile</H3>
         </Header>
         <Body>
           <TextField
@@ -149,6 +151,7 @@ export function mapDispatchToProps(dispatch) {
       dispatchChangeUserAge(dispatch, event);
     },
     onClearErrorMessages: () => dispatchSetErrorMessages(dispatch, null),
+    onPreviousStage: (stage) => dispatchGoToPreviousStage(dispatch, stage),
     onSubmitProfile: (newUser, stage) => dispatchGoToNextStage(dispatch, newUser, stage),
   };
 }

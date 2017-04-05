@@ -4,12 +4,13 @@ import { injectGlobal } from 'styled-components';
 injectGlobal`
   :root {
     /* Base colors */
-    --black: #1e1e1e;
+    --black: #29282d;
     --white: #fff;
     --light: #edeeef;
     --dark: #222222;
     --dark-grey: #444444;
     --light-gray: #dddfe0;
+    --gray: #535353;
     --grey: #9e9e9e;
     --green: #62d2a2;
     --green-accent: #2aaf74;

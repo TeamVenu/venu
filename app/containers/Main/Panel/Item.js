@@ -2,13 +2,12 @@ import React, { PropTypes as T } from 'react';
 
 import FlexListView from 'components/FlexListView';
 import Tag from 'components/Tag';
-
+import H3 from 'components/H3';
 import P from 'components/P';
 
 import {
   Item as ItemContainer,
   ItemLink,
-  ItemTitle,
   DetailSubHeader,
 } from './styles';
 
@@ -90,9 +89,9 @@ export default class Item extends React.Component {
         onClick={this.handleCardClick}
       >
         <ItemLink to={`/place/${place.type}/${place.id}`}>
-          <ItemTitle>
+          <H3>
             {place.name}
-          </ItemTitle>
+          </H3>
           <DetailSubHeader>
             <P className={'small'}>
               <span>

@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 // Components
-import TextField from 'components/TextField';
-import Button from 'components/Button';
 import A from 'components/A';
+import H3 from 'components/H3';
+import Button from 'components/Button';
+import TextField from 'components/TextField';
 import Notifications from 'components/Notifications';
 
 // Global Selectors
@@ -77,9 +78,9 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
           onClickEvent={onClearErrorMessages}
         />
         <Header>
-          <h3>
+          <H3>
             { messages.accountCreation.subtitle.defaultMessage }
-          </h3>
+          </H3>
         </Header>
         <Body>
           <TextField

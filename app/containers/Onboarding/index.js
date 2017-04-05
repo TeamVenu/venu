@@ -28,31 +28,25 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
     onGetAuthenticatedUser();
   }
 
-  componentDidMount() {
-
-  }
-
   // Occurs after component updated
   componentDidUpdate() {
-    const { userProp, onSetStage } = this.props;
+    const { stage, userProp, onSetStage } = this.props;
     const user = (userProp.location) ? userProp : userProp.toJS();
     let newStage = 0;
 
     if (user.email.length === 0 || user.uid.length === 0) {
       newStage = 0;
-    } else if (user.name.length === 0 || user.age.length === 0) {
+    } else if ((user.name.length === 0 || user.age.length === 0) || (stage === 1)) {
       newStage = 1;
-    } else if (user.location.lat === '' || user.location.lng === '') {
+    } else if ((user.location.lat === '' || user.location.lng === '') || (stage === 2)) {
       newStage = 2;
-    } else if (user.interests.length === 0) {
+    } else if ((user.interests.length === 0) || (stage === 3)) {
       newStage = 3;
     } else {
       newStage = 4;
     }
 
     onSetStage(newStage);
-
-    const { stage } = this.props;
 
     if (stage > 3) {
       browserHistory.push({
@@ -89,7 +83,7 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
       // On default render AccountCreation
       default:
         // Render Account Creation
-        stageToRender = (<AccountCreation />);
+        stageToRender = (<div />);
         break;
     }
 

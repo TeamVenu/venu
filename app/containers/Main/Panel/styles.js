@@ -80,7 +80,7 @@ export const Handle = styled.span`
   height: 10px;
   border: none;
   border-radius: 8px;
-  background: var(--light-gray);
+  background: var(--background-color);
 `;
 
 // List View
@@ -138,9 +138,11 @@ export const ItemLink = styled(Link)`
   background: var(--background-color);
   color: var(--foreground-color);
   text-decoration: none;
-
   border-top: 5px solid transparent;
-  // border-radius: 0 0 10px 10px;
+
+  section, h3, ul, p {
+    padding: 0;
+  }
 
   .recreationZone & {
     border-color: var(--recreation-zone);

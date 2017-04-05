@@ -12,8 +12,8 @@ export default defineMessages({
   },
   buttons: {
     id: 'venu.components.Onboarding.buttons',
-    back: {
-      id: 'venu.components.Onboarding.buttons.back',
+    previous: {
+      id: 'venu.components.Onboarding.buttons.previous',
       defaultMessage: 'Back',
     },
     next: {
@@ -22,11 +22,11 @@ export default defineMessages({
     },
     finish: {
       id: 'venu.components.Onboarding.buttons.finish',
-      defaultMessage: 'Finish',
+      defaultMessage: 'Launch',
     },
     retryGeolocation: {
       id: 'venu.components.Onboarding.buttons.retryGeolocation',
-      defaultMessage: 'Enable Geolocation',
+      defaultMessage: 'Retry Enabling Location',
     },
   },
   accountCreation: {
@@ -64,17 +64,17 @@ export default defineMessages({
     id: 'venu.components.Onboarding.geolocationSetup',
     title: {
       id: 'venu.components.Onboarding.geolocationSetup.title',
-      defaultMessage: 'Allow VENU to access your location',
+      defaultMessage: 'Enable Location',
     },
     intro: {
       id: 'venu.components.Onboarding.geolocationSetup.intro',
-      defaultMessage: ' VENU is a wayfinding app that assists you in finding nearby activities that you might be interested in. For a better experience VENU will need access to your location. Is that ok?',
+      defaultMessage: ' For a better experience VENU will need access to your location.',
     },
     location: {
       id: 'venu.components.Onboarding.geolocationSetup.location',
       retrieving: {
         id: 'venu.components.Onboarding.geolocationSetup.location.retrieving',
-        defaultMessage: 'Please wait while we retrieve your location. This might take a few seconds.',
+        defaultMessage: ' For a better experience VENU will need access to your location. This might take a few seconds.',
       },
       succeeded: {
         id: 'venu.components.Onboarding.geolocationSetup.location.succeeded',
@@ -82,11 +82,11 @@ export default defineMessages({
       },
       failed: {
         id: 'venu.components.Onboarding.geolocationSetup.location.failed',
-        defaultMessage: 'You have denied access to access your location. Please follow the steps below to retry. Otherwise you may proceed to the next step if you wish geolocation to remain turned off. Some features will be unavailable.',
+        defaultMessage: 'You have denied access to access your location. You may retry enabling your location. Otherwise you may proceed to the next step if you wish geolocation to remain turned off. Some features will be unavailable.',
       },
       unavailable: {
         id: 'venu.components.Onboarding.geolocationSetup.location.unavailable',
-        defaultMessage: 'It appears that your device has location tracking services disabled. Please follow the steps below to retry. Otherwise you may proceed to the next step if you wish geolocation to remain turned off. Some features will be unavailable.',
+        defaultMessage: 'It appears that your device has location tracking services disabled. You may proceed to the next step if you wish geolocation to remain turned off. Some features will be unavailable.',
       },
     },
     device: {
@@ -326,7 +326,7 @@ export default defineMessages({
     },
     intro: {
       id: 'venu.components.Onboarding.interestSelection.intro',
-      defaultMessage: 'VENU makes recommendations on activities you may enjoy. To tailor this process to meet your preferences, please select that following categories that may interest you.',
+      defaultMessage: 'Select your interests so we can recommend events you may like.',
     },
     subtitle: {
       id: 'venu.components.Onboarding.interestSelection.title',

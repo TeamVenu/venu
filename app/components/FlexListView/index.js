@@ -4,7 +4,10 @@ const FlexListView = styled.ul`
   display: flex;
   flex-flow: row wrap;
   list-style-type: none;
+
   padding: 0;
+  padding-top: var(--padding);
+
 
   li {
     margin: 0 var(--padding) var(--padding) 0;
