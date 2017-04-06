@@ -4,6 +4,7 @@
 
 import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 
 // Components
@@ -17,16 +18,35 @@ import TabBarList from 'components/TabBarList';
 // Containers
 
 // Selectors
-import { makeSelectUser, makeSelectExhibits } from 'containers/App/selectors';
+import {
+  makeSelectUser,
+  makeSelectIsSignedIn,
+  makeSelectExhibits,
+} from 'containers/App/selectors';
 
 // Dispacthes
+import { dispatchGetAuthenticatedUser } from 'containers/App/dispatches';
 
 // Helpers
-import { filterExhibitsBy } from 'utils/helpers';
+import { filterExhibitsBy, isUserOnboardingComplete } from 'utils/helpers';
 
 // Local
 
 export class Itinerary extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  componentWillMount() {
+    const { onGetAuthenticatedUser } = this.props;
+    onGetAuthenticatedUser();
+  }
+
+  componentDidUpdate() {
+    const { userProps, isSignedIn } = this.props;
+    const user = (userProps.location) ? userProps : userProps.toJS();
+
+    if (!isSignedIn || !isUserOnboardingComplete(user)) {
+      browserHistory.push('/login');
+    }
+  }
+
   renderExhibitList(exhibits) {
     return exhibits.map((exhibit) => { // eslint-disable-line
       return (
@@ -38,7 +58,11 @@ export class Itinerary extends React.PureComponent { // eslint-disable-line reac
   }
 
   render() {
-    const { exhibitProps } = this.props;
+    const { userProps, isSignedIn, exhibitProps } = this.props;
+    const user = (userProps.location) ? userProps : userProps.toJS();
+
+    if (!isSignedIn || !isUserOnboardingComplete(user)) return null;
+
     const allExhibits = (exhibitProps.artisticAlley) ? exhibitProps : exhibitProps.toJS();
     const property = 'subType';
     const bookmarked = 'bookmarked';
@@ -99,13 +123,22 @@ export class Itinerary extends React.PureComponent { // eslint-disable-line reac
 }
 
 Itinerary.propTypes = {
+  isSignedIn: T.bool,
   exhibitProps: T.object,
-  // userProps: T.object.isRequired,
+  userProps: T.object.isRequired,
+  onGetAuthenticatedUser: T.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   userProps: makeSelectUser(),
+  isSignedIn: makeSelectIsSignedIn(),
   exhibitProps: makeSelectExhibits(),
 });
 
-export default connect(mapStateToProps)(Itinerary);
+export function mapDispatchToProps(dispatch) {
+  return {
+    onGetAuthenticatedUser: () => dispatchGetAuthenticatedUser(dispatch),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Itinerary);

@@ -16,16 +16,19 @@ const pop = keyframes`
 
 export const Wrapper = styled.section`
   position: absolute;
-  top: var(--topbar-height);
-  right: 1rem;
+  top: 0;
+  left: 0;
+  width: 100%;
   color: var(--background-color);
   display: flex;
   flex-flow: column;
   justify-content: center;
   animation: ${pop} 0.4s;
+  box-shadow: 0 0 28px var(--grey);
 
   &.error {
-    background: var(--error-color);
+    background: var(--background-color);
+    color: var(--error-color);
   }
 
   &.warning {
@@ -37,13 +40,15 @@ export const Wrapper = styled.section`
   }
 
   p {
-    padding: var(--padding);
+    width: 90%;
+    margin: auto;
+    text-align: center;
   }
 `;
 
 export const IconWrapper = styled.section`
   padding: var(--padding);
-
+  margin: auto;
   .error & {
     color: var(--error-color-accent);
   }
@@ -54,43 +59,5 @@ export const IconWrapper = styled.section`
 
   .success & {
     color: var(--success-color-accent);
-  }
-`;
-
-export const Button = styled.button`
-  background: none;
-  padding: var(--padding);
-  text-transform: uppercase;
-  border-top: 1px solid transparent;
-
-  .error & {
-    color: var(--error-color-accent);
-    border-color: var(--error-color-accent);
-  }
-
-  .warning & {
-    color: var(--warning-color-accent);
-    border-color: var(--warning-color-accent);
-  }
-
-  .success & {
-    color: var(--success-color-accent);
-    border-color: var(--success-color-accent);
-  }
-
-  &:hover {
-    color: var(--background-color);
-
-    .error & {
-      background: var(--error-color-accent);
-    }
-
-    .warning & {
-      background: var(--warning-color-accent);
-    }
-
-    .success & {
-      background: var(--success-color-accent);
-    }
   }
 `;

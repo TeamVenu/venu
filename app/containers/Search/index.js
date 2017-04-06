@@ -4,6 +4,7 @@
 
 import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 
 // Components
@@ -16,14 +17,44 @@ import TabBarList from 'components/TabBarList';
 // Containers
 
 // Selectors
-import { makeSelectUser } from 'containers/App/selectors';
+import {
+  makeSelectUser,
+  makeSelectIsSignedIn,
+} from 'containers/App/selectors';
 
 // Dispacthes
+import {
+  dispatchGetAuthenticatedUser,
+} from 'containers/App/dispatches';
+
+// Helpers
+import {
+  isUserOnboardingComplete,
+} from 'utils/helpers';
 
 // Local
 
 export class Search extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  componentWillMount() {
+    const { onGetAuthenticatedUser } = this.props;
+    onGetAuthenticatedUser();
+  }
+
+  componentDidUpdate() {
+    const { userProps, isSignedIn } = this.props;
+    const user = (userProps.location) ? userProps : userProps.toJS();
+
+    if (!isSignedIn || !isUserOnboardingComplete(user)) {
+      browserHistory.push('/login');
+    }
+  }
+
   render() {
+    const { userProps, isSignedIn } = this.props;
+    const user = (userProps.location) ? userProps : userProps.toJS();
+
+    if (!isSignedIn || !isUserOnboardingComplete(user)) return null;
+
     return (
       <div>
         <Container>
@@ -42,7 +73,7 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
               <li>
                 <Button
                   btnClasses={'large'}
-                  icon={'ion-search'}
+                  icon={'ion-android-search'}
                   onClickEvent={null}
                 />
               </li>
@@ -55,11 +86,20 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
 }
 
 Search.propTypes = {
+  isSignedIn: T.bool,
   userProps: T.object.isRequired,
+  onGetAuthenticatedUser: T.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   userProps: makeSelectUser(),
+  isSignedIn: makeSelectIsSignedIn(),
 });
 
-export default connect(mapStateToProps)(Search);
+export function mapDispatchToProps(dispatch) {
+  return {
+    onGetAuthenticatedUser: () => dispatchGetAuthenticatedUser(dispatch),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

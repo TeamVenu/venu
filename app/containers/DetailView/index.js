@@ -6,11 +6,19 @@ import { createStructuredSelector } from 'reselect';
 // Global Selectors
 import {
   makeSelectUser,
-  makeSelectVenuMap,
-  makeSelectExhibits,
-  makeSelectFacilities,
+  makeSelectIsSignedIn,
   makeSelectCurrentPlace,
 } from 'containers/App/selectors';
+
+// Dispacthes
+import {
+  dispatchGetAuthenticatedUser,
+} from 'containers/App/dispatches';
+
+// Helpers
+import {
+  isUserOnboardingComplete,
+} from 'utils/helpers';
 
 // Local Components
 import Header from './Header';
@@ -21,7 +29,10 @@ import { ViewWrapper } from './styles';
 
 export class DetailView extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
-    const { place } = this.props;
+    const { place, onGetAuthenticatedUser } = this.props;
+
+    // Check if user is logged in
+    onGetAuthenticatedUser();
 
     // If no place redirect back to main
     if (place === {} || place.size === 0) {
@@ -32,10 +43,24 @@ export class DetailView extends React.PureComponent { // eslint-disable-line rea
     }
   }
 
-  render() {
-    const { place } = this.props;
+  componentDidUpdate() {
+    const { userProps, isSignedIn } = this.props;
+    const user = (userProps.location) ? userProps : userProps.toJS();
 
-    if (place === {} || place.size === 0) return null;
+    if (!isSignedIn || !isUserOnboardingComplete(user)) {
+      browserHistory.push('/login');
+    }
+  }
+
+  render() {
+    const { place, userProps, isSignedIn } = this.props;
+    const user = (userProps.location) ? userProps : userProps.toJS();
+
+    if (!isSignedIn
+    || !isUserOnboardingComplete(user)
+    || place === {}
+    || place.size === 0) return null;
+
     return (
       <ViewWrapper className={place.colorZone}>
         <Header />
@@ -47,15 +72,22 @@ export class DetailView extends React.PureComponent { // eslint-disable-line rea
 }
 
 DetailView.propTypes = {
+  userProps: T.object.isRequired,
   place: T.object.isRequired,
+  isSignedIn: T.bool.isRequired,
+  onGetAuthenticatedUser: T.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  user: makeSelectUser(),
-  venuMap: makeSelectVenuMap(),
-  exhibits: makeSelectExhibits(),
-  facilities: makeSelectFacilities(),
+  userProps: makeSelectUser(),
+  isSignedIn: makeSelectIsSignedIn(),
   place: makeSelectCurrentPlace(),
 });
 
-export default connect(mapStateToProps)(DetailView);
+export function mapDispatchToProps(dispatch) {
+  return {
+    onGetAuthenticatedUser: () => dispatchGetAuthenticatedUser(dispatch),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailView);

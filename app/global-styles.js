@@ -4,7 +4,7 @@ import { injectGlobal } from 'styled-components';
 injectGlobal`
   :root {
     /* Base colors */
-    --black: #29282d;
+    --black: #3a3940;
     --white: #fff;
     --light: #edeeef;
     --dark: #222222;

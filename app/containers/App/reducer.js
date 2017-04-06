@@ -141,6 +141,7 @@ function appReducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
       return state
+        .set('isSignedIn', true)
         .set('user', action.value);
     case SIGN_IN_USER:
       return state

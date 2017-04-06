@@ -2,9 +2,9 @@ import React, { PropTypes as T } from 'react';
 import Ionicon from 'react-ionicons';
 
 import P from 'components/P';
+import Button from 'components/Button';
 
-import { Wrapper, IconWrapper, Button } from './styles';
-
+import { Wrapper, IconWrapper } from './styles';
 export default class Notification extends React.Component {
   static propTypes = {
     type: T.string.isRequired,
@@ -52,7 +52,11 @@ export default class Notification extends React.Component {
         <P>
           {message}
         </P>
-        <Button onClick={this.handleClick}>Dismiss</Button>
+        <Button
+          btnClasses={'bold'}
+          name={'Dismiss'}
+          onClickEvent={this.handleClick}
+        />
       </Wrapper>
     );
   }

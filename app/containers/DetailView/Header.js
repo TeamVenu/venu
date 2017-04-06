@@ -33,7 +33,7 @@ export class Header extends React.PureComponent { // eslint-disable-line react/p
             <li>
               <Button
                 btnClasses={'large'}
-                icon={'ion-navicon'}
+                icon={'ion-ios-arrow-back'}
                 onClickEvent={goBack}
               />
             </li>

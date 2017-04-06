@@ -330,6 +330,14 @@ export function dispatchCreateUserAccount(dispatch, credentials) {
     });
 }
 
+export function dispatchSignOutUser(dispatch) {
+  // Clear user data
+  dispatch(signOutUser());
+
+  // Sign User out
+  window.firebase.auth().signOut();
+}
+
 /**
  * dispatchUpdateUserData
  * Dispatches actions and updates user account
