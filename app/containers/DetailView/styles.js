@@ -42,6 +42,7 @@ export const NavItem = styled.li`
     overflow: hidden;
 
     h3 {
+      text-overflow: ellipsis;
       padding: 0;
     }
   }
@@ -148,9 +149,9 @@ export const DetailInfoItem = styled.li`
 
 export const PrimaryButton = styled.button`
   display: block;
-  position: fixed;
-  left: 0;
-  bottom: 0;
+  // position: fixed;
+  // left: 0;
+  // bottom: 0;
   width: 100%;
   padding: 1em;
   color: var(--foreground-color);

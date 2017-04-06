@@ -1,10 +1,14 @@
 import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import Ionicon from 'react-ionicons';
-// import { fromJS } from 'immutable';
+import { browserHistory } from 'react-router';
 
-import H3 from 'components/H3';
+// Components
+import H2 from 'components/H2';
+import Button from 'components/Button';
+import TabBar from 'components/TabBar';
+import Container from 'components/Header';
+import TabBarList from 'components/TabBarList';
 
 // Global Selectors
 import {
@@ -17,45 +21,39 @@ import {
   dispatchChangeCurrentPlace,
 } from 'containers/App/dispatches';
 
-import {
-  Topbar,
-  NavBar,
-  NavItem,
-  BackButton,
-} from './styles';
-
 export class Header extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { place, onGoBack } = this.props;
-
-    // Create an empty immutable place
-    const emptyPlace = {};
+    const { place } = this.props;
+    const { goBack } = browserHistory;
 
     return (
-      <Topbar>
-        <NavBar>
-          <NavItem>
-            <BackButton
-              to={'/'}
-              onClick={() => { onGoBack(emptyPlace); }}
-            >
-              <Ionicon fontSize={'1.5em'} icon={'icon ion-ios-arrow-thin-left'} />
-            </BackButton>
-          </NavItem>
-          <NavItem>
-            <H3>{place.name}</H3>
-          </NavItem>
-          <NavItem>
-            <Ionicon fontSize={'1.5em'} icon={'ion-ios-heart-outline'} />
-          </NavItem>
-        </NavBar>
-      </Topbar>
+      <Container>
+        <TabBar>
+          <TabBarList className={'header'}>
+            <li>
+              <Button
+                btnClasses={'large'}
+                icon={'ion-navicon'}
+                onClickEvent={goBack}
+              />
+            </li>
+            <li>
+              <H2 className={'title'}>{ place.name }</H2>
+            </li>
+            <li>
+              <Button
+                btnClasses={'large'}
+                icon={'ion-ios-heart-outline'}
+              />
+            </li>
+          </TabBarList>
+        </TabBar>
+      </Container>
     );
   }
 }
 
 Header.propTypes = {
-  onGoBack: T.func.isRequired,
   place: T.object.isRequired,
 };
 

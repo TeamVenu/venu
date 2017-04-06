@@ -8,6 +8,11 @@ const P = styled.p`
     font-weight: 300;
     font-size: 0.9em;
   }
+
+  &.smallest {
+    font-weight: 300;
+    font-size: 0.75em;
+  }
 `;
 
 export default P;

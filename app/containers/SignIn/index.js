@@ -79,7 +79,7 @@ export class SignIn extends React.PureComponent { // eslint-disable-line react/p
     const isDataValid = (isEmailValid && isPasswordValid);
 
     return (
-      <Wrapper className={'map-bg'}>
+      <Wrapper className={'map-bg full-page'}>
         <Wrapper className={'gradient-bg opaque'}>
           <Notifications
             type={'error'}

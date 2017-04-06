@@ -2,6 +2,14 @@ import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+// Components
+import H2 from 'components/H2';
+import Button from 'components/Button';
+import TabBar from 'components/TabBar';
+import Container from 'components/Header';
+import TabBarList from 'components/TabBarList';
+import TabBarActions from 'components/TabBarActions';
+
 // Global Selectors
 import {
   makeSelectMapMode,
@@ -14,14 +22,6 @@ import {
 
 // Messages
 import messages from './messages';
-
-// Get our styles
-import {
-  Topbar,
-  ModeWrapper,
-  ModeList,
-  ModeListItem,
-} from './styles';
 
 export class Header extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
@@ -36,29 +36,45 @@ export class Header extends React.PureComponent { // eslint-disable-line react/p
       const currentModeClass = (mapMode === mode.defaultMessage) ? 'selected' : null;
 
       return (
-        <ModeListItem
-          key={mode.id}
-          className={currentModeClass}
-          onClick={(e) => {
-            const newMode = e.target.textContent;
-            onChangeMapMode(newMode);
-          }}
-        >
-          {mode.defaultMessage}
-        </ModeListItem>
+        <li key={mode.id} className={'tab'}>
+          <TabBarActions
+            className={currentModeClass}
+            onClick={(e) => {
+              const newMode = e.target.textContent;
+              onChangeMapMode(newMode);
+            }}
+          >
+            {mode.defaultMessage}
+          </TabBarActions>
+        </li>
       );
     });
   }
 
   render() {
     return (
-      <Topbar>
-        <ModeWrapper>
-          <ModeList>
+      <Container>
+        <TabBar borderless>
+          <TabBarList className={'header'}>
+            <li>
+              <Button
+                btnClasses={'large'}
+                icon={'ion-navicon'}
+                onClickEvent={null}
+              />
+            </li>
+            <li>
+              <H2 className={'title'}>{ messages.title.defaultMessage }</H2>
+            </li>
+            <li />
+          </TabBarList>
+        </TabBar>
+        <TabBar>
+          <TabBarList three>
             {this.renderModeItems()}
-          </ModeList>
-        </ModeWrapper>
-      </Topbar>
+          </TabBarList>
+        </TabBar>
+      </Container>
     );
   }
 }

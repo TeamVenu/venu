@@ -88,7 +88,7 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
     }
 
     return (
-      <Wrapper className={'gradient-bg'}>
+      <Wrapper className={'gradient-bg full-page'}>
         { stageToRender }
       </Wrapper>
     );

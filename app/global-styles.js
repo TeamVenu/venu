@@ -28,7 +28,7 @@ injectGlobal`
     /* Imagine RIT Zone Colors */
     --recreation-zone: #19a3d2;
     --rit-central: #dfb235;
-    --ntid-area: #6ac7e8;
+    --ntid-area: #b64692;
     --information-station: #c9905b;
     --think-tank: #c7655a;
     --artistic-alley: #7d5f93;
@@ -44,15 +44,13 @@ injectGlobal`
     /* */
     --background-color: var(--white);
     --foreground-color: var(--black);
+    --primary-accent-color: var(--red);
     --success-color: var(--green);
     --success-color-accent: var(--green-accent);
     --error-color: var(--red);
     --error-color-accent: var(--red-accent);
     --warning-color: var(--yellow);
     --warning-color-accent: var(--yellow-accent);
-    --blue-green-gradient-opaque: linear-gradient(to bottom, var(--light-green-opaque), var(--light-blue-opaque));
-    --blue-green-gradient: linear-gradient(to bottom, var(--light-green), var(--light-blue));
-    --blue-red-gradient: linear-gradient(to bottom, var(--red), var(--blue));
 
 
     --warm-gradient: linear-gradient(to top right, var(--red), var(--yellow));

@@ -42,7 +42,7 @@ const Footer = styled.section`
 export default class NotFound extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <FullWrapper className={'map-bg'}>
+      <FullWrapper className={'map-bg full-page'}>
         <FullWrapper className={'gradient-bg opaque'}>
           <SmallWrapper className={'centered-text'}>
             <Wrapper>

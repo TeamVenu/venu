@@ -8,6 +8,10 @@ const FullWrapper = styled.section`
   width: 100%;
   min-height: 100vh;
 
+  &.full-page + .bottom-bar {
+    display: none;
+  }
+
   &.map-bg {
     background: url(${RITMap}) no-repeat center center;
   }

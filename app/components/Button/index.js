@@ -5,6 +5,10 @@ import styled from 'styled-components';
 const Btn = styled.button`
   padding: 1em;
 
+  &.large {
+    font-size: 1.5rem;
+  }
+
   &.bordered {
     border: 3px solid currentColor;
   }
