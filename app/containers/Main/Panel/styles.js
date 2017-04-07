@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Link } from 'react-router';
 
 export const Wrapper = styled.section`
   height: 100%;
@@ -102,107 +101,12 @@ export const ListView = styled.ul`
     padding-bottom: 90vh;
   }
 
+  a {
+    margin-bottom: var(--padding);
+  }
+
   @media (min-width: 720px) {
     max-width: none;
     padding-bottom: 200px;
   }
-`;
-
-export const Item = styled.li`
-  margin-bottom: var(--padding);
-`;
-
-export const ItemTitle = styled.h2`
-  flex: 2;
-`;
-
-export const ItemSubtitle = styled.h3``;
-
-export const ItemCategory = styled.p``;
-
-export const DetailSubHeader = styled.section`
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  margin-bottom: var(--padding);
-
-  p:first-of-type {
-    margin-right: calc(var(--padding) * 2);
-  }
-`;
-
-export const ItemLink = styled(Link)`
-  display: block;
-  height: 100%;
-  padding: var(--padding);
-  background: var(--background-color);
-  color: var(--foreground-color);
-  text-decoration: none;
-  border-top: 5px solid transparent;
-
-  section, h3, ul, p {
-    padding: 0;
-  }
-
-  .recreationZone & {
-    border-color: var(--recreation-zone);
-  }
-
-  .ritCentral & {
-    border-color: var(--rit-central);
-  }
-
-  .ntidArea & {
-    border-color: var(--ntid-area);
-  }
-
-  .informationStation & {
-    border-color: var(--information-station);
-  }
-
-  .thinkTank & {
-    border-color: var(--think-tank);
-  }
-
-  .artisticAlley & {
-    border-color: var(--artistic-alley);
-  }
-
-  .engineeringPark & {
-    border-color: var(--engineering-park);
-  }
-
-  .scienceCenter & {
-    border-color: var(--science-center);
-  }
-
-  .businessDistrict & {
-    border-color: var(--business-district);
-  }
-
-  .innovationCenter & {
-    border-color: var(--innovation-center);
-  }
-
-  .globalVillage & {
-    border-color: var(--global-village);
-  }
-
-  .greenPlace & {
-    border-color: var(--green-place);
-  }
-
-  .technologyQuarter & {
-    border-color: var(--technology-quarter);
-  }
-
-  .computerZone & {
-    border-color: var(--computer-zone);
-  }
-
-  // Add these later to edit based on type
-  // .exhibit & { }
-
-  // .facility & { }
-  // .restroom & { }
 `;

@@ -63,20 +63,14 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
               <li>
                 <Button
                   btnClasses={'large'}
-                  icon={'ion-navicon'}
+                  icon={'ion-android-search'}
                   onClickEvent={null}
                 />
               </li>
               <li>
                 <H2 className={'title'}>Search</H2>
               </li>
-              <li>
-                <Button
-                  btnClasses={'large'}
-                  icon={'ion-android-search'}
-                  onClickEvent={null}
-                />
-              </li>
+              <li />
             </TabBarList>
           </TabBar>
         </Container>

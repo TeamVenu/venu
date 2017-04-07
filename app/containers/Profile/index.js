@@ -61,13 +61,7 @@ export class Profile extends React.PureComponent { // eslint-disable-line react/
         <Container>
           <TabBar borderless>
             <TabBarList className={'header'}>
-              <li>
-                <Button
-                  btnClasses={'large'}
-                  icon={'ion-navicon'}
-                  onClickEvent={null}
-                />
-              </li>
+              <li />
               <li>
                 <H2 className={'title'}>Profile</H2>
               </li>

@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 
 // Components
 import H2 from 'components/H2';
-import Button from 'components/Button';
+// import Button from 'components/Button';
 import TabBar from 'components/TabBar';
 import Container from 'components/Header';
 import TabBarList from 'components/TabBarList';
@@ -56,13 +56,7 @@ export class Header extends React.PureComponent { // eslint-disable-line react/p
       <Container>
         <TabBar borderless>
           <TabBarList className={'header'}>
-            <li>
-              <Button
-                btnClasses={'large'}
-                icon={'ion-navicon'}
-                onClickEvent={null}
-              />
-            </li>
+            <li />
             <li>
               <H2 className={'title'}>{ messages.title.defaultMessage }</H2>
             </li>
