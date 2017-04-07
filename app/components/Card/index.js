@@ -1,12 +1,12 @@
 import React, { PropTypes as T } from 'react';
 
 // Components
-import H2 from 'components/H2';
 import Tag from 'components/Tag';
 
 // Local
 import {
   P,
+  Title,
   Header,
   Wrapper,
   Section,
@@ -48,7 +48,7 @@ export default class Card extends React.Component {
 
     return (
       <TagSection>
-        <ListView>
+        <ListView nowrap>
           { this.renderTags() }
         </ListView>
       </TagSection>
@@ -64,7 +64,7 @@ export default class Card extends React.Component {
             <P zone>{place.zone}</P>
             <P>{place.distance}</P>
           </Header>
-          <H2>{place.name}</H2>
+          <Title>{place.name}</Title>
           <P>{place.location}</P>
         </Section>
         { this.renderTagContainer() }

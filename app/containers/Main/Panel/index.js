@@ -2,6 +2,10 @@ import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+// Components
+import Carousel from 'components/Carousel';
+import Button from 'components/Button';
+
 // Global Selectors
 import {
   makeSelectUser,
@@ -11,360 +15,120 @@ import {
   makeSelectCurrentPlace,
 } from 'containers/App/selectors';
 
-import { makePanelSelect } from './selectors';
+// Dispatches
+import {
+  dispatchChangeMapCenter,
+  dispatchChangeCurrentPlace,
+  dispatchChangeMapMode,
+} from 'containers/App/dispatches';
 
 import {
-  dispatchHandleDrag,
-  dispatchHandlePress,
-  dispatchHandleRelease,
-} from './dispatches';
+  filterExhibitsBy,
+  getFacilitiesArray,
+} from 'utils/helpers';
 
-// Messages
-import messages from './messages';
+// Local Containers
+import Item from './Item';
 
-// Local components
-import ListView from './ListView';
-
-import {
-  Wrapper,
-  HandleWrapper,
-  Handle,
-  Title,
-} from './styles';
+// Local Components
+import { Wrapper } from './styles';
 
 export class Panel extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
-
-    // Bind Render events
-    this.renderTitle = this.renderTitle.bind(this);
-
-    // Bind Mouse events
-    this.handleMouseDown = this.handleMouseDown.bind(this);
-    this.handleMouseMove = this.handleMouseMove.bind(this);
-    this.handleMouseUp = this.handleMouseUp.bind(this);
-
-    // Bind Touch Events
-    this.handleTouchStart = this.handleTouchStart.bind(this);
-    this.handleTouchMove = this.handleTouchMove.bind(this);
-    this.handleTouchEnd = this.handleTouchEnd.bind(this);
-
-    // Bind Move events
-    this.onHandlePanelPress = this.onHandlePanelPress.bind(this);
-    this.onHandlePanelDrag = this.onHandlePanelDrag.bind(this);
-    this.onHandlePanelRelease = this.onHandlePanelRelease.bind(this);
-    this.handleWindowResize = this.handleWindowResize.bind(this);
+    this.renderPlaces = this.renderPlaces.bind(this);
   }
 
-  componentDidMount() {
-    window.addEventListener('resize', this.handleWindowResize);
-  }
+  renderPlaces() {
+    const { mapMode, exhibits, facilities, currentPlace, onSelectPlace, onChangeMapMode } = this.props;
 
-  /* Panel Movement Functions */
-  onHandlePanelPress(position) {
-    const button = document.getElementById('places-list-slider');
-    const buttonTop = button.getBoundingClientRect().top;
-    const offset = position - buttonTop;
-    const absolutePositionY = position - offset;
-    const { panelProps, onDispatchHandlePress } = this.props;
-    // We don't know if panelProps is an object or an immutable yet
-    // So let's test that it has the inlineStyles object
-    // If it doesn't it is an immutable
-    const panelClass = (panelProps.inlineStyles) ? panelProps.panelClass : panelProps.get('panelClass');
-    const newPanelProps = {
-      pressing: true,
-      dragging: false,
-      panelClass,
-      absolutePositionY,
-      initialPositionY: absolutePositionY,
-      previousPositionY: absolutePositionY,
-      inlineStyles: {
-        top: `${absolutePositionY}px`,
-      },
-    };
+    const exhibitsObj = exhibits.toJS();
+    const facilitiesObj = facilities.toJS();
+    const detailedPlace = (typeof currentPlace === 'object') ? currentPlace : currentPlace.toJS();
 
-    onDispatchHandlePress(newPanelProps);
-  }
+    if (!exhibits || !facilities) return null;
 
-  onHandlePanelDrag(position) {
-    // Get the values from state
-    const { panelProps, onDispatchHandleDrag } = this.props;
+        // Initialize places
+    let places;
 
-    // Calculate new slide value
-    // Take the intialPositionY and subtract from it new position
-    // Then multiply it by negative one to get direction
-    const newSlideValue = (panelProps.previousPositionY - position) * -1;
+    // For Itinerary
+    const property = 'subType'; // Filter with subType
+    const bookmarked = 'bookmarked'; // Value bookmarked
+    const recommended = 'recommended'; // Value recommended
 
-    // Add the absolutePositionY to the new newSlideValue
-    // To get new absolute position
-    const result = panelProps.absolutePositionY + newSlideValue;
-
-    const newPanelProps = {
-      pressing: true,
-      dragging: true,
-      panelClass: panelProps.panelClass,
-      absolutePositionY: result,
-      initialPositionY: panelProps.initialPositionY,
-      previousPositionY: position,
-      inlineStyles: {
-        top: `${result}px`,
-      },
-    };
-
-    onDispatchHandleDrag(newPanelProps);
-  }
-
-  onHandlePanelRelease(position) {
-    // Get the height of the device
-    const { innerHeight } = window;
-
-    // Get the state properties
-    const { panelProps, onDispatchHandleRelease } = this.props;
-
-    // Make a new variable for the new positionClass
-    // Set it to the current one
-    let newPositionClass = panelProps.panelClass;
-
-    // Set a SWIPE_FORCE
-    // const SWIPE_FORCE = 200;
-
-    // Calculate force
-    const force = position - panelProps.initialPositionY;
-
-    // Calculate the snapPoints
-    const snapPoints = {
-      top: 80,
-      mid: (innerHeight * 0.55),
-      bottom: (innerHeight * 0.75),
-    };
-
-    const distanceToSnapPoints = {
-      top: Math.abs((position - snapPoints.top)),
-      mid: Math.abs((position - snapPoints.mid)),
-      bottom: Math.abs((position - snapPoints.bottom)),
-    };
-
-    // const distance
-    // If force changed
-    if (force !== 0) {
-      if ((distanceToSnapPoints.top < distanceToSnapPoints.mid) && (distanceToSnapPoints.top < distanceToSnapPoints.bottom)) {
-        newPositionClass = 'full';
-      } else if ((distanceToSnapPoints.mid < distanceToSnapPoints.top) && (distanceToSnapPoints.mid < distanceToSnapPoints.bottom)) {
-        newPositionClass = null;
-      } else if ((distanceToSnapPoints.bottom < distanceToSnapPoints.mid) && (distanceToSnapPoints.bottom < distanceToSnapPoints.top)) {
-        newPositionClass = 'collapsed';
-      }
+    // Verify mapMode
+    switch (mapMode) {
+      // If mode is Itinerary
+      case 'Itinerary':
+        // We want to just show bookmarked places
+        places = filterExhibitsBy(exhibitsObj, property, bookmarked);
+        break;
+      // If mode is Facilities
+      case 'Facilities':
+        // We want to just show facilities
+        places = getFacilitiesArray(facilitiesObj);
+        break;
+      // Otherwise mode is Discover
+      default:
+        // We want to just show bookmarked places
+        places = filterExhibitsBy(exhibitsObj, property, recommended);
+        break;
     }
 
-    const newPanelProps = {
-      pressing: false,
-      dragging: false,
-      panelClass: newPositionClass,
-      absolutePositionY: null,
-      initialPositionY: null,
-      previousPositionY: null,
-      inlineStyles: { },
-    };
-
-    onDispatchHandleRelease(newPanelProps);
-  }
-
-  /**
-   * handleWindowResize
-   */
-  handleWindowResize() {
-    const { onDispatchHandleRelease } = this.props;
-    const { innerWidth } = window;
-    const MIN_WIDTH = 720;
-
-    // If window width is 720 or greater
-    if (innerWidth >= MIN_WIDTH) {
-      // We want to remove event listeners
-
-      // Remove mouse event listeners
-      document.removeEventListener('mousemove', this.handleMouseMove.bind(this));
-      document.removeEventListener('mouseup', this.handleMouseUp.bind(this));
-
-      // Remove touch event listeners
-      document.removeEventListener('touchmove', this.handleTouchMove.bind(this));
-      document.removeEventListener('touchend', this.handleTouchEnd.bind(this));
-      document.removeEventListener('touchcancel', this.handleTouchEnd.bind(this));
-
-      const newPanelProps = {
-        pressing: false,
-        dragging: false,
-        panelClass: null,
-        absolutePositionY: null,
-        initialPositionY: null,
-        previousPositionY: null,
-        inlineStyles: { },
-      };
-
-      onDispatchHandleRelease(newPanelProps);
+    if (places.length === 0 && mapMode === 'Itinerary') {
+      return (
+        <Button
+          icon={'ion-plus'}
+          btnClasses={'rounded bordered full'}
+          name={'Add activities to your itinerary'}
+          onClickEvent={() => {
+            onChangeMapMode('Discover');
+          }}
+        />
+      );
     }
-  }
 
-  /* Mouse Events */
-  handleMouseDown(e) {
-    const { innerWidth } = window;
-    const MAX_WIDTH = 720;
-
-    // If window width is less than 720
-    if (innerWidth < MAX_WIDTH) {
-      // Get the position
-      const position = e.pageY;
-
-      // Activate event listeners
-      document.addEventListener('mousemove', this.handleMouseMove.bind(this));
-      document.addEventListener('mouseup', this.handleMouseUp.bind(this));
-
-      // Call function which handles press event
-      this.onHandlePanelPress(position);
-    }
-  }
-
-  handleMouseMove(e) {
-    const { pressing } = this.props.panelProps;
-
-    if (!pressing) return;
-
-    // Get the position
-    const position = e.pageY;
-
-    // Call function which handles drag event
-    this.onHandlePanelDrag(position);
-  }
-
-  handleMouseUp(e) {
-    // Get the panel props we need
-    const { pressing, dragging } = this.props.panelProps;
-
-    // If not pressing or dragging return
-    if (!pressing || !dragging) return;
-
-    // Get the position where user let go of mouse
-    const position = e.pageY;
-
-    // Remove event listeners
-    document.removeEventListener('mousemove', this.handleMouseMove.bind(this));
-    document.removeEventListener('mouseup', this.handleMouseUp.bind(this));
-
-    // Call function which cancels moving
-    this.onHandlePanelRelease(position);
-  }
-
-  /* Touch Events */
-  handleTouchStart(e) {
-    const { innerWidth } = window;
-    const MAX_WIDTH = 720;
-
-    // If window width is less than 720
-    if (innerWidth < MAX_WIDTH) {
-      // Prevent default action
-      e.preventDefault();
-
-      // Get the position
-      const position = e.changedTouches[0].pageY;
-
-      // Activate event listeners
-      document.addEventListener('touchmove', this.handleTouchMove.bind(this));
-      document.addEventListener('touchend', this.handleTouchEnd.bind(this));
-      document.addEventListener('touchcancel', this.handleTouchEnd.bind(this));
-
-      // Call function which handles press event
-      this.onHandlePanelPress(position);
-    }
-  }
-
-  handleTouchMove(e) {
-    const { pressing } = this.props.panelProps;
-
-    if (!pressing) return;
-
-    const touches = Array.from(e.changedTouches);
-
-    touches.forEach((touch) => {
-      // Get the position
-      const position = touch.pageY;
-
-      // Call function which handles drag event
-      this.onHandlePanelDrag(position);
+    return places.map((place) => { // eslint-disable-line
+      return (
+        <Item
+          key={place.id}
+          place={place}
+          currentPlace={detailedPlace}
+          onClickEvent={onSelectPlace}
+        />
+      );
     });
   }
 
-  handleTouchEnd(e) {
-    // Get the panel props we need
-    const { pressing, dragging } = this.props.panelProps;
-
-    // If not pressing or dragging return
-    if (!pressing || !dragging) return;
-
-    // Get the array of touches
-    const touches = Array.from(e.changedTouches);
-
-    // Get the index of the last touch
-    const index = touches.length - 1;
-
-    // Get the position of last touch
-    const position = touches[index].pageY;
-
-    // Remove event listeners
-    document.removeEventListener('touchmove', this.handleTouchMove.bind(this));
-    document.removeEventListener('touchend', this.handleTouchEnd.bind(this));
-    document.removeEventListener('touchcancel', this.handleTouchEnd.bind(this));
-
-    // Call function which cancels moving
-    this.onHandlePanelRelease(position);
-  }
-
-  /* Render functions */
-  renderTitle() {
-    const { currentPlace, mapMode } = this.props;
-
-    // If there is a current place no title
-    if (currentPlace.size > 0) return null;
-
-    const text = mapMode.toLowerCase();
-
-    return (
-      <Title>
-        { messages.mode[text].defaultMessage }
-      </Title>
-    );
-  }
-
   render() {
-    const { panelProps } = this.props;
     return (
-      <Wrapper style={panelProps.inlineStyles} className={panelProps.panelClass}>
-        <HandleWrapper
-          id={'places-list-slider'}
-          onMouseDown={this.handleMouseDown}
-          onTouchStart={this.handleTouchStart}
+      <Wrapper>
+        <Carousel
+          decorators={[]}
+          cellSpacing={15}
+          slideWidth={0.85}
+          cellAlign={'center'}
+          edgeEasing={'easeOutCirc'}
         >
-          <Handle />
-        </HandleWrapper>
-        { this.renderTitle() }
-        <ListView />
+          { this.renderPlaces() }
+        </Carousel>
       </Wrapper>
     );
   }
 }
 
 Panel.propTypes = {
+  exhibits: T.object,
+  facilities: T.object,
   mapMode: T.string,
-  panelProps: T.object,
   currentPlace: T.object,
-  onDispatchHandleDrag: T.func,
-  onDispatchHandlePress: T.func,
-  onDispatchHandleRelease: T.func,
+  onSelectPlace: T.func,
+  onChangeMapMode: T.func,
 };
 
-// Map state to props
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
   mapMode: makeSelectMapMode(),
-  panelProps: makePanelSelect(),
   exhibits: makeSelectExhibits(),
   facilities: makeSelectFacilities(),
   currentPlace: makeSelectCurrentPlace(),
@@ -372,11 +136,16 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onDispatchHandleDrag: (props) => dispatchHandleDrag(dispatch, props),
-    onDispatchHandlePress: (props) => dispatchHandlePress(dispatch, props),
-    onDispatchHandleRelease: (props) => dispatchHandleRelease(dispatch, props),
+    onSelectPlace: (place) => {
+      const center = {
+        lat: place.lat,
+        lng: place.lng,
+      };
+      dispatchChangeCurrentPlace(dispatch, place);
+      dispatchChangeMapCenter(dispatch, center);
+    },
+    onChangeMapMode: (mode) => dispatchChangeMapMode(dispatch, mode),
   };
 }
 
-// Connect our Panel
 export default connect(mapStateToProps, mapDispatchToProps)(Panel);

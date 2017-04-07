@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const FlexListView = styled.ul`
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: ${(props) => (props.nowrap) ? 'nowrap' : 'wrap'};
   list-style-type: none;
   width: 100%;
   padding: 0;
