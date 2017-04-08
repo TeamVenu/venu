@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import Ionicon from 'react-ionicons';
 import { Link } from 'react-router';
 
 // Animations
@@ -66,6 +67,7 @@ export const PinWrapper = styled(Link)`
   justify-content: center;
   width: var(--pin-size);
   height: var(--pin-size);
+  color: var(--background-color);
 
   .exhibit & {
     width: calc(var(--pin-size) - 8px);
@@ -110,14 +112,13 @@ export const Pin = styled.section`
 
   .facility & {
     display: flex;
-    justify-content: center:
+    justify-content: center;
     align-items: center;
     transform: rotate(-45deg);
   }
 `;
 
-export const PinImage = styled.img`
-  display: block;
+export const PinIcon = styled(Ionicon)`
   margin: auto;
-  height: calc(var(--pin-size) / 2);
+  text-align: center;
 `;

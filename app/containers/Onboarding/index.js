@@ -14,6 +14,7 @@ import { dispatchGetAuthenticatedUser } from 'containers/App/dispatches';
 import AccountCreation from './AccountCreation';
 import Profile from './Profile';
 import GeolocationSetup from './GeolocationSetup';
+import ParkingSetup from './ParkingSetup';
 import InterestSelection from './InterestSelection';
 
 // Redux
@@ -40,15 +41,17 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
       newStage = 1;
     } else if ((user.location.lat === '' || user.location.lng === '') || (stage === 2)) {
       newStage = 2;
-    } else if ((user.interests.length === 0) || (stage === 3)) {
+    } else if ((user.parking.lat === '' || user.parking.lng === '') || (stage === 3)) {
       newStage = 3;
-    } else {
+    } else if ((user.interests.length === 0) || (stage === 4)) {
       newStage = 4;
+    } else {
+      newStage = 5;
     }
 
     onSetStage(newStage);
 
-    if (stage > 3) {
+    if (stage > 4) {
       browserHistory.push({
         pathname: '/',
       });
@@ -76,8 +79,12 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
       case 2:
         stageToRender = (<GeolocationSetup />);
         break;
-      // Case 4: Render InterestSelection
+      // Case 3: Render ParkingSetup
       case 3:
+        stageToRender = (<ParkingSetup />);
+        break;
+      // Case 4: Render InterestSelection
+      case 4:
         stageToRender = (<InterestSelection />);
         break;
       // On default render AccountCreation

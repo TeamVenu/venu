@@ -36,7 +36,6 @@ export const TagSection = styled.section`
 export const Header = styled.section`
   display: flex;
   flex-flow: row no-wrap;
-  justify-content: space-between;
   align-items: center;
 `;
 
@@ -62,6 +61,10 @@ export const P = styled(Paragraph)`
   white-space: nowrap;
   display: inline-block;
   text-overflow: ellipsis;
+
+  & + p {
+    text-align: right;
+  }
 `;
 
 export const ListView = styled(FlexListView)`

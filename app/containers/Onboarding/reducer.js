@@ -72,6 +72,7 @@ function onboardingReducer(state = initialState, action) {
     case SETUP_GEOLOCATION:
       return state
         .set('location', action.value)
+        .set('parking', action.value)
         .set('geolocationMode', action.mode)
         .set('isLocationValid', action.valid);
     case ONBOARDING_SET_STAGE:

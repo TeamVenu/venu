@@ -1,9 +1,5 @@
 import React, { PropTypes as T, Component } from 'react';
-import FoodIcon from 'media/icons/food.png';
-import RestroomIcon from 'media/icons/restroom.png';
-import ManIcon from 'media/icons/man.png';
-import WomanIcon from 'media/icons/woman.png';
-import { POIContainer, PinPulse, PinWrapper, Pin, PinImage } from './styles';
+import { POIContainer, PinPulse, PinWrapper, Pin, PinIcon } from './styles';
 
 export default class Marker extends Component {
   static propTypes = {
@@ -35,12 +31,14 @@ export default class Marker extends Component {
       placePinClasses += ' selected';
     }
 
+    const link = (place.subType !== 'parking') ? `/place/${place.type}/${place.id}` : '/onboarding';
+
     return (
       <POIContainer className={placePinClasses} onClick={this.handlePinClick}>
         <PinPulse>
-          <PinWrapper to={`/place/${place.type}/${place.id}`}>
+          <PinWrapper to={link}>
             <Pin>
-              { this.renderPinImage(place) }
+              { this.renderPinIcon(place) }
             </Pin>
           </PinWrapper>
         </PinPulse>
@@ -48,7 +46,7 @@ export default class Marker extends Component {
     );
   }
 
-  renderPinImage(place) {
+  renderPinIcon(place) {
     if (place.type !== 'facility') {
       return null;
     }
@@ -58,32 +56,36 @@ export default class Marker extends Component {
         switch (place.gender) {
           case 'M':
             return (
-              <PinImage src={ManIcon} />
+              <PinIcon icon={'ion-man'} />
             );
           case 'W':
             return (
-              <PinImage src={WomanIcon} />
+              <PinIcon icon={'ion-woman'} />
             );
           case 'U':
             return (
-              <PinImage src={RestroomIcon} />
+              <PinIcon icon={'ion-man ion-woman'} />
             );
           default:
             return null;
         }
       case 'food':
         return (
-          <PinImage src={FoodIcon} />
+          <PinIcon icon={'ion-pizza'} />
         );
       case 'information':
         // TODO: Correct Icon
         return (
-          <PinImage src={FoodIcon} />
+          <PinIcon icon={'ion-help'} />
         );
       case 'medical':
         // TODO: Correct Icon
         return (
-          <PinImage src={FoodIcon} />
+          <PinIcon icon={'ion-medkit'} />
+        );
+      case 'parking':
+        return (
+          <PinIcon icon={'ion-model-s'} />
         );
       default:
         return null;
