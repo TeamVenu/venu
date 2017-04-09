@@ -2,6 +2,7 @@
 import isEmail from 'validator/lib/isEmail';
 
 import {
+  setUser,
   signInUser,
   signInUserError,
   signInUserSuccess,
@@ -14,7 +15,6 @@ import {
   changeUserAge,
   changeUserEmail,
   changeParkingLocation,
-  setupGeolocation,
   changeUserInterests,
   changeUserLocation,
   changeMapMode,
@@ -134,10 +134,8 @@ export function dispatchChangeUserInterests(dispatch, interests) {
  * Prompts user for access to geolocation and dispatches action
  * @param {Function} dispatch
  */
-export function askUserToEnableLocation(dispatch) {
-  // Initialize enabled as false
-  const enabled = false;
-
+export function dispatchGetUserLocation(dispatch, userProps) {
+  const userObject = (userProps.location) ? userProps : userProps.toJS();
   // Initialize location
   const location = {
     lat: 43.08516,
@@ -150,17 +148,22 @@ export function askUserToEnableLocation(dispatch) {
     // Let's ask user for access
     navigator.geolocation.getCurrentPosition((position) => {
       // User allowed tracking
-      retrieveUserLocationSucceeded(dispatch, position);
+      retrieveUserLocationSucceeded(dispatch, userObject, position);
     }, () => {
       // User most likely denied access to their location
-      retrieveUserLocationFailed(dispatch, location);
+      retrieveUserLocationFailed(dispatch, userObject, location);
     });
   } else {
     // Geolocation is
     // a. Not supported by device or
     // b. Disabled by device
     // Set local storage so we don't have to repeat these steps on reload
-    dispatch(setupGeolocation(location, enabled, 'unavailable'));
+    const errorMessage = 'Unable to retrieve your location. Please check your browser settings to enable tracking.';
+    const user = Object.assign({}, userObject, { location });
+    dispatch(setUser(user));
+    dispatch(changeMapCenter(user.location));
+    dispatch(updateUserData());
+    dispatch(setErrorMessages(errorMessage));
   }
 }
 
@@ -170,14 +173,16 @@ export function askUserToEnableLocation(dispatch) {
  * @param {Function} dispatch
  * @param {Object} position
  */
-export function retrieveUserLocationSucceeded(dispatch, position) {
+export function retrieveUserLocationSucceeded(dispatch, userProps, position) {
   const location = {
     lat: position.coords.latitude,
     lng: position.coords.longitude,
   };
 
-  const enabled = true;
-  dispatch(setupGeolocation(location, enabled, 'succeeded'));
+  const user = Object.assign({}, userProps, { location });
+  dispatch(setUser(user));
+  dispatch(changeMapCenter(user.location));
+  dispatch(updateUserData());
 }
 
 /**
@@ -186,9 +191,13 @@ export function retrieveUserLocationSucceeded(dispatch, position) {
  * @param {Function} dispatch
  * @param {Object} position
  */
-export function retrieveUserLocationFailed(dispatch, location) {
-  const enabled = false;
-  dispatch(setupGeolocation(location, enabled, 'failed'));
+export function retrieveUserLocationFailed(dispatch, userProps, location) {
+  const errorMessage = 'Unable to retrieve your location. Please check your browser settings to enable tracking.';
+  const user = Object.assign({}, userProps, { location });
+  dispatch(setUser(user));
+  dispatch(changeMapCenter(user.location));
+  dispatch(updateUserData());
+  dispatch(setErrorMessages(errorMessage));
 }
 
 /**

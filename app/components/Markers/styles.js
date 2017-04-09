@@ -118,7 +118,13 @@ export const Pin = styled.section`
   }
 `;
 
+export const PinIcons = styled.section`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const PinIcon = styled(Ionicon)`
   margin: auto;
-  text-align: center;
 `;

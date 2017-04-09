@@ -1,5 +1,5 @@
 import React, { PropTypes as T, Component } from 'react';
-import { POIContainer, PinPulse, PinWrapper, Pin, PinIcon } from './styles';
+import { POIContainer, PinPulse, PinWrapper, Pin, PinIcons, PinIcon } from './styles';
 
 export default class Marker extends Component {
   static propTypes = {
@@ -31,7 +31,7 @@ export default class Marker extends Component {
       placePinClasses += ' selected';
     }
 
-    const link = (place.subType !== 'parking') ? `/place/${place.type}/${place.id}` : '/onboarding';
+    const link = (place.subType !== 'user' && place.subType !== 'parking') ? `/place/${place.type}/${place.id}` : null;
 
     return (
       <POIContainer className={placePinClasses} onClick={this.handlePinClick}>
@@ -56,36 +56,42 @@ export default class Marker extends Component {
         switch (place.gender) {
           case 'M':
             return (
-              <PinIcon icon={'ion-man'} />
+              <PinIcon icon={'ion-man'} fontSize={'18px'} />
             );
           case 'W':
             return (
-              <PinIcon icon={'ion-woman'} />
+              <PinIcon icon={'ion-woman'} fontSize={'18px'} />
             );
           case 'U':
             return (
-              <PinIcon icon={'ion-man ion-woman'} />
+              <PinIcons>
+                <PinIcon icon={'ion-woman'} fontSize={'15px'} />
+                <PinIcon icon={'ion-man'} fontSize={'15px'} />
+              </PinIcons>
             );
           default:
             return null;
         }
       case 'food':
         return (
-          <PinIcon icon={'ion-pizza'} />
+          <PinIcons>
+            <PinIcon icon={'ion-fork'} fontSize={'15px'} />
+            <PinIcon icon={'ion-knife'} fontSize={'15px'} />
+          </PinIcons>
         );
       case 'information':
         // TODO: Correct Icon
         return (
-          <PinIcon icon={'ion-help'} />
+          <PinIcon icon={'ion-help'} fontSize={'18px'} />
         );
       case 'medical':
         // TODO: Correct Icon
         return (
-          <PinIcon icon={'ion-medkit'} />
+          <PinIcon icon={'ion-medkit'} fontSize={'18px'} />
         );
       case 'parking':
         return (
-          <PinIcon icon={'ion-model-s'} />
+          <PinIcon icon={'ion-model-s'} fontSize={'18px'} />
         );
       default:
         return null;
