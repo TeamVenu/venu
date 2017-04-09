@@ -13,9 +13,7 @@ import {
 } from 'containers/App/selectors';
 
 // Dispacthes
-import {
-  dispatchGetAuthenticatedUser,
-} from 'containers/App/dispatches';
+import { dispatchGetAuthenticatedUser } from 'containers/App/dispatches';
 
 // Helpers
 import {

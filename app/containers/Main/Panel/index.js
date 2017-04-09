@@ -137,12 +137,20 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onSelectPlace: (place) => {
+    onSelectPlace2: (place) => {
       const center = {
         lat: place.lat,
         lng: place.lng,
       };
       dispatchChangeCurrentPlace(dispatch, place);
+      dispatchChangeMapCenter(dispatch, center);
+    },
+    onSelectPlace: (place) => {
+      const center = {
+        lat: place.lat,
+        lng: place.lng,
+      };
+
       dispatchChangeMapCenter(dispatch, center);
     },
     onChangeMapMode: (mode) => dispatchChangeMapMode(dispatch, mode),

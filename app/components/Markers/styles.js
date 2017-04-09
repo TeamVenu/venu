@@ -34,10 +34,11 @@ export const PinPulse = styled.section`
   height: var(--pin-size);
   width: var(--pin-size);
   // box-shadow: 0 0 20px black;
-
-  .exhibit:not(.selected) & {
-    opacity: 0.3;
-  }
+  
+  // Makes exhibits opaque based on mode
+  // .exhibit:not(.selected) & {
+  //   opacity: 0.3;
+  // }
 
   .exhibit & {
     background: var(--pin-background-gradient);
