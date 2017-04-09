@@ -4,22 +4,8 @@ import { POIContainer, PinPulse, PinWrapper, Pin, PinIcons, PinIcon } from './st
 export default class Marker extends Component {
   static propTypes = {
     mode: T.string,
-    onClickEvent: T.func,
     currentPlace: T.object,
     place: T.object.isRequired,
-  }
-
-  static defaultProps = {};
-
-  constructor(props) {
-    super(props);
-
-    this.handlePinClick = this.handlePinClick.bind(this);
-  }
-
-  handlePinClick() {
-    const { place, onClickEvent } = this.props;
-    onClickEvent(place);
   }
 
   renderPin() {
@@ -39,10 +25,20 @@ export default class Marker extends Component {
       placePinClasses += ' selected';
     }
 
-    const link = (place.subType !== 'user' && place.subType !== 'parking') ? `/place/${place.type}/${place.id}` : null;
+    let link = null;
+
+    if (place.subType === 'user' || place.subType === 'parking') {
+      link = null;
+    } else if (place.type === 'facility') {
+      link = `/${place.type}/${place.colorZone}/${place.subType}/${place.key}`;
+    } else if (place.type === 'exhibit') {
+      link = `/${place.type}/${place.colorZone}/${place.exhibitCode}/${place.key}`;
+    } else {
+      link = null;
+    }
 
     return (
-      <POIContainer className={placePinClasses} onClick={this.handlePinClick}>
+      <POIContainer className={placePinClasses}>
         <PinPulse>
           <PinWrapper to={link}>
             <Pin>

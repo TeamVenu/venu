@@ -5,18 +5,6 @@ import Card from 'components/Card';
 export default class Item extends React.Component {
   static propTypes = {
     place: T.object.isRequired,
-    onClickEvent: T.func,
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.handleCardClick = this.handleCardClick.bind(this);
-  }
-
-  handleCardClick() {
-    const { place, onClickEvent } = this.props;
-    onClickEvent(place);
   }
 
   render() {
@@ -24,7 +12,21 @@ export default class Item extends React.Component {
 
     if (!place) { return null; }
 
-    const link = `/place/${place.type}/${place.id}`;
+    // Link should be /place/type/zone/key
+    let link = '';
+
+    switch (place.type) {
+      case 'exhibit':
+        link = `/${place.type}/${place.colorZone}/${place.exhibitCode}/${place.key}`;
+        break;
+      case 'facilities':
+        link = `/${place.type}/${place.colorZone}/${place.subType}/${place.key}`;
+        break;
+      default:
+        link = null;
+        break;
+    }
+
     // Check if the second letter or place.location is not a number
     // If it is, use location
     // Otherwise use exhibit code
@@ -51,7 +53,6 @@ export default class Item extends React.Component {
     return (
       <Card
         place={cardInfo}
-        onClickEvent={this.handleCardClick}
       />
     );
   }

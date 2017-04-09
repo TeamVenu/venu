@@ -36,7 +36,7 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   renderPlaces(places) {
-    const { currentPlace, onSelectPlace } = this.props;
+    const { currentPlace } = this.props;
     const detailedPlace = (typeof currentPlace === 'object') ? currentPlace : currentPlace.toJS();
 
     return places.map((place) => { // eslint-disable-line
@@ -45,7 +45,6 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
           key={place.id}
           place={place}
           currentPlace={detailedPlace}
-          onClickEvent={onSelectPlace}
         />
       );
     });
@@ -126,7 +125,6 @@ Panel.propTypes = {
   exhibits: T.object,
   mapMode: T.string,
   currentPlace: T.object,
-  onSelectPlace: T.func,
   onChangeMapMode: T.func,
 };
 

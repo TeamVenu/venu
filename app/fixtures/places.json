@@ -549,8 +549,9 @@
     "food": [],
     "information": [],
     "medical": [],
-    "restrooms": [
+    "restroom": [
       {
+        "key": 0,
         "id": 6000,
         "name": "Women's Restroom",
         "type": "facility",
@@ -569,6 +570,7 @@
         "devComments": "needs verification"
       },
       {
+        "key": 1,
         "id": 6001,
         "name": "Men's Restroom",
         "type": "facility",
@@ -587,6 +589,7 @@
         "devComments": "needs verification"
       },
       {
+        "key": 2,
         "id": 6002,
         "name": "Men's Restroom",
         "type": "facility",
@@ -605,6 +608,7 @@
         "devComments": "needs verification"
       },
       {
+        "key": 3,
         "id": 6003,
         "name": "Gender Neutral Restroom",
         "type": "facility",
@@ -623,6 +627,7 @@
         "devComments": "needs verification"
       },
       {
+        "key": 4,
         "id": 6004,
         "name": "Men's Restroom",
         "type": "facility",
@@ -641,6 +646,7 @@
         "devComments": "needs verification"
       },
       {
+        "key": 5,
         "id": 6005,
         "name": "Men's Restroom",
         "type": "facility",
@@ -659,6 +665,7 @@
         "devComments": "needs verification"
       },
       {
+        "key": 6,
         "id": 6006,
         "name": "Gender Neutral Restroom",
         "type": "facility",

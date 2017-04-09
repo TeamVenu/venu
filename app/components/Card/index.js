@@ -17,19 +17,12 @@ import {
 export default class Card extends React.Component {
   static propTypes = {
     place: T.object.isRequired,
-    onClickEvent: T.func.isRequired,
   }
 
   constructor(props) {
     super(props);
     this.renderTags = this.renderTags.bind(this);
-    this.handleClick = this.handleClick.bind(this);
     this.renderTagContainer = this.renderTagContainer.bind(this);
-  }
-
-  handleClick() {
-    const { onClickEvent } = this.props;
-    onClickEvent();
   }
 
   renderTags() {
@@ -58,7 +51,7 @@ export default class Card extends React.Component {
     const { place } = this.props;
 
     return (
-      <Wrapper to={place.link} onClick={this.handleClick}>
+      <Wrapper to={place.link}>
         <Section>
           <Header>
             <P zone>{place.zone}</P>

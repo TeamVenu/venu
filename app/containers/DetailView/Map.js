@@ -4,18 +4,13 @@ import { createStructuredSelector } from 'reselect';
 import GoogleMap from 'google-map-react';
 
 // Global Selectors
-import {
-  makeSelectVenuMap,
-  makeSelectCurrentPlace,
-} from 'containers/App/selectors';
+import { makeSelectVenuMap } from 'containers/App/selectors';
 
 // Components
 import Marker from 'components/Markers';
 
 // Import local styles
-import {
-  MapWrapper,
-} from './styles';
+import { MapWrapper } from './styles';
 
 export class VenuMap extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -42,11 +37,11 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
           center={center}
         >
           <Marker
+            place={place}
             key={place.id}
             lat={place.lat}
             lng={place.lng}
             mode={'Default'}
-            place={place}
             onClickEvent={() => {}}
           />
         </GoogleMap>
@@ -62,7 +57,6 @@ VenuMap.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   venuMap: makeSelectVenuMap(),
-  place: makeSelectCurrentPlace(),
 });
 
 export default connect(mapStateToProps)(VenuMap);

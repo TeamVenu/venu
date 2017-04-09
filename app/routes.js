@@ -52,7 +52,7 @@ export default function createRoutes(store) {
       },
       childRoutes: [
         {
-          path: '/place/:placeType/:placeId',
+          path: ':place/:zone/:code/:id',
           name: 'place',
           getComponent(nextState, cb) {
             const importModules = Promise.all([
@@ -92,7 +92,7 @@ export default function createRoutes(store) {
       },
       childRoutes: [
         {
-          path: '/place/:placeType/:placeId',
+          path: ':place/:zone/:code/:id',
           name: 'place',
           getComponent(nextState, cb) {
             const importModules = Promise.all([
@@ -132,7 +132,7 @@ export default function createRoutes(store) {
       },
       childRoutes: [
         {
-          path: '/place/:placeType/:placeId',
+          path: ':place/:zone/:code/:id',
           name: 'place',
           getComponent(nextState, cb) {
             const importModules = Promise.all([
@@ -172,7 +172,7 @@ export default function createRoutes(store) {
       },
       childRoutes: [
         {
-          path: '/place/:placeType/:placeId',
+          path: ':place/:zone/:code/:id',
           name: 'place',
           getComponent(nextState, cb) {
             const importModules = Promise.all([

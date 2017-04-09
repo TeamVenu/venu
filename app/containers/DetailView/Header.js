@@ -13,7 +13,6 @@ import TabBarList from 'components/TabBarList';
 // Global Selectors
 import {
   makeSelectUser,
-  makeSelectCurrentPlace,
 } from 'containers/App/selectors';
 
 // Dispatches
@@ -59,12 +58,11 @@ Header.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
-  place: makeSelectCurrentPlace(),
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onGoBack: (place) => dispatchChangeCurrentPlace(dispatch, place),
+    onGoBack: (currentPlace) => dispatchChangeCurrentPlace(dispatch, currentPlace),
   };
 }
 
