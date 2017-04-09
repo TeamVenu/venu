@@ -8,6 +8,8 @@ const FullWrapper = styled.section`
   width: 100%;
   min-height: 100vh;
 
+  padding-bottom: calc(var(--topbar-height) * 1.5);
+
   &.full-page + .bottom-bar {
     display: none;
   }

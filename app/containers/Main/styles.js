@@ -30,8 +30,8 @@ export const UserPin = styled.section`
   width: 40px;
   min-width: 40px;
   height: 40px;
-  background: var(--white);
-  border: 3px solid var(--black);
+  background: var(--background-color);
+  border: 3px solid var(--foreground-color);
   // box-shadow: 0 0 40px black;
   border-radius: 100%;
   display: flex;

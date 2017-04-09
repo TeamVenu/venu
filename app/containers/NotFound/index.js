@@ -44,7 +44,7 @@ export default class NotFound extends React.PureComponent { // eslint-disable-li
     return (
       <FullWrapper className={'map-bg full-page'}>
         <FullWrapper className={'gradient-bg opaque'}>
-          <SmallWrapper className={'centered-text'}>
+          <SmallWrapper className={'centered-text'} padding>
             <Wrapper>
               <Header>
                 <Logo />

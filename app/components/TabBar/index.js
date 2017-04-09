@@ -10,9 +10,9 @@ const TabBar = styled.nav`
   height: var(--topbar-height);
 
   // Styling
-  background: var(--background-color);
+  background: ${(props) => props.transparent ? 'none' : 'var(--background-color)'};
   box-shadow: ${(props) => props.borderless ? 'none' : 'inset 0 -7px 1px -7px var(--foreground-color)'};
-
+  color: ${(props) => props.transparent ? 'var(--background-color)' : 'inherit'};
   &.bottom-bar {
     // Positioning
     position: fixed;
