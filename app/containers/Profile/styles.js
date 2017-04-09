@@ -37,6 +37,7 @@ export const StatisticsBarList = styled.ul`
   display: flex;
   flex-flow: row nowrap;
   width: 100%;
+  background: var(--light-gray);
   box-shadow: inset 0 -7px 1px -7px var(--foreground-color);
 `;
 
@@ -73,7 +74,7 @@ export const SettingsLink = styled(Link)`
   display: block;
   width: 90%;
   margin: 0 auto;
-  padding: var(--padding) 0;
+  padding: 1.5em 0;
   color: var(--foreground-color);
   text-decoration: none;
 `;

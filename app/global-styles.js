@@ -9,9 +9,9 @@ injectGlobal`
     --light: #edeeef;
     --dark: #222222;
     --dark-grey: #444444;
-    --light-gray: #dddfe0;
+    --light-gray: #f7f7f7;
     --gray: #535353;
-    --grey: #9e9e9e;
+    --grey: #acacac;
     --green: #62d2a2;
     --green-accent: #2aaf74;
     --red: #ff2e35;
