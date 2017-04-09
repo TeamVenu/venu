@@ -37,7 +37,7 @@ export const StatisticsBarList = styled.ul`
   display: flex;
   flex-flow: row nowrap;
   width: 100%;
-  box-shadow: 0 0 10px var(--foreground-color);
+  box-shadow: inset 0 -7px 1px -7px var(--foreground-color);
 `;
 
 export const StatisticsBarListItem = styled.li`

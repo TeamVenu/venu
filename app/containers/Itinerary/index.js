@@ -123,7 +123,7 @@ export class Itinerary extends React.PureComponent { // eslint-disable-line reac
       const btnText = `Add Exhibits To Your ${mode} List`;
 
       return (
-        <SmallWrapper className={'.centered-text'}>
+        <SmallWrapper className={'.centered-text'} padding>
           <A to={'/'} className={'btn full rounded special'}>
             <Ionicon icon={'icon ion-plus'} />
             { btnText }
