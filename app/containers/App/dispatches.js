@@ -206,9 +206,12 @@ export function retrieveUserLocationFailed(dispatch, userProps, location) {
  * @param {Function} dispatch
  * @param {String} mode
  */
-export function dispatchChangeMapMode(dispatch, mode) {
+export function dispatchChangeMapMode(dispatch, event) {
   // Regex pattern
   const modePattern = /(Default|Discover|Itinerary)/i;
+
+  // Mode
+  const mode = event.target.textContent;
 
   // If mode matches pattern
   if (modePattern.test(mode)) {

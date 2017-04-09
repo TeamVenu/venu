@@ -44,10 +44,7 @@ export class Header extends React.PureComponent { // eslint-disable-line react/p
         <li key={mode.id} className={'tab'}>
           <TabBarActions
             className={currentModeClass}
-            onClick={(e) => {
-              const newMode = e.target.textContent;
-              onChangeMapMode(newMode);
-            }}
+            onClick={onChangeMapMode}
           >
             {mode.defaultMessage}
           </TabBarActions>
@@ -109,7 +106,7 @@ const mapStateToProps = createStructuredSelector({
 // Map dispatches to props
 export function mapDispatchToProps(dispatch) {
   return {
-    onChangeMapMode: (mode) => dispatchChangeMapMode(dispatch, mode),
+    onChangeMapMode: (e) => dispatchChangeMapMode(dispatch, e),
     onGetUserLocation: (user) => dispatchGetUserLocation(dispatch, user),
     onClearErrorMessages: () => dispatchSetErrorMessages(dispatch, null),
   };
