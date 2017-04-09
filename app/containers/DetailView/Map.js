@@ -45,6 +45,7 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
             key={place.id}
             lat={place.lat}
             lng={place.lng}
+            mode={'Default'}
             place={place}
             onClickEvent={() => {}}
           />

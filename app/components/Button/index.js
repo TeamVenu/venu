@@ -22,9 +22,9 @@ const Btn = styled.button`
   }
 
   &.special {
-    background: var(--red);
+    background: var(--warm-gradient);
     color: var(--background-color);
-    border-color: var(--red);;
+    border-color: none;
 
     &.reversed {
       background: var(--background-color);

@@ -3,9 +3,10 @@ import { POIContainer, PinPulse, PinWrapper, Pin, PinIcons, PinIcon } from './st
 
 export default class Marker extends Component {
   static propTypes = {
+    mode: T.string,
+    onClickEvent: T.func,
     currentPlace: T.object,
     place: T.object.isRequired,
-    onClickEvent: T.func,
   }
 
   static defaultProps = {};
@@ -22,12 +23,19 @@ export default class Marker extends Component {
   }
 
   renderPin() {
-    const { place } = this.props;
+    const { place, mode } = this.props;
+
     if (!place) { return null; }
+
     const { currentPlace } = this.props;
+
     let placePinClasses = place.type + ' ' + place.subType; // eslint-disable-line
 
-    if (currentPlace && (currentPlace.lat === place.lat && currentPlace.lng === place.lng)) {
+    if (mode === 'Default') {
+      placePinClasses += ' selected';
+    } else if (mode === 'Itinerary' && place.subType === 'bookmarked') {
+      placePinClasses += ' selected';
+    } else if (mode === 'Discover' && currentPlace && (currentPlace.lat === place.lat && currentPlace.lng === place.lng)) {
       placePinClasses += ' selected';
     }
 

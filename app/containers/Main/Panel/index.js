@@ -11,7 +11,6 @@ import {
   makeSelectUser,
   makeSelectMapMode,
   makeSelectExhibits,
-  makeSelectFacilities,
   makeSelectCurrentPlace,
 } from 'containers/App/selectors';
 
@@ -22,10 +21,7 @@ import {
   dispatchChangeMapMode,
 } from 'containers/App/dispatches';
 
-import {
-  filterExhibitsBy,
-  getFacilitiesArray,
-} from 'utils/helpers';
+import { filterExhibitsBy } from 'utils/helpers';
 
 // Local Containers
 import Item from './Item';
@@ -39,54 +35,9 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
     this.renderPlaces = this.renderPlaces.bind(this);
   }
 
-  renderPlaces() {
-    const { mapMode, exhibits, facilities, currentPlace, onSelectPlace, onChangeMapMode } = this.props;
-
-    const exhibitsObj = exhibits.toJS();
-    const facilitiesObj = facilities.toJS();
+  renderPlaces(places) {
+    const { currentPlace, onSelectPlace } = this.props;
     const detailedPlace = (typeof currentPlace === 'object') ? currentPlace : currentPlace.toJS();
-
-    if (!exhibits || !facilities) return null;
-
-        // Initialize places
-    let places;
-
-    // For Itinerary
-    const property = 'subType'; // Filter with subType
-    const bookmarked = 'bookmarked'; // Value bookmarked
-    const recommended = 'recommended'; // Value recommended
-
-    // Verify mapMode
-    switch (mapMode) {
-      // If mode is Itinerary
-      case 'Itinerary':
-        // We want to just show bookmarked places
-        places = filterExhibitsBy(exhibitsObj, property, bookmarked);
-        break;
-      // If mode is Facilities
-      case 'Facilities':
-        // We want to just show facilities
-        places = getFacilitiesArray(facilitiesObj);
-        break;
-      // Otherwise mode is Discover
-      default:
-        // We want to just show bookmarked places
-        places = filterExhibitsBy(exhibitsObj, property, recommended);
-        break;
-    }
-
-    if (places.length === 0 && mapMode === 'Itinerary') {
-      return (
-        <Button
-          icon={'ion-plus'}
-          btnClasses={'rounded bordered full'}
-          name={'Add activities to your itinerary'}
-          onClickEvent={() => {
-            onChangeMapMode('Discover');
-          }}
-        />
-      );
-    }
 
     return places.map((place) => { // eslint-disable-line
       return (
@@ -101,8 +52,62 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   render() {
+    const { mapMode, exhibits, onChangeMapMode } = this.props;
+
+    const exhibitsObj = exhibits.toJS();
+
+    if (!exhibits) return null;
+
+    // Initialize places
+    let places;
+
+    // For Itinerary
+    const property = 'subType'; // Filter with subType
+    const bookmarked = 'bookmarked'; // Value bookmarked
+    const recommended = 'recommended'; // Value recommended
+
+    // Verify mapMode
+    switch (mapMode) {
+      // If mode is Discover
+      case 'Discover':
+        // We want to just show recommended places
+        places = filterExhibitsBy(exhibitsObj, property, recommended);
+        break;
+      // If mode is Itinerary
+      case 'Itinerary':
+        // We want to just show bookmarked places
+        places = filterExhibitsBy(exhibitsObj, property, bookmarked);
+        break;
+      // Otherwise mode is Discover
+      default:
+        // We don't want to show cards
+        places = [];
+        break;
+    }
+
+    // If in itinerary with no places
+    if (places.length === 0 && mapMode === 'Itinerary') {
+      // Return a button that changes map to discover
+      return (
+        <Wrapper>
+          <Button
+            icon={'ion-plus'}
+            btnClasses={'rounded special full'}
+            name={'Add Activities To Your Itinerary'}
+            onClickEvent={() => {
+              onChangeMapMode('Discover');
+            }}
+          />
+        </Wrapper>
+      );
+    } else if (places.length === 0) {
+      // If no places return null
+      return null;
+    }
+
+    // Otherwise return places in carousel
     return (
-      <Wrapper>
+      <Wrapper full>
         <Carousel
           decorators={[]}
           cellSpacing={15}
@@ -110,7 +115,7 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
           cellAlign={'center'}
           edgeEasing={'easeOutCirc'}
         >
-          { this.renderPlaces() }
+          { this.renderPlaces(places) }
         </Carousel>
       </Wrapper>
     );
@@ -119,7 +124,6 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
 
 Panel.propTypes = {
   exhibits: T.object,
-  facilities: T.object,
   mapMode: T.string,
   currentPlace: T.object,
   onSelectPlace: T.func,
@@ -130,7 +134,6 @@ const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
   mapMode: makeSelectMapMode(),
   exhibits: makeSelectExhibits(),
-  facilities: makeSelectFacilities(),
   currentPlace: makeSelectCurrentPlace(),
 });
 

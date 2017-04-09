@@ -53,7 +53,7 @@ export default defineMessages({
     },
     passwordCheckLabel: {
       id: 'venu.components.Onboarding.accountCreation.passwordCheckLabel',
-      defaultMessage: 'Re-enter password:',
+      defaultMessage: 'Confirm password:',
     },
     ageLabel: {
       id: 'venu.components.Onboarding.accountCreation.ageLabel',

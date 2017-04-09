@@ -208,15 +208,15 @@ export function retrieveUserLocationFailed(dispatch, userProps, location) {
  */
 export function dispatchChangeMapMode(dispatch, mode) {
   // Regex pattern
-  const modePattern = /(Discover|Itinerary|Facilities)/i;
+  const modePattern = /(Default|Discover|Itinerary)/i;
 
   // If mode matches pattern
   if (modePattern.test(mode)) {
     // Set mode to new mode
     dispatch(changeMapMode(mode));
   } else {
-    // Otherwise set to Discover as fallback
-    dispatch(changeMapMode('Discover'));
+    // Otherwise set to Default as fallback
+    dispatch(changeMapMode('Default'));
   }
 }
 

@@ -100,7 +100,6 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
             labelText={messages.accountCreation.passwordLabel.defaultMessage}
             isValid={isPasswordValid}
             value={password}
-            requirements={passwordRequirements}
             onChangeEvent={(e) => {
               onChangePassword(e, rePassword);
             }}

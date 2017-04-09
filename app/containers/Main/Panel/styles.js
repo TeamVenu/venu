@@ -5,7 +5,8 @@ export const Wrapper = styled.section`
   position: relative;
   align-self: flex-end;
   // Sizing
-  width: 100%;
+  width: ${(props) => (props.full) ? '100%' : '90%'};
+  margin: ${(props) => (props.full) ? '0' : '0 auto'};
   padding: calc(var(--padding) * 2) 0;
   z-index: 15;
 `;
