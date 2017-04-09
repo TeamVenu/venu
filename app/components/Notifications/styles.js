@@ -15,7 +15,7 @@ const pop = keyframes`
 `;
 
 export const Wrapper = styled.section`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -25,6 +25,7 @@ export const Wrapper = styled.section`
   justify-content: center;
   animation: ${pop} 0.4s;
   box-shadow: 0 0 28px var(--grey);
+  z-index: 9999;
 
   &.error {
     background: var(--background-color);

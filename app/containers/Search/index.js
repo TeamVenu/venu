@@ -58,7 +58,7 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
     return (
       <div>
         <Container>
-          <TabBar borderless>
+          <TabBar>
             <TabBarList className={'header'}>
               <li>
                 <Button

@@ -183,8 +183,7 @@ function appReducer(state = initialState, action) {
         .set('error', action.value);
     case CREATE_USER_ACCOUNT_SUCCESS:
       return state
-        .set('loading', false)
-        .set('error', null);
+        .set('loading', false);
     case LOAD_USER_DATA:
       return state
         .set('loading', true)

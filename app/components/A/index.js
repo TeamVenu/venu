@@ -11,6 +11,7 @@ const A = styled(Link)`
 
   &.btn {
     padding: 1em;
+    text-align: center;
 
     &.bordered {
       border: 3px solid currentColor;
@@ -21,7 +22,7 @@ const A = styled(Link)`
     }
 
     &.special {
-      background: var(--red);
+      background: var(--warm-gradient);
       color: var(--background-color);
       border-color: var(--red);;
 

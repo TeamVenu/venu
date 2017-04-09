@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const TabBar = styled.nav`
   // Positioning
   position: relative;
-  z-index: 9999;
+  z-index: 20;
 
   // Size
   width: 100%;
@@ -17,6 +17,7 @@ const TabBar = styled.nav`
     // Positioning
     position: fixed;
     bottom: 0;
+    z-index: 9999;
 
     // Styling
     box-shadow: inset 0 7px 1px -7px var(--foreground-color);

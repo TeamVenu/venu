@@ -59,7 +59,7 @@ export class Profile extends React.PureComponent { // eslint-disable-line react/
     return (
       <div>
         <Container>
-          <TabBar borderless>
+          <TabBar>
             <TabBarList className={'header'}>
               <li />
               <li>

@@ -33,13 +33,15 @@ import {
 export class Main extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <Wrapper>
-        <Header />
+      <section>
         <MapWrapper>
           <VenuMap />
         </MapWrapper>
-        <Panel />
-      </Wrapper>
+        <Wrapper>
+          <Header />
+          <Panel />
+        </Wrapper>
+      </section>
     );
   }
 }

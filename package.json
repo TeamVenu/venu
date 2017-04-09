@@ -228,6 +228,7 @@
     "ip": "1.1.4",
     "lodash": "4.17.2",
     "minimist": "1.2.0",
+    "nuka-carousel": "git://github.com/FormidableLabs/nuka-carousel.git#v2.1.1",
     "react": "15.4.1",
     "react-dom": "15.4.1",
     "react-google-maps": "^6.0.1",

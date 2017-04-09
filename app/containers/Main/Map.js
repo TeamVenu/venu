@@ -22,11 +22,7 @@ import {
 import Marker from 'components/Markers';
 import UserIcon from 'media/icons/user.png';
 
-import {
-  getPlacesArray,
-  filterExhibitsBy,
-  getFacilitiesArray,
-} from 'utils/helpers';
+import { getPlacesArray } from 'utils/helpers';
 
 import { UserPinWrapper, UserPin, UserImage } from './styles';
 
@@ -61,26 +57,11 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
   renderPlacesPin() {
     const { mapMode, exhibits, facilities, currentPlace, onSelectPlace } = this.props;
 
-    const exhibitsObj = exhibits.toJS();
-    const facilitiesObj = facilities.toJS();
-    let places;
-    const placeProperty = 'subType';
-    const bookmarked = 'bookmarked';
-
     if (!exhibits || !facilities) return null;
 
-    switch (mapMode) {
-      case 'Itinerary':
-        places = filterExhibitsBy(exhibitsObj, placeProperty, bookmarked);
-        break;
-      case 'Facilities':
-        places = getFacilitiesArray(facilitiesObj);
-        break;
-      case 'Discover':
-      default:
-        places = getPlacesArray(exhibitsObj, facilitiesObj);
-        break;
-    }
+    const exhibitsObj = exhibits.toJS();
+    const facilitiesObj = facilities.toJS();
+    const places = getPlacesArray(exhibitsObj, facilitiesObj);
 
     return places.map((place) => { // eslint-disable-line
       return (
@@ -89,6 +70,7 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
           lat={place.lat}
           lng={place.lng}
           place={place}
+          mode={mapMode}
           currentPlace={currentPlace}
           onClickEvent={(p) => { onSelectPlace(p); }}
         />

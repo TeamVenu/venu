@@ -4,12 +4,8 @@ import { createStructuredSelector } from 'reselect';
 import Ionicon from 'react-ionicons';
 
 // Components
-import P from 'components/P';
 import H3 from 'components/H3';
-import H4 from 'components/H4';
-import Radio from 'components/Input';
 import Button from 'components/Button';
-import FlexListView from 'components/FlexListView';
 
 // Global Selectors
 import {
@@ -28,7 +24,6 @@ import {
 // Local Dispatch Methods
 import {
   askUserToEnableLocation,
-  dispatchChangeParkingLocation,
   dispatchGoToPreviousStage,
   dispatchGoToNextStage,
 } from './dispatches';
@@ -43,8 +38,6 @@ import {
   Body,
   Footer,
   Alert,
-  // NumberedList,
-  OptionItem,
   ButtonRow,
   ButtonItem,
 } from './styles';
@@ -55,43 +48,15 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
     super(props);
 
     this.renderBodyContent = this.renderBodyContent.bind(this);
-    this.renderParkingLots = this.renderParkingLots.bind(this);
   }
+
   componentDidMount() {
     const { onAskUserToEnableLocation } = this.props;
     onAskUserToEnableLocation();
   }
 
-  renderParkingLots() {
-    const { onSetParkingLocation } = this.props;
-    const { lots } = messages.geolocationSetup.parking.lot;
-    return lots.map((lot) => { // eslint-disable-line
-      return (
-        <OptionItem key={lot.id}>
-          <Radio
-            id={lot.name}
-            name={'parkingLot'}
-            value={lot.value}
-            text={lot.defaultMessage}
-            type={'radio'}
-            onChangeEvent={(e) => {
-              // Get the array index from the value or the input
-              const index = e.target.value;
-
-              // Get the location using the index
-              const location = lots[index].location;
-
-              // Set parking location using the location of the lot
-              onSetParkingLocation(location);
-            }}
-          />
-        </OptionItem>
-      );
-    });
-  }
-
   renderBodyContent() {
-    const { userProps, mode, location, onSetParkingLocation } = this.props;
+    const { mode, userProps } = this.props;
     const user = (userProps.location) ? userProps : userProps.toJS();
 
     switch (mode) {
@@ -102,26 +67,6 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
               <Ionicon icon={'icon ion-checkmark-round'} />
               { messages.geolocationSetup.location.succeeded.defaultMessage }
             </Alert>
-            <H4>{ messages.geolocationSetup.parking.title.defaultMessage }</H4>
-            <P>
-              { messages.geolocationSetup.parking.description.defaultMessage }
-            </P>
-            <FlexListView className={'spaced'}>
-              <OptionItem>
-                <Radio
-                  id={'currentLocation'}
-                  name={'parkingLot'}
-                  value={'currentLocation'}
-                  text={'Set parking to current location'}
-                  type={'radio'}
-                  onChangeEvent={() => {
-                    // Set parking location using current location
-                    onSetParkingLocation(location);
-                  }}
-                />
-              </OptionItem>
-              {this.renderParkingLots()}
-            </FlexListView>
           </section>
         );
       case 'failed':
@@ -215,26 +160,16 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
 
 // Set our PropTypes
 GeolocationSetup.propTypes = {
-  userProps: T.object.isRequired,
-  location: T.object.isRequired,
-  parking: T.object.isRequired,
-  stage: T.any.isRequired,
   mode: T.string,
+  stage: T.any.isRequired,
   isLocationValid: T.bool,
-  onAskUserToEnableLocation: T.func,
-  onSetParkingLocation: T.func,
-  onPreviousStage: T.func,
-  onNextStage: T.func,
+  parking: T.object.isRequired,
+  location: T.object.isRequired,
+  userProps: T.object.isRequired,
+  onNextStage: T.func.isRequired,
+  onPreviousStage: T.func.isRequired,
+  onAskUserToEnableLocation: T.func.isRequired,
 };
-
-export function mapDispatchToProps(dispatch) {
-  return {
-    onAskUserToEnableLocation: () => askUserToEnableLocation(dispatch),
-    onSetParkingLocation: (location) => dispatchChangeParkingLocation(dispatch, location),
-    onPreviousStage: (stage) => dispatchGoToPreviousStage(dispatch, stage),
-    onNextStage: (user, stage) => dispatchGoToNextStage(dispatch, user, stage),
-  };
-}
 
 const mapStateToProps = createStructuredSelector({
   userProps: makeSelectUser(),
@@ -244,6 +179,14 @@ const mapStateToProps = createStructuredSelector({
   isLocationValid: makeSelectLocationValid(),
   stage: makeSelectOnboardingStage(),
 });
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    onAskUserToEnableLocation: () => askUserToEnableLocation(dispatch),
+    onPreviousStage: (stage) => dispatchGoToPreviousStage(dispatch, stage),
+    onNextStage: (user, stage) => dispatchGoToNextStage(dispatch, user, stage),
+  };
+}
 
 // Connect our GeolocationSetup
 export default connect(mapStateToProps, mapDispatchToProps)(GeolocationSetup);
