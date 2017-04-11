@@ -7,7 +7,7 @@
  * @return {Array}
  */
 export function getFacilitiesArray(facilities) {
-  return facilities.food.concat(facilities.information, facilities.medical, facilities.restrooms);
+  return facilities.food.concat(facilities.information, facilities.medical, facilities.restroom);
 }
 
 /**

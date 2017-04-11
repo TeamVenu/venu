@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import Ionicon from 'react-ionicons';
 import { Link } from 'react-router';
 
 // Animations
@@ -33,6 +34,11 @@ export const PinPulse = styled.section`
   height: var(--pin-size);
   width: var(--pin-size);
   // box-shadow: 0 0 20px black;
+  
+  // Makes exhibits opaque based on mode
+  // .exhibit:not(.selected) & {
+  //   opacity: 0.3;
+  // }
 
   .exhibit & {
     background: var(--pin-background-gradient);
@@ -66,6 +72,7 @@ export const PinWrapper = styled(Link)`
   justify-content: center;
   width: var(--pin-size);
   height: var(--pin-size);
+  color: var(--background-color);
 
   .exhibit & {
     width: calc(var(--pin-size) - 8px);
@@ -110,14 +117,19 @@ export const Pin = styled.section`
 
   .facility & {
     display: flex;
-    justify-content: center:
+    justify-content: center;
     align-items: center;
     transform: rotate(-45deg);
   }
 `;
 
-export const PinImage = styled.img`
-  display: block;
+export const PinIcons = styled.section`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const PinIcon = styled(Ionicon)`
   margin: auto;
-  height: calc(var(--pin-size) / 2);
 `;

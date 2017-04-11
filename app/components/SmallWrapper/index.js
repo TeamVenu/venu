@@ -4,7 +4,7 @@ const SmallWrapper = styled.section`
   margin: 0 auto;
   width: 90%;
   max-width: 720px;
-  padding-top: var(--topbar-height);
+  padding-top: ${(props) => (props.padding) ? 'var(--topbar-height)' : '1em'};
 
   &.centered-text {
     text-align: center;

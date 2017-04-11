@@ -52,16 +52,18 @@ export default function createRoutes(store) {
       },
       childRoutes: [
         {
-          path: '/place/:placeType/:placeId',
+          path: ':place/:zone/:code/:id',
           name: 'place',
           getComponent(nextState, cb) {
             const importModules = Promise.all([
+              import('containers/App/sagas'),
               import('containers/DetailView'),
             ]);
 
             const renderRoute = loadModule(cb);
 
-            importModules.then(([component]) => {
+            importModules.then(([sagas, component]) => {
+              injectSagas(sagas.default);
               renderRoute(component);
             });
 
@@ -71,12 +73,132 @@ export default function createRoutes(store) {
       ],
     },
     {
-      path: '/onboarding',
-      name: 'onboarding',
+      path: '/itinerary',
+      name: 'itinerary',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           import('containers/App/sagas'),
-          import('containers/Onboarding'),
+          import('containers/Itinerary'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([sagas, component]) => {
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+      childRoutes: [
+        {
+          path: ':place/:zone/:code/:id',
+          name: 'place',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              import('containers/App/sagas'),
+              import('containers/DetailView'),
+            ]);
+
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([sagas, component]) => {
+              injectSagas(sagas.default);
+              renderRoute(component);
+            });
+
+            importModules.catch(errorLoading);
+          },
+        },
+      ],
+    },
+    {
+      path: '/search',
+      name: 'search',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/App/sagas'),
+          import('containers/Search'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([sagas, component]) => {
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+      childRoutes: [
+        {
+          path: ':place/:zone/:code/:id',
+          name: 'place',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              import('containers/App/sagas'),
+              import('containers/DetailView'),
+            ]);
+
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([sagas, component]) => {
+              injectSagas(sagas.default);
+              renderRoute(component);
+            });
+
+            importModules.catch(errorLoading);
+          },
+        },
+      ],
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/App/sagas'),
+          import('containers/Profile'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([sagas, component]) => {
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+      childRoutes: [
+        {
+          path: ':place/:zone/:code/:id',
+          name: 'place',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              import('containers/App/sagas'),
+              import('containers/DetailView'),
+            ]);
+
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([sagas, component]) => {
+              injectSagas(sagas.default);
+              renderRoute(component);
+            });
+
+            importModules.catch(errorLoading);
+          },
+        },
+      ],
+    },
+    {
+      path: '/login',
+      name: 'signIn',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/App/sagas'),
+          import('containers/SignIn'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -90,12 +212,12 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/login',
-      name: 'signIn',
+      path: '/onboarding',
+      name: 'onboarding',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           import('containers/App/sagas'),
-          import('containers/SignIn'),
+          import('containers/Onboarding'),
         ]);
 
         const renderRoute = loadModule(cb);

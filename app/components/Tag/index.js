@@ -2,15 +2,10 @@ import styled from 'styled-components';
 
 const Tag = styled.li`
   border-radius: 50px;
-  margin-right: var(--padding);
-  padding: calc(var(--padding) / 2) calc(var(--padding) * 1.5);
-  background: var(--light-gray);
-  color: var(--foreground-color);
+  padding: calc(var(--padding) / 4) calc(var(--padding) * 2);
+  background: var(--primary-accent-color);
+  color: var(--background-color);
   font-size: 0.85em;
-
-  &:hover {
-    // background: var(--grey);
-  }
 `;
 
 export default Tag;

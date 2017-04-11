@@ -13,10 +13,7 @@ import Button from 'components/Button';
 import FlexListView from 'components/FlexListView';
 
 // Global Selectors
-import {
-  makeSelectUser,
-  makeSelectCurrentPlace,
-} from 'containers/App/selectors';
+import { makeSelectUser } from 'containers/App/selectors';
 
 // Import dispatches
 import {
@@ -448,7 +445,6 @@ Detail.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
-  currentPlace: makeSelectCurrentPlace(),
 });
 
 export function mapDispatchToProps(dispatch) {

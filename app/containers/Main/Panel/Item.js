@@ -1,115 +1,59 @@
 import React, { PropTypes as T } from 'react';
 
-import FlexListView from 'components/FlexListView';
-import Tag from 'components/Tag';
-import H3 from 'components/H3';
-import P from 'components/P';
-
-import {
-  Item as ItemContainer,
-  ItemLink,
-  DetailSubHeader,
-} from './styles';
+import Card from 'components/Card';
 
 export default class Item extends React.Component {
   static propTypes = {
     place: T.object.isRequired,
-    onClickEvent: T.func,
   }
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      hovered: false,
-    };
-
-    this.handleCardClick = this.handleCardClick.bind(this);
-  }
-
-  handleCardClick() {
-    const { place, onClickEvent } = this.props;
-    onClickEvent(place);
-  }
-
-  renderTags() {
-    // Get the tags of a place
-    const { tags } = this.props.place;
-
-    // Set a max number of tags to show
-    const MAX_TAGS = 3;
-
-    // If no tags return null
-    if (!tags) return null;
-
-    // Start index at negative one
-    let index = -1;
-
-    return tags.map((tag) => { // eslint-disable-line
-      // If tag is empty string return null
-      if (tag.length <= 0) return null;
-
-      // Increment index
-      index += 1;
-
-      if (index >= MAX_TAGS) {
-        return null;
-      }
-
-      // Return tag
-      return (
-        <Tag key={index}>{tag}</Tag>
-      );
-    });
-  }
-
-  renderCard() {
+  render() {
     const { place } = this.props;
 
     if (!place) { return null; }
 
+    // Link should be /place/type/zone/key
+    let link = '';
+
+    switch (place.type) {
+      case 'exhibit':
+        link = `/${place.type}/${place.colorZone}/${place.exhibitCode}/${place.key}`;
+        break;
+      case 'facilities':
+        link = `/${place.type}/${place.colorZone}/${place.subType}/${place.key}`;
+        break;
+      default:
+        link = null;
+        break;
+    }
+
     // Check if the second letter or place.location is not a number
     // If it is, use location
     // Otherwise use exhibit code
-    const locationBlurb = (isNaN(place.location) && isNaN(place.location.charAt(1))) ? place.location : place.exhibitCode;
+    const room = (isNaN(place.location) && isNaN(place.location.charAt(1)))
+      ? place.location
+      : place.exhibitCode;
+    const location = `${place.building}, ${room}`;
+    const distance = `${place.distance} mi`;
+    // If we have tags, get the first three, else return null
+    const tags = (place.tags && place.tags.length > 0)
+      ? place.tags.slice(0, 3)
+      : null;
 
-    // If a place has a distance then show that distance. Else show alternate text
-    // TODO: Alt text should have an action that allows user to enable Location
-    const distanceComponent = (place.distance) ? (
-      <P className={'small'}>Distance: {place.distance} mi</P>
-    ) : null;
+    const cardInfo = {
+      link,
+      tags,
+      distance,
+      location,
+      name: place.name,
+      zone: place.imagineRitArea,
+      zoneClass: place.colorZone,
+    };
 
-    // Tags
-    const tagsComponent = (place.tags && place.tags.length > 0) ? (
-      <FlexListView>{this.renderTags()}</FlexListView>
-    ) : null;
     return (
-      <ItemContainer
-        className={`${place.type} ${place.subType} ${place.colorZone}`}
-        onClick={this.handleCardClick}
-      >
-        <ItemLink to={`/place/${place.type}/${place.id}`}>
-          <H3>
-            {place.name}
-          </H3>
-          <DetailSubHeader>
-            <P className={'small'}>
-              <span>
-                <strong>{locationBlurb}, </strong>
-              </span>
-              <span>{place.building}</span>
-            </P>
-            {distanceComponent}
-          </DetailSubHeader>
-          {tagsComponent}
-        </ItemLink>
-      </ItemContainer>
-    );
-  }
-
-  render() {
-    return (
-      this.renderCard()
+      <Card
+        place={cardInfo}
+      />
     );
   }
 }

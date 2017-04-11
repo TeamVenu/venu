@@ -4,19 +4,21 @@ import { injectGlobal } from 'styled-components';
 injectGlobal`
   :root {
     /* Base colors */
-    --black: #29282d;
+    --black: #3a3940;
     --white: #fff;
     --light: #edeeef;
     --dark: #222222;
     --dark-grey: #444444;
-    --light-gray: #dddfe0;
+    --light-gray: #f7f7f7;
     --gray: #535353;
-    --grey: #9e9e9e;
+    --grey: #acacac;
     --green: #62d2a2;
     --green-accent: #2aaf74;
     --red: #ff2e35;
     --red-accent: #cc252a;
     --red-opaque: rgba(255, 46, 53, 0.3);
+    --orange: #fc7f3e;
+    --orange-opaque: rgba(252, 127, 62, 0.3);
     --yellow: #faa842;
     --yellow-accent: #e0973b;
     --yellow-opaque: rgba(250, 168, 66, 0.3);
@@ -26,37 +28,35 @@ injectGlobal`
     --white-background-opaque: rgba(221, 220, 222, 0.8);
 
     /* Imagine RIT Zone Colors */
-    --recreation-zone: #19a3d2;
-    --rit-central: #dfb235;
-    --ntid-area: #6ac7e8;
+    --recreation-zone: #42b0f4;
+    --rit-central: #f7bf41;
+    --ntid-area: #ef45e3;
     --information-station: #c9905b;
-    --think-tank: #c7655a;
-    --artistic-alley: #7d5f93;
-    --engineering-park: #ec9244;
-    --science-center: #f1e11a;
-    --business-district: #55a172;
-    --innovation-center: #437aa1;
-    --global-village: #d6798c;
-    --green-place: #95b045;
-    --technology-quarter: #2a98bd;
-    --computer-zone: #37a19d;
+    --think-tank: #f74141;
+    --artistic-alley: #a241f7;
+    --engineering-park: #f9973e;
+    --science-center: #f4eb42;
+    --business-district: #41f75b;
+    --innovation-center: #4187f7;
+    --global-village: #ef45ae;
+    --green-place: #abf244;
+    --technology-quarter: #4187f7;
+    --computer-zone: #3ef9c8;
 
     /* */
     --background-color: var(--white);
     --foreground-color: var(--black);
+    --primary-accent-color: var(--orange);
     --success-color: var(--green);
     --success-color-accent: var(--green-accent);
     --error-color: var(--red);
     --error-color-accent: var(--red-accent);
     --warning-color: var(--yellow);
     --warning-color-accent: var(--yellow-accent);
-    --blue-green-gradient-opaque: linear-gradient(to bottom, var(--light-green-opaque), var(--light-blue-opaque));
-    --blue-green-gradient: linear-gradient(to bottom, var(--light-green), var(--light-blue));
-    --blue-red-gradient: linear-gradient(to bottom, var(--red), var(--blue));
 
 
-    --warm-gradient: linear-gradient(to top right, var(--red), var(--yellow));
-    --warm-gradient-opaque: linear-gradient(to top right, var(--red-opaque), var(--yellow-opaque));;
+    --warm-gradient: linear-gradient(to top right, var(--red), var(--orange), var(--yellow));
+    --warm-gradient-opaque: linear-gradient(to top right, var(--red-opaque), var(--orange-opaque), var(--yellow-opaque));;
     --pin-background-gradient: var(--warm-gradient);
     --pin-background-gradient-opaque: var(--warm-gradient-opaque);
     
@@ -68,7 +68,7 @@ injectGlobal`
     --pin-size: 30px;
 
     @media (min-width: 720px) {
-      --topbar-height: 80px;
+      --topbar-height: 60px;
     }
   }
 

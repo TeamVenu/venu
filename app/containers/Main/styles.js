@@ -3,30 +3,20 @@ import styled from 'styled-components';
 export const Wrapper = styled.section`
   position: relative;
   margin: 0;
-  height: 100vh;
+  width: 100%;
+  height: calc(100vh - var(--topbar-height));
   -webkit-box-orient: horizontal;
   -o-box-orient: horizontal;
-
-  @media (min-width: 720px) {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
+  display: flex;
+  flex-flow: row wrap;
 `;
 
 export const MapWrapper = styled.section`
   position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-
-  @media (min-width: 720px) {
-    position: relative;
-    width: 100%;
-    margin-top: 0;
-    height: calc(100% - var(--topbar-height));
-    flex-basis: 70%;
-  }
+  top: calc(var(--topbar-height) * 2);
+  width: 100vw;
+  height: calc(100vh - (var(--topbar-height) * 2));
+  z-index: 10;
 `;
 
 export const UserPinWrapper = styled.section`
@@ -40,8 +30,8 @@ export const UserPin = styled.section`
   width: 40px;
   min-width: 40px;
   height: 40px;
-  background: var(--white);
-  border: 3px solid var(--black);
+  background: var(--background-color);
+  border: 3px solid var(--foreground-color);
   // box-shadow: 0 0 40px black;
   border-radius: 100%;
   display: flex;

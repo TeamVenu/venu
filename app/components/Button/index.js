@@ -5,6 +5,14 @@ import styled from 'styled-components';
 const Btn = styled.button`
   padding: 1em;
 
+  &.bold {
+    font-weight: 700;
+  }
+
+  &.large {
+    font-size: 1.5rem;
+  }
+
   &.bordered {
     border: 3px solid currentColor;
   }
@@ -14,9 +22,9 @@ const Btn = styled.button`
   }
 
   &.special {
-    background: var(--red);
+    background: var(--warm-gradient);
     color: var(--background-color);
-    border-color: var(--red);;
+    border-color: none;
 
     &.reversed {
       background: var(--background-color);

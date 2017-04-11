@@ -100,7 +100,6 @@ export class AccountCreation extends React.PureComponent { // eslint-disable-lin
             labelText={messages.accountCreation.passwordLabel.defaultMessage}
             isValid={isPasswordValid}
             value={password}
-            requirements={passwordRequirements}
             onChangeEvent={(e) => {
               onChangePassword(e, rePassword);
             }}
@@ -162,6 +161,16 @@ AccountCreation.propTypes = {
   onSubmitAccountCreation: T.func,
 };
 
+// Map state to props
+const mapStateToProps = createStructuredSelector({
+  error: makeSelectError(),
+  email: makeSelectEmail(),
+  password: makeSelectPassword(),
+  rePassword: makeSelectRePassword(),
+  isEmailValid: makeSelectEmailValid(),
+  isPasswordValid: makeSelectPasswordValid(),
+});
+
 // Map dispatch functions to props so we can call them
 export function mapDispatchToProps(dispatch) {
   return {
@@ -172,16 +181,6 @@ export function mapDispatchToProps(dispatch) {
     onSubmitAccountCreation: (user) => dispatchCreateUserAccount(dispatch, user),
   };
 }
-
-// Map state to props
-const mapStateToProps = createStructuredSelector({
-  error: makeSelectError(),
-  email: makeSelectEmail(),
-  password: makeSelectPassword(),
-  rePassword: makeSelectRePassword(),
-  isEmailValid: makeSelectEmailValid(),
-  isPasswordValid: makeSelectPasswordValid(),
-});
 
 // Connect our AccountCreation
 export default connect(mapStateToProps, mapDispatchToProps)(AccountCreation);

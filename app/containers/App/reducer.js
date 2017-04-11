@@ -141,6 +141,7 @@ function appReducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
       return state
+        .set('isSignedIn', true)
         .set('user', action.value);
     case SIGN_IN_USER:
       return state
@@ -182,8 +183,7 @@ function appReducer(state = initialState, action) {
         .set('error', action.value);
     case CREATE_USER_ACCOUNT_SUCCESS:
       return state
-        .set('loading', false)
-        .set('error', null);
+        .set('loading', false);
     case LOAD_USER_DATA:
       return state
         .set('loading', true)
