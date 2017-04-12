@@ -47,6 +47,10 @@ const List = styled.ul`
   list-style-type: 0;
 `;
 
+const Item = styled.li`
+  border-bottom: 1px solid var(--light-gray);
+`;
+
 export class Itinerary extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
@@ -78,15 +82,10 @@ export class Itinerary extends React.PureComponent { // eslint-disable-line reac
 
       const location = `${exhibit.building}, ${room}`;
       const distance = `${exhibit.distance} mi`;
-      // If we have tags, get the first three, else return null
-      const tags = (exhibit.tags && exhibit.tags.length > 0)
-        ? exhibit.tags.slice(0, 3)
-        : null;
       const link = `/${exhibit.type}/${exhibit.colorZone}/${exhibit.exhibitCode}/${exhibit.key}`;
 
       const place = {
         link,
-        tags,
         location,
         distance,
         name: exhibit.name,
@@ -94,9 +93,9 @@ export class Itinerary extends React.PureComponent { // eslint-disable-line reac
         zoneClass: exhibit.colorZone,
       };
       return (
-        <li key={exhibit.id}>
+        <Item key={exhibit.id}>
           <Card place={place} />
-        </li>
+        </Item>
       );
     });
   }

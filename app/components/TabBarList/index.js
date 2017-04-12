@@ -30,6 +30,7 @@ const TabBarList = styled.ul`
 
     // Flex
     display: flex;
+    justify-content: center;
     align-items: center;
 
     &.tab {
@@ -69,6 +70,11 @@ const TabBarList = styled.ul`
 
     .icon {
       margin: 0;
+    }
+
+    // Shift buttons in first li to the left
+    &:not(.tabs):first-of-type button {
+      margin-right: auto;
     }
 
     // Shift buttons in last li to the right
