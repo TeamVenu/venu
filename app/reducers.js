@@ -8,8 +8,10 @@ import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 import globalReducer from 'containers/App/reducer';
+import itineraryReducer from 'containers/Itinerary/reducer';
 import onboardingReducer from 'containers/Onboarding/reducer';
 import panelReducer from 'containers/Main/Panel/reducer';
+import signInReducer from 'containers/SignIn/reducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 
 /*
@@ -47,7 +49,9 @@ export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
     panel: panelReducer,
+    signIn: signInReducer,
     global: globalReducer,
+    itinerary: itineraryReducer,
     onboarding: onboardingReducer,
     language: languageProviderReducer,
     ...asyncReducers,

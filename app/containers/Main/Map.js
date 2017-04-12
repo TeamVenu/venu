@@ -24,11 +24,7 @@ import {
 import Marker from 'components/Markers';
 import UserIcon from 'media/icons/user.png';
 
-import {
-  getPlacesArray,
-  filterExhibitsBy,
-  getFacilitiesArray,
-} from 'utils/helpers';
+import { getPlacesArray } from 'utils/helpers';
 
 import { UserPinWrapper, UserPin, UserImage } from './styles';
 
@@ -61,6 +57,7 @@ componentDidMount(){
   renderUserPin() {
     const { user, onChangeMapCenter} = this.props;
 
+
     // user location may be an immutable or an object so make a check
     // If it is an object we can use it
     // Otherwise turn it into a JS object using .JS()
@@ -74,44 +71,33 @@ componentDidMount(){
       : Object.assign({}, { lat: user.getIn(['location', 'lat']), lng: user.getIn(['location', 'lng']) });
       
       
+
+    if (!user.name) return null;
+
+
     return (
       <UserPinWrapper
-        lat={location.lat}
-        lng={location.lng}
+        lat={user.location.lat}
+        lng={user.location.lng}
         onClick={() => {
-          onChangeMapCenter(location);
+          onChangeMapCenter(user.location);
         }}
       >
         <UserPin>
-          <UserImage alt={`${name}'s Profile Picture`} src={UserIcon} />
+          <UserImage alt={`${user.name}'s Profile Picture`} src={UserIcon} />
         </UserPin>
-      </UserPinWrapper>
+      < /UserPinWrapper>
     );
   }
 
   renderPlacesPin() {
     const { mapMode, exhibits, facilities, currentPlace, onSelectPlace } = this.props;
 
-    const exhibitsObj = exhibits.toJS();
-    const facilitiesObj = facilities.toJS();
-    let places;
-    const placeProperty = 'subType';
-    const bookmarked = 'bookmarked';
-
     if (!exhibits || !facilities) return null;
 
-    switch (mapMode) {
-      case 'Itinerary':
-        places = filterExhibitsBy(exhibitsObj, placeProperty, bookmarked);
-        break;
-      case 'Facilities':
-        places = getFacilitiesArray(facilitiesObj);
-        break;
-      case 'Discover':
-      default:
-        places = getPlacesArray(exhibitsObj, facilitiesObj);
-        break;
-    }
+    const exhibitsObj = exhibits.toJS();
+    const facilitiesObj = facilities.toJS();
+    const places = getPlacesArray(exhibitsObj, facilitiesObj);
 
     return places.map((place) => { // eslint-disable-line
       return (
@@ -120,6 +106,7 @@ componentDidMount(){
           lat={place.lat}
           lng={place.lng}
           place={place}
+          mode={mapMode}
           currentPlace={currentPlace}
           onClickEvent={(p) => { onSelectPlace(p); }}
         />

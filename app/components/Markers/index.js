@@ -1,56 +1,56 @@
 import React, { PropTypes as T, Component } from 'react';
-import FoodIcon from 'media/icons/food.png';
-import RestroomIcon from 'media/icons/restroom.png';
-import ManIcon from 'media/icons/man.png';
-import WomanIcon from 'media/icons/woman.png';
-import { POIContainer, PinPulse, PinWrapper, PinBackground, Pin, PinImage } from './styles';
+import { POIContainer, PinPulse, PinWrapper, Pin, PinIcons, PinIcon } from './styles';
 
 export default class Marker extends Component {
   static propTypes = {
+    mode: T.string,
     currentPlace: T.object,
     place: T.object.isRequired,
-    onClickEvent: T.func,
-  }
-
-  static defaultProps = {};
-
-  constructor(props) {
-    super(props);
-
-    this.handlePinClick = this.handlePinClick.bind(this);
-  }
-
-  handlePinClick() {
-    const { place, onClickEvent } = this.props;
-    onClickEvent(place);
   }
 
   renderPin() {
-    const { place } = this.props;
+    const { place, mode } = this.props;
+
     if (!place) { return null; }
+
     const { currentPlace } = this.props;
+
     let placePinClasses = place.type + ' ' + place.subType; // eslint-disable-line
 
-    if (currentPlace && (currentPlace.lat === place.lat && currentPlace.lng === place.lng)) {
+    if (mode === 'Default') {
+      placePinClasses += ' selected';
+    } else if (mode === 'Itinerary' && place.subType === 'bookmarked') {
+      placePinClasses += ' selected';
+    } else if (mode === 'Discover' && currentPlace && (currentPlace.lat === place.lat && currentPlace.lng === place.lng)) {
       placePinClasses += ' selected';
     }
 
+    let link = null;
+
+    if (place.subType === 'user' || place.subType === 'parking') {
+      link = null;
+    } else if (place.type === 'facility') {
+      link = `/${place.type}/${place.colorZone}/${place.subType}/${place.key}`;
+    } else if (place.type === 'exhibit') {
+      link = `/${place.type}/${place.colorZone}/${place.exhibitCode}/${place.key}`;
+    } else {
+      link = null;
+    }
+
     return (
-      <POIContainer className={placePinClasses} onClick={this.handlePinClick}>
+      <POIContainer className={placePinClasses}>
         <PinPulse>
-          <PinWrapper to={`/place/${place.type}/${place.id}`}>
-            <PinBackground>
-              <Pin>
-                { this.renderPinImage(place) }
-              </Pin>
-            </PinBackground>
+          <PinWrapper to={link}>
+            <Pin>
+              { this.renderPinIcon(place) }
+            </Pin>
           </PinWrapper>
         </PinPulse>
       </POIContainer>
     );
   }
 
-  renderPinImage(place) {
+  renderPinIcon(place) {
     if (place.type !== 'facility') {
       return null;
     }
@@ -60,32 +60,42 @@ export default class Marker extends Component {
         switch (place.gender) {
           case 'M':
             return (
-              <PinImage src={ManIcon} />
+              <PinIcon icon={'ion-man'} fontSize={'18px'} />
             );
           case 'W':
             return (
-              <PinImage src={WomanIcon} />
+              <PinIcon icon={'ion-woman'} fontSize={'18px'} />
             );
           case 'U':
             return (
-              <PinImage src={RestroomIcon} />
+              <PinIcons>
+                <PinIcon icon={'ion-woman'} fontSize={'15px'} />
+                <PinIcon icon={'ion-man'} fontSize={'15px'} />
+              </PinIcons>
             );
           default:
             return null;
         }
       case 'food':
         return (
-          <PinImage src={FoodIcon} />
+          <PinIcons>
+            <PinIcon icon={'ion-fork'} fontSize={'15px'} />
+            <PinIcon icon={'ion-knife'} fontSize={'15px'} />
+          </PinIcons>
         );
       case 'information':
         // TODO: Correct Icon
         return (
-          <PinImage src={FoodIcon} />
+          <PinIcon icon={'ion-help'} fontSize={'18px'} />
         );
       case 'medical':
         // TODO: Correct Icon
         return (
-          <PinImage src={FoodIcon} />
+          <PinIcon icon={'ion-medkit'} fontSize={'18px'} />
+        );
+      case 'parking':
+        return (
+          <PinIcon icon={'ion-model-s'} fontSize={'18px'} />
         );
       default:
         return null;

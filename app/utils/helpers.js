@@ -7,7 +7,7 @@
  * @return {Array}
  */
 export function getFacilitiesArray(facilities) {
-  return facilities.food.concat(facilities.information, facilities.medical, facilities.restrooms);
+  return facilities.food.concat(facilities.information, facilities.medical, facilities.restroom);
 }
 
 /**
@@ -147,4 +147,13 @@ export function getBroswer() {
     name: broswerArray[0],
     version: broswerArray[1],
   };
+}
+
+export function isUserOnboardingComplete(user) {
+  return (user.name.length > 0
+    && user.age.length > 0
+    && user.location.lat !== ''
+    && user.location.lng !== ''
+    && user.interests.length > 0
+  );
 }

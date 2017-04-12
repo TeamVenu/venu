@@ -1,3 +1,13 @@
+export const ONBOARDING_SET_STAGE = 'venu/Onboarding/ONBOARDING_SET_STAGE';
 export const ONBOARDING_PREV_STAGE = 'venu/Onboarding/ONBOARDING_PREV_STAGE';
 export const ONBOARDING_NEXT_STAGE = 'venu/Onboarding/ONBOARDING_NEXT_STAGE';
 export const ONBOARDING_START_VENU = 'venu/Onboarding/ONBOARDING_START_VENU';
+export const CHANGE_USER_NAME = 'venu/Onboarding/CHANGE_USER_NAME';
+export const CHANGE_USER_AGE = 'venu/Onboarding/CHANGE_USER_AGE';
+export const CHANGE_USER_EMAIL = 'venu/Onboarding/CHANGE_USER_EMAIL';
+export const CHANGE_USER_PASSWORD = 'venu/Onboarding/CHANGE_USER_PASSWORD';
+export const CHANGE_USER_REPASSWORD = 'venu/Onboarding/CHANGE_USER_REPASSWORD';
+export const CHANGE_USER_LOCATION = 'venu/Onboarding/CHANGE_USER_LOCATION';
+export const CHANGE_PARKING_LOCATION = 'venu/Onboarding/CHANGE_PARKING_LOCATION';
+export const SETUP_GEOLOCATION = 'venu/Onboarding/SETUP_GEOLOCATION';
+export const CHANGE_USER_INTERESTS = 'venu/Onboarding/CHANGE_USER_INTERESTS';

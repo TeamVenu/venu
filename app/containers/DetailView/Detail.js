@@ -5,7 +5,7 @@ import { browserHistory } from 'react-router';
 import Ionicon from 'react-ionicons';
 
 // Import Components
-import H1 from 'components/H1';
+import H2 from 'components/H2';
 import H4 from 'components/H4';
 import P from 'components/P';
 import Tag from 'components/Tag';
@@ -13,10 +13,7 @@ import Button from 'components/Button';
 import FlexListView from 'components/FlexListView';
 
 // Global Selectors
-import {
-  makeSelectUser,
-  makeSelectCurrentPlace,
-} from 'containers/App/selectors';
+import { makeSelectUser } from 'containers/App/selectors';
 
 // Import dispatches
 import {
@@ -78,9 +75,9 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
     return (
       <div>
         { placeSubTypeComponent }
-        <H1>
+        <H2>
           { place.name }
-        </H1>
+        </H2>
         <H4>
           { 'Description' }
         </H4>
@@ -448,7 +445,6 @@ Detail.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
-  currentPlace: makeSelectCurrentPlace(),
 });
 
 export function mapDispatchToProps(dispatch) {

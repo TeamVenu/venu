@@ -6,22 +6,22 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  appName: {
-    id: 'app.Main.Header.appName',
-    defaultMessage: 'venu',
+  title: {
+    id: 'VENU.Main.Header.VENU',
+    defaultMessage: 'VENU',
   },
   modes: [
     {
-      id: 'app.Main.Header.mode.discover',
+      id: 'VENU.Main.Header.mode.default',
+      defaultMessage: 'Default',
+    },
+    {
+      id: 'VENU.Main.Header.mode.discover',
       defaultMessage: 'Discover',
     },
     {
-      id: 'app.Main.Header.mode.itinerary',
+      id: 'VENU.Main.Header.mode.itinerary',
       defaultMessage: 'Itinerary',
-    },
-    {
-      id: 'app.Main.Header.mode.facilities',
-      defaultMessage: 'Facilities',
     },
   ],
 });

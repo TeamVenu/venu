@@ -10,6 +10,8 @@ import { createStructuredSelector } from 'reselect';
 // Selectors
 import {
   makeSelectUser,
+  makeSelectError,
+  makeSelectLoading,
   makeSelectVenuMap,
   makeSelectMapMode,
   makeSelectExhibits,
@@ -19,7 +21,6 @@ import {
 
 // Containers
 import Header from './Header';
-// import PlacesPanel from 'containers/PlacesPanel'; // Change to be local
 import VenuMap from './Map';
 import Panel from './Panel';
 
@@ -29,19 +30,18 @@ import {
   MapWrapper,
 } from './styles';
 
-// Helpers
-
 export class Main extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-
   render() {
     return (
-      <Wrapper>
-        <Header />
+      <section>
         <MapWrapper>
           <VenuMap />
         </MapWrapper>
-        <Panel />
-      </Wrapper>
+        <Wrapper>
+          <Header />
+          <Panel />
+        </Wrapper>
+      </section>
     );
   }
 }
@@ -57,6 +57,8 @@ Main.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
+  error: makeSelectError(),
+  loading: makeSelectLoading(),
   mapMode: makeSelectMapMode(),
   venuMap: makeSelectVenuMap(),
   exhibits: makeSelectExhibits(),

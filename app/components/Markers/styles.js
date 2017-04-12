@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import Ionicon from 'react-ionicons';
 import { Link } from 'react-router';
 
 // Animations
@@ -32,10 +33,15 @@ export const PinPulse = styled.section`
   justify-content: center;
   height: var(--pin-size);
   width: var(--pin-size);
-  background: transparent;
-  box-shadow: 0 0 20px black;
+  // box-shadow: 0 0 20px black;
+  
+  // Makes exhibits opaque based on mode
+  // .exhibit:not(.selected) & {
+  //   opacity: 0.3;
+  // }
 
   .exhibit & {
+    background: var(--pin-background-gradient);
     border-radius: 100%;
   }
 
@@ -43,20 +49,20 @@ export const PinPulse = styled.section`
     transform: rotate(45deg);
   }
 
-  .recommended &:before {
-      content: '';
-      position: absolute;
-      width: var(--pin-size);
-      height: var(--pin-size);
-      background: var(--pin-background-gradient-opaque);
-      z-index: -1;
-      opacity: 0.3;
-      border-radius: 100%;
-      animation: ${pulse} 4s ease-out infinite;
-  }
+  // .recommended &:before {
+  //     content: '';
+  //     position: absolute;
+  //     width: var(--pin-size);
+  //     height: var(--pin-size);
+  //     background: var(--pin-background-gradient-opaque);
+  //     z-index: -1;
+  //     opacity: 0.3;
+  //     border-radius: 100%;
+  //     // animation: ${pulse} 4s ease-out infinite;
+  // }
 
-  .bookmarked & {
-    background: var(--background-color);
+  .visited & {
+    background: var(--pin-background-gradient-opaque);
   }
 `;
 
@@ -66,19 +72,18 @@ export const PinWrapper = styled(Link)`
   justify-content: center;
   width: var(--pin-size);
   height: var(--pin-size);
-  background: var(--foreground-color);
+  color: var(--background-color);
 
   .exhibit & {
-    background: var(--pin-background-gradient);
+    width: calc(var(--pin-size) - 8px);
+    height: calc(var(--pin-size) - 8px);
+    background: var(--light);
     border-radius: 100%;
   }
 
-  .bookmarked & {
-    background: var(--pin-background-gradient-opaque);
-  }
-
+  .bookmarked &, 
   .visited & {
-    opacity: 0.3;
+    background: none;
   }
 
   .hidden & {
@@ -86,25 +91,8 @@ export const PinWrapper = styled(Link)`
   }
 
   .facility & {
-    background: var(--foreground-color);
-  }
-`;
-
-export const PinBackground = styled.section`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  height: calc(var(--pin-size) - 2px);
-  width: calc(var(--pin-size) - 2px);
-  background: var(--background-color);
-  
-  .exhibit & {
-    border-radius: 100%;
-  }
-
-  .bookmarked & {
-    background: none;
+    background: var(--gray);
+    border-radius: 4px;
   }
 `;
 
@@ -114,25 +102,34 @@ export const Pin = styled.section`
   width: calc(var(--pin-size) / 2);
   height: calc(var(--pin-size) / 2);
   background: none;
+  width: calc(var(--pin-size) - 8px);
+  height: calc(var(--pin-size) - 8px);
 
   .exhibit & {
+    background: var(--pin-background-gradient-opaque);
     border-radius: 100%;
   }
 
-  .bookmarked & {
-    background: var(--pin-background-gradient);
+  .bookmarked &,
+  .visited & {
+    background: none;
   }
 
   .facility & {
     display: flex;
-    justify-content: center:
+    justify-content: center;
     align-items: center;
     transform: rotate(-45deg);
   }
 `;
 
-export const PinImage = styled.img`
-  display: block;
+export const PinIcons = styled.section`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const PinIcon = styled(Ionicon)`
   margin: auto;
-  height: calc(var(--pin-size) / 2);
 `;

@@ -8,36 +8,32 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'venu.components.Onboarding.header',
-    defaultMessage: 'Venu',
+    defaultMessage: 'VENU',
   },
   buttons: {
     id: 'venu.components.Onboarding.buttons',
-    back: {
-      id: 'venu.components.Onboarding.buttons.back',
+    previous: {
+      id: 'venu.components.Onboarding.buttons.previous',
       defaultMessage: 'Back',
     },
     next: {
       id: 'venu.components.Onboarding.buttons.next',
-      defaultMessage: 'Proceed',
+      defaultMessage: 'Continue',
     },
     finish: {
       id: 'venu.components.Onboarding.buttons.finish',
-      defaultMessage: 'Finish',
+      defaultMessage: 'Launch',
     },
     retryGeolocation: {
       id: 'venu.components.Onboarding.buttons.retryGeolocation',
-      defaultMessage: 'Enable Geolocation',
+      defaultMessage: 'Retry Enabling Location',
     },
   },
   accountCreation: {
     id: 'venu.components.Onboarding.accountCreation',
     title: {
       id: 'venu.components.Onboarding.accountCreation.title',
-      defaultMessage: 'Welcome to Venu!',
-    },
-    intro: {
-      id: 'venu.components.Onboarding.accountCreation.intro',
-      defaultMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam rem distinctio fugit et, consequatur molestias laudantium placeat laboriosam dolorum a voluptatum autem ipsa quasi quo minus, debitis nihil quaerat officia.',
+      defaultMessage: 'Welcome to VENU!',
     },
     subtitle: {
       id: 'venu.components.Onboarding.accountCreation.subtitle',
@@ -49,36 +45,48 @@ export default defineMessages({
     },
     emailLabel: {
       id: 'venu.components.Onboarding.accountCreation.emailLabel',
-      defaultMessage: 'Enter a valid email:',
+      defaultMessage: 'Enter your email:',
+    },
+    passwordLabel: {
+      id: 'venu.components.Onboarding.accountCreation.passwordLabel',
+      defaultMessage: 'Enter password:',
+    },
+    passwordCheckLabel: {
+      id: 'venu.components.Onboarding.accountCreation.passwordCheckLabel',
+      defaultMessage: 'Confirm password:',
+    },
+    ageLabel: {
+      id: 'venu.components.Onboarding.accountCreation.ageLabel',
+      defaultMessage: 'Enter your age:',
     },
   },
   geolocationSetup: {
     id: 'venu.components.Onboarding.geolocationSetup',
     title: {
       id: 'venu.components.Onboarding.geolocationSetup.title',
-      defaultMessage: 'Allow Venu to access your location',
+      defaultMessage: 'Enable Location',
     },
     intro: {
       id: 'venu.components.Onboarding.geolocationSetup.intro',
-      defaultMessage: ' Venu is a wayfinding app that assists you in finding nearby activities that you might be interested in. For a better experience Venu will need access to your location. Is that ok?',
+      defaultMessage: ' For a better experience VENU will need access to your location.',
     },
     location: {
       id: 'venu.components.Onboarding.geolocationSetup.location',
       retrieving: {
         id: 'venu.components.Onboarding.geolocationSetup.location.retrieving',
-        defaultMessage: 'Please wait while we retrieve your location. This might take a few seconds.',
+        defaultMessage: ' For a better experience VENU will need access to your location. This might take a few seconds.',
       },
       succeeded: {
         id: 'venu.components.Onboarding.geolocationSetup.location.succeeded',
-        defaultMessage: 'We have successfuly retrieved your location! You may now continue the setup process.',
+        defaultMessage: 'We have successfully retrieved your location! You may now continue the setup process.',
       },
       failed: {
         id: 'venu.components.Onboarding.geolocationSetup.location.failed',
-        defaultMessage: 'You have denied access to access your location. Please follow the steps below to retry. Otherwise you may proceed to the next step if you wish geolocation to remain turned off. Some features will be unavailable.',
+        defaultMessage: 'You have denied access to access your location. You may retry enabling your location. Otherwise you may proceed to the next step if you wish geolocation to remain turned off. Some features will be unavailable.',
       },
       unavailable: {
         id: 'venu.components.Onboarding.geolocationSetup.location.unavailable',
-        defaultMessage: 'It appears that your device has location tracking services disabled. Please follow the steps below to retry. Otherwise you may proceed to the next step if you wish geolocation to remain turned off. Some features will be unavailable.',
+        defaultMessage: 'It appears that your device has location tracking services disabled. You may proceed to the next step if you wish geolocation to remain turned off. Some features will be unavailable.',
       },
     },
     device: {
@@ -314,11 +322,11 @@ export default defineMessages({
     id: 'venu.components.Onboarding.interestSelection',
     title: {
       id: 'venu.components.Onboarding.interestSelection.title',
-      defaultMessage: 'One last thing',
+      defaultMessage: 'Personalize',
     },
     intro: {
       id: 'venu.components.Onboarding.interestSelection.intro',
-      defaultMessage: 'Venu makes recommendations on activities you may enjoy. To tailor this process to meet your preferences, please select that following categories that may interest you.',
+      defaultMessage: 'Select your interests so we can recommend events you may like.',
     },
     subtitle: {
       id: 'venu.components.Onboarding.interestSelection.title',

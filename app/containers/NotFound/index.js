@@ -10,49 +10,57 @@
  */
 
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-
 import styled from 'styled-components';
+import FullWrapper from 'components/FullWrapper';
+import SmallWrapper from 'components/SmallWrapper';
+import Logo from 'components/Logo';
+import H1 from 'components/H1';
+import H3 from 'components/H3';
+import A from 'components/A';
 
 import messages from './messages';
 
 const Wrapper = styled.section`
-  background: var(--primary-color);
-  width: 100vw;
-  height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
 `;
 
-const Title = styled.h1`
-  margin-top: 0;
-  font-size: 5em;
-  text-align: center;
+const Header = styled.header`
+  flex: 2;
 `;
 
-const Message = styled.p`
-  font-size: 3em;
-  text-align: center;
+const Body = styled.section`
+  flex: 2;
 `;
 
-const Button = styled.a`
-  font-size: 1.5em;
-  text-decoration: none;
-  color: white;
-  text-align: center;
+const Footer = styled.section`
+  flex: 1;
 `;
 
 export default class NotFound extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <Wrapper>
-        <Title>¯\_(ツ)_/¯</Title>
-        <Message>
-          <FormattedMessage {...messages.message} />
-        </Message>
-        <Button href="/">Return Home</Button>
-      </Wrapper>
+      <FullWrapper className={'map-bg full-page'}>
+        <FullWrapper className={'gradient-bg opaque'}>
+          <SmallWrapper className={'centered-text'} padding>
+            <Wrapper>
+              <Header>
+                <Logo />
+                <H1>{ messages.messages.title.defaultMessage }</H1>
+              </Header>
+              <Body>
+                <H1>{ messages.messages.intro.defaultMessage }</H1>
+                <H3>{ messages.messages.desc.defaultMessage }</H3>
+              </Body>
+              <Footer>
+                <A className={'btn special reversed rounded full'} to={'/'}>{ messages.messages.action.defaultMessage }</A>
+              </Footer>
+            </Wrapper>
+          </SmallWrapper>
+        </FullWrapper>
+      </FullWrapper>
     );
   }
 }

@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
 const H1 = styled.h1`
-  margin-bottom: var(--padding-bottom);
+  font-size: 3rem;
+  padding-top: var(--padding);
+  padding-bottom: var(--padding);
 `;
 
 export default H1;

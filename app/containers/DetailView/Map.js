@@ -4,20 +4,29 @@ import { createStructuredSelector } from 'reselect';
 import GoogleMap from 'google-map-react';
 
 // Global Selectors
-import {
-  makeSelectVenuMap,
-  makeSelectCurrentPlace,
-} from 'containers/App/selectors';
+import { makeSelectVenuMap } from 'containers/App/selectors';
 
 // Components
 import Marker from 'components/Markers';
 
-// Import local styles
 import {
-  MapWrapper,
-} from './styles';
+  dispatchChangeMapCenter,
+} from 'containers/App/dispatches';
+
+// Import local styles
+import { MapWrapper } from './styles';
 
 export class VenuMap extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  componentWillMount() {
+    const { place, onChangeMapCenter } = this.props;
+    const center = {
+      lat: place.lat,
+      lng: place.lng,
+    };
+
+    onChangeMapCenter(center);
+  }
+
   render() {
     const { place, venuMap } = this.props;
 
@@ -25,10 +34,6 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
     const mapProps = venuMap.toJS();
     const options = Object.assign(mapProps.options, { draggable: false, scrollwheel: false });
     const zoom = 18;
-    const center = {
-      lat: place.lat,
-      lng: place.lng,
-    };
 
     // Instead of creating a whole new map
     // We could look into Google Static Maps
@@ -39,13 +44,14 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
           bootstrapURLKeys={mapProps.bootstrapURLKeys}
           zoom={zoom}
           options={options}
-          center={center}
+          center={mapProps.center}
         >
           <Marker
+            place={place}
             key={place.id}
             lat={place.lat}
             lng={place.lng}
-            place={place}
+            mode={'Default'}
             onClickEvent={() => {}}
           />
         </GoogleMap>
@@ -57,11 +63,17 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
 VenuMap.propTypes = {
   venuMap: T.object,
   place: T.object.isRequired,
+  onChangeMapCenter: T.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   venuMap: makeSelectVenuMap(),
-  place: makeSelectCurrentPlace(),
 });
 
-export default connect(mapStateToProps)(VenuMap);
+export function mapDispatchToProps(dispatch) {
+  return {
+    onChangeMapCenter: (center) => dispatchChangeMapCenter(dispatch, center),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(VenuMap);

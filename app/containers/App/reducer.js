@@ -17,7 +17,27 @@ import imagineRITData from 'fixtures/places.json';
 import mapStyles from 'fixtures/map-styles.json';
 
 import {
+  SET_USER,
+  SIGN_IN_USER,
+  SIGN_IN_USER_ERROR,
+  SIGN_IN_USER_SUCCESS,
+  SIGN_OUT_USER,
+  CHANGE_USER_ID,
+  CREATE_USER_ACCOUNT,
+  CREATE_USER_ACCOUNT_ERROR,
+  CREATE_USER_ACCOUNT_SUCCESS,
+  LOAD_USER_DATA,
+  LOAD_USER_DATA_ERROR,
+  LOAD_USER_DATA_SUCCESS,
+  // SYNC_USER_DATA,
+  // SYNC_USER_DATA_ERROR,
+  // SYNC_USER_DATA_ADDED,
+  // SYNC_USER_DATA_REMOVED,
+  UPDATE_USER_DATA,
+  UPDATE_USER_DATA_ERROR,
+  UPDATE_USER_DATA_SUCCESS,
   CHANGE_USER_NAME,
+  CHANGE_USER_AGE,
   CHANGE_USER_EMAIL,
   CHANGE_USER_LOCATION,
   CHANGE_USER_INTERESTS,
@@ -30,34 +50,37 @@ import {
   LIKE_PLACE,
   UNLIKE_PLACE,
   CHANGE_EXHIBIT,
+  SET_ERROR_MESSAGES,
 } from './constants';
 
 // Returns intial user stage with localStorage
 function createInitialUserState() {
-  const name = (localStorage.getItem('venuUserName')) ? localStorage.getItem('venuUserName') : '';
-  const email = (localStorage.getItem('venuUserEmail')) ? localStorage.getItem('venuUserEmail') : '';
-  const locationLat = (localStorage.getItem('venuUserLocationLat')) ? parseFloat(localStorage.getItem('venuUserLocationLat')) : 43.084167;
-  const locationLng = (localStorage.getItem('venuUserLocationLng')) ? parseFloat(localStorage.getItem('venuUserLocationLng')) : -77.677085;
-  const locationEnabled = (localStorage.getItem('venuUserLocationEnabled')) ? localStorage.getItem('venuUserLocationEnabled') : null;
-  const parkingLat = (localStorage.getItem('venuParkingLocationLat')) ? parseFloat(localStorage.getItem('venuParkingLocationLat')) : null;
-  const parkingLng = (localStorage.getItem('venuParkingLocationLng')) ? parseFloat(localStorage.getItem('venuParkingLocationLng')) : null;
-  const interests = (localStorage.getItem('venuUserInterests')) ? localStorage.getItem('venuUserInterests').split('-') : [];
+  // const name = (localStorage.getItem('venuUserName')) ? localStorage.getItem('venuUserName') : '';
+  // const email = (localStorage.getItem('venuUserEmail')) ? localStorage.getItem('venuUserEmail') : '';
+  // const locationLat = (localStorage.getItem('venuUserLocationLat')) ? parseFloat(localStorage.getItem('venuUserLocationLat')) : 43.084167;
+  // const locationLng = (localStorage.getItem('venuUserLocationLng')) ? parseFloat(localStorage.getItem('venuUserLocationLng')) : -77.677085;
+  // const locationEnabled = (localStorage.getItem('venuUserLocationEnabled')) ? localStorage.getItem('venuUserLocationEnabled') : null;
+  // const parkingLat = (localStorage.getItem('venuParkingLocationLat')) ? parseFloat(localStorage.getItem('venuParkingLocationLat')) : null;
+  // const parkingLng = (localStorage.getItem('venuParkingLocationLng')) ? parseFloat(localStorage.getItem('venuParkingLocationLng')) : null;
+  // const interests = (localStorage.getItem('venuUserInterests')) ? localStorage.getItem('venuUserInterests').split('-') : [];
 
   return {
-    name,
-    email,
+    uid: '',
+    name: '',
+    email: '',
     location: {
-      lat: locationLat,
-      lng: locationLng,
+      lat: '',
+      lng: '',
     },
-    locationEnabled,
+    locationEnabled: false,
     parking: {
-      lat: parkingLat,
-      lng: parkingLng,
+      lat: '',
+      lng: '',
     },
     interests, 
     interests, 
       
+    interests: '',
   };
 }
 
@@ -66,8 +89,15 @@ const initialUserState = createInitialUserState();
 
 // Initial State of the App
 const initialState = fromJS({
-  // User props
+  // Indicates a saga is underway
+  loading: false,
+  // Indicates there is an error
+  error: null,
+  // User id used for database
+  uid: '',
+  // User, will receive data from firebase
   user: initialUserState,
+  isSignedIn: null,
   // Onboarding validation props
   validation: {
     accountCreation: {
@@ -113,43 +143,105 @@ const initialState = fromJS({
  */
 function appReducer(state = initialState, action) {
   switch (action.type) {
+    case SET_USER:
+      return state
+        .set('isSignedIn', true)
+        .set('user', action.value);
+    case SIGN_IN_USER:
+      return state
+        .set('loading', true);
+    case SIGN_IN_USER_ERROR:
+      return state
+        .set('loading', false)
+        .set('error', action.value);
+    case SIGN_IN_USER_SUCCESS:
+      return state
+      .set('loading', false)
+      .set('isSignedIn', true)
+      .set('uid', action.value);
+    case SIGN_OUT_USER:
+      return state
+        .set('uid', '')
+        .set('isSignedIn', false)
+        .set('user', fromJS(initialUserState));
+    case UPDATE_USER_DATA:
+      return state
+        .set('loading', true);
+    case UPDATE_USER_DATA_ERROR:
+      return state
+        .set('loading', false)
+        .set('error', action.value);
+    case UPDATE_USER_DATA_SUCCESS:
+      return state
+        .set('loading', false);
+    case CHANGE_USER_ID:
+      return state
+        .set('uid', action.value);
+    case CREATE_USER_ACCOUNT:
+      return state
+        .set('loading', true)
+        .set('error', null);
+    case CREATE_USER_ACCOUNT_ERROR:
+      return state
+        .set('loading', false)
+        .set('error', action.value);
+    case CREATE_USER_ACCOUNT_SUCCESS:
+      return state
+        .set('loading', false);
+    case LOAD_USER_DATA:
+      return state
+        .set('loading', true)
+        .set('error', null);
+    case LOAD_USER_DATA_ERROR:
+      return state
+        .set('loading', false)
+        .set('error', action.value);
+    case LOAD_USER_DATA_SUCCESS:
+      return state
+        .set('loading', false)
+        .set('isSignedIn', true)
+        .set('user', action.value);
+    case SET_ERROR_MESSAGES:
+      return state
+        .set('error', action.value);
     case CHANGE_USER_NAME:
       return state
-              .setIn(['user', 'name'], action.value)
-              .setIn(['validation', 'accountCreation', 'username'], action.valid);
+        .setIn(['user', 'name'], action.value);
+    case CHANGE_USER_AGE:
+      return state
+        .setIn(['user', 'age'], action.value);
     case CHANGE_USER_EMAIL:
       return state
-              .setIn(['user', 'email'], action.value)
-              .setIn(['validation', 'accountCreation', 'email'], action.valid);
+        .setIn(['user', 'email'], action.value);
     case SETUP_GEOLOCATION:
       return state
-              .setIn(['user', 'location'], action.value)
-              .setIn(['user', 'locationEnabled'], action.isEnabled)
-              .setIn(['validation', 'geolocationSetup', 'mode'], action.mode);
+        .setIn(['user', 'location'], action.value)
+        .setIn(['user', 'locationEnabled'], action.isEnabled)
+        .setIn(['validation', 'geolocationSetup', 'mode'], action.mode);
     case CHANGE_PARKING_LOCATION:
       return state
-              .setIn(['user', 'parking'], action.value);
+        .setIn(['user', 'parking'], action.value);
     case CHANGE_USER_LOCATION:
       return state
-              .setIn(['user', 'location'], action.value);
+        .setIn(['user', 'location'], action.value);
     case CHANGE_USER_INTERESTS:
       return state
-              .setIn(['user', 'interests'], action.value);
+        .setIn(['user', 'interests'], action.value);
     case CHANGE_MAP_MODE:
       return state
-              .set('mapMode', action.value);
+        .set('mapMode', action.value);
     case CHANGE_SELECTED_PLACE:
       return state
-              .set('currentPlace', action.value);
+        .set('currentPlace', action.value);
     case CHANGE_MAP_CENTER:
       return state
-              .setIn(['venuMap', 'center'], action.value);
+        .setIn(['venuMap', 'center'], action.value);
     case CHANGE_EXHIBIT:
       // Change exhibits prop
       // Go to colorZone which our exhibit belongs
       // Using the key which is the position in the array
       return state
-              .setIn(['exhibits', action.value.colorZone, action.value.key], action.value);
+        .setIn(['exhibits', action.value.colorZone, action.value.key], action.value);
     case NAVIGATE_TO_PLACE:
        return state
                .set('destination', action.value);

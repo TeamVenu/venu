@@ -9,6 +9,7 @@ import 'babel-polyfill';
 
 // Import all the third party stuff
 import React from 'react';
+import * as firebase from 'firebase';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { applyRouterMiddleware, Router, browserHistory } from 'react-router';
@@ -32,6 +33,7 @@ import '!file-loader?name=[name].[ext]!./manifest.json';
 import 'file-loader?name=[name].[ext]!./.htaccess';
 /* eslint-enable import/no-unresolved, import/extensions */
 
+import firebaseConfig from 'utils/database';
 import configureStore from './store';
 
 // Import i18n messages
@@ -64,6 +66,10 @@ const rootRoute = {
   childRoutes: createRoutes(store),
 };
 
+// Initialize database
+firebase.initializeApp(firebaseConfig);
+
+window.firebase = firebase;
 // This is the node on which our app will be mounted on
 const appNode = document.getElementById('app');
 

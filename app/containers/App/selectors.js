@@ -12,6 +12,29 @@ const makeSelectUser = () => createSelector(
   (globalState) => globalState.get('user')
 );
 
+const makeSelectIsSignedIn = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('isSignedIn')
+);
+
+// Error method
+const makeSelectError = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('error')
+);
+
+// Loading method
+const makeSelectLoading = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('loading')
+);
+
+// User Email method
+const makeSelectUserId = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('uid')
+);
+
 // Exhibits method
 const makeSelectExhibits = () => createSelector(
   selectGlobal,
@@ -73,10 +96,14 @@ const makeSelectDestination = () => createSelector(
 export {
   selectGlobal,
   makeSelectUser,
+  makeSelectError,
+  makeSelectLoading,
   makeSelectVenuMap,
   makeSelectMapMode,
   makeSelectExhibits,
+  makeSelectUserId,
   makeSelectFacilities,
+  makeSelectIsSignedIn,
   makeSelectCurrentPlace,
   makeSelectLocationState,
   makeSelectOnboardingValidation,
