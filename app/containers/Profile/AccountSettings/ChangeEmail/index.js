@@ -101,7 +101,7 @@ export class ChangeEmail extends React.PureComponent { // eslint-disable-line re
     if (!isSignedIn || !isUserOnboardingComplete(user)) return null;
 
     return (
-      <FullWrapper className={'gradient-bg'}>
+      <FullWrapper className={'gradient-bg'} bottomPadding>
         <Navigation>
           <TabBar>
             <TabBarList className={'header'}>

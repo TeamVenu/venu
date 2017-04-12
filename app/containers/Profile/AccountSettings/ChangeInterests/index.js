@@ -142,7 +142,7 @@ export class ChangeInterests extends React.PureComponent { // eslint-disable-lin
 
     if (!isSignedIn || !isUserOnboardingComplete(user)) return null;
     return (
-      <FullWrapper className={'gradient-bg'}>
+      <FullWrapper className={'gradient-bg'} bottomPadding>
         <Navigation>
           <TabBar>
             <TabBarList className={'header'}>

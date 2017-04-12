@@ -63,7 +63,7 @@ export class AccountSettings extends React.PureComponent { // eslint-disable-lin
     if (!isSignedIn || !isUserOnboardingComplete(user)) return null;
 
     return (
-      <FullWrapper>
+      <FullWrapper bottomPadding>
         <Container>
           <TabBar>
             <TabBarList className={'header'}>
