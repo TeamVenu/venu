@@ -1,5 +1,5 @@
 /*
- * ChangeEmail
+ * ChangePassword
  */
 import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
@@ -37,7 +37,7 @@ import {
 import {
   dispatchSetErrorMessages,
   dispatchSetSuccessMessages,
-  dispatchChangeUserAuthEmail,
+  dispatchChangeUserAuthPassword,
   dispatchGetAuthenticatedUser,
 } from 'containers/App/dispatches';
 
@@ -48,28 +48,21 @@ import messages from 'containers/Profile/messages';
 
 // Selectors
 import {
-  makeSelectEmail,
-  makeSelectEmailValid,
+  makeSelectPassword,
+  makeSelectRePassword,
+  makeSelectPasswordValid,
 } from 'containers/Profile/selectors';
 
 // Dispatch Methods
 import {
-  dispatchChangeUserEmail,
+  dispatchChangeUserPassword,
+  dispatchChangeUserRePassword,
 } from 'containers/Profile/dispatches';
 
-export class ChangeEmail extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class ChangePassword extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
-    const { userProps, onChangeEmail, onGetAuthenticatedUser } = this.props;
-    const user = (userProps.location) ? userProps : userProps.toJS();
+    const { onGetAuthenticatedUser } = this.props;
     onGetAuthenticatedUser();
-
-    const e = {
-      target: {
-        value: user.email,
-      },
-    };
-
-    onChangeEmail(e);
   }
 
   componentDidUpdate() {
@@ -85,18 +78,21 @@ export class ChangeEmail extends React.PureComponent { // eslint-disable-line re
     const {
       error,
       success,
-      email,
+      password,
+      rePassword,
       userProps,
       isSignedIn,
-      isEmailValid,
-      onChangeEmail,
+      isPasswordValid,
+      onChangePassword,
+      onChangeRePassword,
       onClearErrorMessages,
       onClearSuccessMessages,
-      onSubmitChangeEmail,
+      onSubmitChangePassword,
     } = this.props;
 
     const user = (userProps.location) ? userProps : userProps.toJS();
     const { goBack } = browserHistory;
+    const passwordRequirements = ['Must be at least 6 characters long', 'Must match'];
 
     if (!isSignedIn || !isUserOnboardingComplete(user)) return null;
 
@@ -113,7 +109,7 @@ export class ChangeEmail extends React.PureComponent { // eslint-disable-line re
                 />
               </li>
               <li>
-                <H2 className={'title'}>{ messages.settings.changeEmail.header.defaultMessage }</H2>
+                <H2 className={'title'}>{ messages.settings.changePassword.header.defaultMessage }</H2>
               </li>
               <li />
             </TabBarList>
@@ -135,13 +131,28 @@ export class ChangeEmail extends React.PureComponent { // eslint-disable-line re
         <Container>
           <Body>
             <TextField
-              name={'email'}
-              id={'emailField'}
-              type={'text'}
-              value={email}
-              isValid={isEmailValid}
-              labelText={messages.settings.changeEmail.emailLabel.defaultMessage}
-              onChangeEvent={onChangeEmail}
+              name={'password'}
+              id={'passwordField'}
+              type={'password'}
+              value={password}
+              isValid={isPasswordValid}
+              labelText={messages.settings.changePassword.passwordLabel.defaultMessage}
+              onChangeEvent={(e) => {
+                onChangePassword(e, rePassword);
+              }}
+              isRequired
+            />
+            <TextField
+              name={'rePassword'}
+              id={'rePasswordField'}
+              type={'password'}
+              value={rePassword}
+              isValid={isPasswordValid}
+              labelText={messages.settings.changePassword.passwordCheckLabel.defaultMessage}
+              requirements={passwordRequirements}
+              onChangeEvent={(e) => {
+                onChangeRePassword(e, password);
+              }}
               isRequired
             />
           </Body>
@@ -149,10 +160,10 @@ export class ChangeEmail extends React.PureComponent { // eslint-disable-line re
             <ButtonRow>
               <ButtonItem>
                 <Button
-                  name={messages.settings.changeEmail.button.defaultMessage}
-                  isDisabled={!isEmailValid}
+                  name={messages.settings.changePassword.button.defaultMessage}
+                  isDisabled={!isPasswordValid}
                   onClickEvent={() => {
-                    onSubmitChangeEmail(user, email);
+                    onSubmitChangePassword(password);
                   }}
                 />
               </ButtonItem>
@@ -164,37 +175,41 @@ export class ChangeEmail extends React.PureComponent { // eslint-disable-line re
   }
 }
 
-ChangeEmail.propTypes = {
+ChangePassword.propTypes = {
   error: T.string,
   success: T.string,
   isSignedIn: T.bool,
-  email: T.string.isRequired,
+  password: T.string,
+  rePassword: T.string,
   onClearErrorMessages: T.func,
   onClearSuccessMessages: T.func,
   userProps: T.object.isRequired,
-  isEmailValid: T.bool,
-  onChangeEmail: T.func.isRequired,
-  onSubmitChangeEmail: T.func.isRequired,
+  isPasswordValid: T.bool,
+  onChangePassword: T.func.isRequired,
+  onChangeRePassword: T.func.isRequired,
+  onSubmitChangePassword: T.func.isRequired,
   onGetAuthenticatedUser: T.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   error: makeSelectError(),
-  email: makeSelectEmail(),
+  password: makeSelectPassword(),
+  rePassword: makeSelectRePassword(),
   userProps: makeSelectUser(),
   success: makeSelectSuccess(),
   isSignedIn: makeSelectIsSignedIn(),
-  isEmailValid: makeSelectEmailValid(),
+  isPasswordValid: makeSelectPasswordValid(),
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onChangeEmail: (event) => dispatchChangeUserEmail(dispatch, event),
+    onChangePassword: (event, password) => dispatchChangeUserPassword(dispatch, event, password),
+    onChangeRePassword: (event, password) => dispatchChangeUserRePassword(dispatch, event, password),
     onGetAuthenticatedUser: () => dispatchGetAuthenticatedUser(dispatch),
     onClearErrorMessages: () => dispatchSetErrorMessages(dispatch, null),
     onClearSuccessMessages: () => dispatchSetSuccessMessages(dispatch, null),
-    onSubmitChangeEmail: (user, email) => dispatchChangeUserAuthEmail(dispatch, user, email),
+    onSubmitChangePassword: (password) => dispatchChangeUserAuthPassword(dispatch, password),
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChangeEmail);
+export default connect(mapStateToProps, mapDispatchToProps)(ChangePassword);

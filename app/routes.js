@@ -231,6 +231,25 @@ export default function createRoutes(store) {
       },
     },
     {
+      path: '/changepassword',
+      name: 'changePassword',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/App/sagas'),
+          import('containers/Profile/AccountSettings/ChangePassword'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([sagas, component]) => {
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
       path: '/login',
       name: 'signIn',
       getComponent(nextState, cb) {
