@@ -408,3 +408,14 @@ export function dispatchSignOutUser(dispatch) {
 export function dispatchUpdateUserData(dispatch) {
   dispatch(updateUserData());
 }
+
+/**
+ * dispatchSetUser
+ * Dispatches actions and sets user data
+ * @param {Function} dispatch
+ * @param {Object} user
+ */
+export function dispatchSetUser(dispatch, user) {
+  dispatch(setUser(user));
+  dispatchUpdateUserData(dispatch);
+}

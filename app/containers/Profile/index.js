@@ -104,7 +104,7 @@ export class Profile extends React.PureComponent { // eslint-disable-line react/
     const numberOfVisited = visitedExhibits.length;
 
     return (
-      <FullWrapper>
+      <FullWrapper bottomPadding>
         <Header>
           <Container>
             <TabBar transparent borderless>

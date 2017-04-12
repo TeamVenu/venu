@@ -116,7 +116,7 @@ export default defineMessages({
       id: 'venu.components.Profile.settings.changeEmail',
       header: {
         id: 'venu.components.Profile.settings.changeEmail.header',
-        defaultMessage: 'Change Email Address',
+        defaultMessage: 'Email',
       },
       emailLabel: {
         id: 'venu.components.Profile.settings.changeEmail.emailLabel',
@@ -131,7 +131,7 @@ export default defineMessages({
       id: 'venu.components.Profile.settings.changePassword',
       header: {
         id: 'venu.components.Profile.settings.changePassword.header',
-        defaultMessage: 'Change Password',
+        defaultMessage: 'Password',
       },
       passwordLabel: {
         id: 'venu.components.Profile.settings.changePassword.passwordLabel',
@@ -150,9 +150,9 @@ export default defineMessages({
       id: 'venu.components.Profile.settings.chooseInterests',
       header: {
         id: 'venu.components.Profile.settings.chooseInterests.header',
-        defaultMessage: 'Choose Interests',
+        defaultMessage: 'Interests',
       },
-      interests: [
+      interestList: [
         {
           id: 'venu.components.Profile.settings.chooseInterests.interests.asl',
           defaultMessage: 'American Sign Language',
@@ -218,7 +218,7 @@ export default defineMessages({
       id: 'venu.components.Profile.settings.changeParking',
       header: {
         id: 'venu.components.Profile.settings.changeParking.header',
-        defaultMessage: 'Set a parking spot reminder',
+        defaultMessage: 'Parking',
       },
       lot: {
         id: 'venu.components.Profile.settings.changeParking.parking.lot',

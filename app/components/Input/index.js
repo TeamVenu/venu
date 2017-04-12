@@ -26,6 +26,7 @@ export default class Input extends React.Component {
     type: T.string.isRequired,
     isRequired: T.bool,
     onChangeEvent: T.func,
+    isSelected: T.bool,
   };
 
   constructor(props) {
@@ -42,7 +43,7 @@ export default class Input extends React.Component {
   }
 
   render() {
-    const { name, id, text, value, type, isRequired } = this.props;
+    const { name, id, text, value, type, isSelected, isRequired } = this.props;
 
     return (
       <span>
@@ -52,6 +53,7 @@ export default class Input extends React.Component {
           name={name}
           value={value}
           required={isRequired}
+          checked={isSelected}
           onChange={this.handleOnChange}
         />
         <Label

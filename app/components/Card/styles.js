@@ -14,7 +14,7 @@ export const Wrapper = styled(Link)`
   background: var(--background-color);
   color: var(--foreground-color);
   text-decoration: none;
-
+  overflow: scroll;
   &:not(.full) {
     border-radius: 4px;
   }
