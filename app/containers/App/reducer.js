@@ -77,8 +77,8 @@ function createInitialUserState() {
       lat: '',
       lng: '',
     },
-    interests, 
-    interests, 
+//    interests, 
+//    interests, 
       
     interests: '',
   };
