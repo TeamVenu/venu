@@ -10,6 +10,15 @@ import Radio from 'components/Input';
 import Button from 'components/Button';
 import FlexListView from 'components/FlexListView';
 import Marker from 'components/Markers';
+import {
+  Container,
+  Header,
+  Body,
+  Footer,
+  OptionItem,
+  ButtonRow,
+  ButtonItem,
+} from 'components/FullPage';
 
 // Global Selectors
 import {
@@ -33,17 +42,6 @@ import {
 
 // Messages
 import messages from './messages';
-
-// Local Styles
-import {
-  Container,
-  Header,
-  Body,
-  Footer,
-  OptionItem,
-  ButtonRow,
-  ButtonItem,
-} from './styles';
 
 export class ParkingSetup extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {

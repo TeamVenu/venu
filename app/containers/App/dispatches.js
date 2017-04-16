@@ -9,6 +9,12 @@ import {
   signOutUser,
   createUserAccount,
   updateUserData,
+  updateUserAuthEmail,
+  updateUserAuthEmailError,
+  updateUserAuthEmailSuccess,
+  updateUserAuthPassword,
+  updateUserAuthPasswordError,
+  updateUserAuthPasswordSuccess,
   changeUserId,
   loadUserData,
   changeUserName,
@@ -25,6 +31,7 @@ import {
   unLikePlace,
   changeExhibit,
   setErrorMessages,
+  setSuccessMessages,
 } from 'containers/App/actions';
 
 import { dispatchSetStage } from 'containers/Onboarding/dispatches';
@@ -294,6 +301,16 @@ export function dispatchSetErrorMessages(dispatch, error) {
 }
 
 /**
+ * dispatchSetSuccessMessages
+ * Dispatches action to set success messages
+ * @param {Function} dispatch
+ * @param {String} success
+ */
+export function dispatchSetSuccessMessages(dispatch, success) {
+  dispatch(setSuccessMessages(success));
+}
+
+/**
  * authenticateUser
  * Dispatches actions about user authentication
  * @param {Function} dispatch
@@ -342,6 +359,39 @@ export function dispatchCreateUserAccount(dispatch, credentials) {
     });
 }
 
+export function dispatchChangeUserAuthEmail(dispatch, userProps, email) {
+  const currentUser = window.firebase.auth().currentUser;
+
+  // Send dispatch so that app knows we're loading some data
+  dispatch(updateUserAuthEmail());
+
+  currentUser.updateEmail(email)
+    .then(() => {
+      // Update successful
+      const user = Object.assign({}, userProps, { email });
+      const message = 'Your email has been updated!';
+      dispatch(updateUserAuthEmailSuccess(message));
+      dispatch(setUser(user));
+      dispatch(updateUserData());
+    }, (error) => {
+      // Error updating email
+      dispatch(updateUserAuthEmailError(error.message));
+    });
+}
+
+export function dispatchChangeUserAuthPassword(dispatch, password) {
+  const user = window.firebase.auth().currentUser;
+
+  dispatch(updateUserAuthPassword());
+
+  user.updatePassword(password).then(() => {
+    const message = 'Your password has been updated!';
+    dispatch(updateUserAuthPasswordSuccess(message));
+  }, (error) => {
+    dispatch(updateUserAuthPasswordError(error.message));
+  });
+}
+
 export function dispatchSignOutUser(dispatch) {
   // Clear user data
   dispatch(signOutUser());
@@ -357,4 +407,15 @@ export function dispatchSignOutUser(dispatch) {
  */
 export function dispatchUpdateUserData(dispatch) {
   dispatch(updateUserData());
+}
+
+/**
+ * dispatchSetUser
+ * Dispatches actions and sets user data
+ * @param {Function} dispatch
+ * @param {Object} user
+ */
+export function dispatchSetUser(dispatch, user) {
+  dispatch(setUser(user));
+  dispatchUpdateUserData(dispatch);
 }

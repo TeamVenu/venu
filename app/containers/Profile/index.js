@@ -1,7 +1,6 @@
 /*
  * Profile
  */
-
 import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
@@ -53,6 +52,8 @@ import {
   SettingsLink,
 } from './styles';
 
+import messages from './messages';
+
 export class Profile extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
@@ -103,18 +104,18 @@ export class Profile extends React.PureComponent { // eslint-disable-line react/
     const numberOfVisited = visitedExhibits.length;
 
     return (
-      <FullWrapper>
+      <FullWrapper bottomPadding>
         <Header>
           <Container>
             <TabBar transparent borderless>
               <TabBarList className={'header'}>
                 <li />
                 <li>
-                  <H2 className={'title'}>Profile</H2>
+                  <H2 className={'title'}>{ messages.header.profile.defaultMessage }</H2>
                 </li>
                 <li>
                   <Button
-                    name={'Edit Profile'}
+                    name={messages.actions.editProfile.defaultMessage}
                     onClickEvent={null}
                   />
                 </li>
@@ -145,23 +146,20 @@ export class Profile extends React.PureComponent { // eslint-disable-line react/
           </FlexListView>
         </SmallWrapper>
         <div>
-          <SmallWrapper>
-            <H3 gray>Account Settings</H3>
-          </SmallWrapper>
           <SettingsList>
             <SettingsItem>
-              <SettingsLink to={'/'}>
-                Change Email Address
+              <SettingsLink to={'/accountsettings'}>
+                { messages.links.profile.settings.defaultMessage }
               </SettingsLink>
             </SettingsItem>
             <SettingsItem>
               <SettingsLink to={'/'}>
-                Change Password
+                { messages.links.profile.about.defaultMessage }
               </SettingsLink>
             </SettingsItem>
             <SettingsItem>
               <SettingsLink to={'/'}>
-                Change Parking Location
+                { messages.links.profile.help.defaultMessage }
               </SettingsLink>
             </SettingsItem>
           </SettingsList>
@@ -169,7 +167,7 @@ export class Profile extends React.PureComponent { // eslint-disable-line react/
         <SmallWrapper>
           <Button
             btnClasses={'full rounded bordered'}
-            name={'Sign Out'}
+            name={messages.actions.signOut.defaultMessage}
             onClickEvent={onSignOut}
           />
         </SmallWrapper>
@@ -177,7 +175,6 @@ export class Profile extends React.PureComponent { // eslint-disable-line react/
     );
   }
 }
-
 
 Profile.propTypes = {
   isSignedIn: T.bool,

@@ -38,6 +38,16 @@ export const UPDATE_USER_DATA = 'venu/App/UPDATE_USER_DATA';
 export const UPDATE_USER_DATA_ERROR = 'venu/App/UPDATE_USER_DATA_ERROR';
 export const UPDATE_USER_DATA_SUCCESS = 'venu/App/UPDATE_USER_DATA_SUCCESS';
 
+// Auth Email Update
+export const UPDATE_AUTH_EMAIL = 'venu/App/UPDATE_AUTH_EMAIL';
+export const UPDATE_AUTH_EMAIL_ERROR = 'venu/App/UPDATE_AUTH_EMAIL_ERROR';
+export const UPDATE_AUTH_EMAIL_SUCCESS = 'venu/App/UPDATE_AUTH_EMAIL_SUCCESS';
+
+// Auth Password Update
+export const UPDATE_AUTH_PASSWORD = 'venu/App/UPDATE_AUTH_PASSWORD';
+export const UPDATE_AUTH_PASSWORD_ERROR = 'venu/App/UPDATE_AUTH_PASSWORD_ERROR';
+export const UPDATE_AUTH_PASSWORD_SUCCESS = 'venu/App/UPDATE_AUTHPASSWORD_SUCCESS';
+
 //
 export const CHANGE_USER_NAME = 'venu/App/CHANGE_USER_NAME';
 export const CHANGE_USER_EMAIL = 'venu/App/CHANGE_USER_EMAIL';
@@ -58,5 +68,5 @@ export const UNLIKE_PLACE = 'venu/App/UNLIKE_PLACE';
 
 // Error
 export const SET_ERROR_MESSAGES = 'venu/App/SET_ERROR_MESSAGES';
-
+export const SET_SUCESS_MESSAGES = 'venu/App/SET_SUCCESS_MESSAGES';
 export const SET_USER = 'venu/App/SET_USER';
