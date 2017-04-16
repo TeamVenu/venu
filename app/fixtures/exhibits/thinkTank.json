@@ -1,0 +1,27 @@
+{
+  "thinkTank": [
+    {
+      "key": 0,
+      "id": 831,
+      "name": "Bailemos en la Plaza",
+      "type": "exhibit",
+      "subType": "default",
+      "previousSubType": "default",
+      "colorZone": "thinkTank",
+      "imagineRitArea": "The Think Tank",
+      "building": "Outside",
+      "location": "OUT",
+      "ageRange": "All ages",
+      "hoursRunning": "11:45 am - 12:45 pm",
+      "exhibitCode": "OUT-P210",
+      "tags": ["Dance", "Student Organization"],
+      "lat": 43.084030,
+      "lng": -77.675888,
+      "alt": 0,
+      "distance": 0,
+      "description": "Latin Rhythm Dance Club brings the styles of Latin dance to the RIT student community and now, to Imagine RIT! Our exhibit includes a lesson on Salsa/Bachata Basics by our student instructor as well as performances by our Performance Team! The performances will showcase Salsa, Bachata, Kizomba; all student created choreography! We encourage spectators to become active participants in the lesson, no experience required and all are welcome!",
+      "exhibitors": "Zoe Kniskern, Melissa Mendoza, Jose Batista Abikarram , Jimmy Zhang, Kelly Vo, Weinishet Tedla-Boyd, Mike Valentin, Luke Laffey, Javier Albert, Nicole Badia, Harry Longwell, Allison Suarez, Thomas Sosa, Nick Querci, Moisés Lora, Arion Rivera",
+      "year": 2017
+    }
+  ]
+}

@@ -63,10 +63,10 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
     const facilitiesObj = facilities.toJS();
     const places = getPlacesArray(exhibitsObj, facilitiesObj);
 
-    return places.map((place) => { // eslint-disable-line
+    return places.map((place, index) => { // eslint-disable-line
       return (
         <Marker
-          key={place.id}
+          key={index}
           lat={place.lat}
           lng={place.lng}
           place={place}

@@ -1,0 +1,27 @@
+{
+  "businessDistrict": [
+    {
+      "key": 0,
+      "id": 1481,
+      "name": "3D Printing: Bringing Your 2D Memories to Life",
+      "type": "exhibit",
+      "subType": "default",
+      "previousSubType": "default",
+      "colorZone": "businessDistrict",
+      "imagineRitArea": "Business District",
+      "building": "Max Lowenthal Hall",
+      "location": "Saunders LOW PIT",
+      "ageRange": "All ages",
+      "hoursRunning": "10:00 am - 5:00 pm",
+      "exhibitCode": "LOW-P001",
+      "tags": ["Business", "Senior Projects", "STEM", "Technology"],
+      "lat": 43.082930,
+      "lng": -77.677229,
+      "alt": 0,
+      "distance": 0,
+      "description": "Want to know more about 3D printing? Want to know if 3D printing could be available for you to use? That's what we are examining for our MS Management capstone graduate project. We are exploring the 3D market as it stands today and evaluating if there is a cost effective solution where the average household would be able to use 3D printing technology as they desire.",
+      "exhibitors": "Andrew Tobin, Omar Rahmaan, Maria De Filippo, Yordalis Corporan",
+      "year": 2017
+    }
+  ]
+}
