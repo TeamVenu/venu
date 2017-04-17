@@ -61,6 +61,14 @@ export const PinPulse = styled.section`
   //     // animation: ${pulse} 4s ease-out infinite;
   // }
 
+  .recommended & {
+    background: var(--pin-background-gradient-opaque);
+  }
+
+  .saved & {
+    background: var(--pin-background-saved-gradient-opaque);
+  }
+
   .visited & {
     background: var(--pin-background-gradient-opaque);
   }
@@ -79,11 +87,6 @@ export const PinWrapper = styled(Link)`
     height: calc(var(--pin-size) - 8px);
     background: var(--light);
     border-radius: 100%;
-  }
-
-  .bookmarked &, 
-  .visited & {
-    background: none;
   }
 
   .hidden & {
@@ -110,9 +113,16 @@ export const Pin = styled.section`
     border-radius: 100%;
   }
 
-  .bookmarked &,
+  .recommended & {
+    background: var(--pin-background-gradient);
+  }
+
+  .saved & {
+    background: var(--pin-background-saved-gradient);
+  }
+
   .visited & {
-    background: none;
+    background: var(--pin-background-gradient-opaque);
   }
 
   .facility & {

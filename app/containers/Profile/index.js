@@ -98,7 +98,7 @@ export class Profile extends React.PureComponent { // eslint-disable-line react/
     if (!isSignedIn || !isUserOnboardingComplete(user)) return null;
     const allExhibits = (exhibitProps.artisticAlley) ? exhibitProps : exhibitProps.toJS();
 
-    const favoritedExhibits = filterExhibitsBy(allExhibits, 'subType', 'bookmarked');
+    const favoritedExhibits = filterExhibitsBy(allExhibits, 'subType', 'saved');
     const visitedExhibits = filterExhibitsBy(allExhibits, 'subType', 'visited');
     const numberOfFavorited = favoritedExhibits.length;
     const numberOfVisited = visitedExhibits.length;

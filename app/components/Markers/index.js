@@ -19,7 +19,7 @@ export default class Marker extends Component {
 
     if (mode === 'Default') {
       placePinClasses += ' selected';
-    } else if (mode === 'Itinerary' && place.subType === 'bookmarked') {
+    } else if (mode === 'Itinerary' && place.subType === 'saved') {
       placePinClasses += ' selected';
     } else if (mode === 'Discover' && currentPlace && (currentPlace.lat === place.lat && currentPlace.lng === place.lng)) {
       placePinClasses += ' selected';

@@ -61,7 +61,7 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
       case 'recommended':
         placeSubTypeComponent = (<P className={'small'}>Recommended For You</P>);
         break;
-      case 'bookmarked':
+      case 'saved':
         placeSubTypeComponent = (<P className={'small'}>In Your Itinerary</P>);
         break;
       case 'visited':
@@ -171,7 +171,7 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
       case 'visited':
         actions = this.renderActionsForPlaceVisited;
         break;
-      case 'bookmarked':
+      case 'saved':
         actions = this.renderActionsForPlaceInItinerary;
         break;
       case 'recommended':
@@ -381,11 +381,11 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
                 }}
               >
                 <Ionicon icon={'icon ion-plus'} />
-                Add to Itinerary
+                Save
               </PrimaryButton>
             );
             break;
-          case 'bookmarked':
+          case 'saved':
             primaryAction = (
               <PrimaryButton
                 onClick={() => { onDispatchExhibitCheckIn(place); }}
@@ -467,7 +467,7 @@ export function mapDispatchToProps(dispatch) {
       // Make a new place object
       // Make sure we don't mutate te old object
       // To do this we user Object.assing({}, ...)
-      const place = Object.assign({}, p, { subType: 'bookmarked' });
+      const place = Object.assign({}, p, { subType: 'saved' });
       dispatchChangeExhibit(dispatch, place);
       dispatchChangeCurrentPlace(dispatch, place);
     },
