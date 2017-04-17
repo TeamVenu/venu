@@ -1,0 +1,27 @@
+{
+  "ntidArea": [
+    {
+      "key": 0,
+      "id": 2086,
+      "name": "ASL Storyteller: A Visual Language App for Kids!",
+      "type": "exhibit",
+      "subType": "default",
+      "previousSubType": "default",
+      "colorZone": "ntidArea",
+      "imagineRitArea": "NTID Area",
+      "building": "Campus Center",
+      "location": "Lobby",
+      "ageRange": "All ages",
+      "hoursRunning": "All day",
+      "exhibitCode": "CPC-0152",
+      "tags": ["Art", "Communication", "Design", "Global", "Multidisciplinary", "NTID", "Senior Projects", "Technology"],
+      "lat": 43.084401,
+      "lng": -77.673862,
+      "alt": 0,
+      "distance": 0,
+      "description": "ASL Storyteller is an early childhood educational app that reinforces their first language system through visual language. It utilizes a unique way of telling interactive stories in American Sign Language that keeps Deaf culture at its adapted forefront. i.e. Characters in our stories are showing Deaf etiquette, Deaf way of communicating and providing interactive components to encourage both parents and their children to 'co-learn'.",
+      "exhibitors": "Joo Yeon Chang, Logan Lugo, Julie Love",
+      "year": 2017
+    }
+  ]
+}

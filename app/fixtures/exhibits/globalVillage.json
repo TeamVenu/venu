@@ -1,0 +1,27 @@
+{
+  "globalVillage": [
+    {
+      "key": 0,
+      "id": 2706,
+      "name": "Allegeny River Dancers",
+      "type": "exhibit",
+      "subType": "default",
+      "previousSubType": "default",
+      "colorZone": "globalVillage",
+      "imagineRitArea": "Global Village",
+      "building": "Global Village",
+      "location": "Outside",
+      "ageRange": "All ages",
+      "hoursRunning": "12:45 pm - 1:45 pm",
+      "exhibitCode": "OUT-P110",
+      "tags": ["Dance", "Global"],
+      "lat": 43.082892,
+      "lng": -77.680767,
+      "alt": 0,
+      "distance": 0,
+      "description": "Visitors will have the opportunity to celebrate Native American culture with a viewing of traditional dancing, done by the Allegany River Dancers. The Allegany River Dancers have traveled and performed extensively throughout the North America and Europe. The Allegany River Dancers are members of the Haudenosaunee Confederacy, also known as the Six Nations. The confederacy includes the Seneca, Cayuga, Onondaga, Mohawk, and the Tuscarora.",
+      "exhibitors": "Nicole Scott, Jane Doctor, Brendan John, Mikaela David",
+      "year": 2017
+    }
+  ]
+}
