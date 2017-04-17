@@ -22,6 +22,12 @@ injectGlobal`
     --yellow: #faa842;
     --yellow-accent: #e0973b;
     --yellow-opaque: rgba(250, 168, 66, 0.3);
+    --aqua: #00ddd4;
+    --aqua-opaque: rgba(0, 221, 212, 0.3);
+    --light-blue: #11b4ff;
+    --light-blue-opaque: rgba(17, 180, 255, 0.3);
+    --blue: #2a55e9;
+    --blue-opaque: rgba(42, 85, 233, 0.3);
     --black-background: #222222;
     --white-background: #dddcde;
     --black-background-opaque: rgba(34, 34, 34, 0.4);
@@ -54,12 +60,15 @@ injectGlobal`
     --warning-color: var(--yellow);
     --warning-color-accent: var(--yellow-accent);
 
-
+    --cold-gradient: linear-gradient(to top right, var(--blue), var(--light-blue), var(--aqua));
+    --cold-gradient-opaque: linear-gradient(to top right, var(--blue-opaque), var(--light-blue-opaque), var(--aqua-opaque));;
     --warm-gradient: linear-gradient(to top right, var(--red), var(--orange), var(--yellow));
     --warm-gradient-opaque: linear-gradient(to top right, var(--red-opaque), var(--orange-opaque), var(--yellow-opaque));;
     --pin-background-gradient: var(--warm-gradient);
     --pin-background-gradient-opaque: var(--warm-gradient-opaque);
-    
+    --pin-background-saved-gradient: var(--cold-gradient);
+    --pin-background-saved-gradient-opaque: var(--cold-gradient-opaque);
+
     --panel-background-gradient: linear-gradient(to bottom, var(--white-background-opaque), var(--white-background));
 
     /* */

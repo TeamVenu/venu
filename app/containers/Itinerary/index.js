@@ -16,7 +16,6 @@ import TabBar from 'components/TabBar';
 import Container from 'components/Header';
 import TabBarList from 'components/TabBarList';
 import SmallWrapper from 'components/SmallWrapper';
-import TabBarActions from 'components/TabBarActions';
 import Card from 'components/Card';
 
 // Selectors
@@ -32,15 +31,6 @@ import { dispatchGetAuthenticatedUser } from 'containers/App/dispatches';
 // Helpers
 import { filterExhibitsBy, isUserOnboardingComplete } from 'utils/helpers';
 
-// Local
-import messages from './messages';
-
-// Selectors
-import { makeSelectMode } from './selectors';
-
-// Dispatches
-import { dispatchSetExhibitMode } from './dispatches';
-
 const List = styled.ul`
   margin: 0 0 calc(var(--topbar-height) * 1.5) 0;
   padding: 0;
@@ -55,7 +45,6 @@ export class Itinerary extends React.PureComponent { // eslint-disable-line reac
   constructor(props) {
     super(props);
 
-    this.renderTabList = this.renderTabList.bind(this);
     this.renderExhibits = this.renderExhibits.bind(this);
     this.renderExhibitList = this.renderExhibitList.bind(this);
   }
@@ -101,31 +90,18 @@ export class Itinerary extends React.PureComponent { // eslint-disable-line reac
   }
 
   renderExhibitList() {
-    const { mode, exhibitProps } = this.props;
+    const { exhibitProps } = this.props;
     const allExhibits = (exhibitProps.artisticAlley) ? exhibitProps : exhibitProps.toJS();
     const property = 'subType';
-    let subType = '';
-
-    switch (mode) {
-      case 'Visited':
-        subType = 'visited';
-        break;
-      case 'Itinerary':
-      default:
-        subType = 'bookmarked';
-        break;
-    }
-
-    const exhibits = filterExhibitsBy(allExhibits, property, subType);
+    // Make exhibits with property of bookmark first then visited
+    const exhibits = filterExhibitsBy(allExhibits, property, 'saved').concat(filterExhibitsBy(allExhibits, property, 'visited'));
 
     if (exhibits.length === 0) {
-      const btnText = `Add Exhibits To Your ${mode} List`;
-
       return (
         <SmallWrapper className={'.centered-text'} padding>
           <A to={'/'} className={'btn full rounded special'}>
             <Ionicon icon={'icon ion-plus'} />
-            { btnText }
+            Find exhibits
           </A>
         </SmallWrapper>
       );
@@ -138,39 +114,16 @@ export class Itinerary extends React.PureComponent { // eslint-disable-line reac
     );
   }
 
-  renderTabList() {
-    const { mode, onSetMode } = this.props;
-    const { modes } = messages;
-    return modes.map((m) => { // eslint-disable-line
-      const currentModeClass = (mode === m.defaultMessage) ? 'selected' : null;
-
-      return (
-        <li key={m.id} className={'tab'}>
-          <TabBarActions
-            className={currentModeClass}
-            onClick={onSetMode}
-          >
-            { m.defaultMessage }
-          </TabBarActions>
-        </li>
-      );
-    });
-  }
-
   render() {
-    const { userProps, isSignedIn, exhibitProps } = this.props;
+    const { userProps, isSignedIn } = this.props;
     const user = (userProps.location) ? userProps : userProps.toJS();
 
     if (!isSignedIn || !isUserOnboardingComplete(user)) return null;
 
-    const allExhibits = (exhibitProps.artisticAlley) ? exhibitProps : exhibitProps.toJS();
-    const property = 'subType';
-    const bookmarked = 'bookmarked';
-    const exhibits = filterExhibitsBy(allExhibits, property, bookmarked);
     return (
       <div>
         <Container>
-          <TabBar borderless>
+          <TabBar>
             <TabBarList className={'header'}>
               <li />
               <li>
@@ -179,13 +132,8 @@ export class Itinerary extends React.PureComponent { // eslint-disable-line reac
               <li />
             </TabBarList>
           </TabBar>
-          <TabBar>
-            <TabBarList two>
-              { this.renderTabList() }
-            </TabBarList>
-          </TabBar>
         </Container>
-        { this.renderExhibitList(exhibits) }
+        { this.renderExhibitList() }
       </div>
     );
   }
@@ -194,14 +142,11 @@ export class Itinerary extends React.PureComponent { // eslint-disable-line reac
 Itinerary.propTypes = {
   isSignedIn: T.bool,
   exhibitProps: T.object,
-  mode: T.string.isRequired,
-  onSetMode: T.func.isRequired,
   userProps: T.object.isRequired,
   onGetAuthenticatedUser: T.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  mode: makeSelectMode(),
   userProps: makeSelectUser(),
   isSignedIn: makeSelectIsSignedIn(),
   exhibitProps: makeSelectExhibits(),
@@ -209,7 +154,6 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onSetMode: (e) => dispatchSetExhibitMode(dispatch, e),
     onGetAuthenticatedUser: () => dispatchGetAuthenticatedUser(dispatch),
   };
 }
