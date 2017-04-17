@@ -58,7 +58,6 @@ export const SettingsList = styled.ul`
   margin: 0;
   padding: 0;
   width: 100%;
-  background: var(--light-gray);
 `;
 
 export const SettingsItem = styled.li`
@@ -67,6 +66,10 @@ export const SettingsItem = styled.li`
 
   &:first-of-type {
     border-top: 1px solid var(--grey);
+  }
+
+  &:hover {
+    background: var(--light-gray);
   }
 `;
 

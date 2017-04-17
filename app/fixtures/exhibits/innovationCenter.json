@@ -1,0 +1,27 @@
+{
+  "innovationCenter": [
+    {
+      "key": 0,
+      "id": 531,
+      "name": "1Haler: Revolutionizing Asthma Care",
+      "type": "exhibit",
+      "subType": "default",
+      "previousSubType": "default",
+      "colorZone": "innovationCenter",
+      "imagineRitArea": "Innovation Center",
+      "building": "Student Innovation Hall",
+      "location": "Room 1600",
+      "ageRange": "All ages",
+      "hoursRunning": "All day",
+      "exhibitCode": "SIH-1601",
+      "tags": ["Business", "Community", "Design", "Engineering", "Entrepreneurship", "Health", "Math", "Multidisciplinary", "Science", "Senior Projects", "STEM", "Technology"],
+      "lat": 43.083221,
+      "lng": -77.679896,
+      "alt": 0,
+      "distance": 0,
+      "description": "1Haler is an engineering senior design project focusing in asthma care for rescue situations. Visitors will learn about the prevalence of asthma, how it can be treated, and our innovative design. This exhibit will allow visitors a hands on experience with demos of the 1Haler and other inhalers currently used by asthma patients. The 1Haler is cheaper, easier to use, and more convenient to use than its competitors on the market; this exhibit showcases its novelty.",
+      "exhibitors": "Taylor Agnello, Chantel Charlebois, Melissa Mendoza, Stephen Choi, Laura Alderfer",
+      "year": 2017
+    }
+  ]
+}

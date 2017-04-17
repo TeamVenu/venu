@@ -32,6 +32,7 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
   constructor(props) {
     super(props);
 
+    this.renderUserParking = this.renderUserParking.bind(this);
     this.renderUserPin = this.renderUserPin.bind(this);
     this.renderPlacesPin = this.renderPlacesPin.bind(this);
       
@@ -73,6 +74,27 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
     );
   }
 
+  renderUserParking() {
+    const { user } = this.props;
+    if (!user.name) return null;
+
+    const place = {
+      type: 'facility',
+      subType: 'parking',
+      lat: user.parking.lat,
+      lng: user.parking.lng,
+    };
+
+    return (
+      <Marker
+        place={place}
+        lat={place.lat}
+        lng={place.lng}
+        currentPlace={place}
+      />
+    );
+  }
+
   renderPlacesPin() {
     const { mapMode, exhibits, facilities, currentPlace, onSelectPlace } = this.props;
 
@@ -82,10 +104,10 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
     const facilitiesObj = facilities.toJS();
     const places = getPlacesArray(exhibitsObj, facilitiesObj);
 
-    return places.map((place) => { // eslint-disable-line
+    return places.map((place, index) => { // eslint-disable-line
       return (
         <Marker
-          key={place.id}
+          key={index}
           lat={place.lat}
           lng={place.lng}
           place={place}
@@ -115,6 +137,7 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
         hoverDistance={mapProps.markerSize}
       >
         { this.renderPlacesPin() }
+        { this.renderUserParking() }
         { this.renderUserPin() }
       </GoogleMap>
     );

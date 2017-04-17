@@ -1,0 +1,27 @@
+{
+  "scienceCenter": [
+    {
+      "key": 0,
+      "id": 2836,
+      "name": "Black Holes, the Sound of Cosmic Collisions",
+      "type": "exhibit",
+      "subType": "default",
+      "previousSubType": "default",
+      "colorZone": "scienceCenter",
+      "imagineRitArea": "Science Center",
+      "building": "Thomas Gosnell Hall",
+      "location": "Atrium",
+      "ageRange": "All ages",
+      "hoursRunning": "All day",
+      "exhibitCode": "GOS-A006",
+      "tags": ["Math" ,"Science", "Software", "STEM", "Technology"],
+      "lat": 43.083849,
+      "lng": -77.676940,
+      "alt": 0,
+      "distance": 0,
+      "description": "Our exhibit will demonstrate how Black Holes can be observed, and how scientists are able to use Supercomputers to simulate the collisions of Black Holes, find Black Holes using LIGO, and determine how Black Holes affect everything around them. In our exhibit you will use the gravity from Black Holes to control lasers, bend light and save the Earth from alien invasion, or you can play ping pong. Come see a scale model of LIGO and learn how scientists detected the invisible.",
+      "exhibitors": "Hans-Peter Bischof, Manuela Campanelli, Joshua Faber, Jake Lange, Carlos Lousto, Vassilios Mewes, Jason Nordhaus, Jam Sadiq, Andrew Williamson, Daniel Wysocki, Yosef Zlochower, Dennis Bowen",
+      "year": 2017
+    }
+  ]
+}

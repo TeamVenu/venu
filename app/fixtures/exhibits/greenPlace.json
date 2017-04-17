@@ -1,0 +1,27 @@
+{
+  "greenPlace": [
+    {
+      "key": 0,
+      "id": 2891,
+      "name": "Closing the Circuit for Sustainability",
+      "type": "exhibit",
+      "subType": "default",
+      "previousSubType": "default",
+      "colorZone": "greenPlace",
+      "imagineRitArea": "Green Place",
+      "building": "Sustainability Hall",
+      "location": "Galleria",
+      "ageRange": "All ages",
+      "hoursRunning": "All day",
+      "exhibitCode": "SUS-GAL1",
+      "tags": ["Communication", "Community", "Energy", "Environment", "Sustainability"],
+      "lat": 43.085320,
+      "lng": -77.681503,
+      "alt": 0,
+      "distance": 0,
+      "description": "RIT's Golisano Institute for Sustainability is all about helping you make good energy choices! Pick up your 'Closing the Circuit for Sustainability' passport at our Welcome Table and travel throughout Sustainability Hall to collect stamps and learn how RIT is helping to make our world more sustainable. Visitors who complete the passport are eligible to win a prize! Hear first-hand from students, take part in interactive games, and learn how you can improve your energy footprint!",
+      "exhibitors": "Jennifer Russell, Elizabeth Wronko, Donna Podeszek, Alexandra Leader, Wendy Harmon, Ian Gauger, Jessica Hua, Shahana Althaf, Haleh Moghaddasi, Blair Benson, Claire Wu, Moon Hu, Bixiao Shen",
+      "year": 2017
+    }
+  ]
+}

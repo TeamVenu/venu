@@ -7,8 +7,7 @@ const FullWrapper = styled.section`
   margin: 0;
   width: 100%;
   min-height: 100vh;
-
-  padding-bottom: calc(var(--topbar-height) * 1.5);
+  padding-bottom: ${(props) => (props.bottomPadding) ? 'calc(var(--topbar-height) * 1.5);' : '0'};
 
   &.full-page + .bottom-bar {
     display: none;

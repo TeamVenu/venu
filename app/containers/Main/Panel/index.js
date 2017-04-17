@@ -62,7 +62,7 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
 
     // For Itinerary
     const property = 'subType'; // Filter with subType
-    const bookmarked = 'bookmarked'; // Value bookmarked
+    const saved = 'saved'; // Value saved
     const recommended = 'recommended'; // Value recommended
 
     // Verify mapMode
@@ -74,8 +74,8 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
         break;
       // If mode is Itinerary
       case 'Itinerary':
-        // We want to just show bookmarked places
-        places = filterExhibitsBy(exhibitsObj, property, bookmarked);
+        // We want to just show saved places
+        places = filterExhibitsBy(exhibitsObj, property, saved);
         break;
       // Otherwise mode is Discover
       default:

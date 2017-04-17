@@ -1,0 +1,27 @@
+{
+  "recreationZone": [
+    {
+      "key": 0,
+      "id": 576,
+      "name": "Image RIT",
+      "type": "exhibit",
+      "subType": "default",
+      "previousSubType": "default",
+      "colorZone": "recreationZone",
+      "imagineRitArea": "Recreation Zone",
+      "building": "Gordon Field House and Activities Center",
+      "location": "Main Floor",
+      "ageRange": "All ages",
+      "hoursRunning": "All day",
+      "exhibitCode": "GOR-0450",
+      "tags": ["Engineering", "Math", "Photography", "Science", "Software", "STEM"],
+      "lat": 43.084308,
+      "lng": -77.671584,
+      "alt": 0,
+      "distance": 0,
+      "description": "Learn about images, cameras, and how snapchat filters work! Experiment, see your work in real time, and take home a new profile picture!",
+      "exhibitors": "Nathan Dileas, Ryan Hartzell, Anna Karwacki",
+      "year": 2017
+    }
+  ]
+}

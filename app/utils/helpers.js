@@ -17,10 +17,10 @@ export function getFacilitiesArray(facilities) {
  * @return {Array}
  */
 export function getExhibitsArray(exhibits) {
-  return exhibits.recreationZone.concat(
-    exhibits.ritCentral, exhibits.ntidArea, exhibits.informationStation, exhibits.thinkTank, exhibits.artisticAlley,
-    exhibits.engineeringPark, exhibits.scienceCenter, exhibits.businessDistrict, exhibits.innovationCenter, exhibits.globalVillage,
-    exhibits.greenPlace, exhibits.technologyQuarter, exhibits.computerZone
+  return exhibits.artisticAlley.concat(
+    exhibits.businessDistrict, exhibits.computerZone, exhibits.engineeringPark, exhibits.globalVillage,
+    exhibits.greenPlace, exhibits.innovationCenter, exhibits.ntidArea, exhibits.recreationZone, exhibits.ritCentral,
+    exhibits.scienceCenter, exhibits.technologyQuarter, exhibits.thinkTank
   );
 }
 
@@ -48,18 +48,12 @@ export function getPlacesArray(exhibits, facilities) {
  * @return {Array}
  */
 export function filterExhibitsBy(exhibits, prop, value, max) {
-  // Get the current iteration
-  let iteration = 0;
-
   // Store the array of exhibits
-  const exhibitArray = getExhibitsArray(exhibits).filter((exhibit) => {
-    // Increment iteration
-    iteration += 1;
-
+  const exhibitArray = getExhibitsArray(exhibits).filter((exhibit, index) => {
     // If there is a max number
     // And the max number is greater than iteration
     // Don't return anything
-    if (max && max > iteration) return null;
+    if (max && max > index) return null;
 
     // Otherwise return the exhibit
     return exhibit[prop] === value;

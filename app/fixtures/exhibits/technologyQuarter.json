@@ -1,0 +1,27 @@
+{
+  "technologyQuarter": [
+    {
+      "key": 0,
+      "id": 3006,
+      "name": "A Novel AR Game for Spatial Ear-training",
+      "type": "exhibit",
+      "subType": "default",
+      "previousSubType": "default",
+      "colorZone": "technologyQuarter",
+      "imagineRitArea": "Technology Quarter",
+      "building": "Engineering Technology Hall",
+      "location": "Room 2128",
+      "ageRange": "All ages",
+      "hoursRunning": "All day",
+      "exhibitCode": "ENT-2128",
+      "tags": ["Engineering", "Gaming", "Multidisciplinary", "Software", "STEM", "Technology"],
+      "lat": 43.085071,
+      "lng": -77.680181,
+      "alt": 0,
+      "distance": 0,
+      "description": "We present a novel spatial ear training program using a head-mount AR display. In a game format, the user is asked to indicate the perceived location of the target sound. The proximity of the indicated location to the actual target is converted into scores. Multiple levels of difficulty take users to proceed from the easiest level to the most difficult. This system is expected helpful for those who want to develop better spatial mapping, including sound engineers and new cochlear implant users.",
+      "exhibitors": "Song Hui Chon, Sungyoung Kim, Justin Levine",
+      "year": 2017
+    }
+  ]
+}

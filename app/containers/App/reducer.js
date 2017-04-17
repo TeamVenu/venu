@@ -29,10 +29,12 @@ import {
   LOAD_USER_DATA,
   LOAD_USER_DATA_ERROR,
   LOAD_USER_DATA_SUCCESS,
-  // SYNC_USER_DATA,
-  // SYNC_USER_DATA_ERROR,
-  // SYNC_USER_DATA_ADDED,
-  // SYNC_USER_DATA_REMOVED,
+  UPDATE_AUTH_EMAIL,
+  UPDATE_AUTH_EMAIL_ERROR,
+  UPDATE_AUTH_EMAIL_SUCCESS,
+  UPDATE_AUTH_PASSWORD,
+  UPDATE_AUTH_PASSWORD_ERROR,
+  UPDATE_AUTH_PASSWORD_SUCCESS,
   UPDATE_USER_DATA,
   UPDATE_USER_DATA_ERROR,
   UPDATE_USER_DATA_SUCCESS,
@@ -51,6 +53,7 @@ import {
   UNLIKE_PLACE,
   CHANGE_EXHIBIT,
   SET_ERROR_MESSAGES,
+  SET_SUCESS_MESSAGES,
 } from './constants';
 
 // Returns intial user stage with localStorage
@@ -93,6 +96,8 @@ const initialState = fromJS({
   loading: false,
   // Indicates there is an error
   error: null,
+  // Indicates there is a success or complete message
+  success: null,
   // User id used for database
   uid: '',
   // User, will receive data from firebase
@@ -178,16 +183,25 @@ function appReducer(state = initialState, action) {
       return state
         .set('uid', action.value);
     case CREATE_USER_ACCOUNT:
+    case UPDATE_AUTH_EMAIL:
+    case UPDATE_AUTH_PASSWORD:
       return state
         .set('loading', true)
         .set('error', null);
     case CREATE_USER_ACCOUNT_ERROR:
+    case UPDATE_AUTH_EMAIL_ERROR:
+    case UPDATE_AUTH_PASSWORD_ERROR:
       return state
         .set('loading', false)
         .set('error', action.value);
     case CREATE_USER_ACCOUNT_SUCCESS:
       return state
         .set('loading', false);
+    case UPDATE_AUTH_EMAIL_SUCCESS:
+    case UPDATE_AUTH_PASSWORD_SUCCESS:
+      return state
+        .set('loading', false)
+        .set('success', action.value);
     case LOAD_USER_DATA:
       return state
         .set('loading', true)
@@ -204,6 +218,9 @@ function appReducer(state = initialState, action) {
     case SET_ERROR_MESSAGES:
       return state
         .set('error', action.value);
+    case SET_SUCESS_MESSAGES:
+      return state
+        .set('success', action.value);
     case CHANGE_USER_NAME:
       return state
         .setIn(['user', 'name'], action.value);

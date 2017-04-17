@@ -193,6 +193,101 @@ export default function createRoutes(store) {
       ],
     },
     {
+      path: '/accountsettings',
+      name: 'accountSettings',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/App/sagas'),
+          import('containers/Profile/AccountSettings'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([sagas, component]) => {
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
+      path: '/changeemail',
+      name: 'changeEmail',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/App/sagas'),
+          import('containers/Profile/AccountSettings/ChangeEmail'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([sagas, component]) => {
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
+      path: '/changepassword',
+      name: 'changePassword',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/App/sagas'),
+          import('containers/Profile/AccountSettings/ChangePassword'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([sagas, component]) => {
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
+      path: '/changeinterests',
+      name: 'changeInterests',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/App/sagas'),
+          import('containers/Profile/AccountSettings/ChangeInterests'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([sagas, component]) => {
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
+      path: '/changeparking',
+      name: 'changeParking',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/App/sagas'),
+          import('containers/Profile/AccountSettings/ChangeParking'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([sagas, component]) => {
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
       path: '/login',
       name: 'signIn',
       getComponent(nextState, cb) {

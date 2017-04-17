@@ -1,0 +1,27 @@
+{
+  "ritCentral": [
+    {
+      "key": 0,
+      "id": 2011,
+      "name": "A Day at Hogwarts",
+      "type": "exhibit",
+      "subType": "default",
+      "previousSubType": "default",
+      "colorZone": "ritCentral",
+      "imagineRitArea": "RIT Central",
+      "building": "Student Alumni Union",
+      "location": "Lobby",
+      "ageRange": "All ages",
+      "hoursRunning": "All day",
+      "exhibitCode": "SAU-L001",
+      "tags": ["Community", "Food", "Student Organization"],
+      "lat": 43.084052,
+      "lng": -77.674557,
+      "alt": 0,
+      "distance": 0,
+      "description": "A Day at Hogwarts will take you through the classes offered at Hogwarts School of Witchcraft and Wizardry. Get ready to be immersed in the world of Harry Potter and learn about Ancient Runes, Potions, Herbology, Care of Magical Creatures, and more! Our exhibit will have activities throughout the day that will allow you to connect back to the Harry Potter books and movies through puzzles and snacks.",
+      "exhibitors": "Kim Callahan, Lauren Carney, Samantha Herman, Sydney Kasok, Leah Ruth, Morrgan Sweeney-Charlton, Elyse Rood, Amanda Weiss, Nathaniel Stoll, Tyler Anderson, Camden Brockbank",
+      "year": 2017
+    }
+  ]
+}
