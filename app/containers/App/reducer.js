@@ -80,6 +80,9 @@ function createInitialUserState() {
       lat: '',
       lng: '',
     },
+//    interests, 
+//    interests, 
+      
     interests: '',
   };
 }
@@ -134,6 +137,7 @@ const initialState = fromJS({
   },
   // Current place
   currentPlace: {},
+    destination: {},
 });
 
 /**
@@ -256,6 +260,8 @@ function appReducer(state = initialState, action) {
       return state
         .setIn(['exhibits', action.value.colorZone, action.value.key], action.value);
     case NAVIGATE_TO_PLACE:
+       return state
+               .set('destination', action.value);
     case LIKE_PLACE:
     case UNLIKE_PLACE:
     default:

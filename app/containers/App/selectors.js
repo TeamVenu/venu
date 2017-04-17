@@ -94,6 +94,11 @@ const makeSelectLocationState = () => {
   };
 };
 
+const makeSelectDestination = () => createSelector(
+    selectGlobal,
+    (globalState) => globalState.get('destination')
+);
+
 export {
   selectGlobal,
   makeSelectUser,
@@ -109,4 +114,5 @@ export {
   makeSelectCurrentPlace,
   makeSelectLocationState,
   makeSelectOnboardingValidation,
+  makeSelectDestination,
 };
