@@ -9,6 +9,15 @@ import H4 from 'components/H4';
 import Button from 'components/Button';
 import Checkbox from 'components/Input';
 import FlexListView from 'components/FlexListView';
+import {
+  Container,
+  Header,
+  Body,
+  Footer,
+  OptionItem,
+  ButtonRow,
+  ButtonItem,
+} from 'components/FullPage';
 
 // Global Selectors
 import {
@@ -31,17 +40,6 @@ import {
 
 // Messages
 import messages from './messages';
-
-// Local Styles
-import {
-  Container,
-  Header,
-  Body,
-  Footer,
-  OptionItem,
-  ButtonRow,
-  ButtonItem,
-} from './styles';
 
 export class InterestSelection extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {

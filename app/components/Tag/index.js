@@ -6,6 +6,8 @@ const Tag = styled.li`
   background: var(--primary-accent-color);
   color: var(--background-color);
   font-size: 0.85em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 export default Tag;

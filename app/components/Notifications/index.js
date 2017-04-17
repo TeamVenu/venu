@@ -29,6 +29,7 @@ export default class Notification extends React.Component {
     if (!message) return null;
 
     let icon = '';
+    let text = 'Dismiss';
 
     switch (type) {
       case 'error':
@@ -39,6 +40,7 @@ export default class Notification extends React.Component {
         break;
       case 'success':
         icon = 'ion-checkmark-round';
+        text = 'Return';
         break;
       default:
         icon = '';
@@ -54,7 +56,7 @@ export default class Notification extends React.Component {
         </P>
         <Button
           btnClasses={'bold'}
-          name={'Dismiss'}
+          name={text}
           onClickEvent={this.handleClick}
         />
       </Wrapper>

@@ -7,6 +7,7 @@ const FlexListView = styled.ul`
   width: 100%;
   padding: 0;
   padding-top: var(--padding);
+  align-items: baseline;
 
   li {
     margin-bottom: var(--padding);

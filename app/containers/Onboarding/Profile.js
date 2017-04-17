@@ -7,6 +7,14 @@ import TextField from 'components/TextField';
 import Button from 'components/Button';
 import Notifications from 'components/Notifications';
 import H3 from 'components/H3';
+import {
+  Container,
+  Header,
+  Body,
+  Footer,
+  ButtonRow,
+  ButtonItem,
+} from 'components/FullPage';
 
 // Global Selectors
 import { makeSelectUser, makeSelectError } from 'containers/App/selectors';
@@ -18,16 +26,6 @@ import {
 
 // Messages
 import messages from './messages';
-
-// Local Styles
-import {
-  Container,
-  Header,
-  Body,
-  Footer,
-  ButtonRow,
-  ButtonItem,
-} from './styles';
 
 // Selectors
 import {

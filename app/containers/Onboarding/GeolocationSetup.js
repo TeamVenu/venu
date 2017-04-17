@@ -6,6 +6,15 @@ import Ionicon from 'react-ionicons';
 // Components
 import H3 from 'components/H3';
 import Button from 'components/Button';
+import {
+  Container,
+  Header,
+  Body,
+  Footer,
+  Alert,
+  ButtonRow,
+  ButtonItem,
+} from 'components/FullPage';
 
 // Global Selectors
 import {
@@ -30,17 +39,6 @@ import {
 
 // Messages
 import messages from './messages';
-
-// Local Styles
-import {
-  Container,
-  Header,
-  Body,
-  Footer,
-  Alert,
-  ButtonRow,
-  ButtonItem,
-} from './styles';
 
 // GeolocationSetup
 export class GeolocationSetup extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function

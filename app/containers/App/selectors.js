@@ -23,6 +23,12 @@ const makeSelectError = () => createSelector(
   (globalState) => globalState.get('error')
 );
 
+// Success method
+const makeSelectSuccess = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('success')
+);
+
 // Loading method
 const makeSelectLoading = () => createSelector(
   selectGlobal,
@@ -97,6 +103,7 @@ export {
   selectGlobal,
   makeSelectUser,
   makeSelectError,
+  makeSelectSuccess,
   makeSelectLoading,
   makeSelectVenuMap,
   makeSelectMapMode,

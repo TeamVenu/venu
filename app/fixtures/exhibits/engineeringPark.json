@@ -1,0 +1,27 @@
+{
+  "engineeringPark": [
+    {
+      "key": 0,
+      "id": 3296,
+      "name": "3D-Printed Puzzles",
+      "type": "exhibit",
+      "subType": "default",
+      "previousSubType": "default",
+      "colorZone": "engineeringPark",
+      "imagineRitArea": "Engineering Park",
+      "building": "James E. Gleason Hall",
+      "location": "Erdle Commons",
+      "ageRange": "All ages",
+      "hoursRunning": "All day",
+      "exhibitCode": "GLE-E117",
+      "tags": ["Design", "Engineering", "Student Organization", "Technology"],
+      "lat": 43.084200,
+      "lng": -77.677468,
+      "alt": 0,
+      "distance": 0,
+      "description": "Various interactive puzzles that were designed in AutoCAD and printed using 3D Printers.",
+      "exhibitors": "Scott Williamson, Liam Callahan, Mia Sitzler, Hannah Van Fleet, Daniel Yochim, David Wilson, Michael Smith, Alexa Kline, Kaleigh Marcotte.",
+      "year": 2017
+    }
+  ]
+}

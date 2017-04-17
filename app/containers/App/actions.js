@@ -18,6 +18,12 @@ import {
   UPDATE_USER_DATA,
   UPDATE_USER_DATA_ERROR,
   UPDATE_USER_DATA_SUCCESS,
+  UPDATE_AUTH_EMAIL,
+  UPDATE_AUTH_EMAIL_ERROR,
+  UPDATE_AUTH_EMAIL_SUCCESS,
+  UPDATE_AUTH_PASSWORD,
+  UPDATE_AUTH_PASSWORD_ERROR,
+  UPDATE_AUTH_PASSWORD_SUCCESS,
   CHANGE_USER_NAME,
   CHANGE_USER_AGE,
   CHANGE_USER_EMAIL,
@@ -33,6 +39,7 @@ import {
   UNLIKE_PLACE,
   CHANGE_EXHIBIT,
   SET_ERROR_MESSAGES,
+  SET_SUCESS_MESSAGES,
 } from './constants';
 
 /**
@@ -125,7 +132,6 @@ export function createUserAccountError(error) {
 /**
  * createUserAccountSuccess
  * Dispatched when user account has successfully been created
- * @param  {Object} user
  */
 export function createUserAccountSuccess() {
   return {
@@ -134,9 +140,76 @@ export function createUserAccountSuccess() {
 }
 
 /**
+ * updateUserAuthEmail
+ * Dispatched when user email is being updated
+ */
+export function updateUserAuthEmail() {
+  return {
+    type: UPDATE_AUTH_EMAIL,
+  };
+}
+
+/**
+ * updateUserAuthEmailError
+ * Dispatched when user email updating failed
+ * @param {String} error
+ */
+export function updateUserAuthEmailError(error) {
+  return {
+    type: UPDATE_AUTH_EMAIL_ERROR,
+    value: error,
+  };
+}
+
+/**
+ * updateUserAuthEmailSuccess
+ * Dispatched when user email updating succeeded
+ * @param {String} message
+ */
+export function updateUserAuthEmailSuccess(message) {
+  return {
+    type: UPDATE_AUTH_EMAIL_SUCCESS,
+    value: message,
+  };
+}
+
+/**
+ * updateUserAuthPassword
+ * Dispatched when user password is being updated
+ */
+export function updateUserAuthPassword() {
+  return {
+    type: UPDATE_AUTH_PASSWORD,
+  };
+}
+
+/**
+ * updateUserAuthPasswordError
+ * Dispatched when user password updating failed
+ * @param {String} error
+ */
+export function updateUserAuthPasswordError(error) {
+  return {
+    type: UPDATE_AUTH_PASSWORD_ERROR,
+    value: error,
+  };
+}
+
+/**
+ * updateUserAuthPasswordSuccess
+ * Dispatched when user password updating succeeded
+ * @param {String} message
+ */
+export function updateUserAuthPasswordSuccess(message) {
+  return {
+    type: UPDATE_AUTH_PASSWORD_SUCCESS,
+    value: message,
+  };
+}
+
+/**
  * loadUserData
  * Dispatched when user data is being requested, starting the redux saga
- * @param  {Object} user
  */
 export function loadUserData() {
   return {
@@ -422,13 +495,25 @@ export function changeExhibit(place) {
 
 /**
  * setErrorMessages
- * Returns error messages
- * @param  {String} errors
+ * Returns error message
+ * @param  {String} error
  */
 export function setErrorMessages(error) {
   return {
     type: SET_ERROR_MESSAGES,
     value: error,
+  };
+}
+
+/**
+ * setSuccessMessages
+ * Returns success message
+ * @param  {String} message
+ */
+export function setSuccessMessages(message) {
+  return {
+    type: SET_SUCESS_MESSAGES,
+    value: message,
   };
 }
 
