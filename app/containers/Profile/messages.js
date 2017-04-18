@@ -154,24 +154,39 @@ export default defineMessages({
       },
       interestList: [
         {
-          id: 'venu.components.Profile.settings.chooseInterests.interests.asl',
-          defaultMessage: 'American Sign Language',
-          name: 'asl',
-        },
-        {
-          id: 'venu.components.Profile.settings.chooseInterests.interests.general',
-          defaultMessage: 'General',
-          name: 'general',
-        },
-        {
           id: 'venu.components.Profile.settings.chooseInterests.interests.art',
           defaultMessage: 'Art',
           name: 'art',
         },
         {
-          id: 'venu.components.Profile.settings.chooseInterests.interests.cultural',
-          defaultMessage: 'Cultural',
-          name: 'cultural',
+          id: 'venu.components.Profile.settings.chooseInterests.interests.business',
+          defaultMessage: 'Business',
+          name: 'business',
+        },
+        {
+          id: 'venu.components.Profile.settings.chooseInterests.interests.communication',
+          defaultMessage: 'Communication',
+          name: 'communication',
+        },
+        {
+          id: 'venu.components.Profile.settings.chooseInterests.interests.community',
+          defaultMessage: 'Community',
+          name: 'community',
+        },
+        {
+          id: 'venu.components.Profile.settings.chooseInterests.interests.dance',
+          defaultMessage: 'Dance',
+          name: 'dance',
+        },
+        {
+          id: 'venu.components.Profile.settings.chooseInterests.interests.design',
+          defaultMessage: 'Design',
+          name: 'design',
+        },
+        {
+          id: 'venu.components.Profile.settings.chooseInterests.interests.energy',
+          defaultMessage: 'Energy',
+          name: 'energy',
         },
         {
           id: 'venu.components.Profile.settings.chooseInterests.interests.engineering',
@@ -179,19 +194,84 @@ export default defineMessages({
           name: 'engineering',
         },
         {
-          id: 'venu.components.Profile.settings.chooseInterests.interests.experimental',
-          defaultMessage: 'Experimental',
-          name: 'experimental',
+          id: 'venu.components.Profile.settings.chooseInterests.interests.entrepreneurship',
+          defaultMessage: 'Entrepreneurship',
+          name: 'entrepreneurship',
         },
         {
-          id: 'venu.components.Profile.settings.chooseInterests.interests.physicalActivity',
-          defaultMessage: 'Physical Activities',
-          name: 'physicalActivity',
+          id: 'venu.components.Profile.settings.chooseInterests.interests.environment',
+          defaultMessage: 'Environment',
+          name: 'environment',
+        },
+        {
+          id: 'venu.components.Profile.settings.chooseInterests.interests.gaming',
+          defaultMessage: 'Gaming',
+          name: 'gaming',
+        },
+        {
+          id: 'venu.components.Profile.settings.chooseInterests.interests.global',
+          defaultMessage: 'Global',
+          name: 'global',
+        },
+        {
+          id: 'venu.components.Profile.settings.chooseInterests.interests.health',
+          defaultMessage: 'Health',
+          name: 'health',
+        },
+        {
+          id: 'venu.components.Profile.settings.chooseInterests.interests.math',
+          defaultMessage: 'Math',
+          name: 'math',
+        },
+        {
+          id: 'venu.components.Profile.settings.chooseInterests.interests.multidisciplinary',
+          defaultMessage: 'Multidisciplinary',
+          name: 'multidisciplinary',
+        },
+        {
+          id: 'venu.components.Profile.settings.chooseInterests.interests.music',
+          defaultMessage: 'Music',
+          name: 'music',
+        },
+        {
+          id: 'venu.components.Profile.settings.chooseInterests.interests.ntid',
+          defaultMessage: 'NTID',
+          name: 'ntid',
+        },
+        {
+          id: 'venu.components.Profile.settings.chooseInterests.interests.photography',
+          defaultMessage: 'Photography',
+          name: 'photography',
         },
         {
           id: 'venu.components.Profile.settings.chooseInterests.interests.science',
           defaultMessage: 'Science',
           name: 'science',
+        },
+        {
+          id: 'venu.components.Profile.settings.chooseInterests.interests.seniorProjects',
+          defaultMessage: 'Senior Projects',
+          name: 'seniorProjects',
+        },
+        {
+          id: 'venu.components.Profile.settings.chooseInterests.interests.sports',
+          defaultMessage: 'Sports',
+          name: 'sports',
+        },
+        {
+          id: 'venu.components.Profile.settings.chooseInterests.interests.software',
+          defaultMessage: 'Software',
+          name: 'software',
+        },
+        {
+          id: 'venu.components.Profile.settings.chooseInterests.interests.stem',
+          defaultMessage: 'STEM',
+          name: 'stem',
+        },
+        {
+          id: 'venu.components.Profile.settings.chooseInterests.interests.studentOrganization',
+          defaultMessage: 'Student Organization',
+          name: 'studentOrganization',
         },
         {
           id: 'venu.components.Profile.settings.chooseInterests.interests.sustainability',
@@ -202,11 +282,6 @@ export default defineMessages({
           id: 'venu.components.Profile.settings.chooseInterests.interests.technology',
           defaultMessage: 'Technology',
           name: 'technology',
-        },
-        {
-          id: 'venu.components.Profile.settings.chooseInterests.interests.videoGames',
-          defaultMessage: 'Video Games',
-          name: 'videoGames',
         },
       ],
       button: {
