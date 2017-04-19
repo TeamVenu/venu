@@ -334,24 +334,39 @@ export default defineMessages({
     },
     interests: [
       {
-        id: 'venu.components.Onboarding.interestSelection.interests.asl',
-        defaultMessage: 'American Sign Language',
-        name: 'asl',
-      },
-      {
-        id: 'venu.components.Onboarding.interestSelection.interests.general',
-        defaultMessage: 'General',
-        name: 'general',
-      },
-      {
         id: 'venu.components.Onboarding.interestSelection.interests.art',
         defaultMessage: 'Art',
         name: 'art',
       },
       {
-        id: 'venu.components.Onboarding.interestSelection.interests.cultural',
-        defaultMessage: 'Cultural',
-        name: 'cultural',
+        id: 'venu.components.Onboarding.interestSelection.interests.business',
+        defaultMessage: 'Business',
+        name: 'business',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.communication',
+        defaultMessage: 'Communication',
+        name: 'communication',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.community',
+        defaultMessage: 'Community',
+        name: 'community',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.dance',
+        defaultMessage: 'Dance',
+        name: 'dance',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.design',
+        defaultMessage: 'Design',
+        name: 'design',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.energy',
+        defaultMessage: 'Energy',
+        name: 'energy',
       },
       {
         id: 'venu.components.Onboarding.interestSelection.interests.engineering',
@@ -359,19 +374,84 @@ export default defineMessages({
         name: 'engineering',
       },
       {
-        id: 'venu.components.Onboarding.interestSelection.interests.experimental',
-        defaultMessage: 'Experimental',
-        name: 'experimental',
+        id: 'venu.components.Onboarding.interestSelection.interests.entrepreneurship',
+        defaultMessage: 'Entrepreneurship',
+        name: 'entrepreneurship',
       },
       {
-        id: 'venu.components.Onboarding.interestSelection.interests.physicalActivity',
-        defaultMessage: 'Physical Activities',
-        name: 'physicalActivity',
+        id: 'venu.components.Onboarding.interestSelection.interests.environment',
+        defaultMessage: 'Environment',
+        name: 'environment',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.gaming',
+        defaultMessage: 'Gaming',
+        name: 'gaming',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.global',
+        defaultMessage: 'Global',
+        name: 'global',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.health',
+        defaultMessage: 'Health',
+        name: 'health',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.math',
+        defaultMessage: 'Math',
+        name: 'math',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.multidisciplinary',
+        defaultMessage: 'Multidisciplinary',
+        name: 'multidisciplinary',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.music',
+        defaultMessage: 'Music',
+        name: 'music',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.ntid',
+        defaultMessage: 'NTID',
+        name: 'ntid',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.photography',
+        defaultMessage: 'Photography',
+        name: 'photography',
       },
       {
         id: 'venu.components.Onboarding.interestSelection.interests.science',
         defaultMessage: 'Science',
         name: 'science',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.seniorProjects',
+        defaultMessage: 'Senior Projects',
+        name: 'seniorProjects',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.sports',
+        defaultMessage: 'Sports',
+        name: 'sports',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.software',
+        defaultMessage: 'Software',
+        name: 'software',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.stem',
+        defaultMessage: 'STEM',
+        name: 'stem',
+      },
+      {
+        id: 'venu.components.Onboarding.interestSelection.interests.studentOrganization',
+        defaultMessage: 'Student Organization',
+        name: 'studentOrganization',
       },
       {
         id: 'venu.components.Onboarding.interestSelection.interests.sustainability',
@@ -382,11 +462,6 @@ export default defineMessages({
         id: 'venu.components.Onboarding.interestSelection.interests.technology',
         defaultMessage: 'Technology',
         name: 'technology',
-      },
-      {
-        id: 'venu.components.Onboarding.interestSelection.interests.videoGames',
-        defaultMessage: 'Video Games',
-        name: 'videoGames',
       },
     ],
   },
