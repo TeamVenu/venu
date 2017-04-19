@@ -1,29 +1,33 @@
 {
-  "computerZone": [
-    {
-      "key": 0,
-      "id": 2611,
-      "name": "2017 Graduate Capstone Gallery",
-      "type": "exhibit",
-      "subType": "default",
-      "previousSubType": "default",
-      "colorZone": "computerZone",
-      "imagineRitArea": "Computer Zone",
-      "building": "Golisano Hall",
-      "location": "Room 2000",
-      "ageRange": "All ages",
-      "hoursRunning": "All day",
-      "exhibitCode": "GOL-2001",
-      "tags": ["Design", "Gaming", "Senior Projects", "Technology"],
-      "lat": 43.084637,
-      "lng": -77.679868,
-      "alt": 0,
-      "distance": 0,
-      "description": "3 Games - PrincessCape A puzzle platformer where the princess decides she can save herself. Princess Elwynn finds the power of a magical cape, speedy boots, magnetic gloves and herself. - Gloom Box Use music to alter the world and solve puzzles. Mash up music to discover new abilities. - Y.A.W. (Yet Another World) A V.R. simulation of a planetoid that responds to your exploration. Discover creatures and features as the world comes to life.",
-      "exhibitors": "Elouise Oyzon, Arun Krishnakumar, Jeffery Kelly, Anthony Zalar, Chen Yang, Reuben Brenner-Adams, Stein Astor Fernandez",
-      "year": 2017
+  "computerZone": [{
+    "key": 0,
+    "id": 2611,
+    "name": "2017 Graduate Capstone Gallery",
+    "type": "exhibit",
+    "subType": "default",
+    "previousSubType": "default",
+    "colorZone": "computerZone",
+    "imagineRitArea": "Computer Zone",
+    "building": "Golisano Hall",
+    "location": "Room 2000",
+    "ageRange": "All ages",
+    "hoursRunning": "All day",
+    "exhibitCode": "GOL-2001",
+    "tags": [
+      "Design",
+      "Gaming",
+      "Senior Projects",
+      "Technology"
+    ],
+    "lat": 43.084637,
+    "lng": -77.679868,
+    "alt": 0,
+    "distance": 0,
+    "description": "3 Games - PrincessCape A puzzle platformer where the princess decides she can save herself. Princess Elwynn finds the power of a magical cape, speedy boots, magnetic gloves and herself. - Gloom Box Use music to alter the world and solve puzzles. Mash up music to discover new abilities. - Y.A.W. (Yet Another World) A V.R. simulation of a planetoid that responds to your exploration. Discover creatures and features as the world comes to life.",
+    "exhibitors": "Elouise Oyzon, Arun Krishnakumar, Jeffery Kelly, Anthony Zalar, Chen Yang, Reuben Brenner-Adams, Stein Astor Fernandez",
+    "year": 2017
     },
-      {
+    {
       "key": 1,
       "id": 186,
       "name": "Al Biles & GenJam",
@@ -37,7 +41,13 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-1400",
-      "tags": ["Music", "Software", "Technology", "Multidisciplinary", "STEM"],
+      "tags": [
+        "Music",
+        "Software",
+        "Technology",
+        "Multidisciplinary",
+        "STEM"
+      ],
       "lat": 43.084372,
       "lng": -77.679900,
       "alt": 0,
@@ -46,7 +56,7 @@
       "exhibitors": "Al Biles",
       "year": 2017
     },
-      {
+    {
       "key": 2,
       "id": 4026,
       "name": "Algorave: Creating Dance Music with Code",
@@ -60,7 +70,9 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-1401",
-      "tags": ["Computer Zone"],
+      "tags": [
+        "Computer Zone"
+      ],
       "lat": 43.084427,
       "lng": -77.679860,
       "alt": 0,
@@ -69,7 +81,7 @@
       "exhibitors": "Charles Roberts",
       "year": 2017
     },
-      {
+    {
       "key": 3,
       "id": 3071,
       "name": "Analog Student Games Showcase",
@@ -83,7 +95,9 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-2400",
-      "tags": ["Gaming"],
+      "tags": [
+        "Gaming"
+      ],
       "lat": 43.084337,
       "lng": -77.679950,
       "alt": 0,
@@ -92,7 +106,7 @@
       "exhibitors": "Sean Boyle, Ryan Muskopf, David Erbelding, Reuben Brenner-Adams, Michael Howlett, Brandon Rodriguez, Collin Zanche, Connor Cummings",
       "year": 2017
     },
-      {
+    {
       "key": 4,
       "id": 2221,
       "name": "Augmented Reality Chess Game",
@@ -106,7 +120,13 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-1446",
-      "tags": ["Engineering", "Gaming", "Software", "Technology", "STEM"],
+      "tags": [
+        "Engineering",
+        "Gaming",
+        "Software",
+        "Technology",
+        "STEM"
+      ],
       "lat": 43.084355,
       "lng": -77.679673,
       "alt": 0,
@@ -115,7 +135,7 @@
       "exhibitors": "Niyati Shah, Tanvi Raut",
       "year": 2017
     },
-      {
+    {
       "key": 5,
       "id": 2436,
       "name": "Automatic Sentry Turret",
@@ -129,7 +149,14 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-1455",
-      "tags": ["Design", "Engineering", "Science", "Software", "Technology", "STEM"],
+      "tags": [
+        "Design",
+        "Engineering",
+        "Science",
+        "Software",
+        "Technology",
+        "STEM"
+      ],
       "lat": 43.084282,
       "lng": -77.679670,
       "alt": 0,
@@ -138,7 +165,7 @@
       "exhibitors": "Nicholas Freville",
       "year": 2017
     },
-      {
+    {
       "key": 6,
       "id": 3026,
       "name": "Big Top - A Four Player Circus Game",
@@ -152,7 +179,11 @@
       "ageRange": "10+",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-1435",
-      "tags": ["Design", "Food", "Gaming"],
+      "tags": [
+        "Design",
+        "Food",
+        "Gaming"
+      ],
       "lat": 43.084443,
       "lng": -77.679672,
       "alt": 0,
@@ -161,7 +192,7 @@
       "exhibitors": "Oliver Barnum, Chase Slatterly, Matt Sahlin",
       "year": 2017
     },
-      {
+    {
       "key": 7,
       "id": 3166,
       "name": "Blackfeather",
@@ -175,7 +206,9 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-2003",
-      "tags": ["Gaming"],
+      "tags": [
+        "Gaming"
+      ],
       "lat": 43.084650,
       "lng": -77.679811,
       "alt": 0,
@@ -184,7 +217,7 @@
       "exhibitors": "Jessica Bayliss, David Chang, Kevin Idzik, Josh Malmquist, Sachit Puri, Joel Shuart, Charles Williams, Gregory Kriesel, Marla Schweppe",
       "year": 2017
     },
-            {
+    {
       "key": 8,
       "id": 3666,
       "name": "BRICK: A Game of Networking and Subterfuge",
@@ -198,7 +231,14 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-A008",
-      "tags": ["Design", "Gaming", "Science", "Software", "Technology", "STEM"],
+      "tags": [
+        "Design",
+        "Gaming",
+        "Science",
+        "Software",
+        "Technology",
+        "STEM"
+      ],
       "lat": 43.084551,
       "lng": -77.679794,
       "alt": 0,
@@ -207,7 +247,7 @@
       "exhibitors": "Alexia Bernardo, Matthew Crocco, Eileen Tea, Sameen Luo, Nicole Lopez",
       "year": 2017
     },
-      {
+    {
       "key": 9,
       "id": 1681,
       "name": "Circular Gallifreyan Workshop",
@@ -221,7 +261,11 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-1470",
-      "tags": ["Art", "Communication", "Student Organization"],
+      "tags": [
+        "Art",
+        "Communication",
+        "Student Organization"
+      ],
       "lat": 43.084160,
       "lng": -77.679740,
       "alt": 0,
@@ -230,7 +274,7 @@
       "exhibitors": "Claire Noble, Cameron Bajus, Taylor Braun, Derek Witt, Ava Enoch, Kyle Flores, Akash Eldo",
       "year": 2017
     },
-      {
+    {
       "key": 10,
       "id": 3511,
       "name": "Computational Thinking with Life-Size Mazes",
@@ -244,7 +288,11 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-1436",
-      "tags": ["Software", "Technology", "STEM"],
+      "tags": [
+        "Software",
+        "Technology",
+        "STEM"
+      ],
       "lat": 43.084408,
       "lng": -77.679678,
       "alt": 0,
@@ -253,7 +301,7 @@
       "exhibitors": "Zack Butler, Ivona Bezakova, Eero Kelly, Misha Belisle, Liz Lucas, Alex Hoover, Samantha Oxley, Dana Adylova, Angelina Davern, Zack Fitzsimmons, David Narvaez, Stefan Aleksic",
       "year": 2017
     },
-      {
+    {
       "key": 11,
       "id": 791,
       "name": "Computing in Language Science Classrooms with Linguine",
@@ -267,7 +315,11 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-A002",
-      "tags": ["Communication", "Software", "Technology"],
+      "tags": [
+        "Communication",
+        "Software",
+        "Technology"
+      ],
       "lat": 43.084550,
       "lng": -77.679882,
       "alt": 0,
@@ -275,7 +327,7 @@
       "description": "Demonstration of how RIT language science coursework uses computational tools with visualizations for exploring linguistic concepts and data analysis.",
       "exhibitors": "Cecilia O. Alm, Emily Prud'hommeaux",
       "year": 2017
-    }, 
+    },
     {
       "key": 12,
       "id": 3456,
@@ -290,7 +342,12 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-1475",
-      "tags": ["Art", "Community", "Student", "Organization"],
+      "tags": [
+        "Art",
+        "Community",
+        "Student",
+        "Organization"
+      ],
       "lat": 43.041136,
       "lng": -77.680032,
       "alt": 0,
@@ -313,7 +370,12 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-1468",
-      "tags": ["Communication", "Science", "Technology", "STEM"],
+      "tags": [
+        "Communication",
+        "Science",
+        "Technology",
+        "STEM"
+      ],
       "lat": 43.084200,
       "lng": -77.680033,
       "alt": 0,
@@ -322,7 +384,7 @@
       "exhibitors": "Alex Hew, Daryl Johnson",
       "year": 2017
     },
-    {	
+    {
       "key": 14,
       "id": 3226,
       "name": "Electro-Luminescent Organ (ELO)",
@@ -336,7 +398,11 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-1611",
-      "tags": ["Art", "Music", "STEM"],
+      "tags": [
+        "Art",
+        "Music",
+        "STEM"
+      ],
       "lat": 43.084243,
       "lng": -77.679837,
       "alt": 0,
@@ -345,7 +411,7 @@
       "exhibitors": "Zachary Hart",
       "year": 2017
     },
-    {	
+    {
       "key": 15,
       "id": 3176,
       "name": "Elements",
@@ -359,7 +425,9 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-2005",
-      "tags": ["Gaming"],
+      "tags": [
+        "Gaming"
+      ],
       "lat": 43.084640,
       "lng": -77.679834,
       "alt": 0,
@@ -367,8 +435,8 @@
       "description": "A VR turn-based game using the HTC Vive where players explore a hex world and combat enemies.",
       "exhibitors": "Jessica Bayliss, Feitong Chen, Sitong Chen, Reina Helms, Andrew Schoolnick, Lauren Sebaugh, Daniel Timko, Zach Welch, Marla Schweppe",
       "year": 2017
-    }, 
-    {	
+    },
+    {
       "key": 16,
       "id": 1601,
       "name": "Event Analysis of Public Government Pentest Logs",
@@ -382,7 +450,11 @@
       "ageRange": "9th Grade+",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-A003",
-      "tags": ["Engineering", "Software", "Technology"],
+      "tags": [
+        "Engineering",
+        "Software",
+        "Technology"
+      ],
       "lat": 43.084522,
       "lng": -77.679875,
       "alt": 0,
@@ -391,7 +463,7 @@
       "exhibitors": "Scott Chapman",
       "year": 2017
     },
-    {	
+    {
       "key": 17,
       "id": 3941,
       "name": "EVF - Bring Vulnerabilities to the Classroom",
@@ -405,16 +477,21 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-1469",
-      "tags": ["Senior Projects", "Software", "Technology", "STEM"],
+      "tags": [
+        "Senior Projects",
+        "Software",
+        "Technology",
+        "STEM"
+      ],
       "lat": 43.084018,
       "lng": -77.680026,
       "alt": 0,
       "distance": 0,
-      "description": "",
+      "description": "Come join us in Golisano Room 1469!",
       "exhibitors": "Daryl Johnson, Corinne Smith, Michael Zobel, Bill Stackpole",
       "year": 2017
     },
-    {	
+    {
       "key": 18,
       "id": 486,
       "name": "Experiments in Virtual Reality Game Design",
@@ -428,7 +505,11 @@
       "ageRange": "13+",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-2020",
-      "tags": ["Gaming", "Software", "Technology"],
+      "tags": [
+        "Gaming",
+        "Software",
+        "Technology"
+      ],
       "lat": 43.084663,
       "lng": -77.679720,
       "alt": 0,
@@ -437,7 +518,7 @@
       "exhibitors": "Bennett Samuels, Satchi Davis, Yanting Cheung, Ian Schreiber, Matthew Pressman",
       "year": 2017
     },
-     {	
+    {
       "key": 19,
       "id": 3246,
       "name": "Graphful : Art through code",
@@ -451,7 +532,17 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-A005",
-      "tags": ["Art", "Design", "Engineering", "Science", "Software", "Technology", "Photography", "Math", "STEM"],
+      "tags": [
+        "Art",
+        "Design",
+        "Engineering",
+        "Science",
+        "Software",
+        "Technology",
+        "Photography",
+        "Math",
+        "STEM"
+      ],
       "lat": 43.084523,
       "lng": -77.679806,
       "alt": 0,
@@ -460,7 +551,7 @@
       "exhibitors": "Nikhil Verma",
       "year": 2017
     },
-    {	
+    {
       "key": 20,
       "id": 3316,
       "name": "How Can Technology Empower Everyone?",
@@ -474,7 +565,11 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-A006",
-      "tags": ["Design", "Software", "Technology"],
+      "tags": [
+        "Design",
+        "Software",
+        "Technology"
+      ],
       "lat": 43.084523,
       "lng": -77.679734,
       "alt": 0,
@@ -483,7 +578,7 @@
       "exhibitors": "Yasmine Elglaly, Anthony Peruma, Scott Hawker, Stephen Cioffi",
       "year": 2017
     },
-    {	
+    {
       "key": 21,
       "id": 3951,
       "name": "Investigating Android M Permissions",
@@ -497,16 +592,19 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-1467",
-      "tags": ["Software", "Technology"],
+      "tags": [
+        "Software",
+        "Technology"
+      ],
       "lat": 43.084126,
       "lng": -77.680030,
       "alt": 0,
       "distance": 0,
-      "description": "",
+      "description": "Join us in Golisano room 1467!",
       "exhibitors": "Daniel Krutz",
       "year": 2017
-    }, 
-    {	
+    },
+    {
       "key": 22,
       "id": 3831,
       "name": "Investigating Android M Permissions",
@@ -520,7 +618,10 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-1467",
-      "tags": ["Software", "Technology"],
+      "tags": [
+        "Software",
+        "Technology"
+      ],
       "lat": 43.084066,
       "lng": -77.689926,
       "alt": 0,
@@ -529,7 +630,7 @@
       "exhibitors": "Heather Cottone",
       "year": 2017
     },
-    {	
+    {
       "key": 23,
       "id": 2456,
       "name": "Jerusalem VR Experience",
@@ -543,7 +644,17 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-A004",
-      "tags": ["Art", "Design", "Global", "Senior Projects", "Software", "Technology", "Photography", "Multidisciplinary", "STEM"],
+      "tags": [
+        "Art",
+        "Design",
+        "Global",
+        "Senior Projects",
+        "Software",
+        "Technology",
+        "Photography",
+        "Multidisciplinary",
+        "STEM"
+      ],
       "lat": 43.084552,
       "lng": -77.679734,
       "alt": 0,
@@ -552,7 +663,7 @@
       "exhibitors": "Jacob Westerback, Chris Littlefield, Jeremy Astolfi, Ryan Flanagan, James Sasson, Stephen Jacobs, Matt Dieselman",
       "year": 2017
     },
-    {	
+    {
       "key": 24,
       "id": 2061,
       "name": "Kill the Streamer",
@@ -566,7 +677,11 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-1466",
-      "tags": ["Gaming", "Software", "Technology"],
+      "tags": [
+        "Gaming",
+        "Software",
+        "Technology"
+      ],
       "lat": 43.083965,
       "lng": -77.680028,
       "alt": 0,
@@ -575,7 +690,7 @@
       "exhibitors": "Luna Meier, Rochelle Cohn, Daniel Lowery, Rebecca Wengert, Ryan Jones, Luke Zetterlund",
       "year": 2017
     },
-    {	
+    {
       "key": 25,
       "id": 3711,
       "name": "Off the Wall",
@@ -589,16 +704,20 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-1460",
-      "tags": ["Community", "Design", "Gaming"],
+      "tags": [
+        "Community",
+        "Design",
+        "Gaming"
+      ],
       "lat": 43.084047,
       "lng": -77.689939,
       "alt": 0,
       "distance": 0,
-      "description": "",
+      "description": "Join us in room 1460 in Golisano!",
       "exhibitors": "Ian Schreiber",
       "year": 2017
     },
-    {	
+    {
       "key": 26,
       "id": 3156,
       "name": "Pachink-Off - A Head to Head Gambling Game",
@@ -612,7 +731,11 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-2002",
-      "tags": ["Gaming", "Senior Projects", "Technology"],
+      "tags": [
+        "Gaming",
+        "Senior Projects",
+        "Technology"
+      ],
       "lat": 43.084633,
       "lng": -77.679788,
       "alt": 0,
@@ -621,7 +744,7 @@
       "exhibitors": "Joel Tom, Michael Cohen",
       "year": 2017
     },
-      {	
+    {
       "key": 27,
       "id": 4051,
       "name": "Practical Ransomware Detection",
@@ -635,7 +758,11 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-A010",
-      "tags": ["Senior Projects", "Software", "Technology"],
+      "tags": [
+        "Senior Projects",
+        "Software",
+        "Technology"
+      ],
       "lat": 43.084478,
       "lng": -77.679828,
       "alt": 0,
@@ -644,7 +771,7 @@
       "exhibitors": "Christopher Lazarus, Kyle Klatt",
       "year": 2017
     },
-      {	
+    {
       "key": 28,
       "id": 3171,
       "name": "Project Betrayal",
@@ -658,7 +785,9 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-2004",
-      "tags": ["Gaming"],
+      "tags": [
+        "Gaming"
+      ],
       "lat": 43.084693,
       "lng": -77.679825,
       "alt": 0,
@@ -667,7 +796,7 @@
       "exhibitors": "Jessica Bayliss, Hajime Agresta, Connor Chauncey, Ryan Jeter, Jacob Recoon, Stephanie Stoner, Trevor Walden, Yuchen Zhong, Marla Schweppe",
       "year": 2017
     },
-      {	
+    {
       "key": 29,
       "id": 3671,
       "name": "Raspberry Pi Arcade Table",
@@ -681,7 +810,15 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-A009",
-      "tags": ["Gaming", "Science", "Software", "Student Organization", "Technology", "Multidisciplinary", "STEM"],
+      "tags": [
+        "Gaming",
+        "Science",
+        "Software",
+        "Student Organization",
+        "Technology",
+        "Multidisciplinary",
+        "STEM"
+      ],
       "lat": 43.084489,
       "lng": -77.679919,
       "alt": 0,
@@ -690,7 +827,7 @@
       "exhibitors": "Alexia Bernardo, David Quach, Lauren DiDonato, William Krodthoff, Makaya Hicks",
       "year": 2017
     },
-      {	
+    {
       "key": 30,
       "id": 3716,
       "name": "RITficial Intelligence",
@@ -704,16 +841,24 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-1465",
-      "tags": ["Gaming", "Science", "Software", "Student Organization", "Technology", "Math", "STEM"],
+      "tags": [
+        "Gaming",
+        "Science",
+        "Software",
+        "Student Organization",
+        "Technology",
+        "Math",
+        "STEM"
+      ],
       "lat": 43.083912,
       "lng": -77.679745,
       "alt": 0,
       "distance": 0,
-      "description": "",
+      "description": "Join us for RITficial Intelligence in Golisano room 1465.",
       "exhibitors": "Dylan Bowald, Andy Meyer",
       "year": 2017
     },
-       {	
+    {
       "key": 31,
       "id": 1416,
       "name": "Sight: A VR Horror Experience",
@@ -727,7 +872,11 @@
       "ageRange": "13+",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-1456",
-      "tags": ["Gaming", "Technology", "Multidisciplinary"],
+      "tags": [
+        "Gaming",
+        "Technology",
+        "Multidisciplinary"
+      ],
       "lat": 43.084259,
       "lng": -77.679670,
       "alt": 0,
@@ -736,7 +885,7 @@
       "exhibitors": "Sarathi Hansen, Jaben McCormack",
       "year": 2017
     },
-      {	
+    {
       "key": 32,
       "id": 3781,
       "name": "Society of Software Engineers Projects",
@@ -750,7 +899,12 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-1670",
-      "tags": ["Engineering", "Software", "Student Organization", "Technology"],
+      "tags": [
+        "Engineering",
+        "Software",
+        "Student Organization",
+        "Technology"
+      ],
       "lat": 43.083847,
       "lng": -77.679826,
       "alt": 0,
@@ -759,7 +913,7 @@
       "exhibitors": "Robert McLaughlin, Christina Howard, Michael Timbrook, Stephen Cioffi, Kevin Hannigan, Daniel Gude, Michael Longley, Kayla Davis, Joseph De Simpliciis, Benjamin Alderfer, Dylan Vuz, Kevin Arnett, Bill Dybas, Javis Johnson, Curtis Shea",
       "year": 2017
     },
-      {	
+    {
       "key": 33,
       "id": 1846,
       "name": "taskIt",
@@ -773,7 +927,12 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-1610",
-      "tags": ["Design", "Software", "Technology", "Entrepreneurship"],
+      "tags": [
+        "Design",
+        "Software",
+        "Technology",
+        "Entrepreneurship"
+      ],
       "lat": 43.084217,
       "lng": -77.679827,
       "alt": 0,
@@ -782,7 +941,7 @@
       "exhibitors": "Mitchell Sweet",
       "year": 2017
     },
-      {	
+    {
       "key": 34,
       "id": 3016,
       "name": "Team Based Fighting Game - Chosen Fate",
@@ -796,7 +955,14 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-1445",
-      "tags": ["Art", "Design", "Gaming", "Software", "Technology", "Multidisciplinary"],
+      "tags": [
+        "Art",
+        "Design",
+        "Gaming",
+        "Software",
+        "Technology",
+        "Multidisciplinary"
+      ],
       "lat": 43.084334,
       "lng": -77.679673,
       "alt": 0,
@@ -805,7 +971,7 @@
       "exhibitors": "D'yangelo Grullon, Antwan Russell, Trinh Le, Nicholas Barlow",
       "year": 2017
     },
-      {	
+    {
       "key": 35,
       "id": 316,
       "name": "Undergraduate Research in Computational Sensing",
@@ -819,7 +985,10 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-A001",
-      "tags": ["Software", "STEM"],
+      "tags": [
+        "Software",
+        "STEM"
+      ],
       "lat": 43.084485,
       "lng": -77.679994,
       "alt": 0,
@@ -828,7 +997,7 @@
       "exhibitors": "Cecilia O. Alm, Reynold Bailey",
       "year": 2017
     },
-      {	
+    {
       "key": 36,
       "id": 2936,
       "name": "VRoom - A VR Car Combat Game",
@@ -842,7 +1011,11 @@
       "ageRange": "13+",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-2006",
-      "tags": ["Gaming", "Software", "Technology"],
+      "tags": [
+        "Gaming",
+        "Software",
+        "Technology"
+      ],
       "lat": 43.084599,
       "lng": -77.679930,
       "alt": 0,
@@ -851,7 +1024,7 @@
       "exhibitors": "Robert Bailey, Aidan Markham, Alia Gestl, Jeannette Forbes, John Fediaczko, John Palermo, Luke Hedrick, Noah Kellem, Elouise Oyzon",
       "year": 2017
     },
-       {	
+    {
       "key": 37,
       "id": 3651,
       "name": "WiC Networking Alumni App",
@@ -865,7 +1038,13 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOL-A007",
-      "tags": ["Community", "Science", "Software", "Technology", "STEM"],
+      "tags": [
+        "Community",
+        "Science",
+        "Software",
+        "Technology",
+        "STEM"
+      ],
       "lat": 43.084489,
       "lng": -77.679903,
       "alt": 0,
