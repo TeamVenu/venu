@@ -21,7 +21,7 @@ import {
 
 // Containers
 import Header from './Header';
-import VenuMap from './Map';
+import VenuMap from './VenuMap';
 import Panel from './Panel';
 
 // Local components
