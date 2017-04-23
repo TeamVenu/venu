@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { withGoogleMap, GoogleMap } from 'react-google-maps';
 import Marker from 'components/Marker';
+import MarkerClusterer from 'react-google-maps/lib/addons/MarkerClusterer';
+import MergedPin from 'media/icons/mergedpin.svg';
+import ClusterPin from 'media/icons/clusterpin.svg';
 
 // Global Selectors
 import {
@@ -28,21 +31,43 @@ import { getPlacesArray } from 'utils/helpers';
 // and name it GettingStartedGoogleMap
 const Map = withGoogleMap((props) => { // eslint-disable-line
   const size = new google.maps.Size(30, 30); // eslint-disable-line
+  const clusterStyles = [
+    {
+      textColor: 'white',
+      url: MergedPin,
+      width: 45,
+      height: 38,
+    },
+    {
+      textColor: 'white',
+      url: ClusterPin,
+      width: 43,
+      height: 45,
+    },
+  ];
+
   return (
     <GoogleMap
       ref={props.onMapLoad}
       defaultZoom={props.mapProps.zoom}
       defaultCenter={props.user.location}
       onClick={props.onMapClick}
+      defaultOptions={props.mapProps}
     >
-      {props.markers.map((marker, index) => (
-        <Marker
-          key={index}
-          place={marker}
-          mode={props.mode}
-          size={size}
-        />
-      ))}
+      <MarkerClusterer
+        averageCenter
+        gridSize={60}
+        styles={clusterStyles}
+      >
+        {props.markers.map((marker, index) => (
+          <Marker
+            key={index}
+            place={marker}
+            mode={props.mode}
+            size={size}
+          />
+        ))}
+      </MarkerClusterer>
     </GoogleMap>
   );
 });

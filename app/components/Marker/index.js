@@ -4,8 +4,6 @@
 // Add user and parking as places with type of same name
 // Find the best animation
 // Try to make the map async in VenuMap
-// Add cluster with addon/mapcluster(sp?)
-// Style the map correctly
 
 import React, { PropTypes as T } from 'react';
 import { Marker as Pin } from 'react-google-maps';
@@ -13,7 +11,7 @@ import DefaultPin from 'media/icons/orangepin.png';
 import SavedPin from 'media/icons/bluepin.png';
 import WomanRestroomPin from 'media/icons/womenrestroompin.png';
 import DiningPin from 'media/icons/diningpin.png';
-import { Wrapper } from './styles';
+import { browserHistory } from 'react-router';
 
 export default class Marker extends React.Component {
   static propTypes = {
@@ -27,6 +25,15 @@ export default class Marker extends React.Component {
     super(props);
 
     this.renderPin = this.renderPin.bind(this);
+    this.onHandleClick = this.onHandleClick.bind(this);
+  }
+
+  onHandleClick(url) {
+    if (url) {
+      browserHistory.push({
+        pathname: url,
+      });
+    }
   }
 
   renderPin() {
@@ -39,7 +46,7 @@ export default class Marker extends React.Component {
     };
 
     // Set default animation
-    const defaultAnimation = 2;
+    // const defaultAnimation = 2;
     let image = '';
     let link = null;
 
@@ -82,13 +89,11 @@ export default class Marker extends React.Component {
     };
 
     return (
-      <Wrapper to={link}>
-        <Pin
-          icon={icon}
-          position={position}
-          defaultAnimation={defaultAnimation}
-        />
-      </Wrapper>
+      <Pin
+        icon={icon}
+        position={position}
+        onClick={() => { this.onHandleClick(link); }}
+      />
     );
   }
 
