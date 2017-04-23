@@ -1,0 +1,20 @@
+{
+  "shuttle": [
+    {
+      "key": 0,
+      "id": 0,
+      "name": "MCC Shuttle Bus",
+      "type": "facility",
+      "subType": "shuttle",
+      "colorZone": "thinkTank",
+      "imagineRitArea": "The Think Tank",
+      "building": "Gleason Circle",
+      "location": "Bus Stop",
+      "tags": ["Bus", "Shuttle", "Transportation"],
+      "lat": 43.083184,
+      "lng": -77.675907,
+      "description": "For shuttles to Monroe Community College stop by the bus stop in Gleason Circle.",
+      "year": 2017
+    }
+  ]
+}

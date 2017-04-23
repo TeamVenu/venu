@@ -56,6 +56,29 @@ export default class Marker extends Component {
     }
 
     switch (place.subType) {
+      case 'entertainment':
+        return (
+          <PinIcon icon={'ion-ios-star'} fontSize={'18px'} />
+        );
+      case 'entrance':
+        return (
+          <PinIcon icon={'ion-ios-home'} fontSize={'18px'} />
+        );
+      case 'food':
+        return (
+          <PinIcons>
+            <PinIcon icon={'ion-fork'} fontSize={'15px'} />
+            <PinIcon icon={'ion-knife'} fontSize={'15px'} />
+          </PinIcons>
+        );
+      case 'information':
+        return (
+          <PinIcon icon={'ion-help'} fontSize={'18px'} />
+        );
+      case 'medical':
+        return (
+          <PinIcon icon={'ion-ios-medkit'} fontSize={'18px'} />
+        );
       case 'restroom':
         switch (place.gender) {
           case 'M':
@@ -76,26 +99,19 @@ export default class Marker extends Component {
           default:
             return null;
         }
-      case 'food':
-        return (
-          <PinIcons>
-            <PinIcon icon={'ion-fork'} fontSize={'15px'} />
-            <PinIcon icon={'ion-knife'} fontSize={'15px'} />
-          </PinIcons>
-        );
-      case 'information':
-        // TODO: Correct Icon
-        return (
-          <PinIcon icon={'ion-help'} fontSize={'18px'} />
-        );
-      case 'medical':
-        // TODO: Correct Icon
-        return (
-          <PinIcon icon={'ion-medkit'} fontSize={'18px'} />
-        );
+
+
       case 'parking':
         return (
           <PinIcon icon={'ion-model-s'} fontSize={'18px'} />
+        );
+      case 'shuttle':
+        return (
+          <PinIcon icon={'ion-android-bus'} fontSize={'18px'} />
+        );
+      case 'transporter':
+        return (
+          <PinIcon icon={'ion-android-car'} fontSize={'18px'} />
         );
       default:
         return null;

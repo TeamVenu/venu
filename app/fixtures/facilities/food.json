@@ -1,0 +1,22 @@
+{
+  "food": [
+    {
+      "key": 0,
+      "id": 0,
+      "name": "Artesanos Bakery & Café",
+      "type": "facility",
+      "subType": "food",
+      "colorZone": "ritCentral",
+      "imagineRitArea": "RIT Central",
+      "building": "Monroe Hall",
+      "location": "Indoors",
+      "hoursRunning": "8:00 am - 4:00 pm",
+      "cost": "à la carte",
+      "tags": ["Food"],
+      "lat": 43.084136,
+      "lng": -77.675132,
+      "description": "On-campus patisserie offering a wide selection of upscale pastries including breakfast pastries, brownies, cookies, tarts, several gluten-free and vegan products, and much more. Artesano proudly serves Peet's Coffee and Tea products. Peet's is an organic coffee company offering a large variety of drinks, which include blended frozen drinks, espresso, lattes, and cappuccinos.",
+      "year": 2017
+    }
+  ]
+}
