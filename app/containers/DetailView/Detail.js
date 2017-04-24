@@ -17,6 +17,7 @@ import { makeSelectUser } from 'containers/App/selectors';
 
 // Import dispatches
 import {
+  dispatchSetUser,
   dispatchLikePlace,
   dispatchUnlikePlace,
   dispatchChangeExhibit,
@@ -95,19 +96,6 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
 
     if (place.type !== 'exhibit' && place.subType !== 'restroom') return null;
 
-    // Exhibit distance component
-    const distanceComponent = (place.distance) ? (
-      <DetailInfoItem>
-        <Ionicon icon={'icon ion-map'} />
-        <P className={'small'}>Distance: {place.distance}mi</P>
-      </DetailInfoItem>
-    ) : (
-      <DetailInfoItem>
-        <Ionicon icon={'icon ion-map'} />
-        <P className={'small'}><strong>Distance Unknown</strong></P>
-      </DetailInfoItem>
-    );
-
     // If place is a restroom facility
     if (place.type !== 'exhibit') {
       return (
@@ -120,7 +108,6 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
             <Ionicon icon={'icon ion-person'} />
             <P className={'small'}>{place.category}</P>
           </DetailInfoItem>
-          { distanceComponent }
         </DetailInfoList>
       );
     }
@@ -152,7 +139,6 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
           <Ionicon icon={'icon ion-location'} />
           <P className={'small'}>{locationBlurb}, {place.building}, {place.imagineRitArea}</P>
         </DetailInfoItem>
-        { distanceComponent }
         { hoursRunningComponent }
         { agesComponent }
       </DetailInfoList>
@@ -260,9 +246,10 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
 
   renderActionsForPlaceInItinerary() {
     const {
+      user,
       currentPlace,
       onDispatchLikePlace,
-      onDispatchRemovePlaceFromItinerary,
+      onDispatchUnSavePlace,
       onDispatchNavigateToPlace,
     } = this.props;
 
@@ -290,7 +277,7 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
           <Button
             name={'Remove from Itinerary'}
             icon={'ion-close-round'}
-            onClickEvent={() => { onDispatchRemovePlaceFromItinerary(place); }}
+            onClickEvent={() => { onDispatchUnSavePlace(place, user); }}
           />
         </li>
       </FlexListView>
@@ -345,11 +332,12 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
 
   renderPrimaryAction() {
     const {
+      user,
       currentPlace,
       onDispatchLikePlace,
       onDispatchExhibitCheckIn,
       onDispatchNavigateToPlace,
-      onDispatchAddPlaceToItinerary,
+      onDispatchSavePlace,
     } = this.props;
 
     // Primary action
@@ -377,7 +365,7 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
             primaryAction = (
               <PrimaryButton
                 onClick={() => {
-                  onDispatchAddPlaceToItinerary(place);
+                  onDispatchSavePlace(place, user);
                 }}
               >
                 <Ionicon icon={'icon ion-plus'} />
@@ -433,14 +421,15 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
 }
 
 Detail.propTypes = {
+  user: T.object,
   currentPlace: T.object.isRequired,
   onDispatchLikePlace: T.func,
   // onDispatchUnlikePlace: T.func,
   onDispatchExhibitCheckIn: T.func,
   onDispatchExhibitCheckOut: T.func,
   onDispatchNavigateToPlace: T.func,
-  onDispatchAddPlaceToItinerary: T.func,
-  onDispatchRemovePlaceFromItinerary: T.func,
+  onDispatchSavePlace: T.func,
+  onDispatchUnSavePlace: T.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -463,20 +452,65 @@ export function mapDispatchToProps(dispatch) {
       dispatchUnlikePlace(dispatch, place);
       dispatchChangeCurrentPlace(dispatch, place);
     },
-    onDispatchAddPlaceToItinerary: (p) => {
+    onDispatchSavePlace: (p, u) => {
+      const exhibits = {
+        recommended: [],
+        visited: [],
+        saved: [],
+      };
+
+      // Create the string to store in database
+      const savedPlace = `${p.colorZone}-${p.key}`;
+
+      // Filter out savedPlace from recommendedPlaces
+      exhibits.recommended = u.exhibits.recommended.filter((places) => { // eslint-disable-line
+        return places !== savedPlace;
+      });
+
+      // Filter out savedPlace from visitedPlaces
+      exhibits.visited = u.exhibits.visited.filter((places) => { // eslint-disable-line
+        return places !== savedPlace;
+      });
+
+      // Push saved place to savedExhibits
+      exhibits.saved = u.exhibits.saved.concat(savedPlace);
+
+      // Make a new user object
+      // Make sure we don't mutate old object
+      const user = Object.assign({}, u, { exhibits });
+
       // Make a new place object
       // Make sure we don't mutate te old object
       // To do this we user Object.assing({}, ...)
       const place = Object.assign({}, p, { subType: 'saved' });
+
+      // Dispatch
+      dispatchSetUser(dispatch, user);
       dispatchChangeExhibit(dispatch, place);
       dispatchChangeCurrentPlace(dispatch, place);
     },
-    onDispatchRemovePlaceFromItinerary: (p) => {
+    onDispatchUnSavePlace: (p, u) => {
+      // Create the string to remove from database
+      const placeToRemove = `${p.colorZone}-${p.key}`;
+
+      // Filter out savedPlace from visitedPlaces
+      const saved = u.exhibits.saved.filter((places) => { // eslint-disable-line
+        return places !== placeToRemove;
+      });
+
+      // Make a new exhibits user object without mutating old one
+      const exhibits = Object.assign({}, { recommended: u.exhibits.recommended, visited: u.exhibits.visited, saved });
+
+      // Make a new user object
+      // Make sure we don't mutate old object
+      const user = Object.assign({}, u, { exhibits });
+
       // Make a new place object
       // Make sure we don't mutate te old object
       // To do this we user Object.assing({}, ...)
       const newSubType = (p.previousSubType !== p.subType) ? p.previousSubType : 'recommended';
       const place = Object.assign({}, p, { subType: newSubType });
+      dispatchSetUser(dispatch, user);
       dispatchChangeExhibit(dispatch, place);
       dispatchChangeCurrentPlace(dispatch, place);
     },

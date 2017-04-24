@@ -72,6 +72,11 @@ function createInitialUserState() {
       lng: '',
     },
     interests: '',
+    exhibits: {
+      recommended: [''],
+      saved: [''],
+      visited: [''],
+    },
   };
 }
 
