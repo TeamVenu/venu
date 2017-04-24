@@ -1,0 +1,36 @@
+{
+  "medical": [
+    {
+      "key": 0,
+      "id": 0,
+      "name": "Engineering Park Emergency Station",
+      "type": "facility",
+      "subType": "medical",
+      "colorZone": "engineeringPark",
+      "imagineRitArea": "Engineering Park",
+      "building": "Outside",
+      "location": "West of James E. Booth",
+      "tags": ["Emergency", "First Aid", "Medical"],
+      "lat": 43.085261,
+      "lng": -77.678228,
+      "description": "Visit the emergency station for any medical or first aid needs.",
+      "year": 2017
+    },
+    {
+      "key": 1,
+      "id": 1,
+      "name": "Recreation Zone Emergency Station",
+      "type": "facility",
+      "subType": "medical",
+      "colorZone": "recreationZone",
+      "imagineRitArea": "Recreation Zone",
+      "building": "Outside",
+      "location": "West of Gordon Field House",
+      "tags": ["Emergency", "First Aid", "Medical"],
+      "lat": 43.085174,
+      "lng": -77.673198,
+      "description": "Visit the emergency station for any medical or first aid needs.",
+      "year": 2017
+    }
+  ]
+}
