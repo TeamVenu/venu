@@ -90,6 +90,11 @@ export function* createUser() {
         interests: '',
         role: 'user',
         email,
+        exhibits: {
+          recommended: [''],
+          saved: [''],
+          visited: [''],
+        },
       },
     }));
 
@@ -116,6 +121,7 @@ export function* updateUser() {
       parking: user.parking,
       role: user.role,
       uid: user.uid,
+      exhibits: user.exhibits,
     });
 
     yield put(updateUserDataSuccess());
