@@ -58,15 +58,6 @@ import {
 
 // Returns intial user stage with localStorage
 function createInitialUserState() {
-  // const name = (localStorage.getItem('venuUserName')) ? localStorage.getItem('venuUserName') : '';
-  // const email = (localStorage.getItem('venuUserEmail')) ? localStorage.getItem('venuUserEmail') : '';
-  // const locationLat = (localStorage.getItem('venuUserLocationLat')) ? parseFloat(localStorage.getItem('venuUserLocationLat')) : 43.084167;
-  // const locationLng = (localStorage.getItem('venuUserLocationLng')) ? parseFloat(localStorage.getItem('venuUserLocationLng')) : -77.677085;
-  // const locationEnabled = (localStorage.getItem('venuUserLocationEnabled')) ? localStorage.getItem('venuUserLocationEnabled') : null;
-  // const parkingLat = (localStorage.getItem('venuParkingLocationLat')) ? parseFloat(localStorage.getItem('venuParkingLocationLat')) : null;
-  // const parkingLng = (localStorage.getItem('venuParkingLocationLng')) ? parseFloat(localStorage.getItem('venuParkingLocationLng')) : null;
-  // const interests = (localStorage.getItem('venuUserInterests')) ? localStorage.getItem('venuUserInterests').split('-') : [];
-
   return {
     uid: '',
     name: '',
@@ -80,10 +71,12 @@ function createInitialUserState() {
       lat: '',
       lng: '',
     },
-//    interests, 
-//    interests, 
-      
     interests: '',
+    exhibits: {
+      recommended: [''],
+      saved: [''],
+      visited: [''],
+    },
   };
 }
 
@@ -137,7 +130,7 @@ const initialState = fromJS({
   },
   // Current place
   currentPlace: {},
-    destination: {},
+  destination: {},
 });
 
 /**
@@ -260,8 +253,8 @@ function appReducer(state = initialState, action) {
       return state
         .setIn(['exhibits', action.value.colorZone, action.value.key], action.value);
     case NAVIGATE_TO_PLACE:
-       return state
-               .set('destination', action.value);
+      return state
+        .set('destination', action.value);
     case LIKE_PLACE:
     case UNLIKE_PLACE:
     default:

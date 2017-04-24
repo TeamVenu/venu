@@ -1,32 +1,33 @@
 {
-  "computerZone": [{
-    "key": 0,
-    "id": 2611,
-    "name": "2017 Graduate Capstone Gallery",
-    "type": "exhibit",
-    "subType": "default",
-    "previousSubType": "default",
-    "colorZone": "computerZone",
-    "imagineRitArea": "Computer Zone",
-    "building": "Golisano Hall",
-    "location": "Room 2000",
-    "ageRange": "All ages",
-    "hoursRunning": "All day",
-    "exhibitCode": "GOL-2001",
-    "tags": [
-      "Design",
-      "Gaming",
-      "Senior Projects",
-      "Technology"
-    ],
-    "lat": 43.084637,
-    "lng": -77.679868,
-    "alt": 0,
-    "distance": 0,
-    "description": "3 Games - PrincessCape A puzzle platformer where the princess decides she can save herself. Princess Elwynn finds the power of a magical cape, speedy boots, magnetic gloves and herself. - Gloom Box Use music to alter the world and solve puzzles. Mash up music to discover new abilities. - Y.A.W. (Yet Another World) A V.R. simulation of a planetoid that responds to your exploration. Discover creatures and features as the world comes to life.",
-    "exhibitors": "Elouise Oyzon, Arun Krishnakumar, Jeffery Kelly, Anthony Zalar, Chen Yang, Reuben Brenner-Adams, Stein Astor Fernandez",
-    "year": 2017
-    },
+  "computerZone": [
+    {
+      "key": 0,
+      "id": 2611,
+      "name": "2017 Graduate Capstone Gallery",
+      "type": "exhibit",
+      "subType": "default",
+      "previousSubType": "default",
+      "colorZone": "computerZone",
+      "imagineRitArea": "Computer Zone",
+      "building": "Golisano Hall",
+      "location": "Room 2000",
+      "ageRange": "All ages",
+      "hoursRunning": "All day",
+      "exhibitCode": "GOL-2001",
+      "tags": [
+        "Design",
+        "Gaming",
+        "Senior Projects",
+        "Technology"
+      ],
+      "lat": 43.084637,
+      "lng": -77.679868,
+      "alt": 0,
+      "distance": 0,
+      "description": "3 Games - PrincessCape A puzzle platformer where the princess decides she can save herself. Princess Elwynn finds the power of a magical cape, speedy boots, magnetic gloves and herself. - Gloom Box Use music to alter the world and solve puzzles. Mash up music to discover new abilities. - Y.A.W. (Yet Another World) A V.R. simulation of a planetoid that responds to your exploration. Discover creatures and features as the world comes to life.",
+      "exhibitors": "Elouise Oyzon, Arun Krishnakumar, Jeffery Kelly, Anthony Zalar, Chen Yang, Reuben Brenner-Adams, Stein Astor Fernandez",
+      "year": 2017
+      },
     {
       "key": 1,
       "id": 186,
@@ -348,8 +349,8 @@
         "Student",
         "Organization"
       ],
-      "lat": 43.041136,
-      "lng": -77.680032,
+      "lat": 43.084287,
+      "lng": -77.679917,
       "alt": 0,
       "distance": 0,
       "description": "Cosplay is quickly becoming a recognized term. Think of it as Halloween dressing up whenever you feel like. This activity is catered towards children, but anyone can participate. There will be materials, supplies, and several experienced cosplayers that will help you dress up and look like your favorite characters using limited supplies. You don't need a lot of cosplay. There will be a photo booth setup where you can take your photo afterwards with your finished creation.",
@@ -600,38 +601,12 @@
       "lng": -77.680030,
       "alt": 0,
       "distance": 0,
-      "description": "Join us in Golisano room 1467!",
+      "description": "Android apps operate under a permission-based system where an app requires specific permissions to carry out specific functionality. In Android's new permission model (Android 'M'), users are no longer expected to confirm or deny all requested permissions upon installation of the application. The app may now prompt users during runtime for permissions as they are needed. This allows users to confirm or deny specific permission requests, but still be able to use the app. However, these profound changes lead to some challenging questions, one of which is if users feel more comfortable with this new permission model, or if it will lead to further confusion and concerns over the app's requested permissions?",
       "exhibitors": "Daniel Krutz",
       "year": 2017
     },
     {
       "key": 22,
-      "id": 3831,
-      "name": "Investigating Android M Permissions",
-      "type": "exhibit",
-      "subType": "default",
-      "previousSubType": "default",
-      "colorZone": "computerZone",
-      "imagineRitArea": "Computer Zone",
-      "building": "Golisano Hall",
-      "location": "Golisano Hall SE Hallway",
-      "ageRange": "All ages",
-      "hoursRunning": "All day",
-      "exhibitCode": "GOL-1467",
-      "tags": [
-        "Software",
-        "Technology"
-      ],
-      "lat": 43.084066,
-      "lng": -77.689926,
-      "alt": 0,
-      "distance": 0,
-      "description": "Android apps operate under a permission-based system where an app requires specific permissions to carry out specific functionality. In Android's new permission model (Android 'M'), users are no longer expected to confirm or deny all requested permissions upon installation of the application. The app may now prompt users during runtime for permissions as they are needed. This allows users to confirm or deny specific permission requests, but still be able to use the app. However, these profound changes lead to some challenging questions, one of which is if users feel more comfortable with this new permission model, or if it will lead to further confusion and concerns over the app's requested permissions?",
-      "exhibitors": "Heather Cottone",
-      "year": 2017
-    },
-    {
-      "key": 23,
       "id": 2456,
       "name": "Jerusalem VR Experience",
       "type": "exhibit",
@@ -664,7 +639,7 @@
       "year": 2017
     },
     {
-      "key": 24,
+      "key": 23,
       "id": 2061,
       "name": "Kill the Streamer",
       "type": "exhibit",
@@ -691,7 +666,7 @@
       "year": 2017
     },
     {
-      "key": 25,
+      "key": 24,
       "id": 3711,
       "name": "Off the Wall",
       "type": "exhibit",
@@ -709,8 +684,8 @@
         "Design",
         "Gaming"
       ],
-      "lat": 43.084047,
-      "lng": -77.689939,
+      "lat": 43.084290,
+      "lng": -77.679863,
       "alt": 0,
       "distance": 0,
       "description": "Join us in room 1460 in Golisano!",
@@ -718,7 +693,7 @@
       "year": 2017
     },
     {
-      "key": 26,
+      "key": 25,
       "id": 3156,
       "name": "Pachink-Off - A Head to Head Gambling Game",
       "type": "exhibit",
@@ -745,7 +720,7 @@
       "year": 2017
     },
     {
-      "key": 27,
+      "key": 26,
       "id": 4051,
       "name": "Practical Ransomware Detection",
       "type": "exhibit",
@@ -772,7 +747,7 @@
       "year": 2017
     },
     {
-      "key": 28,
+      "key": 27,
       "id": 3171,
       "name": "Project Betrayal",
       "type": "exhibit",
@@ -797,7 +772,7 @@
       "year": 2017
     },
     {
-      "key": 29,
+      "key": 28,
       "id": 3671,
       "name": "Raspberry Pi Arcade Table",
       "type": "exhibit",
@@ -828,7 +803,7 @@
       "year": 2017
     },
     {
-      "key": 30,
+      "key": 29,
       "id": 3716,
       "name": "RITficial Intelligence",
       "type": "exhibit",
@@ -859,7 +834,7 @@
       "year": 2017
     },
     {
-      "key": 31,
+      "key": 30,
       "id": 1416,
       "name": "Sight: A VR Horror Experience",
       "type": "exhibit",
@@ -886,7 +861,7 @@
       "year": 2017
     },
     {
-      "key": 32,
+      "key": 31,
       "id": 3781,
       "name": "Society of Software Engineers Projects",
       "type": "exhibit",
@@ -914,7 +889,7 @@
       "year": 2017
     },
     {
-      "key": 33,
+      "key": 32,
       "id": 1846,
       "name": "taskIt",
       "type": "exhibit",
@@ -942,7 +917,7 @@
       "year": 2017
     },
     {
-      "key": 34,
+      "key": 33,
       "id": 3016,
       "name": "Team Based Fighting Game - Chosen Fate",
       "type": "exhibit",
@@ -972,7 +947,7 @@
       "year": 2017
     },
     {
-      "key": 35,
+      "key": 34,
       "id": 316,
       "name": "Undergraduate Research in Computational Sensing",
       "type": "exhibit",
@@ -998,7 +973,7 @@
       "year": 2017
     },
     {
-      "key": 36,
+      "key": 35,
       "id": 2936,
       "name": "VRoom - A VR Car Combat Game",
       "type": "exhibit",
@@ -1025,7 +1000,7 @@
       "year": 2017
     },
     {
-      "key": 37,
+      "key": 36,
       "id": 3651,
       "name": "WiC Networking Alumni App",
       "type": "exhibit",

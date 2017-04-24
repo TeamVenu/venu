@@ -11,7 +11,7 @@ import {
   makeSelectExhibits,
   makeSelectFacilities,
   makeSelectCurrentPlace,
-  makeSelectDestination, 
+  makeSelectDestination,
 } from 'containers/App/selectors';
 
 // Dispatches
@@ -35,29 +35,10 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
     this.renderUserParking = this.renderUserParking.bind(this);
     this.renderUserPin = this.renderUserPin.bind(this);
     this.renderPlacesPin = this.renderPlacesPin.bind(this);
-      
   }
-    
-  
-    
-//componentDidMount(){
-//    const { onUserLocationChange} = this.props;
-//    navigator.geolocation.watchPosition((position) => {
-//                var location = {
-//    lat: position.coords.latitude,
-//    lng: position.coords.longitude,
-//  };
-//      onUserLocationChange(location);
-//        //console.log(location);
-//    }, null ,{enableHighAccuracy: true, timeout: 20000, maximumAge: 1000});
-//
-//
-//} 
-    
 
   renderUserPin() {
-    const { user, onChangeMapCenter} = this.props;
-
+    const { user, onChangeMapCenter } = this.props;
 
     return (
       <UserPinWrapper
@@ -120,10 +101,7 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
   }
 
   render() {
-    const { venuMap, destination } = this.props;
-      
-//      console.log('Destination');
-//      console.log(destination);
+    const { venuMap } = this.props;
 
     // Convert venuMap to a JS object
     const mapProps = venuMap.toJS();
@@ -136,9 +114,9 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
         options={mapProps.options}
         hoverDistance={mapProps.markerSize}
       >
-        { this.renderPlacesPin() }
-        { this.renderUserParking() }
-        { this.renderUserPin() }
+        {this.renderPlacesPin()}
+        {this.renderUserParking()}
+        {this.renderUserPin()}
       </GoogleMap>
     );
   }
@@ -153,8 +131,8 @@ VenuMap.propTypes = {
   mapMode: T.string.isRequired,
   exhibits: T.object.isRequired,
   facilities: T.object.isRequired,
-  destination: T.object,
-  onUserLocationChange: T.func,
+  // destination: T.object,
+  // onUserLocationChange: T.func,
 };
 
 const mapStateToProps = createStructuredSelector({
