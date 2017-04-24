@@ -176,6 +176,7 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
 
   renderActionsForPlace() {
     const {
+      user,
       currentPlace,
       onDispatchLikePlace,
       onDispatchExhibitCheckIn,
@@ -206,7 +207,7 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
           <Button
             name={'Check-in'}
             icon={'ion-checkmark-round'}
-            onClickEvent={() => { onDispatchExhibitCheckIn(place); }}
+            onClickEvent={() => { onDispatchExhibitCheckIn(place, user); }}
           />
         </li>
       </FlexListView>
@@ -215,6 +216,7 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
 
   renderActionsForPlaceVisited() {
     const {
+      user,
       currentPlace,
       onDispatchExhibitCheckOut,
       onDispatchNavigateToPlace,
@@ -237,7 +239,7 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
           <Button
             name={'Remove Check-in'}
             icon={'ion-close-round'}
-            onClickEvent={() => { onDispatchExhibitCheckOut(place); }}
+            onClickEvent={() => { onDispatchExhibitCheckOut(place, user); }}
           />
         </li>
       </FlexListView>
@@ -376,7 +378,7 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
           case 'saved':
             primaryAction = (
               <PrimaryButton
-                onClick={() => { onDispatchExhibitCheckIn(place); }}
+                onClick={() => { onDispatchExhibitCheckIn(place, user); }}
               >
                 <Ionicon icon={'icon ion-checkmark-round'} />
                 Check-In
@@ -493,7 +495,7 @@ export function mapDispatchToProps(dispatch) {
       // Create the string to remove from database
       const placeToRemove = `${p.colorZone}-${p.key}`;
 
-      // Filter out savedPlace from visitedPlaces
+      // Filter out placeToRemove from saved places
       const saved = u.exhibits.saved.filter((places) => { // eslint-disable-line
         return places !== placeToRemove;
       });
@@ -514,19 +516,61 @@ export function mapDispatchToProps(dispatch) {
       dispatchChangeExhibit(dispatch, place);
       dispatchChangeCurrentPlace(dispatch, place);
     },
-    onDispatchExhibitCheckIn: (p) => {
+    onDispatchExhibitCheckIn: (p, u) => {
+      const exhibits = {
+        recommended: [],
+        visited: [],
+        saved: [],
+      };
+
+      // Create the string to store in database
+      const visitedPlace = `${p.colorZone}-${p.key}`;
+
+      // Filter out visitedPlace from recommended places
+      exhibits.recommended = u.exhibits.recommended.filter((places) => { // eslint-disable-line
+        return places !== visitedPlace;
+      });
+
+      // Filter out visitedPlace from saved places
+      exhibits.saved = u.exhibits.saved.filter((places) => { // eslint-disable-line
+        return places !== visitedPlace;
+      });
+
+      // Push saved place to savedExhibits
+      exhibits.visited = u.exhibits.visited.concat(visitedPlace);
+
+      // Make a new user object
+      // Make sure we don't mutate old object
+      const user = Object.assign({}, u, { exhibits });
+
       // Make a new place object
       // Make sure we don't mutate te old object
       // To do this we user Object.assing({}, ...)
       const place = Object.assign({}, p, { previousSubType: p.subType, subType: 'visited' });
+      dispatchSetUser(dispatch, user);
       dispatchChangeExhibit(dispatch, place);
       dispatchChangeCurrentPlace(dispatch, place);
     },
-    onDispatchExhibitCheckOut: (p) => {
+    onDispatchExhibitCheckOut: (p, u) => {
+      // Create the string to remove from database
+      const placeToRemove = `${p.colorZone}-${p.key}`;
+
+      // Filter out placeToRemove from visited
+      const visited = u.exhibits.visited.filter((places) => { // eslint-disable-line
+        return places !== placeToRemove;
+      });
+
+      // Make a new exhibits user object without mutating old one
+      const exhibits = Object.assign({}, { recommended: u.exhibits.recommended, saved: u.exhibits.saved, visited });
+
+      // Make a new user object
+      // Make sure we don't mutate old object
+      const user = Object.assign({}, u, { exhibits });
       // Make a new place object
       // Make sure we don't mutate te old object
       // To do this we user Object.assing({}, ...)
       const place = Object.assign({}, p, { subType: p.previousSubType });
+      dispatchSetUser(dispatch, user);
       dispatchChangeExhibit(dispatch, place);
       dispatchChangeCurrentPlace(dispatch, place);
     },
