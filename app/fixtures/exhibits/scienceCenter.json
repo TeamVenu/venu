@@ -14,7 +14,13 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-A006",
-      "tags": ["Math" ,"Science", "Software", "STEM", "Technology"],
+      "tags": [
+        "Math",
+        "Science",
+        "Software",
+        "STEM",
+        "Technology"
+      ],
       "lat": 43.083849,
       "lng": -77.676940,
       "alt": 0,
@@ -23,7 +29,7 @@
       "exhibitors": "Hans-Peter Bischof, Manuela Campanelli, Joshua Faber, Jake Lange, Carlos Lousto, Vassilios Mewes, Jason Nordhaus, Jam Sadiq, Andrew Williamson, Daniel Wysocki, Yosef Zlochower, Dennis Bowen",
       "year": 2017
     },
-      {
+    {
       "key": 1,
       "id": 691,
       "name": "Cosmic Companions: From Planets to Black Holes",
@@ -37,7 +43,12 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "OUT-0205",
-      "tags": ["Science", "Technology", "Multidisciplinary", "STEM"],
+      "tags": [
+        "Science",
+        "Technology",
+        "Multidisciplinary",
+        "STEM"
+      ],
       "lat": 43.083309,
       "lng": -77.677336,
       "alt": 0,
@@ -46,7 +57,7 @@
       "exhibitors": "Kristina Punzi, Chi Nguyen, Jared Wofford, Zach Silberman, Kevin Cooke, Triana Almeyda, Andy Robinson, Yashashree Jadhav, Michael Richmond, Tanmayee Gupte, Ashley Frank, Muyun Liu, Victoria Butler, Brittany Vanderhoof, Annie Dickson-Vandervelde, Meaghann Stoelting, Jen Connelly, Krystal Tyler, Gabriel Guidarelli, Jesse Bublitz, Secret Lizard Agent Trent Seelig, Ektaben Shah, Jake Lange, Jeyhan Kartaltepe, Mike Zemcov",
       "year": 2017
     },
-      {
+    {
       "key": 2,
       "id": 2531,
       "name": "Cradle to Cradle Product Design Challenge",
@@ -60,7 +71,14 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "OUT-0250",
-      "tags": ["Business", "Design", "Engineering", "Environment", "Sustainability", "STEM"],
+      "tags": [
+        "Business",
+        "Design",
+        "Engineering",
+        "Environment",
+        "Sustainability",
+        "STEM"
+      ],
       "lat": 43.083373,
       "lng": -77.677912,
       "alt": 0,
@@ -69,7 +87,7 @@
       "exhibitors": "Daniel Rouleau, Morgan Mistysyn, Krista Stainslow, Alyssa Reome, Wil Rudan, Tyler Valentine, Gary Capriotti, Victoria Nolletti, Shannon Driess",
       "year": 2017
     },
-      {
+    {
       "key": 3,
       "id": 2356,
       "name": "Creating Parabolic Curves From Straight Lines",
@@ -83,7 +101,13 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-A005",
-      "tags": ["Art", "Design", "Student Organization", "Math", "STEM"],
+      "tags": [
+        "Art",
+        "Design",
+        "Student Organization",
+        "Math",
+        "STEM"
+      ],
       "lat": 43.083524,
       "lng": -77.677128,
       "alt": 0,
@@ -92,7 +116,7 @@
       "exhibitors": "Renee Meinhold, Erin Neidhart, Ellen Baillie, Nate Barlow, Logan Melican, Jack Bates, Ender Erimhan, Mike Spink, Connor Devitt, Adam Giammarese, Vu Le",
       "year": 2017
     },
-      {
+    {
       "key": 4,
       "id": 3791,
       "name": "Data Analytics for i-ALERT",
@@ -106,7 +130,12 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-1003",
-      "tags": ["Engineering", "Software", "Multidisciplinary", "STEM"],
+      "tags": [
+        "Engineering",
+        "Software",
+        "Multidisciplinary",
+        "STEM"
+      ],
       "lat": 43.083516,
       "lng": -77.677202,
       "alt": 0,
@@ -115,7 +144,7 @@
       "exhibitors": "Heather Cottone, Mihail Barbosu, Dorin Patru, Austin Bodzas, Daniel Mitchell, Alec Herbert",
       "year": 2017
     },
-      {
+    {
       "key": 5,
       "id": 2166,
       "name": "DIY Science: Experiments You CAN Try at Home!",
@@ -129,7 +158,12 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-1002",
-      "tags": ["Science", "Student Organization", "Multidisciplinary", "STEM"],
+      "tags": [
+        "Science",
+        "Student Organization",
+        "Multidisciplinary",
+        "STEM"
+      ],
       "lat": 43.083642,
       "lng": -77.677233,
       "alt": 0,
@@ -138,7 +172,7 @@
       "exhibitors": "Callie Donahue, Ashley Adair, Madison Ricco, Luke Laffey, Maria Cervantes, Erin McCarthy, Gregory Curtin, Jeremy Kane",
       "year": 2017
     },
-      {
+    {
       "key": 6,
       "id": 1881,
       "name": "Engineers for a Sustainable World",
@@ -152,7 +186,18 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "OUT-0240",
-      "tags": ["Community", "Energy", "Engineering", "Environment", "Food", "Health", "Science", "Student Organization", "Sustainability", "STEM"],
+      "tags": [
+        "Community",
+        "Energy",
+        "Engineering",
+        "Environment",
+        "Food",
+        "Health",
+        "Science",
+        "Student Organization",
+        "Sustainability",
+        "STEM"
+      ],
       "lat": 43.083237,
       "lng": -77.678341,
       "alt": 0,
@@ -161,7 +206,7 @@
       "exhibitors": "Gabriel Kramer, Andrew Loriot, Chris Kratzer, Angela Gallo, Mackenzie Frye, Lauren Kepenis, Andrew Fisher, Brian Yu, Josh Noble, Wil Rudan, Jared Peters, Emmanuel Okafor, Seth Sieger, Hannah Weppner",
       "year": 2017
     },
-      {
+    {
       "key": 7,
       "id": 3276,
       "name": "Experimenting with Aquaponics and Vertical Farming",
@@ -175,7 +220,17 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "OUT-0235",
-      "tags": ["Community", "Energy", "Engineering", "Environment", "Food", "Health", "Student Organization", "Sustainability", "Multidisciplinary"],
+      "tags": [
+        "Community",
+        "Energy",
+        "Engineering",
+        "Environment",
+        "Food",
+        "Health",
+        "Student Organization",
+        "Sustainability",
+        "Multidisciplinary"
+      ],
       "lat": 43.083330,
       "lng": -77.677870,
       "alt": 0,
@@ -184,7 +239,7 @@
       "exhibitors": "Briana Goold, Sarah Nick, Ignacio Martos, Josh Evans",
       "year": 2017
     },
-      {
+    {
       "key": 8,
       "id": 946,
       "name": "Explorations in Physics",
@@ -198,7 +253,12 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-1300",
-      "tags": ["Science", "Technology", "Math", "STEM"],
+      "tags": [
+        "Science",
+        "Technology",
+        "Math",
+        "STEM"
+      ],
       "lat": 43.083484,
       "lng": -77.676907,
       "alt": 0,
@@ -207,7 +267,7 @@
       "exhibitors": "Zackary Santos, Kellianne Kornick, Justin Gallagher, David Kelley, Alex Kolberg, Connor Shamis, Leo Sutter, Brian Wojcik, Matthew Delfavero, Jason Walls, Tessalie Caze-Cortes, Wyatt Wetzel, Samuel Washburn, Jacob Palmerio, Rifet Musedinovic, Ian Kecskes, Zachary Assenmacher, Thomas Kilmer, Devon Christman, Quinton LoRe, George McMurdy, Myers Weidner, Benjamin Scott, Christian Cammarota, Stefano Marin, Daniel Gysbers, Frank Schooner, Henry Huang, Lucas Shadler, Ryan Warner",
       "year": 2017
     },
-      {
+    {
       "key": 9,
       "id": 2241,
       "name": "Frankenfoods",
@@ -221,7 +281,12 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-1125",
-      "tags": ["Environment", "Food", "Science", "Student Organization"],
+      "tags": [
+        "Environment",
+        "Food",
+        "Science",
+        "Student Organization"
+      ],
       "lat": 43.083601,
       "lng": -77.677584,
       "alt": 0,
@@ -230,7 +295,7 @@
       "exhibitors": "Isabelle O'Bryon, Melissa Barton, Josh Evans, Ali Cala , Nic Burns, Spencer Richman, Lily Cisco, Jake Haut, Grace Morales, Yara Rose, Nicole Cavanaugh, Bethany Hartley, Callie Donahue, Maria Cervantes, Akua Donkor",
       "year": 2017
     },
-      {
+    {
       "key": 10,
       "id": 1186,
       "name": "Fruity DNA Necklaces",
@@ -244,7 +309,14 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-A365",
-      "tags": ["Environment", "Food", "Health", "Science", "Technology", "STEM"],
+      "tags": [
+        "Environment",
+        "Food",
+        "Health",
+        "Science",
+        "Technology",
+        "STEM"
+      ],
       "lat": 43.083470,
       "lng": -77.677518,
       "alt": 0,
@@ -253,7 +325,7 @@
       "exhibitors": "Dawn Carter, Karl Brylow, Janessa Morelli, Nana Aikins, Nicole Pannullo, Breanna Laber, Krista Rohan, Zayneb Jaff, Tilor Hallquist, Rachel Taylor, Seema Thomas, Hailey Richmond-Boudewyns, Carter Moleski, Liam Megraw, Zach Wentlent, Kelleen McGuinness, JENIFER ROSETE, IMAN FARID, ADITYA GUPTA, MOHAMMED ALSHAMMARY, Matthew Hulbert, Cole Roemer, Andres Mora, Andy Doland, Cooper Norris, Nicole Cavanaugh, Mariel Pridmore, Loryn Johnson",
       "year": 2017
     },
-      {
+    {
       "key": 11,
       "id": 1946,
       "name": "How Does RIT Use a Greenhouse?",
@@ -267,7 +339,12 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-A365",
-      "tags": ["Community", "Energy", "Science", "STEM"],
+      "tags": [
+        "Community",
+        "Energy",
+        "Science",
+        "STEM"
+      ],
       "lat": 43.083354,
       "lng": -77.677207,
       "alt": 0,
@@ -276,7 +353,7 @@
       "exhibitors": "Jennifer Liedkie, Mark Liedkie, amanda dolan, Nic Burns",
       "year": 2017
     },
-      {
+    {
       "key": 12,
       "id": 216,
       "name": "Impacts of Climate Change on the Finger Lakes Wine",
@@ -290,7 +367,13 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "OUT-0200",
-      "tags": ["Community", "Environment", "Food", "Sustainability", "Multidisciplinary"],
+      "tags": [
+        "Community",
+        "Environment",
+        "Food",
+        "Sustainability",
+        "Multidisciplinary"
+      ],
       "lat": 43.083251,
       "lng": -77.677523,
       "alt": 0,
@@ -299,7 +382,7 @@
       "exhibitors": "Corey ptak",
       "year": 2017
     },
-      {
+    {
       "key": 13,
       "id": 2126,
       "name": "Just Sharing Something Viral",
@@ -313,7 +396,11 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-1231",
-      "tags": ["Environment", "Health", "Science"],
+      "tags": [
+        "Environment",
+        "Health",
+        "Science"
+      ],
       "lat": 43.083643,
       "lng": -77.677207,
       "alt": 0,
@@ -322,7 +409,7 @@
       "exhibitors": "Julie Thomas, Mazin Mar , Ali Cala , Sara Mallory, Rebecca Walden, Sitisarahfatin Shamsuddin, Nor Athirah Ahmadtarmizi, Nur Hidayah Mohd Rasid, Loura Nasif, Nurul Humaira Mohd Redzuan , Nur Amira Md Amin, Andy Lu, Alexandra Mace, Grace Morales, Zur Raiha Hamim, Jazrina Mohd Jasmi, Nik Norzapina Seman, Bazla Ali, Melissa Barton",
       "year": 2017
     },
-      {
+    {
       "key": 14,
       "id": 2291,
       "name": "Liquid Nitrogen Ice Cream",
@@ -336,7 +423,11 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-1154",
-      "tags": ["Food", "Science", "STEM"],
+      "tags": [
+        "Food",
+        "Science",
+        "STEM"
+      ],
       "lat": 43.083730,
       "lng": -77.677922,
       "alt": 0,
@@ -345,7 +436,7 @@
       "exhibitors": "Trent Mochel, Elliot Patnode, Megan Owens, Daniel Verrico, Eve Arnold, Kyle Tezanos, Ishita Jalan, Kris Wong, Zachary Protich, Matthew Bonney, Joe Hunt, Luke Lanza, Dennis Bogdan, Hannah Sheldon, William Charbonneau, Hailee Wetherbee, Anthony Cannella",
       "year": 2017
     },
-      {
+    {
       "key": 15,
       "id": 2281,
       "name": "Math Arts & Crafts",
@@ -359,7 +450,10 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-A004",
-      "tags": ["Art", "Math"],
+      "tags": [
+        "Art",
+        "Math"
+      ],
       "lat": 43.083491,
       "lng": -77.677067,
       "alt": 0,
@@ -368,7 +462,7 @@
       "exhibitors": "Matthew Loiacono, Josh Chasen, Hector Escobedo, Jason Carr",
       "year": 2017
     },
-      {
+    {
       "key": 16,
       "id": 3871,
       "name": "Nanomaterials: Learn and Play Demonstrations",
@@ -382,7 +476,15 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "OUT-0190",
-      "tags": ["Energy", "Gaming", "Science", "Student Organization", "Technology", "Math", "STEM"],
+      "tags": [
+        "Energy",
+        "Gaming",
+        "Science",
+        "Student Organization",
+        "Technology",
+        "Math",
+        "STEM"
+      ],
       "lat": 43.083293,
       "lng": -77.676927,
       "alt": 0,
@@ -391,7 +493,7 @@
       "exhibitors": "Michael Cross",
       "year": 2017
     },
-      {
+    {
       "key": 17,
       "id": 1996,
       "name": "Nanomaterials: Learn and Play Demonstrations",
@@ -405,7 +507,14 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-A300",
-      "tags": ["Energy", "Gaming", "Science", "Student Organization", "Technology", "Math"],
+      "tags": [
+        "Energy",
+        "Gaming",
+        "Science",
+        "Student Organization",
+        "Technology",
+        "Math"
+      ],
       "lat": 43.083493,
       "lng": -77.676902,
       "alt": 0,
@@ -414,7 +523,7 @@
       "exhibitors": "Kalathur Santhanam, Kris Wong, Nuzhet Nihaar Nasir Ahamed, Andres Dabdoub , Devarsh Manishbhai Shah, Thomas White , Kenny Baptiste , David Hurley , Martin Dann , Wenxuan Fan, Olivia SCHEIBEL , Karen Soule",
       "year": 2017
     },
-      {
+    {
       "key": 18,
       "id": 2201,
       "name": "Parabolic Mirror",
@@ -428,7 +537,11 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "OUT-0210",
-      "tags": ["Engineering", "Science", "Student Organization"],
+      "tags": [
+        "Engineering",
+        "Science",
+        "Student Organization"
+      ],
       "lat": 43.083297,
       "lng": -77.677595,
       "alt": 0,
@@ -437,7 +550,7 @@
       "exhibitors": "Travis Chaikin, Jarrod Daniels, William Woodman, Jake Rivas, Alexandra Capodicasa",
       "year": 2017
     },
-      {
+    {
       "key": 19,
       "id": 2846,
       "name": "Pie a Football Player",
@@ -451,7 +564,9 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "OUT-0255",
-      "tags": ["Sports"],
+      "tags": [
+        "Sports"
+      ],
       "lat": 43.083353,
       "lng": -77.676792,
       "alt": 0,
@@ -460,7 +575,7 @@
       "exhibitors": "Tyler Zimmermann, Sal D'Amico, Chaquan Smith, Jonah Sharp, Joe Kubiak, Cameron Garnes",
       "year": 2017
     },
-      {
+    {
       "key": 20,
       "id": 1631,
       "name": "PyPad: Making Music Fun!",
@@ -474,7 +589,13 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-A003",
-      "tags": ["Engineering", "Music", "Science", "Software", "Technology"],
+      "tags": [
+        "Engineering",
+        "Music",
+        "Science",
+        "Software",
+        "Technology"
+      ],
       "lat": 43.083483,
       "lng": -77.676981,
       "alt": 0,
@@ -483,7 +604,7 @@
       "exhibitors": "Emely Giraldo",
       "year": 2017
     },
-      {
+    {
       "key": 21,
       "id": 1541,
       "name": "Radio IP Pi Hotspot",
@@ -497,7 +618,13 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "OUT-0225",
-      "tags": ["Communication", "Engineering", "Senior Projects", "Software", "Technology"],
+      "tags": [
+        "Communication",
+        "Engineering",
+        "Senior Projects",
+        "Software",
+        "Technology"
+      ],
       "lat": 43.083328,
       "lng": -77.677924,
       "alt": 0,
@@ -506,7 +633,7 @@
       "exhibitors": "Christopher Culpepper, Ali Kazi, damodar Adhikari",
       "year": 2017
     },
-      {
+    {
       "key": 22,
       "id": 3186,
       "name": "Recover Rochester: How Do You Stack Up?",
@@ -520,7 +647,12 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "OUT-0230",
-      "tags": ["Community", "Food", "Student Organization", "Sustainability"],
+      "tags": [
+        "Community",
+        "Food",
+        "Student Organization",
+        "Sustainability"
+      ],
       "lat": 43.083292,
       "lng": -77.677805,
       "alt": 0,
@@ -529,7 +661,7 @@
       "exhibitors": "Maryah Glover, Daniel Herzig, Caleb Churchill, Allison Blakeley, Allison Moulton, Mars Ballantyne, Katherine Larson, Corey Wrigley, Walter Schaertl, Ryan Le Tourneau",
       "year": 2017
     },
-      {
+    {
       "key": 23,
       "id": 1051,
       "name": "Redefining the Goldilocks Zone",
@@ -543,7 +675,9 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-A002",
-      "tags": ["Science"],
+      "tags": [
+        "Science"
+      ],
       "lat": 43.083526,
       "lng": -77.677151,
       "alt": 0,
@@ -552,7 +686,7 @@
       "exhibitors": "Lindsey Blomquist, Roger Dube, Morgan Bauer, Catherine O'Halloran, Connor Brennan, Kayla Dingman, Valerie Yost, Joshua Monteverde, Daihlia Beckford, Guillaume Bellefleur, Michael Grant, Austin Clift",
       "year": 2017
     },
-      {
+    {
       "key": 24,
       "id": 1916,
       "name": "RIT Equestrian Club",
@@ -566,7 +700,10 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "OUT-0245",
-      "tags": ["Student Organization", "Sports"],
+      "tags": [
+        "Student Organization",
+        "Sports"
+      ],
       "lat": 43.083375,
       "lng": -77.676719,
       "alt": 0,
@@ -575,7 +712,7 @@
       "exhibitors": "Morgan Marriott, Victoria Nolletti, Krista Stainslow, Emma Bronner",
       "year": 2017
     },
-      {
+    {
       "key": 25,
       "id": 2196,
       "name": "Science Playground",
@@ -589,7 +726,11 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-1305",
-      "tags": ["Science", "Student Organization", "STEM"],
+      "tags": [
+        "Science",
+        "Student Organization",
+        "STEM"
+      ],
       "lat": 43.083488,
       "lng": -77.677026,
       "alt": 0,
@@ -598,7 +739,7 @@
       "exhibitors": "Travis Chaikin, Jarrod Daniels, Bryanne McDonough, Daniel Gysbers, Alex Gysbers, hanna berga, Sheldon Lewis II, Chris Tewksbury, Jonah Saitz, Johnny Cuevas, Rea Rudesil, Alexis Rudesil, Nathaniel Mincy, Manya Sankaran, Flint DiLella, Andrew Bentkowski, Brian Hillier , Natasha Nigam",
       "year": 2017
     },
-      {
+    {
       "key": 26,
       "id": 2506,
       "name": "Seeing the Invisible",
@@ -612,7 +753,10 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-A007",
-      "tags": ["Science", "Student Organization"],
+      "tags": [
+        "Science",
+        "Student Organization"
+      ],
       "lat": 43.083500,
       "lng": -77.677155,
       "alt": 0,
@@ -621,7 +765,7 @@
       "exhibitors": "Lauren Taylor, Zichao Han, Jacob Wirth, Kamran Binaee, Anton Travinsky, Ryan Ford, Ying-ju Chu, Dmitry Vorobiev",
       "year": 2017
     },
-      {
+    {
       "key": 27,
       "id": 3116,
       "name": "SMASH: The Coffee-Ring Effect and Tear Films",
@@ -635,7 +779,12 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-1273",
-      "tags": ["Engineering", "Science", "Math", "STEM"],
+      "tags": [
+        "Engineering",
+        "Science",
+        "Math",
+        "STEM"
+      ],
       "lat": 43.083650,
       "lng": -77.676947,
       "alt": 0,
@@ -644,7 +793,7 @@
       "exhibitors": "Kara Maki, Michael Schertzer, Collin Burkhart, Jordana O'Brien, Xi Li, Sanu Magar, Jada Brown, Anah Sadique, Mattie Valinsky, Keely Masters, Sarah Miller, Alyssa Williams, Zo Masters, Marisa Wright, Avye Stathopoulos, Xanthe Plymale, Lariba Aboyer, Abby Herman, Amanda Heron, Sophia Braithwaite, Anna McDonald, Eshmeron Subba, Payton Yelle, Manisha Giri, Kaitlin Waters, Juliana Lutzer, Jillian Russo, Sam Simpson, Keren Park",
       "year": 2017
     },
-      {
+    {
       "key": 28,
       "id": 1081,
       "name": "SPEX (Space Exploration): CubeSat Visualization",
@@ -658,7 +807,18 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-1004",
-      "tags": ["Communication", "Design", "Energy", "Engineering", "Science", "Software", "Student Organization", "Technology", "Multidisciplinary", "STEM"],
+      "tags": [
+        "Communication",
+        "Design",
+        "Energy",
+        "Engineering",
+        "Science",
+        "Software",
+        "Student Organization",
+        "Technology",
+        "Multidisciplinary",
+        "STEM"
+      ],
       "lat": 43.083500,
       "lng": -77.677105,
       "alt": 0,
@@ -667,7 +827,7 @@
       "exhibitors": "Austin Bodzas, Jeremy Quinn, Chris Johnson, Samuel Chen, Walter Schaertl, Alec Herbert, Amber Dubill, Daniel Mitchell, Mihail Barbosu",
       "year": 2017
     },
-      {
+    {
       "key": 29,
       "id": 496,
       "name": "SPEX Arcjet Thruster",
@@ -681,7 +841,14 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-1003",
-      "tags": ["Engineering", "Senior Projects", "Science", "Student Organization", "Technology", "STEM"],
+      "tags": [
+        "Engineering",
+        "Senior Projects",
+        "Science",
+        "Student Organization",
+        "Technology",
+        "STEM"
+      ],
       "lat": 43.083549,
       "lng": -77.677112,
       "alt": 0,
@@ -690,7 +857,7 @@
       "exhibitors": "Philip Linden, Anthony Higgins, Matt Giuffre, Dylan Bruce, James Gandek",
       "year": 2017
     },
-      {
+    {
       "key": 30,
       "id": 2001,
       "name": "SPEX: Astrotracking Team",
@@ -704,7 +871,16 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-1003",
-      "tags": ["Design", "Engineering", "Science", "Student Organization", "Photography", "Math", "Multidisciplinary", "STEM"],
+      "tags": [
+        "Design",
+        "Engineering",
+        "Science",
+        "Student Organization",
+        "Photography",
+        "Math",
+        "Multidisciplinary",
+        "STEM"
+      ],
       "lat": 43.083549,
       "lng": -77.677211,
       "alt": 0,
@@ -713,7 +889,7 @@
       "exhibitors": "Amber Dubill, Marilyn Wolbert, Evan Putnam, James Parkus, Austin Bodzas, Drew Walters, Mihail Barbosu, Ryan Portocarrero",
       "year": 2017
     },
-      {
+    {
       "key": 31,
       "id": 1356,
       "name": "SPEX: High Altitude Ballooning",
@@ -727,7 +903,18 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-1003",
-      "tags": ["Communication", "Design", "Engineering", "Science", "Software", "Student Organization", "Technology", "Math", "Multidisciplinary", "STEM"],
+      "tags": [
+        "Communication",
+        "Design",
+        "Engineering",
+        "Science",
+        "Software",
+        "Student Organization",
+        "Technology",
+        "Math",
+        "Multidisciplinary",
+        "STEM"
+      ],
       "lat": 43.083581,
       "lng": -77.677161,
       "alt": 0,
@@ -736,7 +923,7 @@
       "exhibitors": "Drew Walters, Amber Dubill, Austin Bodzas, James Parkus, david breen, Alec Herbert, Samuel Chen, Ryan Portocarrero, Mihail Barbosu, Daniel Mitchell, Evan Putnam, Dorin Patru, Christian Pape, Matthew Sisson",
       "year": 2017
     },
-      {
+    {
       "key": 32,
       "id": 1366,
       "name": "SPEX: Orbit Simulation and Design",
@@ -750,7 +937,13 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-1003",
-      "tags": ["Engineering", "Science", "Student Organization", "Technology", "STEM"],
+      "tags": [
+        "Engineering",
+        "Science",
+        "Student Organization",
+        "Technology",
+        "STEM"
+      ],
       "lat": 43.083597,
       "lng": -77.677095,
       "alt": 0,
@@ -759,7 +952,7 @@
       "exhibitors": "Nicole Cuello Wajdowicz, Jacob Gutwirth, Brandon Alerte, Varun Bhalerao, William Dzialak, Amber Dubill",
       "year": 2017
     },
-      {
+    {
       "key": 33,
       "id": 1811,
       "name": "SPEX: Propulsion",
@@ -773,7 +966,15 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-1003",
-      "tags": ["Design", "Engineering", "Science", "Technology", "Math", "Multidisciplinary", "STEM"],
+      "tags": [
+        "Design",
+        "Engineering",
+        "Science",
+        "Technology",
+        "Math",
+        "Multidisciplinary",
+        "STEM"
+      ],
       "lat": 43.083437,
       "lng": -77.677090,
       "alt": 0,
@@ -782,7 +983,7 @@
       "exhibitors": "James Parkus, Amber Dubill, Neil Bhasme, Varun Bhalerao, Jacob Gutwirth, Hunter Collins, Elise King, Mihail Barbosu",
       "year": 2017
     },
-      {
+    {
       "key": 34,
       "id": 1396,
       "name": "SPEX: Real Time Sensor Visualization",
@@ -796,7 +997,14 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-1003",
-      "tags": ["Engineering", "Science", "Software", "Student Organization", "Technology", "STEM"],
+      "tags": [
+        "Engineering",
+        "Science",
+        "Software",
+        "Student Organization",
+        "Technology",
+        "STEM"
+      ],
       "lat": 43.083437,
       "lng": -77.677148,
       "alt": 0,
@@ -805,7 +1013,7 @@
       "exhibitors": "Thomas Tarazevits, Amber Dubill, Mihail Barbosu",
       "year": 2017
     },
-      {
+    {
       "key": 35,
       "id": 1386,
       "name": "SPEX: Satellite Comms and Telescope Automation",
@@ -819,7 +1027,15 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-1003",
-      "tags": ["Communication", "Engineering", "Science", "Student Organization", "Technology", "Photography", "STEM"],
+      "tags": [
+        "Communication",
+        "Engineering",
+        "Science",
+        "Student Organization",
+        "Technology",
+        "Photography",
+        "STEM"
+      ],
       "lat": 43.083479,
       "lng": -77.677104,
       "alt": 0,
@@ -828,7 +1044,7 @@
       "exhibitors": "Evan Putnam, Amber Dubill, Henry Yaeger, Ryan Portocarrero, Helen O'Connell, John LeBrun, Marilyn Wolbert, Mihail Barbosu",
       "year": 2017
     },
-      {
+    {
       "key": 36,
       "id": 1446,
       "name": "The Science of Art",
@@ -842,7 +1058,13 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-1213",
-      "tags": ["Art", "Science", "Math", "Multidisciplinary", "STEM"],
+      "tags": [
+        "Art",
+        "Science",
+        "Math",
+        "Multidisciplinary",
+        "STEM"
+      ],
       "lat": 43.083635,
       "lng": -77.677345,
       "alt": 0,
@@ -851,7 +1073,7 @@
       "exhibitors": "Lea Michel, Elizabeth DiCesare, Kristina Driscoll, Mandy Nevins, Becca Brent, Emily Kiesel, Susan Tian, Milky Abajorga, Vina Macias, Lauren Knappenberger, Samantha Lauro, Ei Thinzar Phyo, Durnian Parulski-Seager , Shivani Phadke, Katharine Umphred-Wilson, Andronique Zacharakis, Bradley Hanel, Brooke Seamans, Jessica Fung, Nur Hidayah Mohd Rasid, Maria Jia",
       "year": 2017
     },
-      {
+    {
       "key": 37,
       "id": 991,
       "name": "The Upper and Lower Limit of the Goldilocks Zone",
@@ -865,7 +1087,9 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-A001",
-      "tags": ["Science"],
+      "tags": [
+        "Science"
+      ],
       "lat": 43.083443,
       "lng": -77.677209,
       "alt": 0,
@@ -874,7 +1098,7 @@
       "exhibitors": "Jared Luce, Aaron Chou, Francisco Morrison, Julia O'Halloran, Elizabeth Siciliano, Julia Faraone, Lindsey Decoursey",
       "year": 2017
     },
-      {
+    {
       "key": 38,
       "id": 1856,
       "name": "Trebuchet",
@@ -888,7 +1112,10 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "OUT-0215",
-      "tags": ["Engineering", "Science"],
+      "tags": [
+        "Engineering",
+        "Science"
+      ],
       "lat": 43.083311,
       "lng": -77.677950,
       "alt": 0,
@@ -897,7 +1124,7 @@
       "exhibitors": "Travis Chaikin, Jarrod Daniels, Julia solinas, Ryan Wills, Stanley Goldstein, Tyler Chinsky, Nils Aldeborgh",
       "year": 2017
     },
-      {
+    {
       "key": 39,
       "id": 2211,
       "name": "Vacuum Cannon",
@@ -911,7 +1138,11 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "OUT-0220",
-      "tags": ["Engineering", "Science", "Student Organization"],
+      "tags": [
+        "Engineering",
+        "Science",
+        "Student Organization"
+      ],
       "lat": 43.083322,
       "lng": -77.677799,
       "alt": 0,
@@ -920,7 +1151,7 @@
       "exhibitors": "Travis Chaikin, Jarrod Daniels, Tyler Chinsky",
       "year": 2017
     },
-      {
+    {
       "key": 40,
       "id": 2021,
       "name": "Weigh In On Your Favorite Color",
@@ -934,7 +1165,13 @@
       "ageRange": "All ages",
       "hoursRunning": "All day",
       "exhibitCode": "GOS-1001",
-      "tags": ["Engineering", "Science", "Technology", "Multidisciplinary", "STEM"],
+      "tags": [
+        "Engineering",
+        "Science",
+        "Technology",
+        "Multidisciplinary",
+        "STEM"
+      ],
       "lat": 43.083678,
       "lng": -77.677142,
       "alt": 0,
