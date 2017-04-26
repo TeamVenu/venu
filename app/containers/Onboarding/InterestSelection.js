@@ -88,6 +88,8 @@ export class InterestSelection extends React.PureComponent { // eslint-disable-l
   render() {
     const { userProps, stage, interests, areInterestsValid, onPrevStage, onSubmitProfile } = this.props;
     const user = (userProps.location) ? userProps : userProps.toJS();
+    console.log(user);
+    console.log(stage);
     return (
       <Container>
         <Header>

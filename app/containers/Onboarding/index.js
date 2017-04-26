@@ -6,13 +6,11 @@ import { createStructuredSelector } from 'reselect';
 // Components
 import Wrapper from 'components/FullWrapper';
 
-import { makeSelectUser } from 'containers/App/selectors';
+import { makeSelectUser, makeSelectIsSignedIn } from 'containers/App/selectors';
 
 import { dispatchGetAuthenticatedUser } from 'containers/App/dispatches';
 
 // Containers
-import AccountCreation from './AccountCreation';
-import Profile from './Profile';
 import GeolocationSetup from './GeolocationSetup';
 import ParkingSetup from './ParkingSetup';
 import InterestSelection from './InterestSelection';
@@ -24,9 +22,12 @@ import { dispatchSetStage } from './dispatches';
 
 export class Onboarding extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
-    const { onGetAuthenticatedUser } = this.props;
-    // Check if the user is already logged in
-    onGetAuthenticatedUser();
+    const { isSignedIn } = this.props;
+    if (!isSignedIn) {
+      browserHistory.push({
+        pathname: '/login',
+      });
+    }
   }
 
   // Occurs after component updated
@@ -35,23 +36,19 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
     const user = (userProp.location) ? userProp : userProp.toJS();
     let newStage = 0;
 
-    if (user.email.length === 0 || user.uid.length === 0) {
+    if ((user.location.lat === '' || user.location.lng === '') || (stage === 0)) {
       newStage = 0;
-    } else if ((user.name.length === 0 || user.age.length === 0) || (stage === 1)) {
+    } else if ((user.parking.lat === '' || user.parking.lng === '') || (stage === 1)) {
       newStage = 1;
-    } else if ((user.location.lat === '' || user.location.lng === '') || (stage === 2)) {
+    } else if ((user.interests.length === 0) || (stage === 2)) {
       newStage = 2;
-    } else if ((user.parking.lat === '' || user.parking.lng === '') || (stage === 3)) {
-      newStage = 3;
-    } else if ((user.interests.length === 0) || (stage === 4)) {
-      newStage = 4;
     } else {
-      newStage = 5;
+      newStage = 3;
     }
 
     onSetStage(newStage);
 
-    if (stage > 4) {
+    if (stage > 2) {
       browserHistory.push({
         pathname: '/',
       });
@@ -67,24 +64,16 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
     // Using the stage number
     // Figure out what container to render
     switch (stage) {
-      // Case 0: Account Creation
+      // Case 0: Render GeolocationSetup
       case 0:
-        stageToRender = (<AccountCreation />);
-        break;
-      // Case 2: Render Profile
-      case 1:
-        stageToRender = (<Profile />);
-        break;
-      // Case 3: Render GeolocationSetup
-      case 2:
         stageToRender = (<GeolocationSetup />);
         break;
-      // Case 3: Render ParkingSetup
-      case 3:
+      // Case 1: Render ParkingSetup
+      case 1:
         stageToRender = (<ParkingSetup />);
         break;
-      // Case 4: Render InterestSelection
-      case 4:
+      // Case 2: Render InterestSelection
+      case 2:
         stageToRender = (<InterestSelection />);
         break;
       // On default render AccountCreation
@@ -104,16 +93,17 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
 
 // Set our PropTypes
 Onboarding.propTypes = {
-  userProp: T.object,
   stage: T.number.isRequired,
+  userProp: T.object.isRequired,
+  isSignedIn: T.bool,
   onSetStage: T.func.isRequired,
-  onGetAuthenticatedUser: T.func.isRequired,
 };
 
 // Map state to props
 const mapStateToProps = createStructuredSelector({
-  stage: makeSelectOnboardingStage(),
   userProp: makeSelectUser(),
+  stage: makeSelectOnboardingStage(),
+  isSignedIn: makeSelectIsSignedIn(),
 });
 
 export function mapDispatchToProps(dispatch) {

@@ -2,6 +2,7 @@ import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { createStructuredSelector } from 'reselect';
+import ImagineLogo from 'media/images/imagine-logo-color.gif';
 
 // Components
 import Wrapper from 'components/FullWrapper';
@@ -10,35 +11,26 @@ import Wrapper from 'components/FullWrapper';
 import Logo from 'components/Logo';
 import H1 from 'components/H1';
 import P from 'components/P';
-import A from 'components/A';
-import TextField from 'components/TextField';
 import Button from 'components/Button';
-import Notifications from 'components/Notifications';
 
-import { makeSelectUser, makeSelectUserId, makeSelectError } from 'containers/App/selectors';
-import { authenticateUser, dispatchSetErrorMessages } from 'containers/App/dispatches';
+import { makeSelectUserId, makeSelectError, makeSelectIsAccountCreated, makeSelectIsSignedIn } from 'containers/App/selectors';
+import {
+  dispatchGetAuthenticatedUser,
+  dispatchSignInUserWithGoogle,
+  dispatchSignInUserWithFacebook,
+  dispatchGetAuthenticatedUserFromProvider,
+} from 'containers/App/dispatches';
 
 // Utils
-import { isUserOnboardingComplete } from 'utils/helpers';
-
-// Redux
-import {
-  makeSelectEmail,
-  makeSelectPassword,
-  makeSelectEmailValidation,
-  makeSelectPasswordValidation,
-} from './selectors';
-
-import {
-  dispatchChangeEmail,
-  dispatchChangePassword,
-} from './dispatches';
+// import { isUserOnboardingComplete } from 'utils/helpers';
 
 import {
   Container,
+  HeaderContainer,
   Header,
   Body,
   Footer,
+  Img,
 } from './styles';
 
 // Messages
@@ -46,101 +38,67 @@ import messages from './messages';
 
 
 export class SignIn extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  componentWillMount() {
+    const { onGetAuthenticatedUserRedirect } = this.props;
+    onGetAuthenticatedUserRedirect();
+  }
 
   componentDidMount() {
-    const { user } = this.props;
-
-    if (user.uid && isUserOnboardingComplete(user)) {
-      browserHistory.push('/');
-    }
+    const { onGetAuthenticatedUser } = this.props;
+    onGetAuthenticatedUser();
   }
 
   // Occurs after component updated
   componentDidUpdate() {
-    const { user } = this.props;
+    const { isSignedIn, isAccountCreated } = this.props;
 
-    if (user.uid && isUserOnboardingComplete(user)) {
+    if (isSignedIn && isAccountCreated) {
       browserHistory.push('/');
     }
   }
 
   render() {
     const {
-      error,
-      email,
-      password,
-      isEmailValid,
-      isPasswordValid,
-      onChangeEmail,
-      onChangePassword,
-      onClearErrorMessages,
-      onSubmitForm,
+      onSignInWithGoogle,
+      onSignInWithFacebook,
     } = this.props;
-    const isDataValid = (isEmailValid && isPasswordValid);
 
     return (
-      <Wrapper className={'map-bg full-page'}>
-        <Wrapper className={'gradient-bg opaque'}>
-          <Notifications
-            type={'error'}
-            message={error}
-            onClickEvent={onClearErrorMessages}
-          />
-          <Container>
+      <Wrapper>
+        <Container>
+          <HeaderContainer>
             <Header>
               <Logo />
               <H1>{ messages.header.defaultMessage }</H1>
               <P>{ messages.intro.defaultMessage }</P>
             </Header>
-            <Body>
-              <TextField
-                name={'email'}
-                id={'emailField'}
-                type={'text'}
-                value={email}
-                labelText={'Email'}
-                onChangeEvent={onChangeEmail}
-                isValid={isEmailValid}
-                isRequired
+          </HeaderContainer>
+          <Body>
+            <li>
+              <Button
+                btnClasses={'facebook'}
+                icon={'ion-social-facebook'}
+                name={'Continue with Facebook'}
+                onClickEvent={onSignInWithFacebook}
               />
-              <TextField
-                name={'password'}
-                id={'passwordField'}
-                type={'password'}
-                value={password}
-                labelText={'Password'}
-                isValid={isPasswordValid}
-                onChangeEvent={onChangePassword}
-                isRequired
+            </li>
+            <li>
+              <Button
+                btnClasses={'google'}
+                image={'google'}
+                name={'Continue with Google'}
+                onClickEvent={onSignInWithGoogle}
               />
-              <A>{ messages.signIn.forgotPassword.defaultMessage }</A>
-            </Body>
-            <Footer>
-              <li>
-                <Button
-                  btnClasses={'bordered special reversed rounded full'}
-                  name={messages.buttons.signIn.defaultMessage}
-                  onClickEvent={() => {
-                    // Create an object with email and password
-                    const userCredentials = {
-                      email,
-                      password,
-                    };
-
-                    // Submit form
-                    onSubmitForm(userCredentials);
-                  }}
-                  isDisabled={!isDataValid}
-                />
-              </li>
-              <li>
-                <A to={'/onboarding'} className={' btn bordered rounded full'}>
-                  {messages.buttons.createAccount.defaultMessage}
-                </A>
-              </li>
-            </Footer>
-          </Container>
-        </Wrapper>
+            </li>
+          </Body>
+          <Footer>
+            <Img
+              src={ImagineLogo}
+              alt={'Imagine RIT Logo'}
+              title={'Imagine RIT Logo'}
+            />
+          </Footer>
+        </Container>
       </Wrapper>
     );
   }
@@ -148,35 +106,28 @@ export class SignIn extends React.PureComponent { // eslint-disable-line react/p
 
 // Set our PropTypes
 SignIn.propTypes = {
-  user: T.object,
-  error: T.string,
-  email: T.string.isRequired,
-  password: T.string.isRequired,
-  isEmailValid: T.bool,
-  isPasswordValid: T.bool,
-  onSubmitForm: T.func.isRequired,
-  onChangeEmail: T.func.isRequired,
-  onChangePassword: T.func.isRequired,
-  onClearErrorMessages: T.func.isRequired,
+  isAccountCreated: T.bool,
+  isSignedIn: T.bool,
+  onSignInWithGoogle: T.func.isRequired,
+  onSignInWithFacebook: T.func.isRequired,
+  onGetAuthenticatedUser: T.func.isRequired,
+  onGetAuthenticatedUserRedirect: T.func.isRequired,
 };
 
 // Map state to props
 const mapStateToProps = createStructuredSelector({
-  user: makeSelectUser(),
-  userId: makeSelectUserId(),
-  email: makeSelectEmail(),
-  password: makeSelectPassword(),
   error: makeSelectError(),
-  isEmailValid: makeSelectEmailValidation(),
-  isPasswordValid: makeSelectPasswordValidation(),
+  userId: makeSelectUserId(),
+  isSignedIn: makeSelectIsSignedIn(),
+  isAccountCreated: makeSelectIsAccountCreated(),
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onClearErrorMessages: () => dispatchSetErrorMessages(dispatch, null),
-    onChangeEmail: (event) => dispatchChangeEmail(dispatch, event),
-    onChangePassword: (event) => dispatchChangePassword(dispatch, event),
-    onSubmitForm: (credentials) => authenticateUser(dispatch, credentials),
+    onGetAuthenticatedUser: () => dispatchGetAuthenticatedUser(dispatch),
+    onSignInWithGoogle: () => dispatchSignInUserWithGoogle(dispatch),
+    onSignInWithFacebook: () => dispatchSignInUserWithFacebook(dispatch),
+    onGetAuthenticatedUserRedirect: () => dispatchGetAuthenticatedUserFromProvider(dispatch),
   };
 }
 

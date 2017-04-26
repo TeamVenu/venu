@@ -12,8 +12,6 @@ import {
   CHILD_REMOVED,
 } from 'firebase-saga';
 
-import { makeSelectEmail } from 'containers/Onboarding/selectors';
-
 import {
   CREATE_USER_ACCOUNT,
   LOAD_USER_DATA,
@@ -29,6 +27,7 @@ import {
 // Import actions
 import {
   loadUserData,
+  createUserAccount,
   createUserAccountError,
   createUserAccountSuccess,
   loadUserDataError,
@@ -54,42 +53,47 @@ export function* syncUserData() {
 export function* fetchUserData() {
   // Get the userId so we can access user part of database
   const userId = yield select(makeSelectUserId());
-
   // Create a request URL
   const requestURL = `users/${userId}`;
 
   try {
     const users = yield call(getAll, requestURL);
-    yield put(loadUserDataSuccess(users));
+
+    // If user does exist
+    if (users !== null) {
+      // Load them
+      yield put(loadUserDataSuccess(users));
+    } else {
+      // Otherwise create a user
+      yield put(createUserAccount());
+    }
   } catch (error) {
-    yield put(loadUserDataError(error));
+    yield put(loadUserDataError(error.message));
   }
 }
 
 export function* createUser() {
   try {
     const userId = yield select(makeSelectUserId());
-    const email = yield select(makeSelectEmail());
+    const userProp = yield select(makeSelectUser());
+    const user = (userProp.location) ? userProp : userProp.toJS();
 
     const userURL = `users/${userId}`;
-
     yield call(create, 'users', () => ({
       [userURL]: {
         uid: userId,
-        name: '',
-        age: '',
+        name: user.name,
+        email: user.email,
         location: {
           lat: '',
           lng: '',
         },
-        locationEnabled: false,
+        photoURL: user.photoURL,
         parking: {
           lat: '',
           lng: '',
         },
         interests: '',
-        role: 'user',
-        email,
         exhibits: {
           recommended: [''],
           saved: [''],
@@ -101,7 +105,7 @@ export function* createUser() {
     yield put(createUserAccountSuccess());
     yield put(loadUserData());
   } catch (error) {
-    yield put(createUserAccountError(error));
+    yield put(createUserAccountError(error.message));
   }
 }
 
@@ -112,14 +116,12 @@ export function* updateUser() {
     const user = (userProp.location) ? userProp : userProp.toJS();
 
     yield call(update, 'users', userId, {
-      age: user.age,
       email: user.email,
       interests: user.interests,
       location: user.location,
-      locationEnabled: user.locationEnabled,
+      photoURL: user.photoURL,
       name: user.name,
       parking: user.parking,
-      role: user.role,
       uid: user.uid,
       exhibits: user.exhibits,
     });

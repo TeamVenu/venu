@@ -5,7 +5,10 @@ import { createStructuredSelector } from 'reselect';
 
 // Selector
 import { makeSelectUser, makeSelectIsSignedIn } from 'containers/App/selectors';
-import { dispatchGetAuthenticatedUser } from 'containers/App/dispatches';
+import {
+  dispatchGetAuthenticatedUser,
+} from 'containers/App/dispatches';
+
 import { isUserOnboardingComplete } from 'utils/helpers';
 
 export class Home extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -13,20 +16,25 @@ export class Home extends React.PureComponent { // eslint-disable-line react/pre
     children: React.PropTypes.node,
   };
 
-  componentWillMount() {
-    const { onGetAuthenticatedUser } = this.props;
-    // Check if the user is already logged in
-    onGetAuthenticatedUser();
-  }
+  // componentWillMount() {
+  //   const { isSignedIn } = this.props;
+  //   // Check if the user is already logged in
+  //   // console.log('HOME: AUTHENTICATING USER');
+  //   // onGetAuthenticatedUser();
+  // }
 
-  componentDidUpdate() {
+  componentWillMount() {
     const { isSignedIn, userProp } = this.props;
     const user = (userProp.location) ? userProp : userProp.toJS();
 
     // If not signed in redirect to sign in
-    if (!isSignedIn && !isUserOnboardingComplete(user)) {
+    if (!isSignedIn) {
       browserHistory.push({
         pathname: '/login',
+      });
+    } else if (!isUserOnboardingComplete(user)) {
+      browserHistory.push({
+        pathname: '/onboarding',
       });
     }
   }
@@ -57,7 +65,6 @@ export class Home extends React.PureComponent { // eslint-disable-line react/pre
 Home.propTypes = {
   userProp: T.object,
   isSignedIn: T.bool,
-  onGetAuthenticatedUser: T.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

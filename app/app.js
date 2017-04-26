@@ -68,6 +68,13 @@ const rootRoute = {
 
 // Initialize database
 firebase.initializeApp(firebaseConfig);
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+const facebookProvider = new firebase.auth.FacebookAuthProvider();
+
+window.firebaseProviders = {
+  google: googleProvider,
+  facebook: facebookProvider,
+};
 
 window.firebase = firebase;
 // This is the node on which our app will be mounted on

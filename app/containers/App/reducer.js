@@ -17,6 +17,10 @@ import imagineRITData from 'fixtures/places.json';
 import mapStyles from 'fixtures/map-styles.json';
 
 import {
+  SIGN_IN_WITH_GOOGLE,
+  SIGN_IN_WITH_FACEBOOK,
+  SIGN_IN_WITH_PROVIDER_ERROR,
+  SIGN_IN_WITH_PROVIDER_SUCCESS,
   SET_USER,
   SIGN_IN_USER,
   SIGN_IN_USER_ERROR,
@@ -66,7 +70,7 @@ function createInitialUserState() {
       lat: '',
       lng: '',
     },
-    locationEnabled: false,
+    photoURL: '',
     parking: {
       lat: '',
       lng: '',
@@ -96,6 +100,7 @@ const initialState = fromJS({
   // User, will receive data from firebase
   user: initialUserState,
   isSignedIn: null,
+  isAccountCreated: false,
   // Onboarding validation props
   validation: {
     accountCreation: {
@@ -143,12 +148,14 @@ function appReducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
       return state
-        .set('isSignedIn', true)
         .set('user', action.value);
     case SIGN_IN_USER:
+    case SIGN_IN_WITH_GOOGLE:
+    case SIGN_IN_WITH_FACEBOOK:
       return state
         .set('loading', true);
     case SIGN_IN_USER_ERROR:
+    case SIGN_IN_WITH_PROVIDER_ERROR:
       return state
         .set('loading', false)
         .set('error', action.value);
@@ -189,7 +196,8 @@ function appReducer(state = initialState, action) {
         .set('error', action.value);
     case CREATE_USER_ACCOUNT_SUCCESS:
       return state
-        .set('loading', false);
+        .set('loading', false)
+        .set('isAccountCreated', true);
     case UPDATE_AUTH_EMAIL_SUCCESS:
     case UPDATE_AUTH_PASSWORD_SUCCESS:
       return state
@@ -207,7 +215,8 @@ function appReducer(state = initialState, action) {
       return state
         .set('loading', false)
         .set('isSignedIn', true)
-        .set('user', action.value);
+        .set('user', action.value)
+        .set('isAccountCreated', true);
     case SET_ERROR_MESSAGES:
       return state
         .set('error', action.value);
@@ -257,6 +266,7 @@ function appReducer(state = initialState, action) {
         .set('destination', action.value);
     case LIKE_PLACE:
     case UNLIKE_PLACE:
+    case SIGN_IN_WITH_PROVIDER_SUCCESS:
     default:
       return state;
   }

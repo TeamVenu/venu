@@ -2,6 +2,10 @@
 import isEmail from 'validator/lib/isEmail';
 
 import {
+  signInUserWithGoogle,
+  signInUserWithFacebook,
+  signInUserWithProviderError,
+  signInUserWithProviderSuccess,
   setUser,
   signInUser,
   signInUserError,
@@ -49,6 +53,57 @@ export function dispatchGetAuthenticatedUser(dispatch) {
       // No user is signed in
       dispatch(signOutUser());
     }
+  });
+}
+
+export function dispatchSignInUserWithGoogle(dispatch) {
+  const provider = window.firebaseProviders.google;
+  dispatch(signInUserWithGoogle());
+  window.firebase.auth().signInWithRedirect(provider);
+}
+
+export function dispatchSignInUserWithFacebook(dispatch) {
+  const provider = window.firebaseProviders.facebook;
+  dispatch(signInUserWithFacebook());
+  window.firebase.auth().signInWithRedirect(provider);
+}
+
+export function dispatchGetAuthenticatedUserFromProvider(dispatch) {
+  window.firebase.auth().getRedirectResult().then((result) => {
+    const user = result.user;
+
+    // In case user doesn't exist let's create a user
+    const newUser = {
+      uid: user.uid,
+      name: user.displayName,
+      email: user.email,
+      location: {
+        lat: '',
+        lng: '',
+      },
+      photoURL: user.photoURL,
+      parking: {
+        lat: '',
+        lng: '',
+      },
+      interests: '',
+      exhibits: {
+        recommended: [''],
+        saved: [''],
+        visited: [''],
+      },
+    };
+    dispatch(signInUserWithProviderSuccess());
+    // Save user id
+    dispatch(changeUserId(user.uid));
+    dispatch(setUser(newUser));
+    // Load user
+    dispatch(loadUserData());
+  }).catch((error) => {
+    // Handle errors
+    dispatch(signInUserWithProviderError(error.message));
+    // No user is signed in
+    dispatch(signOutUser());
   });
 }
 

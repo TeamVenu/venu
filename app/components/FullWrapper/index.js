@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import RITMap from 'media/rit map.png';
+import RITMap from 'media/images/map-gradient-bg.png';
 
 const FullWrapper = styled.section`
   position: relative;
@@ -15,6 +15,7 @@ const FullWrapper = styled.section`
 
   &.map-bg {
     background: url(${RITMap}) no-repeat center center;
+    background-size: cover;
   }
 
   &.gradient-bg {
