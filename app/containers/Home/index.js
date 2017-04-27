@@ -5,7 +5,12 @@ import { createStructuredSelector } from 'reselect';
 
 // Selector
 import { makeSelectUser, makeSelectIsSignedIn } from 'containers/App/selectors';
-import { dispatchGetAuthenticatedUser } from 'containers/App/dispatches';
+import {
+  dispatchGetAuthenticatedUser,
+} from 'containers/App/dispatches';
+
+import { dispatchSetStage } from 'containers/Onboarding/dispatches';
+
 import { isUserOnboardingComplete } from 'utils/helpers';
 
 export class Home extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -14,19 +19,21 @@ export class Home extends React.PureComponent { // eslint-disable-line react/pre
   };
 
   componentWillMount() {
-    const { onGetAuthenticatedUser } = this.props;
-    // Check if the user is already logged in
-    onGetAuthenticatedUser();
-  }
-
-  componentDidUpdate() {
-    const { isSignedIn, userProp } = this.props;
+    const { isSignedIn, userProp, onStartOnboarding } = this.props;
     const user = (userProp.location) ? userProp : userProp.toJS();
 
     // If not signed in redirect to sign in
-    if (!isSignedIn && !isUserOnboardingComplete(user)) {
+    if (!isSignedIn) {
       browserHistory.push({
         pathname: '/login',
+      });
+    } else if (!isUserOnboardingComplete(user)) {
+      // Start onboarding
+      onStartOnboarding(0);
+
+      // Redirect to onboarding
+      browserHistory.push({
+        pathname: '/onboarding',
       });
     }
   }
@@ -57,7 +64,7 @@ export class Home extends React.PureComponent { // eslint-disable-line react/pre
 Home.propTypes = {
   userProp: T.object,
   isSignedIn: T.bool,
-  onGetAuthenticatedUser: T.func.isRequired,
+  onStartOnboarding: T.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -67,6 +74,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
+    onStartOnboarding: (stage) => dispatchSetStage(dispatch, stage),
     onGetAuthenticatedUser: () => dispatchGetAuthenticatedUser(dispatch),
   };
 }

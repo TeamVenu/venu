@@ -94,6 +94,11 @@ const makeSelectLocationState = () => {
   };
 };
 
+const makeSelectIsAccountCreated = () => createSelector(
+    selectGlobal,
+    (globalState) => globalState.get('isAccountCreated')
+);
+
 const makeSelectDestination = () => createSelector(
     selectGlobal,
     (globalState) => globalState.get('destination')
@@ -111,8 +116,9 @@ export {
   makeSelectUserId,
   makeSelectFacilities,
   makeSelectIsSignedIn,
+  makeSelectDestination,
   makeSelectCurrentPlace,
   makeSelectLocationState,
+  makeSelectIsAccountCreated,
   makeSelectOnboardingValidation,
-  makeSelectDestination,
 };

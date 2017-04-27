@@ -17,6 +17,10 @@ import imagineRITData from 'fixtures/places.json';
 import mapStyles from 'fixtures/map-styles.json';
 
 import {
+  SIGN_IN_WITH_GOOGLE,
+  SIGN_IN_WITH_FACEBOOK,
+  SIGN_IN_WITH_PROVIDER_ERROR,
+  SIGN_IN_WITH_PROVIDER_SUCCESS,
   SET_USER,
   SIGN_IN_USER,
   SIGN_IN_USER_ERROR,
@@ -63,13 +67,13 @@ function createInitialUserState() {
     name: '',
     email: '',
     location: {
-      lat: '',
-      lng: '',
+      lat: 43.084167,
+      lng: -77.677085,
     },
-    locationEnabled: false,
+    photoURL: '',
     parking: {
-      lat: '',
-      lng: '',
+      lat: 43.084167,
+      lng: -77.677085,
     },
     interests: '',
     exhibits: {
@@ -96,6 +100,7 @@ const initialState = fromJS({
   // User, will receive data from firebase
   user: initialUserState,
   isSignedIn: null,
+  isAccountCreated: false,
   // Onboarding validation props
   validation: {
     accountCreation: {
@@ -117,14 +122,15 @@ const initialState = fromJS({
       language: 'en',
     },
     center: {
-      lat: (localStorage.getItem('venuUserLocationLat')) ? parseFloat(localStorage.getItem('venuUserLocationLat')) : 43.084167,
-      lng: (localStorage.getItem('venuUserLocationLng')) ? parseFloat(localStorage.getItem('venuUserLocationLng')) : -77.677085,
+      lat: 43.084167,
+      lng: -77.677085,
     },
     markerSize: 40,
     options: {
       clickableIcons: false,
       zoomControl: false,
       styles: mapStyles,
+      disableDefaultUI: true,
     },
     zoom: 20,
   },
@@ -143,12 +149,14 @@ function appReducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
       return state
-        .set('isSignedIn', true)
         .set('user', action.value);
     case SIGN_IN_USER:
+    case SIGN_IN_WITH_GOOGLE:
+    case SIGN_IN_WITH_FACEBOOK:
       return state
         .set('loading', true);
     case SIGN_IN_USER_ERROR:
+    case SIGN_IN_WITH_PROVIDER_ERROR:
       return state
         .set('loading', false)
         .set('error', action.value);
@@ -189,13 +197,15 @@ function appReducer(state = initialState, action) {
         .set('error', action.value);
     case CREATE_USER_ACCOUNT_SUCCESS:
       return state
-        .set('loading', false);
+        .set('loading', false)
+        .set('isAccountCreated', true);
     case UPDATE_AUTH_EMAIL_SUCCESS:
     case UPDATE_AUTH_PASSWORD_SUCCESS:
       return state
         .set('loading', false)
         .set('success', action.value);
     case LOAD_USER_DATA:
+    case SIGN_IN_WITH_PROVIDER_SUCCESS:
       return state
         .set('loading', true)
         .set('error', null);
@@ -207,7 +217,8 @@ function appReducer(state = initialState, action) {
       return state
         .set('loading', false)
         .set('isSignedIn', true)
-        .set('user', action.value);
+        .set('user', action.value)
+        .set('isAccountCreated', true);
     case SET_ERROR_MESSAGES:
       return state
         .set('error', action.value);

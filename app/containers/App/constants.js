@@ -9,6 +9,12 @@
  * export const YOUR_ACTION_CONSTANT = 'venu/MyContainer/MY_ACTION_CONSTANT';
  */
 
+// Social Media Sign in
+export const SIGN_IN_WITH_GOOGLE = 'venu/App/SIGN_IN_WITH_GOOGLE';
+export const SIGN_IN_WITH_FACEBOOK = 'venu/App/SIGN_IN_WITH_FACEBOOK';
+export const SIGN_IN_WITH_PROVIDER_ERROR = 'venu/App/SIGN_IN_WITH_PROVIDER_ERROR';
+export const SIGN_IN_WITH_PROVIDER_SUCCESS = 'venu/App/SIGN_IN_WITH_PROVIDER_SUCCESS';
+
 export const DEFAULT_LOCALE = 'en';
 
 export const CHANGE_USER_ID = 'venu/App/CHANGE_USER_ID';

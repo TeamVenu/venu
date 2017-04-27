@@ -32,6 +32,7 @@ injectGlobal`
     --white-background: #dddcde;
     --black-background-opaque: rgba(34, 34, 34, 0.4);
     --white-background-opaque: rgba(221, 220, 222, 0.8);
+    --facebook-background: #3b5998;
 
     /* Imagine RIT Zone Colors */
     --recreation-zone: #42b0f4;
