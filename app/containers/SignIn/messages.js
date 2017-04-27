@@ -43,5 +43,21 @@ export default defineMessages({
       id: 'venu.components.SignIn.signIn.forgotPassword',
       defaultMessage: 'Forgot password?',
     },
+    anonymous: {
+      id: 'venu.components.SignIn.signIn.anonymous',
+      defaultMessage: 'Continue Anonymously',
+    },
+    loading: {
+      id: 'venu.components.SignIn.signIn.loading',
+      defaultMessage: 'Hold one moment while we sign you in...',
+    },
+    facebook: {
+      id: 'venu.components.SignIn.signIn.facebook',
+      defaultMessage: 'Continue with Facebook',
+    },
+    google: {
+      id: 'venu.components.SignIn.signIn.google',
+      defaultMessage: 'Continue with Google',
+    },
   },
 });

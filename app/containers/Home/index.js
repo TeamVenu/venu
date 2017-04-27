@@ -9,6 +9,8 @@ import {
   dispatchGetAuthenticatedUser,
 } from 'containers/App/dispatches';
 
+import { dispatchSetStage } from 'containers/Onboarding/dispatches';
+
 import { isUserOnboardingComplete } from 'utils/helpers';
 
 export class Home extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -16,15 +18,8 @@ export class Home extends React.PureComponent { // eslint-disable-line react/pre
     children: React.PropTypes.node,
   };
 
-  // componentWillMount() {
-  //   const { isSignedIn } = this.props;
-  //   // Check if the user is already logged in
-  //   // console.log('HOME: AUTHENTICATING USER');
-  //   // onGetAuthenticatedUser();
-  // }
-
   componentWillMount() {
-    const { isSignedIn, userProp } = this.props;
+    const { isSignedIn, userProp, onStartOnboarding } = this.props;
     const user = (userProp.location) ? userProp : userProp.toJS();
 
     // If not signed in redirect to sign in
@@ -33,6 +28,10 @@ export class Home extends React.PureComponent { // eslint-disable-line react/pre
         pathname: '/login',
       });
     } else if (!isUserOnboardingComplete(user)) {
+      // Start onboarding
+      onStartOnboarding(0);
+
+      // Redirect to onboarding
       browserHistory.push({
         pathname: '/onboarding',
       });
@@ -65,6 +64,7 @@ export class Home extends React.PureComponent { // eslint-disable-line react/pre
 Home.propTypes = {
   userProp: T.object,
   isSignedIn: T.bool,
+  onStartOnboarding: T.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -74,6 +74,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
+    onStartOnboarding: (stage) => dispatchSetStage(dispatch, stage),
     onGetAuthenticatedUser: () => dispatchGetAuthenticatedUser(dispatch),
   };
 }

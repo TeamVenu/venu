@@ -67,13 +67,13 @@ function createInitialUserState() {
     name: '',
     email: '',
     location: {
-      lat: '',
-      lng: '',
+      lat: 43.084167,
+      lng: -77.677085,
     },
     photoURL: '',
     parking: {
-      lat: '',
-      lng: '',
+      lat: 43.084167,
+      lng: -77.677085,
     },
     interests: '',
     exhibits: {
@@ -122,14 +122,15 @@ const initialState = fromJS({
       language: 'en',
     },
     center: {
-      lat: (localStorage.getItem('venuUserLocationLat')) ? parseFloat(localStorage.getItem('venuUserLocationLat')) : 43.084167,
-      lng: (localStorage.getItem('venuUserLocationLng')) ? parseFloat(localStorage.getItem('venuUserLocationLng')) : -77.677085,
+      lat: 43.084167,
+      lng: -77.677085,
     },
     markerSize: 40,
     options: {
       clickableIcons: false,
       zoomControl: false,
       styles: mapStyles,
+      disableDefaultUI: true,
     },
     zoom: 20,
   },
@@ -204,6 +205,7 @@ function appReducer(state = initialState, action) {
         .set('loading', false)
         .set('success', action.value);
     case LOAD_USER_DATA:
+    case SIGN_IN_WITH_PROVIDER_SUCCESS:
       return state
         .set('loading', true)
         .set('error', null);
@@ -266,7 +268,6 @@ function appReducer(state = initialState, action) {
         .set('destination', action.value);
     case LIKE_PLACE:
     case UNLIKE_PLACE:
-    case SIGN_IN_WITH_PROVIDER_SUCCESS:
     default:
       return state;
   }

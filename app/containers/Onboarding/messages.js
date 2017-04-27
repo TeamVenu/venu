@@ -78,15 +78,15 @@ export default defineMessages({
       },
       succeeded: {
         id: 'venu.components.Onboarding.geolocationSetup.location.succeeded',
-        defaultMessage: 'We have successfully retrieved your location! You may now continue the setup process.',
+        defaultMessage: 'VENU successfully retrieved your location!',
       },
       failed: {
         id: 'venu.components.Onboarding.geolocationSetup.location.failed',
-        defaultMessage: 'You have denied access to access your location. You may retry enabling your location. Otherwise you may proceed to the next step if you wish geolocation to remain turned off. Some features will be unavailable.',
+        defaultMessage: 'Geolocation is turned off. You may skip this step and continue using the app.',
       },
       unavailable: {
         id: 'venu.components.Onboarding.geolocationSetup.location.unavailable',
-        defaultMessage: 'It appears that your device has location tracking services disabled. You may proceed to the next step if you wish geolocation to remain turned off. Some features will be unavailable.',
+        defaultMessage: 'Geolocation is turned off. You may skip this step and continue using the app.',
       },
     },
     device: {
@@ -189,7 +189,7 @@ export default defineMessages({
       },
       description: {
         id: 'venu.components.Onboarding.geolocationSetup.parking.description',
-        defaultMessage: 'You can set your current location as a parking spot so you can return to your vehicle with ease. Alternatively, if you are not currently parked here you can select the lot in which you parked.',
+        defaultMessage: 'Save your parking spot to find your vehicle later. You can edit this at any time.',
       },
       lot: {
         id: 'venu.components.Onboarding.geolocationSetup.parking.lot',
@@ -326,7 +326,7 @@ export default defineMessages({
     },
     intro: {
       id: 'venu.components.Onboarding.interestSelection.intro',
-      defaultMessage: 'Select your interests so we can recommend events you may like.',
+      defaultMessage: 'Select as many interests as you want so we can recommend events you may like.',
     },
     subtitle: {
       id: 'venu.components.Onboarding.interestSelection.title',

@@ -79,7 +79,7 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
       // On default render AccountCreation
       default:
         // Render Account Creation
-        stageToRender = (<div />);
+        stageToRender = (<GeolocationSetup />);
         break;
     }
 

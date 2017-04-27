@@ -1,17 +1,20 @@
-// TODO:
-// Add other icons
-// Make this open of the detail view when clicked as attaching link won't work
-// Add user and parking as places with type of same name
-// Find the best animation
-// Try to make the map async in VenuMap
-
 import React, { PropTypes as T } from 'react';
 import { Marker as Pin } from 'react-google-maps';
-import DefaultPin from 'media/icons/orangepin.png';
-import SavedPin from 'media/icons/bluepin.png';
-import WomanRestroomPin from 'media/icons/womenrestroompin.png';
-import DiningPin from 'media/icons/diningpin.png';
 import { browserHistory } from 'react-router';
+import DefaultPin from 'media/icons/pins/orangepin.png';
+import SavedPin from 'media/icons/pins/bluepin.png';
+import Entertainment from 'media/icons/pins/entertainment.png';
+import Entrance from 'media/icons/pins/entrance.png';
+import Food from 'media/icons/pins/food.png';
+import GenderNeutral from 'media/icons/pins/genderneutral.png';
+import Information from 'media/icons/pins/information.png';
+import Man from 'media/icons/pins/man.png';
+import Medical from 'media/icons/pins/medical.png';
+import Parking from 'media/icons/pins/parking.png';
+import Shuttle from 'media/icons/pins/shuttle.png';
+import Transport from 'media/icons/pins/transport.png';
+import User from 'media/icons/pins/user.png';
+import Woman from 'media/icons/pins/woman.png';
 
 export default class Marker extends React.Component {
   static propTypes = {
@@ -53,8 +56,10 @@ export default class Marker extends React.Component {
     // Case by case
     switch (place.type) {
       case 'user':
+        image = (place.photoURL !== '') ? place.photoURL : User;
         break;
       case 'parking':
+        image = Parking;
         break;
       case 'exhibit':
         link = `/${place.type}/${place.colorZone}/${place.exhibitCode}/${place.key}`;
@@ -70,11 +75,45 @@ export default class Marker extends React.Component {
       case 'facility':
         link = `/${place.type}/${place.colorZone}/${place.subType}/${place.key}`;
         switch (place.subType) {
+          case 'entertainment':
+            image = Entertainment;
+            break;
+          case 'entrance':
+            image = Entrance;
+            break;
           case 'food':
-            image = DiningPin;
+            image = Food;
+            break;
+          case 'information':
+            image = Information;
+            break;
+          case 'medical':
+            image = Medical;
+            break;
+          case 'shuttle':
+            image = Shuttle;
+            break;
+          case 'transporter':
+            image = Transport;
+            break;
+          case 'restroom':
+            switch (place.gender) {
+              case 'M':
+                image = Man;
+                break;
+              case 'U':
+                image = GenderNeutral;
+                break;
+              case 'W':
+                image = Woman;
+                break;
+              default:
+                image = GenderNeutral;
+                break;
+            }
             break;
           default:
-            image = WomanRestroomPin;
+            image = DefaultPin;
             break;
         }
         break;

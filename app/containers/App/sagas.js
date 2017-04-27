@@ -85,13 +85,13 @@ export function* createUser() {
         name: user.name,
         email: user.email,
         location: {
-          lat: '',
-          lng: '',
+          lat: 43.084167,
+          lng: -77.677085,
         },
         photoURL: user.photoURL,
         parking: {
-          lat: '',
-          lng: '',
+          lat: 43.084167,
+          lng: -77.677085,
         },
         interests: '',
         exhibits: {

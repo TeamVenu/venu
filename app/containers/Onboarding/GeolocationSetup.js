@@ -33,7 +33,6 @@ import {
 // Local Dispatch Methods
 import {
   askUserToEnableLocation,
-  dispatchGoToPreviousStage,
   dispatchGoToNextStage,
 } from './dispatches';
 
@@ -112,7 +111,7 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
 
   render() {
     // Get the props we need
-    const { userProps, stage, location, parking, isLocationValid, onPreviousStage, onNextStage } = this.props;
+    const { userProps, stage, location, parking, isLocationValid, onNextStage } = this.props;
     // Will show the update alert to userProps
     const bodyContent = this.renderBodyContent;
     // Store the userProps props we will use in an object
@@ -128,15 +127,6 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
         </Body>
         <Footer>
           <ButtonRow>
-            <ButtonItem>
-              <Button
-                icon={'ion-ios-arrow-thin-left'}
-                name={messages.buttons.previous.defaultMessage}
-                onClickEvent={() => {
-                  onPreviousStage(stage);
-                }}
-              />
-            </ButtonItem>
             <ButtonItem>
               <Button
                 isIconAfter
@@ -165,23 +155,21 @@ GeolocationSetup.propTypes = {
   location: T.object.isRequired,
   userProps: T.object.isRequired,
   onNextStage: T.func.isRequired,
-  onPreviousStage: T.func.isRequired,
   onAskUserToEnableLocation: T.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   userProps: makeSelectUser(),
-  mode: makeSelectGeolocationMode(),
-  location: makeSelectUserLocation(),
   parking: makeSelectParking(),
-  isLocationValid: makeSelectLocationValid(),
+  mode: makeSelectGeolocationMode(),
   stage: makeSelectOnboardingStage(),
+  location: makeSelectUserLocation(),
+  isLocationValid: makeSelectLocationValid(),
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
     onAskUserToEnableLocation: () => askUserToEnableLocation(dispatch),
-    onPreviousStage: (stage) => dispatchGoToPreviousStage(dispatch, stage),
     onNextStage: (user, stage) => dispatchGoToNextStage(dispatch, user, stage),
   };
 }

@@ -22,22 +22,24 @@ const Btn = styled.button`
     border-radius: 2em;
   }
 
-  &.facebook, &.google {
+  &.facebook, &.google, &.anonymous {
     margin: auto;
     display: block;
     width: 95%;
     border-radius: 2em;
+    border: 1px solid transparent;
   }
 
   &.facebook {
     background: var(--facebook-background);
     color: var(--background-color);
+    border-color: var(--facebook-background);
   }
 
-  &.google {
+  &.google, &.anonymous {
     background: var(--white);
     color: var(--foreground-color);
-    border: 1px solid var(--foreground-color);
+    border-color: var(--foreground-color);
   }
 
   &.special {
