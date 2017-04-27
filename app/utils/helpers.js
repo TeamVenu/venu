@@ -208,7 +208,10 @@ export function parseJSONObject(object, objectKey) {
         placeKey = value;
       } else if (key === 'type') {
         type = value;
-      } else if (key === 'colorZone' || key === 'subType') {
+      } else if (
+        (type === 'exhibit' && key === 'colorZone')
+        || (type === 'facility' && key === 'subType')
+      ) {
         colorOrSub = value;
       }
 

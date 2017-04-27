@@ -1,4 +1,9 @@
-import { setSearchTerm, searchTerm } from './actions';
+import {
+  searchTerm,
+  beginSearch,
+  setSearchTerm,
+  searchCompleted,
+} from './actions';
 
 export function dispatchSetSearchTerm(dispatch, event) {
   // Cache search term
@@ -10,6 +15,13 @@ export function dispatchSetSearchTerm(dispatch, event) {
 
 export function dispatchSearchTerm(dispatch, event) {
   const term = event.target.value;
-  console.log('Searching for term');
   dispatch(searchTerm(term));
+}
+
+export function dispatchBeginSearch(dispatch) {
+  dispatch(beginSearch());
+}
+
+export function dispatchSearchCompleted(dispatch, results) {
+  dispatch(searchCompleted(results));
 }

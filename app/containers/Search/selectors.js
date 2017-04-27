@@ -12,8 +12,20 @@ const makeSelectSearchData = () => createSelector(
   (searchState) => searchState.get('searchData')
 );
 
+const makeSelectIsSearching = () => createSelector(
+  selectSearch,
+  (searchState) => searchState.get('searching')
+);
+
+const makeSelectSearchResults = () => createSelector(
+  selectSearch,
+  (searchState) => searchState.get('searchResults')
+);
+
 export {
   selectSearch,
   makeSelectSearchTerm,
   makeSelectSearchData,
+  makeSelectIsSearching,
+  makeSelectSearchResults,
 };
