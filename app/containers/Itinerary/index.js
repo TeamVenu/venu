@@ -9,8 +9,6 @@ import { createStructuredSelector } from 'reselect';
 import Ionicon from 'react-ionicons';
 import styled from 'styled-components';
 
-import imagineRITData from 'fixtures/places.json';
-
 // Components
 import A from 'components/A';
 import H2 from 'components/H2';
@@ -31,7 +29,7 @@ import {
 import { dispatchGetAuthenticatedUser } from 'containers/App/dispatches';
 
 // Helpers
-import { parseJSONObject, filterExhibitsBy, isUserOnboardingComplete } from 'utils/helpers';
+import { filterExhibitsBy, isUserOnboardingComplete } from 'utils/helpers';
 
 const List = styled.ul`
   margin: 0 0 calc(var(--topbar-height) * 1.5) 0;
@@ -119,9 +117,6 @@ export class Itinerary extends React.PureComponent { // eslint-disable-line reac
   render() {
     const { userProps, isSignedIn } = this.props;
     const user = (userProps.location) ? userProps : userProps.toJS();
-    console.error('DATA:');
-    const test = parseJSONObject(imagineRITData);
-    console.error(test);
     if (!isSignedIn || !isUserOnboardingComplete(user)) return null;
 
     return (
