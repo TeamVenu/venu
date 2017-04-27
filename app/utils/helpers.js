@@ -1,5 +1,7 @@
 /* Helper Methods */
 
+import _ from 'lodash';
+
 /**
  * getFacilitiesArray
  * Returns an array of all facilities based on facilities object
@@ -148,4 +150,136 @@ export function isUserOnboardingComplete(user) {
     && user.location.lng !== ''
     && user.interests.length > 0
   );
+}
+
+export function cleanString(string) {
+  let str = string;
+
+  const shorthandsPattern = /\'(m|ve|s|ll|d) /gi; // eslint-disable-line
+  const letterWithPeriodAtTheEndPattern = /( \w{0,1})?\. /gi;
+  const forwardSlashPattern = /\//gi;
+  const versionNumberPattern = / v?\.?[0-9]+(\.[0-9]+)+/gi;
+  const timePattern = / [0-9]{1,2}(?: |\:[0-9]{2})? ?(?:a|p)\.?m\.? /gi; // eslint-disable-line
+  const specialCharactersPattern = /[`~!@#$%^&*()\-_=+,<\.>/?\[\{\]\}\\|\;\:\'\"]+/g; // eslint-disable-line
+  // const duplicateSpecialCharactersPattern = /([`~!@#$%^&*()\-_=+,<\.>/?\[\{\]\}\\|\;\:\'\"])\1+/g;
+  str = str.replace(shorthandsPattern, ' ');
+  str = str.replace(letterWithPeriodAtTheEndPattern, ' ');
+  str = str.replace(forwardSlashPattern, ' ');
+
+  // Delete versions
+  str = str.replace(versionNumberPattern, ' ');
+
+  // Delete time such as 10 am, 10:20pm, 1:30 a.m., 01:30p.m.
+  str = str.replace(timePattern, ' '); // eslint-disable-line
+
+  // Delete 2 or more consecutive symbols or spaces
+  // str = str.replace(duplicateSpecialCharactersPattern, ' '); // eslint-disable-line
+
+  str = str.replace(specialCharactersPattern, ' '); // eslint-disable-line
+
+  return str;
+}
+
+export function removeDuplicates(string) {
+  return string.split(' ').filter((item, i, allItems) => { // eslint-disable-line
+    return i === allItems.indexOf(item);
+  }).join(' ');
+}
+
+export function parseJSONObject(object, objectKey) {
+  // Special props to be stored
+  let placeKey = null;
+  let type = '';
+  let colorOrSub = '';
+
+  //
+  let result = '';
+
+  _.forOwn(object, (key, val) => {
+    const objectType = typeof value;
+    let value = val;
+
+    if (objectType !== 'string' && objectType !== 'number') {
+      // Recursion for non string nor number objects (deep search)
+      result += parseJSONObject(value, key);
+    } else {
+      // Store special keys
+      if (key === 'key') {
+        placeKey = value;
+      } else if (key === 'type') {
+        type = value;
+      } else if (key === 'colorZone' || key === 'subType') {
+        colorOrSub = value;
+      }
+
+      if (objectKey === 'tags') {
+        value = value.toLowerCase();
+        value = cleanString(value);
+        value = removeDuplicates(value);
+
+        // Add it if wasn't already added
+        if (result.search(value) === -1) {
+          result += `${value} `;
+        }
+      } else {
+        // Using switch to avoid creating an array in each call nor a global array
+        switch (key) {
+          case 'name':
+          case 'imagineRITArea':
+          case 'building':
+          case 'location':
+          case 'description':
+          case 'exhibitors':
+          case 'exhibitCode':
+            value = value.toLowerCase();
+            value = cleanString(value);
+            value = removeDuplicates(value);
+            // Add it if wasn't already added
+            if (result.search(value) === -1) {
+              result += `${value} `;
+            }
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  });
+
+  const doubleSpacePattern = / +/g;
+  result = result.replace(doubleSpacePattern, ' ');
+
+  if (placeKey == null) {
+    return result;
+  }
+
+  return `${result}~!@#k#@!~${placeKey}~!@#t#@!~${type}~!@#c#@!~${colorOrSub}\\n\\n\\n`;
+}
+
+export function search(query, data, asUnion) {
+  const newLinePattern = /\\n/g;
+
+  let terms = query.toLowerCase();
+  const results = [];
+  const formattedData = data.replace(newLinePattern, '\n');
+
+  // Clean
+  terms = cleanString(terms);
+  terms = removeDuplicates(terms);
+
+  //
+  terms = (asUnion) ? [terms.trim()] : terms.trim().split(' ');
+
+  terms.forEach((term) => {
+    //
+    const searchRegex = new RegExp(`(?:.*?(?:${term}).*?)(?!(?:#@!~))(?:~!@#k#@!~)(.*?)~!@#t#@!~(.*?)~!@#c#@!~(.*?)(?:\n\n\n)`, 'gi');
+    let match;
+    //
+    while (match = searchRegex.exec(formattedData)) { // eslint-disable-line
+      results.push({ key: match[1], type: match[2], subType: match[3] });
+    }
+  });
+
+  // Return results array
+  return results;
 }
