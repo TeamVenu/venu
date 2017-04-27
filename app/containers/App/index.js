@@ -11,7 +11,7 @@
  * the linting exception.
  */
 
-import React from 'react';
+import React, { PropTypes as T } from 'react';
 
 import Ionicon from 'react-ionicons';
 
@@ -27,12 +27,19 @@ import messages from './messages';
 export default class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
-    children: React.PropTypes.node,
+    children: T.node,
+    location: T.object,
   };
+
+  constructor(props) {
+    super(props);
+
+    this.renderTabBar = this.renderTabBar.bind(this);
+    this.renderNavigation = this.renderNavigation.bind(this);
+  }
 
   renderNavigation() {
     const { nav } = messages;
-
     return nav.map((navigation) => { // eslint-disable-line
       return (
         <li key={navigation.id} className={'tab'}>
@@ -45,15 +52,28 @@ export default class App extends React.PureComponent { // eslint-disable-line re
     });
   }
 
+  renderTabBar() {
+    const { location } = this.props;
+    // If our main routes change this needs to be updated
+    const regexPattern = /(^\/$)|(search)|(itinerary)|(profile)$/g;
+
+    // If current path does not match then don't show tab bar
+    if (!regexPattern.test(location.pathname)) return null;
+
+    return (
+      <TabBar className={'bottom-bar'}>
+        <TabBarList four>
+          { this.renderNavigation() }
+        </TabBarList>
+      </TabBar>
+    );
+  }
+
   render() {
     return (
       <article>
         {React.Children.toArray(this.props.children)}
-        <TabBar className={'bottom-bar'}>
-          <TabBarList four>
-            { this.renderNavigation() }
-          </TabBarList>
-        </TabBar>
+        {this.renderTabBar()}
       </article>
     );
   }

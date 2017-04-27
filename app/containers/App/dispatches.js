@@ -2,6 +2,10 @@
 import isEmail from 'validator/lib/isEmail';
 
 import {
+  signInUserWithGoogle,
+  signInUserWithFacebook,
+  signInUserWithProviderError,
+  signInUserWithProviderSuccess,
   setUser,
   signInUser,
   signInUserError,
@@ -35,22 +39,6 @@ import {
 } from 'containers/App/actions';
 
 import { dispatchSetStage } from 'containers/Onboarding/dispatches';
-
-export function dispatchGetAuthenticatedUser(dispatch) {
-  // Check if there is someone signed in
-  window.firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      // Set the userId to uid returned
-      dispatch(changeUserId(user.uid));
-
-      // Load user
-      dispatch(loadUserData());
-    } else {
-      // No user is signed in
-      dispatch(signOutUser());
-    }
-  });
-}
 
 /**
  * dispatchChangeDisplayName
@@ -310,55 +298,6 @@ export function dispatchSetSuccessMessages(dispatch, success) {
   dispatch(setSuccessMessages(success));
 }
 
-/**
- * authenticateUser
- * Dispatches actions about user authentication
- * @param {Function} dispatch
- * @param {Object} credentials
- */
-export function authenticateUser(dispatch, credentials) {
-  // Send out dispatch saying we are signing in
-  dispatch(signInUser());
-
-  // Authenticate user
-  window.firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
-    .then((user) => {
-      // Authentication succeeded
-      // Dispatch with uid
-      dispatch(signInUserSuccess(user.uid));
-
-      // Load the user's data
-      dispatch(loadUserData());
-    })
-    .catch((error) => {
-      // Dispatch error message
-      dispatch(signInUserError(error.message));
-    });
-}
-
-/**
- * dispatchCreateUserAccount
- * Dispatches actions and creates user account
- * @param {Function} dispatch
- * @param {Object} credentials
- */
-export function dispatchCreateUserAccount(dispatch, credentials) {
-  // Create user account
-  window.firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)
-    .then((user) => {
-      // Account creation succeeded
-      // Dispatch with uid
-      dispatch(signInUserSuccess(user.uid));
-      // Send out dispatch saying we are creating user account
-      dispatch(createUserAccount());
-      dispatchSetStage(dispatch, 1);
-    })
-    .catch((error) => {
-      // Dispatch error message
-      dispatch(signInUserError(error.message));
-    });
-}
-
 export function dispatchChangeUserAuthEmail(dispatch, userProps, email) {
   const currentUser = window.firebase.auth().currentUser;
 
@@ -418,4 +357,181 @@ export function dispatchUpdateUserData(dispatch) {
 export function dispatchSetUser(dispatch, user) {
   dispatch(setUser(user));
   dispatchUpdateUserData(dispatch);
+}
+
+/**
+ * dispatchSignInUserWithGoogle
+ * Redirects user to Google authentication page
+ * @param {Function} dispatch
+ */
+export function dispatchSignInUserWithGoogle(dispatch) {
+  const provider = window.firebaseProviders.google;
+  dispatch(signInUserWithGoogle());
+  window.firebase.auth().signInWithRedirect(provider);
+}
+
+/**
+ * dispatchSignInUserWithFacebook
+ * Redirects user to Facebook authentication page
+ * @param {Function} dispatch
+ */
+export function dispatchSignInUserWithFacebook(dispatch) {
+  const provider = window.firebaseProviders.facebook;
+  dispatch(signInUserWithFacebook());
+  window.firebase.auth().signInWithRedirect(provider);
+}
+
+/**
+ * dispatchSignInUserAnonymously
+ * Dispatches action which creates an anonymous user account in firebase
+ * @param {Function} dispatch
+ */
+export function dispatchSignInUserAnonymously(dispatch) {
+  // Authenticate user anonymously
+  window.firebase.auth().signInAnonymously()
+    .then((result) => {
+      // Create a new anonymous user
+      const newUser = {
+        uid: result.uid,
+        name: 'You',
+        email: '',
+        location: {
+          lat: 43.084167,
+          lng: -77.677085,
+        },
+        photoURL: '',
+        parking: {
+          lat: 43.084167,
+          lng: -77.677085,
+        },
+        interests: '',
+        exhibits: {
+          recommended: [''],
+          saved: [''],
+          visited: [''],
+        },
+      };
+
+      dispatch(setUser(newUser));
+    })
+    .catch((error) => {
+      // Dispatch error message
+      dispatch(signInUserError(error.message));
+    });
+}
+
+/**
+ * dispatchGetAuthenticatedUserFromProvider
+ * Obtains the promise from Authentication Provicer
+ * dispatches action to store user data using their provider account
+ * @param {Function} dispatch
+ */
+export function dispatchGetAuthenticatedUserFromProvider(dispatch) {
+  window.firebase.auth().getRedirectResult().then((result) => {
+    const user = result.user;
+
+    // In case user doesn't exist let's create a user
+    const newUser = {
+      uid: user.uid,
+      name: user.displayName,
+      email: user.email,
+      location: {
+        lat: 43.084167,
+        lng: -77.677085,
+      },
+      photoURL: user.photoURL,
+      parking: {
+        lat: 43.084167,
+        lng: -77.677085,
+      },
+      interests: '',
+      exhibits: {
+        recommended: [''],
+        saved: [''],
+        visited: [''],
+      },
+    };
+
+    dispatch(signInUserWithProviderSuccess());
+    // Save user id
+    dispatch(changeUserId(user.uid));
+    dispatch(setUser(newUser));
+    // Load user
+    dispatch(loadUserData());
+  }).catch((error) => {
+    // Handle errors
+    dispatch(signInUserWithProviderError(error.message));
+    // No user is signed in
+    dispatch(signOutUser());
+  });
+}
+
+/**
+ * dispatchGetAuthenticatedUser
+ * Get's the currently authenticated user
+ * @param {Function} dispatch
+ */
+export function dispatchGetAuthenticatedUser(dispatch) {
+  // Check if there is someone signed in
+  window.firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // Set the userId to uid returned
+      dispatch(changeUserId(user.uid));
+
+      // Load user
+      dispatch(loadUserData());
+    } else {
+      // No user is signed in
+      dispatch(signOutUser());
+    }
+  });
+}
+
+/**
+ * authenticateUserWithEmailAndPassword
+ * Dispatches actions about user authentication with email and password - not used
+ * @param {Function} dispatch
+ * @param {Object} credentials
+ */
+export function authenticateUserWithEmailAndPassword(dispatch, credentials) {
+  // Send out dispatch saying we are signing in
+  dispatch(signInUser());
+
+  // Authenticate user
+  window.firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
+    .then((user) => {
+      // Authentication succeeded
+      // Dispatch with uid
+      dispatch(signInUserSuccess(user.uid));
+
+      // Load the user's data
+      dispatch(loadUserData());
+    })
+    .catch((error) => {
+      // Dispatch error message
+      dispatch(signInUserError(error.message));
+    });
+}
+
+/**
+ * dispatchCreateUserAccountWithEmailAndPassword
+ * Dispatches actions and creates user account with email and password - not used
+ * @param {Function} dispatch
+ * @param {Object} credentials
+ */
+export function dispatchCreateUserAccountWithEmailAndPassword(dispatch, credentials) {
+  // Create user account
+  window.firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)
+    .then((user) => {
+      // Account creation succeeded
+      // Dispatch with uid
+      dispatch(signInUserSuccess(user.uid));
+      // Send out dispatch saying we are creating user account
+      dispatch(createUserAccount());
+      dispatchSetStage(dispatch, 1);
+    })
+    .catch((error) => {
+      // Dispatch error message
+      dispatch(signInUserError(error.message));
+    });
 }

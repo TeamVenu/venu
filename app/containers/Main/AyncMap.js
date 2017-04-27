@@ -38,9 +38,9 @@ export class AsyncMap extends React.Component { // esling-disable-line react/pre
   handleMapLoad(map) {
     this._mapComponent = map; // eslint-disable-line
 
-    if (map) {
-      console.log(map.getZoom());
-    }
+    // if (map) {
+    //   // console.log(map.getZoom());
+    // }
   }
 
   render() {

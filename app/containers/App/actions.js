@@ -1,4 +1,8 @@
 import {
+  SIGN_IN_WITH_GOOGLE,
+  SIGN_IN_WITH_FACEBOOK,
+  SIGN_IN_WITH_PROVIDER_ERROR,
+  SIGN_IN_WITH_PROVIDER_SUCCESS,
   SET_USER,
   SIGN_IN_USER,
   SIGN_IN_USER_ERROR,
@@ -41,6 +45,31 @@ import {
   SET_ERROR_MESSAGES,
   SET_SUCESS_MESSAGES,
 } from './constants';
+
+export function signInUserWithGoogle() {
+  return {
+    type: SIGN_IN_WITH_GOOGLE,
+  };
+}
+
+export function signInUserWithFacebook() {
+  return {
+    type: SIGN_IN_WITH_FACEBOOK,
+  };
+}
+
+export function signInUserWithProviderError(error) {
+  return {
+    type: SIGN_IN_WITH_PROVIDER_ERROR,
+    value: error,
+  };
+}
+
+export function signInUserWithProviderSuccess() {
+  return {
+    type: SIGN_IN_WITH_PROVIDER_SUCCESS,
+  };
+}
 
 /**
  * setUser
@@ -110,10 +139,9 @@ export function changeUserId(uid) {
  * createUserAccount
  * Dispatched when user data is being sent to database to create account
  */
-export function createUserAccount(userId) {
+export function createUserAccount() {
   return {
     type: CREATE_USER_ACCOUNT,
-    value: userId,
   };
 }
 
