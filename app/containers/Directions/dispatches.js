@@ -15,7 +15,7 @@ export function dispatchSetDirections(dispatch, directions) {
 }
 
 export function dispatchSetLocationEnabled(dispatch, enabled) {
-  dispatch(enabled);
+  dispatch(setLocationEnabled(enabled));
 }
 
 /**

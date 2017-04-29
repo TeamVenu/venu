@@ -8,33 +8,22 @@ import {
   Wrapper,
 } from './styles';
 
-export default class Card extends React.Component {
+export default class Card extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
+    cardClass: T.string,
     place: T.object.isRequired,
   }
 
-  constructor(props) {
-    super(props);
-
-    this.renderActions = this.renderActions.bind(this);
-  }
-
-  renderActions() {
-    return null;
-  }
-
   render() {
-    const { place } = this.props;
+    const { place, cardClass } = this.props;
     const visited = (place.place.subType === 'visited');
-
     return (
-      <Wrapper visited={visited}>
+      <Wrapper visited={visited} className={cardClass}>
         <Link to={place.link}>
           <P zone>{place.zone}</P>
           <Title>{place.name}</Title>
           <P>{place.location}</P>
         </Link>
-        {this.renderActions()}
       </Wrapper>
     );
   }
