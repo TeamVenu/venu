@@ -117,7 +117,6 @@ export class Itinerary extends React.PureComponent { // eslint-disable-line reac
   render() {
     const { userProps, isSignedIn } = this.props;
     const user = (userProps.location) ? userProps : userProps.toJS();
-
     if (!isSignedIn || !isUserOnboardingComplete(user)) return null;
 
     return (

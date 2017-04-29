@@ -13,6 +13,7 @@ import profileReducer from 'containers/Profile/reducer';
 import onboardingReducer from 'containers/Onboarding/reducer';
 import panelReducer from 'containers/Main/Panel/reducer';
 import signInReducer from 'containers/SignIn/reducer';
+import searchReducer from 'containers/Search/reducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 /*
  * routeReducer
@@ -49,6 +50,7 @@ export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
     panel: panelReducer,
+    search: searchReducer,
     signIn: signInReducer,
     global: globalReducer,
     profile: profileReducer,
