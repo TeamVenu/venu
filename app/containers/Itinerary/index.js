@@ -70,17 +70,16 @@ export class Itinerary extends React.PureComponent { // eslint-disable-line reac
         : exhibit.exhibitCode;
 
       const location = `${exhibit.building}, ${room}`;
-      const distance = `${exhibit.distance} mi`;
       const link = `/${exhibit.type}/${exhibit.colorZone}/${exhibit.exhibitCode}/${exhibit.key}`;
-
       const place = {
         link,
         location,
-        distance,
+        place: exhibit,
         name: exhibit.name,
         zone: exhibit.imagineRitArea,
         zoneClass: exhibit.colorZone,
       };
+
       return (
         <Item key={exhibit.id}>
           <Card place={place} />

@@ -286,3 +286,42 @@ export function search(query, data, asUnion) {
   // Return results array
   return results;
 }
+
+export function makeChannel(a, b, percent) {
+  return (a + Math.round((b - a) * (percent / 100)));
+}
+
+export function makeColorPiece(num) {
+  let number = num;
+  number = Math.min(number, 255);   // not more than 255
+  number = Math.max(number, 0);     // not less than 0
+
+  let str = number.toString(16);
+
+  if (str.length < 2) {
+    str = `0${str}`;
+  }
+
+  return (str);
+}
+
+export function makeGradientColor(color1, color2, percent) {
+  const color = {
+    r: 0,
+    g: 0,
+    b: 0,
+    css: '#000',
+  };
+
+  color.r = makeChannel(color1.r, color2.r, percent);
+  color.g = makeChannel(color1.g, color2.g, percent);
+  color.b = makeChannel(color1.b, color2.b, percent);
+
+  const r = makeColorPiece(color.r);
+  const g = makeColorPiece(color.g);
+  const b = makeColorPiece(color.b);
+
+  color.css = `#${r}${g}${b}`;
+  return color;
+}
+

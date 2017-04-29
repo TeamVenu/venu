@@ -18,10 +18,9 @@ import Woman from 'media/icons/pins/woman.png';
 
 export default class Marker extends React.Component {
   static propTypes = {
-    place: T.object.isRequired,
     size: T.any,
-    // mode: T.string,
-    // currentPlace: T.object,
+    anchor: T.any,
+    place: T.object.isRequired,
   }
 
   constructor(props) {
@@ -40,7 +39,7 @@ export default class Marker extends React.Component {
   }
 
   renderPin() {
-    const { place, size } = this.props;
+    const { place, anchor, size } = this.props;
 
     // Set position of pin
     const position = {
@@ -125,6 +124,7 @@ export default class Marker extends React.Component {
     const icon = {
       url: image,
       scaledSize: size,
+      anchor,
     };
 
     return (

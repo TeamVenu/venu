@@ -5,9 +5,6 @@ import { createStructuredSelector } from 'reselect';
 
 // Selector
 import { makeSelectUser, makeSelectIsSignedIn } from 'containers/App/selectors';
-import {
-  dispatchGetAuthenticatedUser,
-} from 'containers/App/dispatches';
 
 import { dispatchSetStage } from 'containers/Onboarding/dispatches';
 
@@ -75,7 +72,6 @@ const mapStateToProps = createStructuredSelector({
 export function mapDispatchToProps(dispatch) {
   return {
     onStartOnboarding: (stage) => dispatchSetStage(dispatch, stage),
-    onGetAuthenticatedUser: () => dispatchGetAuthenticatedUser(dispatch),
   };
 }
 

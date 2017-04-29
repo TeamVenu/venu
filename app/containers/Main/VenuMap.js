@@ -28,10 +28,11 @@ import {
 import { getPlacesArray } from 'utils/helpers';
 
 // Wrap all `react-google-maps` components with `withGoogleMap` HOC
-// and name it GettingStartedGoogleMap
+// and name it Map
 const Map = withGoogleMap((props) => { // eslint-disable-line
-  const size = new google.maps.Size(35, 35); // eslint-disable-line
-  const userSize = new google.maps.Size(40, 40); // eslint-disable-line
+  const imageSize = 40;
+  const size = new google.maps.Size(imageSize, imageSize); // eslint-disable-line
+  const anchor = new google.maps.Point(imageSize / 2, imageSize / 2); // eslint-disable-line
   const clusterStyles = [
     {
       textColor: 'white',
@@ -63,17 +64,19 @@ const Map = withGoogleMap((props) => { // eslint-disable-line
         {props.markers.map((marker, index) => (
           <Marker
             key={index}
-            place={marker}
-            mode={props.mode}
             size={size}
+            place={marker}
+            anchor={anchor}
+            mode={props.mode}
           />
         ))}
       </MarkerClusterer>
       {props.userMarkers.map((marker, index) => (
         <Marker
           key={index}
+          size={size}
           place={marker}
-          size={userSize}
+          anchor={anchor}
         />
       ))}
     </GoogleMap>

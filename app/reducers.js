@@ -14,6 +14,7 @@ import onboardingReducer from 'containers/Onboarding/reducer';
 import panelReducer from 'containers/Main/Panel/reducer';
 import signInReducer from 'containers/SignIn/reducer';
 import searchReducer from 'containers/Search/reducer';
+import directionsReducer from 'containers/Directions/reducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 /*
  * routeReducer
@@ -55,6 +56,7 @@ export default function createReducer(asyncReducers) {
     global: globalReducer,
     profile: profileReducer,
     itinerary: itineraryReducer,
+    directions: directionsReducer,
     onboarding: onboardingReducer,
     language: languageProviderReducer,
     ...asyncReducers,

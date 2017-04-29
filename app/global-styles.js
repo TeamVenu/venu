@@ -78,7 +78,7 @@ injectGlobal`
     --pin-size: 30px;
 
     @media (min-width: 720px) {
-      --topbar-height: 60px;
+      --topbar-height: 50px;
     }
   }
 
