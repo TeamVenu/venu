@@ -1,7 +1,6 @@
 import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Link } from 'react-router';
 
 // Components
 import H2 from 'components/H2';
@@ -65,9 +64,7 @@ export class Header extends React.PureComponent { // eslint-disable-line react/p
         />
         <TabBar borderless>
           <TabBarList className={'header'}>
-            <li>
-              <Link to={'/directions'}>Dir</Link>
-            </li>
+            <li />
             <li>
               <H2 className={'title'}>{ messages.title.defaultMessage }</H2>
             </li>

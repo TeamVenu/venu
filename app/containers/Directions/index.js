@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 
+import P from 'components/P';
 import Card from 'components/Card';
 import Button from 'components/Button';
 
@@ -15,12 +16,7 @@ import {
   makeSelectUser,
   makeSelectIsSignedIn,
   makeSelectDestination,
-  // makeSelectError,
-  // makeSelectLoading,
   makeSelectVenuMap,
-  // makeSelectMapMode,
-  // makeSelectExhibits,
-  // makeSelectFacilities,
 } from 'containers/App/selectors';
 
 import {
@@ -35,6 +31,8 @@ import { isUserOnboardingComplete } from 'utils/helpers';
 // Directions Map
 import Map from './Map';
 
+import messages from './messages';
+
 import {
   Wrapper,
   CardContainer,
@@ -45,12 +43,14 @@ import {
 import {
   makeSelectTimer,
   makeSelectDirections,
+  makeSelectIsNavigating,
   makeSelectIsLocationEnabled,
 } from './selectors';
 
 import {
   dispatchSetTimer,
   dispatchSetDirections,
+  dispatchSetNavigating,
   dispatchGetUserLocation,
   dispatchSetLocationEnabled,
 } from './dispatches';
@@ -60,10 +60,12 @@ export class Directions extends React.PureComponent { // eslint-disable-line rea
     super(props);
 
     this.timer = this.timer.bind(this);
+    this.getDirections = this.getDirections.bind(this);
+    this.renderActions = this.renderActions.bind(this);
   }
 
   componentWillMount() {
-    const { isSignedIn, userProp, onStartOnboarding, onUpdateUserLocation } = this.props;
+    const { isSignedIn, userProp, onStartOnboarding } = this.props;
     const user = (userProp.location) ? userProp : userProp.toJS();
 
     // If not signed in redirect to sign in
@@ -80,12 +82,34 @@ export class Directions extends React.PureComponent { // eslint-disable-line rea
         pathname: '/onboarding',
       });
     }
-
-    onUpdateUserLocation(user);
   }
 
   componentDidMount() {
-    const { userProp, place, isLocationEnabled, onSetTimer, onSetDirections } = this.props;
+    // Get directions
+    this.getDirections();
+  }
+
+  componentWillUnmount() {
+    const { timer, onSetTimer, onSetLocationEnabled, onSetNavigating, onSetDirections } = this.props;
+
+    // Clear timer
+    clearInterval(timer);
+
+    // Set timer to null
+    onSetTimer(null);
+
+    // Set location to true so that we can check again
+    onSetLocationEnabled(true);
+
+    // Set navigating to false
+    onSetNavigating(false);
+
+    // Set directions to null
+    onSetDirections(null);
+  }
+
+  getDirections() {
+    const { userProp, place, isNavigating, isLocationEnabled, onSetTimer, onSetDirections, onSetNavigating } = this.props;
     const user = (userProp.location) ? userProp : userProp.toJS();
     const destination = (place.lat) ? place : place.toJS();
     const travelMode = google.maps.TravelMode.WALKING; // eslint-disable-line
@@ -102,48 +126,93 @@ export class Directions extends React.PureComponent { // eslint-disable-line rea
         if (status === okStatus) {
           onSetDirections(result);
 
-          if (isLocationEnabled) {
+          if (isLocationEnabled && isNavigating) {
             const timer = setInterval(this.timer, timeToUpdateLocation);
             onSetTimer(timer);
           }
         } else {
-          console.error(`Error fetching directions ${result}`);
-          browserHistory.goBack();
+          onSetNavigating(false);
         }
       });
     }
   }
 
-  componentWillUnmount() {
-    const { timer, onSetTimer, onSetLocationEnabled } = this.props;
-
-    // Clear timer
-    clearInterval(timer);
-
-    // Set timer to null
-    onSetTimer(null);
-
-    // Set location to true so that we can check again
-    onSetLocationEnabled(true);
-  }
-
   timer() {
-    const { userProp, isLocationEnabled, onUpdateUserLocation } = this.props;
+    const { userProp, isNavigating, isLocationEnabled, onUpdateUserLocation } = this.props;
     const user = (userProp.location) ? userProp : userProp.toJS();
 
-    if (isLocationEnabled) {
+    if (isLocationEnabled && isNavigating) {
       onUpdateUserLocation(user);
     }
   }
 
+  renderActions() {
+    const { userProp, place, isNavigating, onUpdateUserLocation, onSetNavigating, onReachDestination } = this.props;
+    const { goBack } = browserHistory;
+
+    const user = (userProp.location) ? userProp : userProp.toJS();
+    const destination = (place.lat) ? place : place.toJS();
+
+    let actionContent = null;
+
+    if (isNavigating) {
+      actionContent = (
+        <ActionContainer>
+          <Button
+            btnClasses={'full'}
+            name={messages.buttons.cancel.defaultMessage}
+            onClickEvent={goBack}
+          />
+          <Button
+            btnClasses={'full special reversed'}
+            name={messages.buttons.reachedDestination.defaultMessage}
+            onClickEvent={() => {
+              onReachDestination(destination, user);
+            }}
+          />
+        </ActionContainer>
+      );
+    } else if (destination.lat && destination.lng) {
+      actionContent = (
+        <ActionContainer>
+          <Button
+            btnClasses={'full'}
+            name={messages.buttons.cancel.defaultMessage}
+            onClickEvent={goBack}
+          />
+          <Button
+            btnClasses={'full special reversed'}
+            name={messages.buttons.navigate.defaultMessage}
+            onClickEvent={() => {
+              onSetNavigating(true);
+              onUpdateUserLocation(user);
+              this.getDirections();
+            }}
+          />
+        </ActionContainer>
+      );
+    } else {
+      actionContent = (
+        <ActionContainer>
+          <Button
+            btnClasses={'full special reversed'}
+            name={messages.buttons.back.defaultMessage}
+            onClickEvent={goBack}
+          />
+        </ActionContainer>
+      );
+    }
+
+    return actionContent;
+  }
+
   render() {
-    const { userProp, place, directions, venuMap, onReachDestination } = this.props;
+    const { userProp, place, directions, venuMap } = this.props;
 
     const mapProps = venuMap.toJS();
     const user = (userProp.location) ? userProp : userProp.toJS();
     const destination = (place.lat) ? place : place.toJS();
 
-    if (!destination.lat && !destination.lng) return null;
 
     // Create user marker
     const userMarker = {
@@ -154,7 +223,9 @@ export class Directions extends React.PureComponent { // eslint-disable-line rea
     };
 
     // Make default markers
-    const markers = [userMarker, destination];
+    const markers = [userMarker];
+
+    let cardContent = (<P>messages.emptyState.defaultMessage</P>);
 
     let link = null;
     let room = '';
@@ -174,6 +245,9 @@ export class Directions extends React.PureComponent { // eslint-disable-line rea
         : destination.exhibitCode;
         location = `${destination.building}, ${room}`;
         break;
+      case 'parking':
+        destination.name = `${user.name}'s Parking Spot`;
+        break;
       default:
         link = null;
         location = null;
@@ -184,10 +258,15 @@ export class Directions extends React.PureComponent { // eslint-disable-line rea
       link,
       location,
       place: destination,
-      name: (destination.type !== 'parking') ? destination.name : `${user.name}'s Parking Spot`,
-      zone: (destination.type !== 'parking') ? destination.imagineRitArea : 'Parking',
-      zoneClass: (destination.type !== 'parking') ? destination.colorZone : 'parking',
+      name: destination.name,
+      zone: destination.imagineRitArea,
+      zoneClass: destination.colorZone,
     };
+
+    if (destination.lat && destination.lng) {
+      markers.push(destination);
+      cardContent = (<Card place={cardInfo} cardClass={'full'} />);
+    }
 
     return (
       <Wrapper>
@@ -205,24 +284,9 @@ export class Directions extends React.PureComponent { // eslint-disable-line rea
         />
         <BottomContainer>
           <CardContainer>
-            <Card place={cardInfo} cardClass={'full'} />
+            { cardContent }
           </CardContainer>
-          <ActionContainer>
-            <Button
-              btnClasses={'full'}
-              name={'Cancel'}
-              onClickEvent={() => {
-                browserHistory.goBack();
-              }}
-            />
-            <Button
-              btnClasses={'full special reversed'}
-              name={'I\'m There'}
-              onClickEvent={() => {
-                onReachDestination(destination, user);
-              }}
-            />
-          </ActionContainer>
+          { this.renderActions() }
         </BottomContainer>
       </Wrapper>
     );
@@ -236,10 +300,12 @@ Directions.propTypes = {
   venuMap: T.object,
   isSignedIn: T.bool,
   userProp: T.object,
+  isNavigating: T.bool,
   isLocationEnabled: T.bool,
   onStartOnboarding: T.func,
   onSetTimer: T.func.isRequired,
   onSetDirections: T.func.isRequired,
+  onSetNavigating: T.func.isRequired,
   onReachDestination: T.func.isRequired,
   onSetLocationEnabled: T.func.isRequired,
   onUpdateUserLocation: T.func.isRequired,
@@ -252,6 +318,7 @@ const mapStateToProps = createStructuredSelector({
   place: makeSelectDestination(),
   isSignedIn: makeSelectIsSignedIn(),
   directions: makeSelectDirections(),
+  isNavigating: makeSelectIsNavigating(),
   isLocationEnabled: makeSelectIsLocationEnabled(),
 });
 
@@ -261,6 +328,7 @@ export function mapDispatchToProps(dispatch) {
     onStartOnboarding: (stage) => dispatchSetStage(dispatch, stage),
     onUpdateUserLocation: (user) => dispatchGetUserLocation(dispatch, user),
     onSetDirections: (directions) => dispatchSetDirections(dispatch, directions),
+    onSetNavigating: (navigating) => dispatchSetNavigating(dispatch, navigating),
     onSetLocationEnabled: (enabled) => dispatchSetLocationEnabled(dispatch, enabled),
     onChangeExhibit: (p, subType) => {
       // Make a new place object

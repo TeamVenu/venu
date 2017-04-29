@@ -11,6 +11,11 @@ const makeSelectDirections = () => createSelector(
   (directionsState) => directionsState.get('directions')
 );
 
+const makeSelectIsNavigating = () => createSelector(
+  selectDirections,
+  (directionsState) => directionsState.get('isNavigating')
+);
+
 const makeSelectIsLocationEnabled = () => createSelector(
   selectDirections,
   (directionsState) => directionsState.get('isLocationEnabled')
@@ -25,5 +30,6 @@ export {
   makeSelectTimer,
   selectDirections,
   makeSelectDirections,
+  makeSelectIsNavigating,
   makeSelectIsLocationEnabled,
 };

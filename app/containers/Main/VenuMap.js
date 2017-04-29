@@ -1,6 +1,7 @@
 import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { browserHistory } from 'react-router';
 import { withGoogleMap, GoogleMap } from 'react-google-maps';
 import Marker from 'components/Marker';
 import MarkerClusterer from 'react-google-maps/lib/addons/MarkerClusterer';
@@ -21,6 +22,7 @@ import {
 // Dispatches
 import {
   dispatchChangeMapCenter,
+  dispatchNavigateToPlace,
   dispatchChangeCurrentPlace,
   dispatchChangeUserLocation,
 } from 'containers/App/dispatches';
@@ -50,11 +52,12 @@ const Map = withGoogleMap((props) => { // eslint-disable-line
 
   return (
     <GoogleMap
-      ref={props.onMapLoad}
-      defaultZoom={props.mapProps.zoom}
-      defaultCenter={props.user.location}
       onClick={props.onMapClick}
-      defaultOptions={props.mapProps}
+      center={props.user.location}
+      defaultZoom={props.mapProps.zoom}
+      defaultCenter={props.mapProps.center}
+      defaultOptions={props.mapProps.options}
+      ref={(map) => map && map.panTo(props.user.location)}
     >
       <MarkerClusterer
         averageCenter
@@ -77,6 +80,7 @@ const Map = withGoogleMap((props) => { // eslint-disable-line
           size={size}
           place={marker}
           anchor={anchor}
+          onClickEvent={marker.onClickEvent}
         />
       ))}
     </GoogleMap>
@@ -85,7 +89,7 @@ const Map = withGoogleMap((props) => { // eslint-disable-line
 
 export class VenuMap extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { user, exhibits, facilities, mapMode, venuMap } = this.props;
+    const { user, exhibits, facilities, mapMode, venuMap, onChangeMapCenter, onNavigateToPlace } = this.props;
     // Convert venuMap to a JS object
     const mapProps = venuMap.toJS();
     const userObject = (user.location) ? user : user.toJS();
@@ -93,26 +97,29 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
     const facilitiesObj = (facilities.entrance) ? facilities : facilities.toJS();
     const places = getPlacesArray(exhibitsObj, facilitiesObj);
 
-
-    // Create the parking Marker
-    const parkingMarker = {
-      type: 'parking',
-      lat: userObject.parking.lat,
-      lng: userObject.parking.lng,
-    };
-
     // Create the user Marker
     const userMarker = {
       type: 'user',
       lat: userObject.location.lat,
       lng: userObject.location.lng,
       photoURL: userObject.photoURL,
+      onClickEvent: onChangeMapCenter,
     };
 
-    const userMarkers = [parkingMarker, userMarker];
+    const userMarkers = [userMarker];
 
-    // Add new markers to places
-    // places.push(parkingMarker, userMarker);
+    // If we have parking add it to usermarkers
+    if (userObject.parking.lat && userObject.parking.lng) {
+      // Create the parking Marker
+      const parkingMarker = {
+        type: 'parking',
+        lat: userObject.parking.lat,
+        lng: userObject.parking.lng,
+        onClickEvent: onNavigateToPlace,
+      };
+
+      userMarkers.push(parkingMarker);
+    }
 
     return (
       <Map
@@ -125,8 +132,9 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
         markers={places}
         userMarkers={userMarkers}
         mode={mapMode}
-        user={user}
+        user={userObject}
         mapProps={mapProps}
+        panToLocation={null}
       />
     );
   }
@@ -134,15 +142,12 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
 
 VenuMap.propTypes = {
   user: T.object,
-  // onSelectPlace: T.func,
-  // currentPlace: T.object,
-  // onChangeMapCenter: T.func,
   venuMap: T.object.isRequired,
   mapMode: T.string.isRequired,
   exhibits: T.object.isRequired,
   facilities: T.object.isRequired,
-  // destination: T.object,
-  // onUserLocationChange: T.func,
+  onChangeMapCenter: T.func.isRequired,
+  onNavigateToPlace: T.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -158,12 +163,18 @@ const mapStateToProps = createStructuredSelector({
 // Map dispatches to props
 export function mapDispatchToProps(dispatch) {
   return {
-    onChangeMapCenter: (center) => dispatchChangeMapCenter(dispatch, center),
+    onNavigateToPlace: (place) => {
+      // Set place to navigate to
+      dispatchNavigateToPlace(dispatch, place);
+      // Redirect to Directions
+      browserHistory.push({ pathname: '/directions' });
+    },
     onSelectPlace: (place) => {
       const center = Object.assign({}, { lat: place.lat, lng: place.lng });
       dispatchChangeMapCenter(dispatch, center);
       dispatchChangeCurrentPlace(dispatch, place);
     },
+    onChangeMapCenter: (center) => dispatchChangeMapCenter(dispatch, center),
     onUserLocationChange: (location) => dispatchChangeUserLocation(dispatch, location),
   };
 }

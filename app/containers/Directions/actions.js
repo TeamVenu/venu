@@ -1,4 +1,9 @@
-import { SET_TIMER, SET_DIRECTIONS, SET_LOCATION_ENABLED } from './constants';
+import {
+  SET_TIMER,
+  SET_DIRECTIONS,
+  SET_IS_NAVIGATING,
+  SET_LOCATION_ENABLED,
+} from './constants';
 
 /**
  * setTimer
@@ -21,6 +26,18 @@ export function setDirections(directions) {
   return {
     type: SET_DIRECTIONS,
     value: directions,
+  };
+}
+
+/**
+ * setIsNavigating
+ * Sets isNavigating to true or false
+ * @param {bool} enabled
+ */
+export function setIsNavigating(navigating) {
+  return {
+    type: SET_IS_NAVIGATING,
+    value: navigating,
   };
 }
 

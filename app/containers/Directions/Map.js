@@ -32,9 +32,9 @@ export const Map = withGoogleMap((props) => { // eslint-disable-line
 
   return (
     <GoogleMap
-      defaultZoom={7}
+      defaultZoom={17}
       defaultCenter={props.center}
-      defaultOptions={props.mapProps}
+      defaultOptions={props.mapProps.options}
     >
       {props.markers.map((marker, index) => (
         <Marker

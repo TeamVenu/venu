@@ -1,10 +1,15 @@
 import {
   setUser,
-  changeMapCenter,
   updateUserData,
+  changeMapCenter,
 } from 'containers/App/actions';
 
-import { setTimer, setDirections, setLocationEnabled } from './actions';
+import {
+  setTimer,
+  setDirections,
+  setIsNavigating,
+  setLocationEnabled,
+ } from './actions';
 
 export function dispatchSetTimer(dispatch, timerId) {
   dispatch(setTimer(timerId));
@@ -12,6 +17,10 @@ export function dispatchSetTimer(dispatch, timerId) {
 
 export function dispatchSetDirections(dispatch, directions) {
   dispatch(setDirections(directions));
+}
+
+export function dispatchSetNavigating(dispatch, navigating) {
+  dispatch(setIsNavigating(navigating));
 }
 
 export function dispatchSetLocationEnabled(dispatch, enabled) {
@@ -25,7 +34,6 @@ export function dispatchSetLocationEnabled(dispatch, enabled) {
  */
 export function dispatchGetUserLocation(dispatch, userProp) {
   const user = (userProp.location) ? userProp : userProp.toJS();
-  console.log('UPDATE LOC');
   // Verify that device has geolocation available
   if ('geolocation' in navigator) {
     // Device supports geolocation

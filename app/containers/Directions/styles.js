@@ -14,9 +14,18 @@ export const BottomContainer = styled.section`
 `;
 
 export const CardContainer = styled.section`
+  background: var(--background-color);
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   overflow: hidden;
+
+  section {
+    background: none;
+  }
+
+  > p {
+    text-align: center;
+  }
 `;
 
 export const ActionContainer = styled.section`
