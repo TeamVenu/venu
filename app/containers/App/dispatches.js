@@ -125,7 +125,7 @@ export function dispatchChangeUserInterests(dispatch, interests) {
 }
 
 /**
- * askUserToEnableLocation
+ * dispatchGetUserLocation
  * Prompts user for access to geolocation and dispatches action
  * @param {Function} dispatch
  */

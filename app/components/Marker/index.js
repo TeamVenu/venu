@@ -18,10 +18,9 @@ import Woman from 'media/icons/pins/woman.png';
 
 export default class Marker extends React.Component {
   static propTypes = {
-    place: T.object.isRequired,
     size: T.any,
-    // mode: T.string,
-    // currentPlace: T.object,
+    anchor: T.any,
+    place: T.object.isRequired,
   }
 
   constructor(props) {
@@ -32,15 +31,42 @@ export default class Marker extends React.Component {
   }
 
   onHandleClick(url) {
+    const { place } = this.props;
+
     if (url) {
       browserHistory.push({
         pathname: url,
       });
+    } else if (place.onClickEvent) {
+      if (place.type === 'user') {
+        // Create center coordinate object
+        const center = {
+          lat: place.lat,
+          lng: place.lng,
+        };
+
+        // Call user click event
+        place.onClickEvent(center);
+      } else if (place.type === 'parking') {
+        // Create parking object
+        const parking = {
+          type: place.type,
+          name: 'My Parking Spot',
+          location: null,
+          lat: place.lat,
+          lng: place.lng,
+          colorZone: place.type,
+          imagineRitArea: 'Parking',
+        };
+
+        // Call parking click event
+        place.onClickEvent(parking);
+      }
     }
   }
 
   renderPin() {
-    const { place, size } = this.props;
+    const { place, anchor, size } = this.props;
 
     // Set position of pin
     const position = {
@@ -121,10 +147,12 @@ export default class Marker extends React.Component {
         link = null;
         break;
     }
+
     // Set Icon
     const icon = {
       url: image,
       scaledSize: size,
+      anchor,
     };
 
     return (

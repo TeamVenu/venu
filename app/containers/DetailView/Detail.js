@@ -440,11 +440,12 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onDispatchNavigateToPlace: (location) => {
-      dispatchNavigateToPlace(dispatch, location);
+    onDispatchNavigateToPlace: (place) => {
       dispatchChangeCurrentPlace(dispatch, {});
-      // Redirect to main
-      browserHistory.push({ pathname: '/' });
+      // Set place to navigate to
+      dispatchNavigateToPlace(dispatch, place);
+      // Redirect to Directions
+      browserHistory.push({ pathname: '/directions' });
     },
     onDispatchLikePlace: (place) => {
       dispatchLikePlace(dispatch, place);
@@ -484,7 +485,7 @@ export function mapDispatchToProps(dispatch) {
       // Make a new place object
       // Make sure we don't mutate te old object
       // To do this we user Object.assing({}, ...)
-      const place = Object.assign({}, p, { subType: 'saved' });
+      const place = Object.assign({}, p, { previousSubType: p.subType, subType: 'saved' });
 
       // Dispatch
       dispatchSetUser(dispatch, user);
@@ -511,7 +512,7 @@ export function mapDispatchToProps(dispatch) {
       // Make sure we don't mutate te old object
       // To do this we user Object.assing({}, ...)
       const newSubType = (p.previousSubType !== p.subType) ? p.previousSubType : 'recommended';
-      const place = Object.assign({}, p, { subType: newSubType });
+      const place = Object.assign({}, p, { previousSubType: p.subType, subType: newSubType });
       dispatchSetUser(dispatch, user);
       dispatchChangeExhibit(dispatch, place);
       dispatchChangeCurrentPlace(dispatch, place);
@@ -569,7 +570,7 @@ export function mapDispatchToProps(dispatch) {
       // Make a new place object
       // Make sure we don't mutate te old object
       // To do this we user Object.assing({}, ...)
-      const place = Object.assign({}, p, { subType: p.previousSubType });
+      const place = Object.assign({}, p, { previousSubType: 'recommended', subType: p.previousSubType });
       dispatchSetUser(dispatch, user);
       dispatchChangeExhibit(dispatch, place);
       dispatchChangeCurrentPlace(dispatch, place);

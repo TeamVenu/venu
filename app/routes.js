@@ -288,6 +288,25 @@ export default function createRoutes(store) {
       },
     },
     {
+      path: '/directions',
+      name: 'directions',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/App/sagas'),
+          import('containers/Directions'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([sagas, component]) => {
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
       path: '/login',
       name: 'signIn',
       getComponent(nextState, cb) {

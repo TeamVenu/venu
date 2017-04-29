@@ -49,7 +49,7 @@ const Btn = styled.button`
 
     &.reversed {
       background: var(--background-color);
-      color: var(--red);
+      color: var(--orange);
       border-color: var(--background-color);
 
       &:disabled {

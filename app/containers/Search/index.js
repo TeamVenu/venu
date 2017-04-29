@@ -165,6 +165,7 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
       const place = {
         link,
         location,
+        place: result,
         name: result.name,
         zone: result.imagineRitArea,
         zoneClass: result.colorZone,
@@ -172,7 +173,7 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
 
       return (
         <Item key={index}>
-          <Card place={place} />
+          <Card place={place} cardClass={'full'} />
         </Item>
       );
     });
