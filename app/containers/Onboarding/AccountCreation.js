@@ -1,3 +1,4 @@
+// TODO: Delete this
 import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
