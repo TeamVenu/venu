@@ -20,6 +20,7 @@ import {
   changeParkingLocation,
   changeUserInterests,
   setupGeolocation,
+  setLocating,
   setStage,
   goToPreviousStage,
   goToNextStage,
@@ -168,6 +169,7 @@ export function askUserToEnableLocation(dispatch) {
   if ('geolocation' in navigator) {
     // Device supports geolocation
     // Let's ask user for access
+    dispatch(setLocating(true));
     navigator.geolocation.getCurrentPosition((position) => {
       // User allowed tracking
       retrieveUserLocationSucceeded(dispatch, position);
@@ -180,6 +182,7 @@ export function askUserToEnableLocation(dispatch) {
     // a. Not supported by device or
     // b. Disabled by device
     // Set local storage so we don't have to repeat these steps on reload
+    dispatch(setLocating(false));
     dispatch(setupGeolocation(location, 'unavailable'));
   }
 }
@@ -195,7 +198,7 @@ export function retrieveUserLocationSucceeded(dispatch, position) {
     lat: position.coords.latitude,
     lng: position.coords.longitude,
   };
-
+  dispatch(setLocating(false));
   dispatch(setupGeolocation(location, 'succeeded'));
 }
 
@@ -206,5 +209,6 @@ export function retrieveUserLocationSucceeded(dispatch, position) {
  * @param {Object} position
  */
 export function retrieveUserLocationFailed(dispatch, location) {
+  dispatch(setLocating(false));
   dispatch(setupGeolocation(location, 'failed'));
 }

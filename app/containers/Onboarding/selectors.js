@@ -32,6 +32,11 @@ const makeSelectRePassword = () => createSelector(
   (onboardingState) => onboardingState.get('rePassword')
 );
 
+const makeSelectIsLocating = () => createSelector(
+  selectOnboarding,
+  (onboardingState) => onboardingState.get('isLocating')
+);
+
 const makeSelectUserLocation = () => createSelector(
   selectOnboarding,
   (onboardingState) => onboardingState.get('location')
@@ -103,6 +108,7 @@ export {
   makeSelectUserLocation,
   makeSelectParking,
   makeSelectInterests,
+  makeSelectIsLocating,
   makeSelectEmailValid,
   makeSelectPasswordValid,
   makeSelectAgeValid,

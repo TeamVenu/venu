@@ -2,16 +2,17 @@ import React, { PropTypes as T } from 'react';
 import GoogleMap from 'google-map-react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import styled from 'styled-components';
 
 // Components
-import P from 'components/P';
 import H3 from 'components/H3';
 import Radio from 'components/Input';
 import Button from 'components/Button';
 import FlexListView from 'components/FlexListView';
 import Marker from 'components/Markers';
+import FullWrapper from 'components/FullWrapper';
+
 import {
-  Container,
   Header,
   Body,
   Footer,
@@ -43,6 +44,12 @@ import {
 // Messages
 import messages from './messages';
 
+const MapContainer = styled.section`
+  margin-top: var(--padding);
+  height: 100px;
+  background: var(--background-color);
+`;
+
 export class ParkingSetup extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
@@ -52,13 +59,13 @@ export class ParkingSetup extends React.PureComponent { // eslint-disable-line r
   renderParkingLots() {
     const { onSetParkingLocation } = this.props;
     const { lots } = messages.geolocationSetup.parking.lot;
-    return lots.map((lot) => { // eslint-disable-line
+    return lots.map((lot, i) => { // eslint-disable-line
       return (
         <OptionItem key={lot.id}>
           <Radio
             id={lot.name}
             name={'parkingLot'}
-            value={lot.value}
+            value={i}
             text={lot.defaultMessage}
             type={'radio'}
             onChangeEvent={(e) => {
@@ -78,52 +85,54 @@ export class ParkingSetup extends React.PureComponent { // eslint-disable-line r
   }
 
   render() {
-    const { userProps, venuMap, stage, location, parking, onPreviousStage, onNextStage, onSetParkingLocation } = this.props;
+    const { userProps, venuMap, stage, location, parkingPosition, onPreviousStage, onNextStage, onSetParkingLocation } = this.props;
     const user = (userProps.location) ? userProps : userProps.toJS();
     const mapProps = (venuMap.bootstrapURLKeys) ? venuMap : venuMap.toJS();
-    const options = Object.assign(mapProps.options, { draggable: false, scrollwheel: false });
     const place = {
       type: 'facility',
       subType: 'parking',
     };
+    const parking = (parkingPosition && parkingPosition.lat) ? parkingPosition : parkingPosition.toJS();
+    const btnMsg = (parking.lat) ? messages.buttons.next.defaultMessage : messages.buttons.skip.defaultMessage;
+    const currentPositionRadio = (parking.lat && (user.location.lat !== 43.084167 && user.location.lng !== -77.677085)) ? (
+      <Radio
+        id={'currentLocation'}
+        name={'parkingLot'}
+        value={'currentLocation'}
+        text={'Current location'}
+        type={'radio'}
+        full
+        onChangeEvent={() => {
+          // Set parking location using current location
+          onSetParkingLocation(location);
+        }}
+      />
+    ) : null;
 
     return (
-      <Container>
+      <FullWrapper className={'centered'}>
         <Header>
           <H3>{ messages.geolocationSetup.parking.title.defaultMessage }</H3>
         </Header>
         <Body>
-          <P>
-            { messages.geolocationSetup.parking.description.defaultMessage }
-          </P>
-          <div style={{ width: '100%', height: '300px' }}>
-            <GoogleMap
-              bootstrapURLKeys={mapProps.bootstrapURLKeys}
-              options={options}
-              zoom={16}
-              center={parking}
-            >
-              <Marker
-                place={place}
-                lat={parking.lat}
-                lng={parking.lng}
-              />
-            </GoogleMap>
-          </div>
+          {currentPositionRadio}
+          <MapContainer>
+            <div style={{ width: '100%', height: '100%' }}>
+              <GoogleMap
+                bootstrapURLKeys={mapProps.bootstrapURLKeys}
+                options={mapProps}
+                zoom={16}
+                center={parking}
+              >
+                <Marker
+                  place={place}
+                  lat={parking.lat}
+                  lng={parking.lng}
+                />
+              </GoogleMap>
+            </div>
+          </MapContainer>
           <FlexListView className={'spaced'}>
-            <OptionItem>
-              <Radio
-                id={'currentLocation'}
-                name={'parkingLot'}
-                value={'currentLocation'}
-                text={'Set parking to current location'}
-                type={'radio'}
-                onChangeEvent={() => {
-                  // Set parking location using current location
-                  onSetParkingLocation(location);
-                }}
-              />
-            </OptionItem>
             { this.renderParkingLots() }
           </FlexListView>
         </Body>
@@ -142,7 +151,7 @@ export class ParkingSetup extends React.PureComponent { // eslint-disable-line r
               <Button
                 isIconAfter
                 icon={'ion-ios-arrow-thin-right'}
-                name={messages.buttons.next.defaultMessage}
+                name={btnMsg}
                 onClickEvent={() => {
                   const props = Object.assign({}, user, { parking });
                   onNextStage(props, stage);
@@ -151,14 +160,14 @@ export class ParkingSetup extends React.PureComponent { // eslint-disable-line r
             </ButtonItem>
           </ButtonRow>
         </Footer>
-      </Container>
+      </FullWrapper>
     );
   }
 }
 
 ParkingSetup.propTypes = {
-  parking: T.object,
   userProps: T.object,
+  parkingPosition: T.object,
   stage: T.number.isRequired,
   venuMap: T.object.isRequired,
   location: T.object.isRequired,
@@ -170,9 +179,9 @@ ParkingSetup.propTypes = {
 const mapStateToProps = createStructuredSelector({
   userProps: makeSelectUser(),
   venuMap: makeSelectVenuMap(),
-  parking: makeSelectParking(),
   location: makeSelectUserLocation(),
   stage: makeSelectOnboardingStage(),
+  parkingPosition: makeSelectParking(),
 });
 
 export function mapDispatchToProps(dispatch) {

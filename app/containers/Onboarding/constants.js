@@ -9,5 +9,6 @@ export const CHANGE_USER_PASSWORD = 'venu/Onboarding/CHANGE_USER_PASSWORD';
 export const CHANGE_USER_REPASSWORD = 'venu/Onboarding/CHANGE_USER_REPASSWORD';
 export const CHANGE_USER_LOCATION = 'venu/Onboarding/CHANGE_USER_LOCATION';
 export const CHANGE_PARKING_LOCATION = 'venu/Onboarding/CHANGE_PARKING_LOCATION';
+export const SET_LOCATING = 'venu/Onboarding/SET_LOCATING';
 export const SETUP_GEOLOCATION = 'venu/Onboarding/SETUP_GEOLOCATION';
 export const CHANGE_USER_INTERESTS = 'venu/Onboarding/CHANGE_USER_INTERESTS';

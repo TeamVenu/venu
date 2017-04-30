@@ -5,12 +5,12 @@ import { createStructuredSelector } from 'reselect';
 // Components
 import P from 'components/P';
 import H3 from 'components/H3';
-import H4 from 'components/H4';
 import Button from 'components/Button';
 import Checkbox from 'components/Input';
 import FlexListView from 'components/FlexListView';
+import FullWrapper from 'components/FullWrapper';
+
 import {
-  Container,
   Header,
   Body,
   Footer,
@@ -69,9 +69,9 @@ export class InterestSelection extends React.PureComponent { // eslint-disable-l
   renderInterestList() {
     const { interests } = messages.interestSelection;
 
-    return interests.map((interest) => { // eslint-disable-line
+    return interests.map((interest, index) => { // eslint-disable-line
       return (
-        <OptionItem key={interest.name}>
+        <OptionItem key={index}>
           <Checkbox
             id={interest.name}
             name={'interests'}
@@ -88,22 +88,18 @@ export class InterestSelection extends React.PureComponent { // eslint-disable-l
   render() {
     const { userProps, stage, interests, areInterestsValid, onPrevStage, onSubmitProfile } = this.props;
     const user = (userProps.location) ? userProps : userProps.toJS();
-
     return (
-      <Container>
+      <FullWrapper className={'centered'}>
         <Header>
           <H3>
             { messages.interestSelection.title.defaultMessage }
           </H3>
         </Header>
         <Body>
-          <H4>
-            { messages.interestSelection.subtitle.defaultMessage }
-          </H4>
           <P>
             { messages.interestSelection.intro.defaultMessage }
           </P>
-          <FlexListView className={'spaced'}>
+          <FlexListView>
             { this.renderInterestList() }
           </FlexListView>
         </Body>
@@ -132,7 +128,7 @@ export class InterestSelection extends React.PureComponent { // eslint-disable-l
             </ButtonItem>
           </ButtonRow>
         </Footer>
-      </Container>
+      </FullWrapper>
     );
   }
 }

@@ -8,18 +8,18 @@ const FlexListView = styled.ul`
   padding: 0;
   padding-top: var(--padding);
   align-items: baseline;
+  // justify-content: space-between;
 
   li {
+    // flex: auto;
+    flex-grow: 1;
+    flex-basis: auto;
     margin-bottom: var(--padding);
-  }
 
-  li:not(:last-of-type) {
-    margin-right: var(--padding);
-  }
-
-  &.spaced {
-    li {
-      margin: 0 calc(var(--padding) * 1.5) calc(var(--padding) * 1.5) 0;
+    span {
+      display: block;
+      width: 90%;
+      margin: 0 auto;
     }
   }
 `;

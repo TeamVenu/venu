@@ -9,6 +9,14 @@ const FullWrapper = styled.section`
   min-height: 100vh;
   padding-bottom: ${(props) => (props.bottomPadding) ? 'calc(var(--topbar-height) * 1.5);' : '0'};
 
+  &.centered {
+    margin: 0 auto;
+    width: 90%;
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+  }
+
   &.full-page + .bottom-bar {
     display: none;
   }

@@ -7,6 +7,7 @@ import {
   CHANGE_USER_LOCATION,
   CHANGE_PARKING_LOCATION,
   CHANGE_USER_INTERESTS,
+  SET_LOCATING,
   SETUP_GEOLOCATION,
   ONBOARDING_SET_STAGE,
   ONBOARDING_PREV_STAGE,
@@ -100,6 +101,18 @@ export function changeParkingLocation(location) {
   return {
     type: CHANGE_PARKING_LOCATION,
     value: location,
+  };
+}
+
+/**
+ * setLocating
+ * Begins geolocation process
+ * @param  {Bool} locating
+ */
+export function setLocating(locating) {
+  return {
+    type: SET_LOCATING,
+    value: locating,
   };
 }
 

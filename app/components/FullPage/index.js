@@ -16,8 +16,9 @@ export const Container = styled.section`
 export const Header = styled.section`
   flex: 2;
   display: flex;
-  justify-content: center;
+  text-align: center;
   flex-direction: column;
+  justify-content: flex-end;
 `;
 
 export const Body = styled.section`
@@ -26,12 +27,16 @@ export const Body = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
 `;
 
 export const Footer = styled.ul`
+  margin: 0;
   flex: 1;
   padding: 0;
   list-style-type: none;
+  display: flex;
+  align-items: flex-end;
 
   li {
     padding-bottom: calc(var(--padding) * 1.5);
@@ -39,6 +44,7 @@ export const Footer = styled.ul`
 `;
 
 export const ButtonRow = styled.ul`
+  margin: 0;
   padding: 0;
   list-style-type: none;
   width: 100%;
@@ -49,37 +55,19 @@ export const ButtonRow = styled.ul`
 
 export const ButtonItem = styled.li`
   flex-basis: 50%;
+  display: flex;
+  flex-flow: row no-wrap;
+  justify-content: flex-start;
+
+  &:last-of-type {
+    justify-content: flex-end;
+  }
 `;
 
 export const OptionList = styled.ul`
   margin-left: 0;
   padding-left: 0;
   list-style-type: none;
-  margin-bottom: 1em;
 `;
 
-export const OptionItem = styled.li`
-  padding-bottom: var(--padding);
-`;
-
-export const Alert = styled.p`
-  margin: 2em 0;
-  display: none;
-  padding: var(--padding);
-
-  &.show {
-    display: block;
-  }
-
-  &.error {
-    background: var(--error-color);
-  }
-
-  &.warning {
-    background: var(--warning-color);
-  }
-
-  &.success {
-    background: var(--success-color);
-  }
-`;
+export const OptionItem = styled.li``;

@@ -9,6 +9,7 @@ import {
   CHANGE_USER_LOCATION,
   CHANGE_PARKING_LOCATION,
   CHANGE_USER_INTERESTS,
+  SET_LOCATING,
   SETUP_GEOLOCATION,
   ONBOARDING_SET_STAGE,
   ONBOARDING_PREV_STAGE,
@@ -24,10 +25,14 @@ const initialState = fromJS({
   rePassword: '',
   name: '',
   age: '',
-  location: {},
+  location: {
+    lat: 43.084167,
+    lng: -77.677085,
+  },
   parking: {},
   interests: [],
   geolocationMode: '',
+  isLocating: null,
   isEmailValid: false,
   isPasswordValid: false,
   isNameValid: false,
@@ -69,6 +74,9 @@ function onboardingReducer(state = initialState, action) {
       return state
         .set('interests', action.value)
         .set('areInterestsValid', action.valid);
+    case SET_LOCATING:
+      return state
+        .set('isLocating', action.value);
     case SETUP_GEOLOCATION:
       return state
         .set('location', action.value)
