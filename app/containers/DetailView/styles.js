@@ -1,66 +1,18 @@
 import styled from 'styled-components';
-import { Link } from 'react-router';
-
-export const ViewWrapper = styled.section`
-  // background: var(--foreground-color);
-  // color: var(--background-color);
-`;
-
-export const Topbar = styled.header`
-  position: absolute;
-  width: 100%;
-  height: var(--topbar-height);
-  background: var(--background-color);
-  display: flex;
-  // justify-content: center;
-  z-index: 10;
-`;
-
-export const NavBar = styled.ul`
-    position: relative;
-    width: 100%;
-    height: 100%;
-    max-width: 720px;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
-`;
-
-export const NavItem = styled.li`
-  display: flex;
-  justify-content: center;
-  flex-basis: 20%;
-  padding: var(--padding);
-
-  &:nth-of-type(2) {
-    flex-basis: 60%;
-    white-space: nowrap;
-    overflow: hidden;
-
-    h3 {
-      text-overflow: ellipsis;
-      padding: 0;
-    }
-  }
-`;
-
-export const BackButton = styled(Link)`
-  color: var(--foreground-color);
-  text-decoration: none;
-`;
+import H4 from 'components/H4';
 
 export const MapWrapper = styled.section`
+  background: var(--background-color);
   position: relative;
   top: 0;
   width: 100%;
-  height: 250px;
-  cursor: auto;
+  height: 100px;
 
-  @media (min-width: 1170px) {
+  @media screen and (min-height: 600px) {
+    height: 200px;
+  }
+
+  @media screen and (min-height: 760px) {
     height: 300px;
   }
 `;
@@ -69,7 +21,7 @@ export const DetailWrapper = styled.section`
   display: flex;
   justify-content: center;
   width: 100%;
-  border-top: 10px solid transparent;
+  border-top: 5px solid transparent;
 
   .recreationZone & {
     border-color: var(--recreation-zone);
@@ -133,153 +85,64 @@ export const DetailContainer = styled.section`
   max-width: 720px;
   padding: 2em 0;
   margin-bottom: 60px;
+
+  // Override Card styles
+  section:first-of-type {
+    background: none;
+    height: auto;
+
+    a {
+      padding: 0;
+      h2, p {
+        white-space: normal;
+        overflow: auto;
+      }
+    }
+  }
 `;
 
 export const DetailInfoList = styled.ul`
   padding: 0;
-  margin-bottom: var(--padding);
+  display: flex;
+  flex-flow: row no-wrap;
+  align-items: flex-start;
   list-style-type: none;
+  margin-bottom: var(--padding);
 `;
 
 export const DetailInfoItem = styled.li`
-  display: flex;
-  flex-flow: row no-wrap;
-  align-items: baseline;
+  flex-basis: 50%;
 `;
 
-export const PrimaryButton = styled.button`
-  display: block;
-  // position: fixed;
-  // left: 0;
-  // bottom: 0;
-  width: 100%;
-  padding: 1em;
-  color: var(--foreground-color);
-  text-transform: uppercase;
-  .recreationZone & {
-    background: var(--recreation-zone);
+export const ButtonRow = styled.ul`
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+`;
 
-    &:hover {
-      // background: var(--grey);
-      // color: var(--recreation-zone);
-    }
+export const ButtonItem = styled.li`
+  flex-grow: 1;
+
+  &:not(:last-of-type) {
+    margin-right: calc(var(--padding) / 1.5);
   }
+`;
 
-  .ritCentral & {
-    background: var(--rit-central);
+export const DetailInfoWrapper = styled.section`
+  border-top: 1px solid var(--light-gray);
+`;
 
-    &:hover {
-      // background: var(--grey);
-      // color: var(--rit-central);
-    }
-  }
+export const Subtitle = styled(H4)`
+  color: var(--grey);
+  font-weight: 700;
+`;
 
-  .ntidArea & {
-    background: var(--ntid-area);
-
-    &:hover {
-      // background: var(--grey);
-      // color: var(--ntid-area);
-    }
-  }
-
-  .informationStation & {
-    background: var(--information-station);
-
-    &:hover {
-      // background: var(--grey);
-      // color: var(--information-station);
-    }
-  }
-
-  .thinkTank & {
-    background: var(--think-tank);
-
-    &:hover {
-      // background: var(--grey);
-      // color: var(--think-tank);
-    }
-  }
-
-  .artisticAlley & {
-    background: var(--artistic-alley);
-
-    &:hover {
-      // background: var(--grey);
-      // color: var(--artistic-alley);
-    }
-  }
-
-  .engineeringPark & {
-    background: var(--engineering-park);
-
-    &:hover {
-      // background: var(--grey);
-      // color: var(--engineering-park);
-    }
-  }
-
-  .scienceCenter & {
-    background: var(--science-center);
-    color: var(--background-color);
-
-    &:hover {
-      // background: var(--grey);
-      // color: var(--science-center);
-    }
-  }
-
-  .businessDistrict & {
-    background: var(--business-district);
-
-    &:hover {
-      // background: var(--grey);
-      // color: var(--business-district);
-    }
-  }
-
-  .innovationCenter & {
-    background: var(--innovation-center);
-
-    &:hover {
-      // background: var(--grey);
-      // color: var(--innovation-center);
-    }
-  }
-
-  .globalVillage & {
-    background: var(--global-village);
-
-    &:hover {
-      // background: var(--grey);
-      // color: var(--global-village);
-    }
-  }
-
-  .greenPlace & {
-    background: var(--green-place);
-
-    &:hover {
-      // background: var(--grey);
-      // color: var(--green-place);
-    }
-  }
-
-  .technologyQuarter & {
-    background: var(--technology-quarter);
-    
-    &:hover {
-      // background: var(--grey);
-      // color: var(--technology-quarter);
-    }
-  }
-
-  .computerZone & {
-    background: var(--computer-zone);
-
-    &:hover {
-      // background: var(--grey);
-      // color: var(--computer-zone);
-    }
-  }
+export const TagsContainer = styled.ul`
+  padding: 0;
+  margin-top: 0;
+  display: flex;
+  flex-flow: row wrap;
+  list-style-type: none;
 `;

@@ -3,9 +3,12 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 
+import Map from 'components/Map';
+
+
 // Global Selectors
 import {
-  makeSelectUser,
+  makeSelectVenuMap,
   makeSelectExhibits,
   makeSelectFacilities,
   makeSelectIsSignedIn,
@@ -15,17 +18,11 @@ import {
 // Dispacthes
 import { dispatchGetAuthenticatedUser } from 'containers/App/dispatches';
 
-// Helpers
-import {
-  isUserOnboardingComplete,
-} from 'utils/helpers';
-
 // Local Components
 import Header from './Header';
-import Map from './Map';
 import Detail from './Detail';
 
-import { ViewWrapper } from './styles';
+import { MapWrapper } from './styles';
 
 export class DetailView extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
@@ -35,20 +32,16 @@ export class DetailView extends React.PureComponent { // eslint-disable-line rea
   }
 
   componentDidUpdate() {
-    const { userProps, isSignedIn } = this.props;
-    const user = (userProps.location) ? userProps : userProps.toJS();
+    const { isSignedIn } = this.props;
 
-    if (!isSignedIn || !isUserOnboardingComplete(user)) {
+    if (!isSignedIn) {
       browserHistory.push('/login');
     }
   }
 
   render() {
-    const { userProps, isSignedIn, location, allExhibits, allFacilities } = this.props;
-    const user = (userProps.location) ? userProps : userProps.toJS();
-
-    if (!isSignedIn || !isUserOnboardingComplete(user)) return null;
-
+    const { venuMap, location, allExhibits, allFacilities } = this.props;
+    const mapProps = (venuMap.options) ? venuMap : venuMap.toJS();
     const { pathname } = location;
     const pathArray = pathname.split('/').splice(1);
     const zone = pathArray[1];
@@ -70,28 +63,45 @@ export class DetailView extends React.PureComponent { // eslint-disable-line rea
     }
 
     if (!place) return null;
+    const markers = [place];
+    const center = {
+      lat: place.lat,
+      lng: place.lng,
+    };
 
     return (
-      <ViewWrapper className={zone}>
+      <section className={zone}>
         <Header place={place} />
-        <Map place={place} />
+        <MapWrapper>
+          <Map
+            containerElement={
+              <div style={{ height: '100%' }} />
+            }
+            mapElement={
+              <div style={{ height: '100%' }} />
+            }
+            center={center}
+            markers={markers}
+            mapProps={mapProps}
+          />
+        </MapWrapper>
         <Detail currentPlace={place} />
-      </ViewWrapper>
+      </section>
     );
   }
 }
 
 DetailView.propTypes = {
+  venuMap: T.object.isRequired,
   location: T.object.isRequired,
   isSignedIn: T.bool.isRequired,
-  userProps: T.object.isRequired,
   allExhibits: T.object.isRequired,
   allFacilities: T.object.isRequired,
   onGetAuthenticatedUser: T.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  userProps: makeSelectUser(),
+  venuMap: makeSelectVenuMap(),
   allExhibits: makeSelectExhibits(),
   allFacilities: makeSelectFacilities(),
   isSignedIn: makeSelectIsSignedIn(),

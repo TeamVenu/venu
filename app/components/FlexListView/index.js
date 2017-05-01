@@ -8,7 +8,7 @@ const FlexListView = styled.ul`
   padding: 0;
   padding-top: var(--padding);
   align-items: baseline;
-  // justify-content: space-between;
+  justify-content: space-between;
 
   li {
     // flex: auto;

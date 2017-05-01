@@ -165,7 +165,7 @@ export class ChangeParking extends React.PureComponent { // eslint-disable-line 
     return (
       <FullWrapper className={'gradient-bg'} bottomPadding>
         <Navigation>
-          <TabBar transparent borderless>
+          <TabBar transparent reversed borderless>
             <TabBarList className={'header'}>
               <li>
                 <Button

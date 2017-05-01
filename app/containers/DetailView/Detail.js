@@ -2,15 +2,12 @@ import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { browserHistory } from 'react-router';
-import Ionicon from 'react-ionicons';
 
 // Import Components
-import H2 from 'components/H2';
-import H4 from 'components/H4';
 import P from 'components/P';
 import Tag from 'components/Tag';
+import Card from 'components/Card';
 import Button from 'components/Button';
-import FlexListView from 'components/FlexListView';
 
 // Global Selectors
 import { makeSelectUser } from 'containers/App/selectors';
@@ -18,8 +15,6 @@ import { makeSelectUser } from 'containers/App/selectors';
 // Import dispatches
 import {
   dispatchSetUser,
-  dispatchLikePlace,
-  dispatchUnlikePlace,
   dispatchChangeExhibit,
   dispatchNavigateToPlace,
   dispatchChangeCurrentPlace,
@@ -27,11 +22,15 @@ import {
 
 // Import Local Components
 import {
+  Subtitle as H4,
   DetailWrapper,
   DetailContainer,
+  DetailInfoWrapper,
   DetailInfoList,
+  TagsContainer,
   DetailInfoItem,
-  PrimaryButton,
+  ButtonRow,
+  ButtonItem,
 } from './styles';
 
 export class Detail extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -42,50 +41,23 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
     this.renderActions = this.renderActions.bind(this);
     this.renderDetails = this.renderDetails.bind(this);
     this.renderTagComponent = this.renderTagComponent.bind(this);
-    this.renderPrimaryAction = this.renderPrimaryAction.bind(this);
-    this.renderActionsForPlace = this.renderActionsForPlace.bind(this);
-    this.renderActionsForPlaceVisited = this.renderActionsForPlaceVisited.bind(this);
-    this.renderActionsForPlaceInItinerary = this.renderActionsForPlaceInItinerary.bind(this);
   }
 
   renderDetails() {
     const { currentPlace } = this.props;
-    const place = (typeof currentPlace === 'object') ? currentPlace : currentPlace.toJS();
-
-    let placeSubTypeComponent;
-
-    // Remove this at a later time
-    // Make sure description is changed below
-    const description = (place.description && place.description.length > 0) ? place.description : ' Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, quasi saepe autem voluptates praesentium perferendis magnam, laboriosam fugit ad dicta omnis eos dolore alias fuga repellendus expedita ex sequi consequuntur.';
-
-    switch (place.subType) {
-      case 'recommended':
-        placeSubTypeComponent = (<P className={'small'}>Recommended For You</P>);
-        break;
-      case 'saved':
-        placeSubTypeComponent = (<P className={'small'}>In Your Itinerary</P>);
-        break;
-      case 'visited':
-        placeSubTypeComponent = (<P className={'small'}>You Have Been Here</P>);
-        break;
-      default:
-        placeSubTypeComponent = null;
-        break;
-    }
+    const exhibitorsComponent = (currentPlace.exhibitors) ? (
+      <section>
+        <H4>{ 'Exhibitors' }</H4>
+        <P className={'small'}>{ currentPlace.exhibitors }</P>
+      </section>
+    ) : null;
 
     return (
-      <div>
-        { placeSubTypeComponent }
-        <H2>
-          { place.name }
-        </H2>
-        <H4>
-          { 'Description' }
-        </H4>
-        <P>
-          { description }
-        </P>
-      </div>
+      <section>
+        <H4>{ 'Description' }</H4>
+        <P className={'small'}>{ currentPlace.description }</P>
+        { exhibitorsComponent }
+      </section>
     );
   }
 
@@ -94,40 +66,21 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
 
     const place = (typeof currentPlace === 'object') ? currentPlace : currentPlace.toJS();
 
-    if (place.type !== 'exhibit' && place.subType !== 'restroom') return null;
-
-    // If place is a restroom facility
-    if (place.type !== 'exhibit') {
-      return (
-        <DetailInfoList>
-          <DetailInfoItem>
-            <Ionicon icon={'icon ion-location'} />
-            <P className={'small'}>{place.location}, {place.building}, {place.imagineRitArea}</P>
-          </DetailInfoItem>
-          <DetailInfoItem>
-            <Ionicon icon={'icon ion-person'} />
-            <P className={'small'}>{place.category}</P>
-          </DetailInfoItem>
-        </DetailInfoList>
-      );
-    }
-
-    // If place is an exhibit
-    const locationBlurb = (isNaN(place.location) && isNaN(place.location.charAt(1))) ? place.location : place.exhibitCode;
+    if (place.type !== 'exhibit' && place.subType !== 'entertainment') return null;
 
     // Exhibit age component
     const agesComponent = (place.ageRange) ? (
       <DetailInfoItem>
-        <Ionicon icon={'icon ion-ios-people'} />
-        <P className={'small'}>Ages: {place.ageRange}</P>
+        <H4>Ages</H4>
+        <P className={'small'}>{place.ageRange}</P>
       </DetailInfoItem>
     ) : null;
 
     // Exhibit hours running component
     const hoursRunningComponent = (place.hoursRunning) ? (
       <DetailInfoItem>
-        <Ionicon icon={'icon ion-ios-time-outline'} />
-        <P className={'small'}>Hours Running: {place.hoursRunning}</P>
+        <H4>Hours Running</H4>
+        <P className={'small'}>{place.hoursRunning}</P>
       </DetailInfoItem>
     ) : null;
 
@@ -135,10 +88,6 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
     // Return exhibit information
     return (
       <DetailInfoList>
-        <DetailInfoItem>
-          <Ionicon icon={'icon ion-location'} />
-          <P className={'small'}>{locationBlurb}, {place.building}, {place.imagineRitArea}</P>
-        </DetailInfoItem>
         { hoursRunningComponent }
         { agesComponent }
       </DetailInfoList>
@@ -146,143 +95,106 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
   }
 
   renderActions() {
-    const { currentPlace } = this.props;
+    const {
+      userProps,
+      currentPlace,
+      onSavePlace,
+      onUnsavePlace,
+      onPlaceCheckIn,
+      onPlaceCheckOut,
+      onNavigateToPlace,
+    } = this.props;
 
-    const place = (typeof currentPlace === 'object') ? currentPlace : currentPlace.toJS();
+    const user = (userProps.exhibits) ? userProps : userProps.toJS();
+    const isExhibit = (currentPlace.type === 'exhibit');
 
-    if (place.type !== 'exhibit') return null;
+    // Save Button
+    let saveBtn = null;
 
-    let actions;
-    switch (place.subType) {
-      case 'visited':
-        actions = this.renderActionsForPlaceVisited;
-        break;
-      case 'saved':
-        actions = this.renderActionsForPlaceInItinerary;
-        break;
-      case 'recommended':
-      default:
-        actions = this.renderActionsForPlace;
-        break;
+    // Visited Button
+    let visitedBtn = null;
+
+    // Navigate Button
+    const navigateBtn = (
+      <Button
+        btnClasses={'action'}
+        icon={'ion-navigate'}
+        name={'Go'}
+        onClickEvent={() => {
+          onNavigateToPlace(currentPlace);
+        }}
+      />
+    );
+
+    if (isExhibit) {
+      switch (currentPlace.subType) {
+        case 'saved':
+          saveBtn = (
+            <Button
+              btnClasses={'action cta-subdued'}
+              icon={'ion-minus'}
+              name={'Unsave'}
+              onClickEvent={() => {
+                onUnsavePlace(currentPlace, user);
+              }}
+            />
+          );
+
+          visitedBtn = (
+            <Button
+              btnClasses={'action'}
+              icon={'ion-checkmark-round'}
+              name={'Check in'}
+              onClickEvent={() => {
+                onPlaceCheckIn(currentPlace, user);
+              }}
+            />
+          );
+          break;
+        case 'visited':
+          visitedBtn = (
+            <Button
+              btnClasses={'action'}
+              icon={'ion-checkmark-round'}
+              name={'Visited'}
+              onClickEvent={() => {
+                onPlaceCheckOut(currentPlace, user);
+              }}
+            />
+          );
+          break;
+        default:
+          saveBtn = (
+            <Button
+              btnClasses={'action cta'}
+              icon={'ion-plus'}
+              name={'Save'}
+              onClickEvent={() => {
+                onSavePlace(currentPlace, user);
+              }}
+            />
+          );
+
+          visitedBtn = (
+            <Button
+              btnClasses={'action'}
+              icon={'ion-checkmark-round'}
+              name={'Check in'}
+              onClickEvent={() => {
+                onPlaceCheckIn(currentPlace, user);
+              }}
+            />
+          );
+          break;
+      }
     }
 
     return (
-      <div>
-        <H4>Actions</H4>
-        { actions() }
-      </div>
-    );
-  }
-
-  renderActionsForPlace() {
-    const {
-      user,
-      currentPlace,
-      onDispatchLikePlace,
-      onDispatchExhibitCheckIn,
-      onDispatchNavigateToPlace,
-    } = this.props;
-
-    const place = (typeof currentPlace === 'object') ? currentPlace : currentPlace.toJS();
-
-    return (
-      <FlexListView>
-        <li>
-          <Button
-            name={'Navigate'}
-            icon={'ion-navigate'}
-            onClickEvent={() => {
-              onDispatchNavigateToPlace(place);
-            }}
-          />
-        </li>
-        <li>
-          <Button
-            name={'Like'}
-            icon={'ion-thumbsup'}
-            onClickEvent={() => { onDispatchLikePlace(place); }}
-          />
-        </li>
-        <li>
-          <Button
-            name={'Check-in'}
-            icon={'ion-checkmark-round'}
-            onClickEvent={() => { onDispatchExhibitCheckIn(place, user); }}
-          />
-        </li>
-      </FlexListView>
-    );
-  }
-
-  renderActionsForPlaceVisited() {
-    const {
-      user,
-      currentPlace,
-      onDispatchExhibitCheckOut,
-      onDispatchNavigateToPlace,
-    } = this.props;
-
-    const place = (typeof currentPlace === 'object') ? currentPlace : currentPlace.toJS();
-
-    return (
-      <FlexListView>
-        <li>
-          <Button
-            name={'Navigate'}
-            icon={'ion-navigate'}
-            onClickEvent={() => {
-              onDispatchNavigateToPlace(place);
-            }}
-          />
-        </li>
-        <li>
-          <Button
-            name={'Remove Check-in'}
-            icon={'ion-close-round'}
-            onClickEvent={() => { onDispatchExhibitCheckOut(place, user); }}
-          />
-        </li>
-      </FlexListView>
-    );
-  }
-
-  renderActionsForPlaceInItinerary() {
-    const {
-      user,
-      currentPlace,
-      onDispatchLikePlace,
-      onDispatchUnSavePlace,
-      onDispatchNavigateToPlace,
-    } = this.props;
-
-    const place = (typeof currentPlace === 'object') ? currentPlace : currentPlace.toJS();
-
-    return (
-      <FlexListView>
-        <li>
-          <Button
-            name={'Navigate'}
-            icon={'ion-navigate'}
-            onClickEvent={() => {
-              onDispatchNavigateToPlace(place);
-            }}
-          />
-        </li>
-        <li>
-          <Button
-            name={'Like'}
-            icon={'ion-thumbsup'}
-            onClickEvent={() => { onDispatchLikePlace(place); }}
-          />
-        </li>
-        <li>
-          <Button
-            name={'Remove from Itinerary'}
-            icon={'ion-close-round'}
-            onClickEvent={() => { onDispatchUnSavePlace(place, user); }}
-          />
-        </li>
-      </FlexListView>
+      <ButtonRow>
+        <ButtonItem>{ navigateBtn }</ButtonItem>
+        <ButtonItem>{ visitedBtn }</ButtonItem>
+        <ButtonItem>{ saveBtn }</ButtonItem>
+      </ButtonRow>
     );
   }
 
@@ -296,10 +208,10 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
 
     return (
       <div>
-        <H4>Tags</H4>
-        <FlexListView>
+        <H4>Tagged as</H4>
+        <TagsContainer>
           { this.renderTags() }
-        </FlexListView>
+        </TagsContainer>
       </div>
     );
   }
@@ -332,90 +244,54 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
     });
   }
 
-  renderPrimaryAction() {
-    const {
-      user,
-      currentPlace,
-      onDispatchLikePlace,
-      onDispatchExhibitCheckIn,
-      onDispatchNavigateToPlace,
-      onDispatchSavePlace,
-    } = this.props;
+  render() {
+    const { currentPlace } = this.props;
 
-    // Primary action
-    let primaryAction;
+    // Check if the second letter or place.location is not a number
+    // If it is, use location
+    // Otherwise use exhibit code
+    const room = (isNaN(currentPlace.location) && isNaN(currentPlace.location.charAt(1)))
+      ? currentPlace.location
+      : currentPlace.exhibitCode;
+    const location = `${currentPlace.building}, ${room}`;
 
-    const place = (typeof currentPlace === 'object') ? currentPlace : currentPlace.toJS();
+    const place = {
+      location,
+      link: null,
+      place: currentPlace,
+      name: currentPlace.name,
+      zone: currentPlace.imagineRitArea,
+      zoneClass: currentPlace.colorZone,
+    };
 
-    switch (place.type) {
-      case 'facility':
-        primaryAction = (
-          <PrimaryButton
-            onClick={() => {
-              onDispatchNavigateToPlace(place);
-            }}
-          >
-            <Ionicon icon={'icon ion-navigate'} />
-            Navigate
-          </PrimaryButton>
-        );
+    // For subType description
+    let subTypeComponent = null;
+
+    switch (currentPlace.subType) {
+      case 'recommended':
+        subTypeComponent = (<P className={'small'}>Recommended For You</P>);
         break;
-      case 'exhibit':
-        switch (place.subType) {
-          case 'default':
-          case 'recommended':
-            primaryAction = (
-              <PrimaryButton
-                onClick={() => {
-                  onDispatchSavePlace(place, user);
-                }}
-              >
-                <Ionicon icon={'icon ion-plus'} />
-                Save
-              </PrimaryButton>
-            );
-            break;
-          case 'saved':
-            primaryAction = (
-              <PrimaryButton
-                onClick={() => { onDispatchExhibitCheckIn(place, user); }}
-              >
-                <Ionicon icon={'icon ion-checkmark-round'} />
-                Check-In
-              </PrimaryButton>
-            );
-            break;
-          case 'visited':
-            primaryAction = (
-              <PrimaryButton
-                onClick={() => { onDispatchLikePlace(place); }}
-              >
-                <Ionicon icon={'icon ion-thumbsup'} />
-                Like
-              </PrimaryButton>
-            );
-            break;
-          default:
-            primaryAction = null;
-            break;
-        }
+      case 'saved':
+        subTypeComponent = (<P className={'small'}>In Your Itinerary</P>);
+        break;
+      case 'visited':
+        subTypeComponent = (<P className={'small'}>You have been here!</P>);
         break;
       default:
-        primaryAction = null;
+        break;
     }
 
-    return primaryAction;
-  }
-
-  render() {
     return (
       <DetailWrapper>
         <DetailContainer>
-          { this.renderDetails() }
-          { this.renderInfo() }
+          { subTypeComponent }
+          <Card place={place} />
           { this.renderActions() }
-          { this.renderTagComponent() }
-          { this.renderPrimaryAction() }
+          <DetailInfoWrapper>
+            { this.renderTagComponent() }
+            { this.renderInfo() }
+            { this.renderDetails() }
+          </DetailInfoWrapper>
         </DetailContainer>
       </DetailWrapper>
     );
@@ -423,39 +299,22 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
 }
 
 Detail.propTypes = {
-  user: T.object,
+  userProps: T.object,
+  onSavePlace: T.func.isRequired,
+  onUnsavePlace: T.func.isRequired,
   currentPlace: T.object.isRequired,
-  onDispatchLikePlace: T.func,
-  // onDispatchUnlikePlace: T.func,
-  onDispatchExhibitCheckIn: T.func,
-  onDispatchExhibitCheckOut: T.func,
-  onDispatchNavigateToPlace: T.func,
-  onDispatchSavePlace: T.func,
-  onDispatchUnSavePlace: T.func,
+  onPlaceCheckIn: T.func.isRequired,
+  onPlaceCheckOut: T.func.isRequired,
+  onNavigateToPlace: T.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  user: makeSelectUser(),
+  userProps: makeSelectUser(),
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onDispatchNavigateToPlace: (place) => {
-      dispatchChangeCurrentPlace(dispatch, {});
-      // Set place to navigate to
-      dispatchNavigateToPlace(dispatch, place);
-      // Redirect to Directions
-      browserHistory.push({ pathname: '/directions' });
-    },
-    onDispatchLikePlace: (place) => {
-      dispatchLikePlace(dispatch, place);
-      dispatchChangeCurrentPlace(dispatch, place);
-    },
-    onDispatchUnlikePlace: (place) => {
-      dispatchUnlikePlace(dispatch, place);
-      dispatchChangeCurrentPlace(dispatch, place);
-    },
-    onDispatchSavePlace: (p, u) => {
+    onSavePlace: (p, u) => {
       const exhibits = {
         recommended: [],
         visited: [],
@@ -492,7 +351,7 @@ export function mapDispatchToProps(dispatch) {
       dispatchChangeExhibit(dispatch, place);
       dispatchChangeCurrentPlace(dispatch, place);
     },
-    onDispatchUnSavePlace: (p, u) => {
+    onUnsavePlace: (p, u) => {
       // Create the string to remove from database
       const placeToRemove = `${p.colorZone}-${p.key}`;
 
@@ -517,7 +376,7 @@ export function mapDispatchToProps(dispatch) {
       dispatchChangeExhibit(dispatch, place);
       dispatchChangeCurrentPlace(dispatch, place);
     },
-    onDispatchExhibitCheckIn: (p, u) => {
+    onPlaceCheckIn: (p, u) => {
       const exhibits = {
         recommended: [],
         visited: [],
@@ -552,7 +411,7 @@ export function mapDispatchToProps(dispatch) {
       dispatchChangeExhibit(dispatch, place);
       dispatchChangeCurrentPlace(dispatch, place);
     },
-    onDispatchExhibitCheckOut: (p, u) => {
+    onPlaceCheckOut: (p, u) => {
       // Create the string to remove from database
       const placeToRemove = `${p.colorZone}-${p.key}`;
 
@@ -574,6 +433,13 @@ export function mapDispatchToProps(dispatch) {
       dispatchSetUser(dispatch, user);
       dispatchChangeExhibit(dispatch, place);
       dispatchChangeCurrentPlace(dispatch, place);
+    },
+    onNavigateToPlace: (place) => {
+      dispatchChangeCurrentPlace(dispatch, {});
+      // Set place to navigate to
+      dispatchNavigateToPlace(dispatch, place);
+      // Redirect to Directions
+      browserHistory.push({ pathname: '/directions' });
     },
   };
 }

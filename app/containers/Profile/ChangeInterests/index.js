@@ -141,7 +141,7 @@ export class ChangeInterests extends React.PureComponent { // eslint-disable-lin
     return (
       <FullWrapper className={'gradient-bg'} bottomPadding>
         <Navigation>
-          <TabBar transparent borderless>
+          <TabBar transparent reversed borderless>
             <TabBarList className={'header'}>
               <li>
                 <Button
