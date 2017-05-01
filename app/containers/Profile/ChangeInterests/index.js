@@ -181,7 +181,7 @@ export class ChangeInterests extends React.PureComponent { // eslint-disable-lin
               { this.renderInterestsList() }
             </FlexListView>
           </Body>
-          <Footer>
+          <Footer centered>
             <ButtonRow>
               <ButtonItem>
                 <Button
