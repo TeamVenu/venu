@@ -24,6 +24,8 @@ import {
   makeSelectUser,
 } from 'containers/App/selectors';
 
+import { getRecommendExhibits } from 'utils/helpers';
+
 // Selectors
 import {
   makeSelectInterests,
@@ -145,9 +147,34 @@ InterestSelection.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onUpdateInterests: (interests) => dispatchChangeUserInterests(dispatch, interests),
     onPrevStage: (stage) => dispatchGoToPreviousStage(dispatch, stage),
-    onSubmitProfile: (newUser, stage) => dispatchGoToNextStage(dispatch, newUser, stage),
+    onUpdateInterests: (interests) => dispatchChangeUserInterests(dispatch, interests),
+    onSubmitProfile: (newUser, stage) => {
+      // Cache the exhibits object
+      const exhibits = {
+        recommended: [],
+        saved: newUser.exhibits.saved,
+        visited: newUser.exhibits.visited,
+      };
+
+      // Cache interests
+      const interests = newUser.interests;
+
+      // Loop through interests and get the recommended exhibits
+      interests.forEach((interest) => {
+        // Search through the exhibits
+        const recommended = getRecommendExhibits(interest);
+
+        if (exhibits.recommended.length > 0) {
+          exhibits.recommended.concat(recommended);
+        } else {
+          exhibits.recommended = recommended;
+        }
+      });
+
+      const user = Object.assign({}, newUser, { exhibits });
+      dispatchGoToNextStage(dispatch, user, stage);
+    },
   };
 }
 

@@ -1,6 +1,7 @@
 /* Helper Methods */
 
 import _ from 'lodash';
+import searchTagsData from 'fixtures/searchTagsData.json';
 
 /**
  * getFacilitiesArray
@@ -261,7 +262,6 @@ export function parseJSONObject(object, objectKey) {
 
 export function search(query, data, asUnion) {
   const newLinePattern = /\\n/g;
-
   let terms = query.toLowerCase();
   const results = [];
   const formattedData = data.replace(newLinePattern, '\n');
@@ -325,3 +325,26 @@ export function makeGradientColor(color1, color2, percent) {
   return color;
 }
 
+export function getRecommendExhibits(category) {
+  // Store our recommended exhibits in an array
+  const recommendedExhibits = [];
+
+  // Search through data using category
+  const queryResults = search(category, searchTagsData.data, false);
+
+  let placeString = '';
+
+  queryResults.forEach((place) => { // eslint-disable-line
+    switch (place.type) {
+      case 'exhibit':
+        placeString = `${place.subType}-${place.key}`;
+        recommendedExhibits.push(placeString);
+        break;
+      default:
+        break;
+    }
+  });
+
+  // Return recommendedExhibits
+  return recommendedExhibits;
+}
