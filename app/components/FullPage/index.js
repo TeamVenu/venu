@@ -36,7 +36,7 @@ export const Footer = styled.ul`
   padding: 0;
   list-style-type: none;
   display: flex;
-  align-items: flex-end;
+  align-items: ${(props) => (props.centered) ? 'flex-start' : 'flex-end'};
 
   li {
     padding-bottom: calc(var(--padding) * 1.5);

@@ -2,26 +2,25 @@
  * ChangeParking
  */
 import React, { PropTypes as T } from 'react';
-import GoogleMap from 'google-map-react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { createStructuredSelector } from 'reselect';
+import styled from 'styled-components';
 
 // Components
 import H2 from 'components/H2';
+import Map from 'components/Map';
 import TabBar from 'components/TabBar';
 import Navigation from 'components/Header';
 import TabBarList from 'components/TabBarList';
 import FullWrapper from 'components/FullWrapper';
 import Radio from 'components/Input';
 import FlexListView from 'components/FlexListView';
-import Marker from 'components/Markers';
 
 // Components
 import Button from 'components/Button';
 import Notifications from 'components/Notifications';
 import {
-  Container,
   Body,
   Footer,
   OptionItem,
@@ -46,9 +45,6 @@ import {
   dispatchGetAuthenticatedUser,
 } from 'containers/App/dispatches';
 
-// Helpers
-import { isUserOnboardingComplete } from 'utils/helpers';
-
 import messages from 'containers/Profile/messages';
 
 // Selectors
@@ -60,6 +56,20 @@ import {
 import {
   dispatchChangeParkingLocation,
 } from 'containers/Profile/dispatches';
+
+const MapContainer = styled.section`
+  background: var(--background-color);
+  margin-top: var(--padding);
+  height: 100px;
+
+  @media screen and (min-height: 600px) {
+    height: 200px;
+  }
+
+  @media screen and (min-height: 760px) {
+    height: 300px;
+  }
+`;
 
 export class ChangeParking extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -73,14 +83,15 @@ export class ChangeParking extends React.PureComponent { // eslint-disable-line 
     const user = (userProps.location) ? userProps : userProps.toJS();
     onGetAuthenticatedUser();
 
-    onChangeParking(user.parking);
+    if (user.parking) {
+      onChangeParking(user.parking);
+    }
   }
 
   componentDidUpdate() {
-    const { userProps, isSignedIn } = this.props;
-    const user = (userProps.location) ? userProps : userProps.toJS();
+    const { isSignedIn } = this.props;
 
-    if (!isSignedIn || !isUserOnboardingComplete(user)) {
+    if (!isSignedIn) {
       browserHistory.push('/login');
     }
   }
@@ -89,9 +100,9 @@ export class ChangeParking extends React.PureComponent { // eslint-disable-line 
     const { onChangeParking } = this.props;
     const { lots } = messages.settings.changeParking.lot;
 
-    return lots.map((lot) => { // eslint-disable-line
+    return lots.map((lot, index) => { // eslint-disable-line
       return (
-        <OptionItem key={lot.name}>
+        <OptionItem key={index}>
           <Radio
             id={lot.name}
             name={'parkingLot'}
@@ -111,31 +122,50 @@ export class ChangeParking extends React.PureComponent { // eslint-disable-line 
     const {
       error,
       success,
-      parking,
       venuMap,
       userProps,
-      isSignedIn,
+      parkingPosition,
       onChangeParking,
       onClearErrorMessages,
       onClearSuccessMessages,
       onSubmitChangeParking,
     } = this.props;
 
-    const user = (userProps.location) ? userProps : userProps.toJS();
     const { goBack } = browserHistory;
+    const user = (userProps.location) ? userProps : userProps.toJS();
+    const parking = (parkingPosition && parkingPosition.lat) ? parkingPosition : parkingPosition.toJS();
     const mapProps = (venuMap.bootstrapURLKeys) ? venuMap : venuMap.toJS();
-    const options = Object.assign(mapProps.options, { draggable: false, scrollwheel: false });
+    const center = (parkingPosition && parkingPosition.lat) ? parking : mapProps.center;
+
+    const currentPositionRadio = (parking.lat && (user.location.lat !== 43.084167 && user.location.lng !== -77.677085)) ? (
+      <Radio
+        id={'currentLocation'}
+        name={'parkingLot'}
+        value={'currentLocation'}
+        text={'Current location'}
+        type={'radio'}
+        full
+        onChangeEvent={() => {
+          // Set parking location using current location
+          onChangeParking(user.location);
+        }}
+      />
+    ) : null;
+
+    mapProps.zoom = 15;
+
     const place = {
-      type: 'facility',
-      subType: 'parking',
+      type: 'parking',
+      lat: parking.lat,
+      lng: parking.lng,
     };
 
-    if (!isSignedIn || !isUserOnboardingComplete(user)) return null;
+    const markers = [place];
 
     return (
       <FullWrapper className={'gradient-bg'} bottomPadding>
         <Navigation>
-          <TabBar>
+          <TabBar transparent borderless>
             <TabBarList className={'header'}>
               <li>
                 <Button
@@ -145,7 +175,7 @@ export class ChangeParking extends React.PureComponent { // eslint-disable-line 
                 />
               </li>
               <li>
-                <H2 className={'title'}>{ messages.settings.changeParking.header.defaultMessage }</H2>
+                <H2>{ messages.settings.changeParking.header.defaultMessage }</H2>
               </li>
               <li />
             </TabBarList>
@@ -164,40 +194,27 @@ export class ChangeParking extends React.PureComponent { // eslint-disable-line 
             goBack();
           }}
         />
-        <Container>
+        <FullWrapper className={'centered'}>
           <Body>
-            <div style={{ width: '100%', height: '300px' }}>
-              <GoogleMap
-                bootstrapURLKeys={mapProps.bootstrapURLKeys}
-                options={options}
-                zoom={16}
-                center={parking}
-              >
-                <Marker
-                  place={place}
-                  lat={parking.lat}
-                  lng={parking.lng}
-                />
-              </GoogleMap>
-            </div>
-            <FlexListView className={'spaced'}>
-              <OptionItem>
-                <Radio
-                  id={'currentLocation'}
-                  name={'parkingLot'}
-                  value={'currentLocation'}
-                  text={'Set parking to current location'}
-                  type={'radio'}
-                  onChangeEvent={() => {
-                    // Set parking location using current location
-                    onChangeParking(user.location);
-                  }}
-                />
-              </OptionItem>
+            {currentPositionRadio}
+            <MapContainer>
+              <Map
+                containerElement={
+                  <div style={{ height: '100%' }} />
+                }
+                mapElement={
+                  <div style={{ height: '100%' }} />
+                }
+                center={center}
+                markers={markers}
+                mapProps={mapProps}
+              />
+            </MapContainer>
+            <FlexListView className={'s2paced'}>
               { this.renderParkingLotList() }
             </FlexListView>
           </Body>
-          <Footer>
+          <Footer centered>
             <ButtonRow>
               <ButtonItem>
                 <Button
@@ -210,7 +227,7 @@ export class ChangeParking extends React.PureComponent { // eslint-disable-line 
               </ButtonItem>
             </ButtonRow>
           </Footer>
-        </Container>
+        </FullWrapper>
       </FullWrapper>
     );
   }
@@ -220,8 +237,8 @@ ChangeParking.propTypes = {
   error: T.string,
   success: T.string,
   venuMap: T.object,
-  parking: T.object,
   isSignedIn: T.bool,
+  parkingPosition: T.object,
   onClearErrorMessages: T.func,
   onClearSuccessMessages: T.func,
   userProps: T.object.isRequired,
@@ -233,10 +250,10 @@ ChangeParking.propTypes = {
 const mapStateToProps = createStructuredSelector({
   error: makeSelectError(),
   userProps: makeSelectUser(),
-  parking: makeSelectParking(),
   success: makeSelectSuccess(),
   venuMap: makeSelectVenuMap(),
   isSignedIn: makeSelectIsSignedIn(),
+  parkingPosition: makeSelectParking(),
 });
 
 export function mapDispatchToProps(dispatch) {

@@ -33,7 +33,7 @@ export default defineMessages({
     },
     signOut: {
       id: 'venu.components.Profile.actions.signOut',
-      defaultMessage: 'Sign Out',
+      defaultMessage: 'Log Out',
     },
   },
   links: {
@@ -65,11 +65,11 @@ export default defineMessages({
       },
       interests: {
         id: 'venu.components.Profile.links.settings.interests',
-        defaultMessage: 'Change Interests',
+        defaultMessage: 'Change Your Interests',
       },
       parking: {
         id: 'venu.components.Profile.links.settings.parking',
-        defaultMessage: 'Change Parking Location',
+        defaultMessage: 'Change Parking Reminder',
       },
     },
     about: {
@@ -151,6 +151,10 @@ export default defineMessages({
       header: {
         id: 'venu.components.Profile.settings.chooseInterests.header',
         defaultMessage: 'Interests',
+      },
+      intro: {
+        id: 'venu.components.Profile.settings.chooseInterests.into',
+        defaultMessage: 'Choose interests to get recommendations',
       },
       interestList: [
         {
@@ -299,9 +303,8 @@ export default defineMessages({
         id: 'venu.components.Profile.settings.changeParking.parking.lot',
         lots: [
           {
-            id: 'venu.components.Profile.settings.changeParking.parking.lot.a',
+            id: 'venu.components.Profile.geolocationSetup.parking.lot.a',
             name: 'lotA',
-            value: 0,
             defaultMessage: 'Lot A',
             location: {
               lat: 43.083631,
@@ -309,9 +312,8 @@ export default defineMessages({
             },
           },
           {
-            id: 'venu.components.Profile.settings.changeParking.parking.lot.b',
+            id: 'venu.components.Profile.geolocationSetup.parking.lot.b',
             name: 'lotB',
-            value: 1,
             defaultMessage: 'Lot B',
             location: {
               lat: 43.083611,
@@ -319,9 +321,8 @@ export default defineMessages({
             },
           },
           {
-            id: 'venu.components.Profile.settings.changeParking.parking.lot.c',
+            id: 'venu.components.Profile.geolocationSetup.parking.lot.c',
             name: 'lotC',
-            value: 2,
             defaultMessage: 'Lot C',
             location: {
               lat: 43.083403,
@@ -329,9 +330,26 @@ export default defineMessages({
             },
           },
           {
-            id: 'venu.components.Profile.settings.changeParking.parking.lot.f',
+            id: 'venu.components.Profile.geolocationSetup.parking.lot.d',
+            name: 'lotD',
+            defaultMessage: 'Lot D',
+            location: {
+              lat: 43.086716,
+              lng: -77.673594,
+            },
+          },
+          {
+            id: 'venu.components.Profile.geolocationSetup.parking.lot.e',
+            name: 'lotE',
+            defaultMessage: 'Lot E',
+            location: {
+              lat: 43.086871,
+              lng: -77.676160,
+            },
+          },
+          {
+            id: 'venu.components.Profile.geolocationSetup.parking.lot.f',
             name: 'lotF',
-            value: 3,
             defaultMessage: 'Lot F',
             location: {
               lat: 43.086850,
@@ -339,19 +357,35 @@ export default defineMessages({
             },
           },
           {
-            id: 'venu.components.Profile.settings.changeParking.parking.lot.l',
-            name: 'lotL',
-            value: 4,
-            defaultMessage: 'Lot L',
+            id: 'venu.components.Profile.geolocationSetup.parking.lot.g',
+            name: 'lotG',
+            defaultMessage: 'Lot G',
             location: {
-              lat: 43.086958,
-              lng: -77.666903,
+              lat: 43.088396,
+              lng: -77.676265,
             },
           },
           {
-            id: 'venu.components.Profile.settings.changeParking.parking.lot.k',
+            id: 'venu.components.Profile.geolocationSetup.parking.lot.h',
+            name: 'loth',
+            defaultMessage: 'Lot H',
+            location: {
+              lat: 43.088412,
+              lng: -77.678060,
+            },
+          },
+          {
+            id: 'venu.components.Profile.geolocationSetup.parking.lot.j',
+            name: 'lotJ',
+            defaultMessage: 'Lot J',
+            location: {
+              lat: 43.085909,
+              lng: -77.681072,
+            },
+          },
+          {
+            id: 'venu.components.Profile.geolocationSetup.parking.lot.k',
             name: 'lotK',
-            value: 5,
             defaultMessage: 'Lot K',
             location: {
               lat: 43.085822,
@@ -359,9 +393,17 @@ export default defineMessages({
             },
           },
           {
-            id: 'venu.components.Profile.settings.changeParking.parking.lot.n',
+            id: 'venu.components.Profile.geolocationSetup.parking.lot.l',
+            name: 'lotL',
+            defaultMessage: 'Lot L',
+            location: {
+              lat: 43.086958,
+              lng: -77.666903,
+            },
+          },
+          {
+            id: 'venu.components.Profile.geolocationSetup.parking.lot.n',
             name: 'lotN',
-            value: 6,
             defaultMessage: 'Lot N',
             location: {
               lat: 43.088119,
@@ -369,9 +411,8 @@ export default defineMessages({
             },
           },
           {
-            id: 'venu.components.Profile.settings.changeParking.parking.lot.r',
+            id: 'venu.components.Profile.geolocationSetup.parking.lot.r',
             name: 'lotR',
-            value: 7,
             defaultMessage: 'Lot R',
             location: {
               lat: 43.081420,
@@ -379,9 +420,8 @@ export default defineMessages({
             },
           },
           {
-            id: 'venu.components.Profile.settings.changeParking.parking.lot.s',
+            id: 'venu.components.Profile.geolocationSetup.parking.lot.s',
             name: 'lotS',
-            value: 8,
             defaultMessage: 'Lot S',
             location: {
               lat: 43.081710,
@@ -389,9 +429,17 @@ export default defineMessages({
             },
           },
           {
-            id: 'venu.components.Profile.settings.changeParking.parking.lot.u',
+            id: 'venu.components.Profile.geolocationSetup.parking.lot.t',
+            name: 'lotT',
+            defaultMessage: 'Lot T',
+            location: {
+              lat: 43.085968,
+              lng: -77.682304,
+            },
+          },
+          {
+            id: 'venu.components.Profile.geolocationSetup.parking.lot.u',
             name: 'lotU',
-            value: 9,
             defaultMessage: 'Lot U',
             location: {
               lat: 43.081804,
@@ -399,9 +447,8 @@ export default defineMessages({
             },
           },
           {
-            id: 'venu.components.Profile.settings.changeParking.parking.lot.globalVillage',
+            id: 'venu.components.Profile.geolocationSetup.parking.lot.globalVillage',
             name: 'lotGlobalVillage',
-            value: 10,
             defaultMessage: 'Global Village Lot',
             location: {
               lat: 43.084053,
@@ -409,9 +456,8 @@ export default defineMessages({
             },
           },
           {
-            id: 'venu.components.Profile.settings.changeParking.parking.lot.universityCommons',
+            id: 'venu.components.Profile.geolocationSetup.parking.lot.universityCommons',
             name: 'lotRITCommons',
-            value: 11,
             defaultMessage: 'RIT University Commons Lot',
             location: {
               lat: 43.079830,
@@ -422,7 +468,7 @@ export default defineMessages({
       },
       button: {
         id: 'venu.components.Profile.settings.changeParking.button',
-        defaultMessage: 'Update Parking Spot',
+        defaultMessage: 'Update',
       },
     },
   },
