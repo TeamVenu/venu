@@ -1,6 +1,7 @@
 import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import Ionicon from 'react-ionicons';
 import ErrorIcon from 'media/icons/error.png';
 import CheckIcon from 'media/icons/success.png';
 
@@ -57,8 +58,18 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
     // Store the userProps props we will use in an object
     const user = (userProps.location) ? userProps : userProps.toJS();
 
-    let imageComponent = null;
-    let geolocationBtnComponent = null;
+    let imageComponent = (isLocating) ? <H3><Ionicon icon={'icon ion-load-d'} rotate /></H3> : null;
+    let geolocationBtnComponent = (isLocating) ? null : (
+      <Body>
+        <Button
+          isIconAfter
+          btnClasses={'special reversed rounded'}
+          name={messages.buttons.getLocation.defaultMessage}
+          onClickEvent={onAskUserToEnableLocation}
+        />
+      </Body>
+    );
+
     let btnMsg = messages.buttons.skip.defaultMessage;
     let msg = (isLocating)
       ? messages.geolocationSetup.location.retrieving.defaultMessage
@@ -66,26 +77,18 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
 
     switch (mode) {
       case 'succeeded':
-        imageComponent = (<Icon src={CheckIcon} alt={'Success Icon'} title={'Success'} />);
-        msg = messages.geolocationSetup.location.succeeded.defaultMessage;
+        geolocationBtnComponent = null;
         btnMsg = messages.buttons.next.defaultMessage;
+        msg = messages.geolocationSetup.location.succeeded.defaultMessage;
+        imageComponent = (<Icon src={CheckIcon} alt={'Success Icon'} title={'Success'} />);
         break;
       case 'failed':
       case 'unavailable':
-        imageComponent = (<Icon src={ErrorIcon} alt={'Error Icon'} title={'Failed'} />);
+        geolocationBtnComponent = null;
         msg = messages.geolocationSetup.location.unavailable.defaultMessage;
+        imageComponent = (<Icon src={ErrorIcon} alt={'Error Icon'} title={'Failed'} />);
         break;
       default:
-        geolocationBtnComponent = (
-          <Body>
-            <Button
-              isIconAfter
-              btnClasses={'special reversed rounded'}
-              name={messages.buttons.getLocation.defaultMessage}
-              onClickEvent={onAskUserToEnableLocation}
-            />
-          </Body>
-        );
         break;
     }
 

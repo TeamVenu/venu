@@ -1,15 +1,14 @@
 import React, { PropTypes as T } from 'react';
-import GoogleMap from 'google-map-react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 
 // Components
 import H3 from 'components/H3';
+import Map from 'components/Map';
 import Radio from 'components/Input';
 import Button from 'components/Button';
 import FlexListView from 'components/FlexListView';
-import Marker from 'components/Markers';
 import FullWrapper from 'components/FullWrapper';
 
 import {
@@ -45,9 +44,17 @@ import {
 import messages from './messages';
 
 const MapContainer = styled.section`
+  background: var(--background-color);
   margin-top: var(--padding);
   height: 100px;
-  background: var(--background-color);
+
+  @media screen and (min-height: 600px) {
+    height: 200px;
+  }
+
+  @media screen and (min-height: 760px) {
+    height: 300px;
+  }
 `;
 
 export class ParkingSetup extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -88,11 +95,8 @@ export class ParkingSetup extends React.PureComponent { // eslint-disable-line r
     const { userProps, venuMap, stage, location, parkingPosition, onPreviousStage, onNextStage, onSetParkingLocation } = this.props;
     const user = (userProps.location) ? userProps : userProps.toJS();
     const mapProps = (venuMap.bootstrapURLKeys) ? venuMap : venuMap.toJS();
-    const place = {
-      type: 'facility',
-      subType: 'parking',
-    };
     const parking = (parkingPosition && parkingPosition.lat) ? parkingPosition : parkingPosition.toJS();
+    const center = (parkingPosition && parkingPosition.lat) ? parking : mapProps.center;
     const btnMsg = (parking.lat) ? messages.buttons.next.defaultMessage : messages.buttons.skip.defaultMessage;
     const currentPositionRadio = (parking.lat && (user.location.lat !== 43.084167 && user.location.lng !== -77.677085)) ? (
       <Radio
@@ -108,7 +112,13 @@ export class ParkingSetup extends React.PureComponent { // eslint-disable-line r
         }}
       />
     ) : null;
-
+    mapProps.zoom = 15;
+    const place = {
+      type: 'parking',
+      lat: parking.lat,
+      lng: parking.lng,
+    };
+    const markers = [place];
     return (
       <FullWrapper className={'centered'}>
         <Header>
@@ -117,20 +127,17 @@ export class ParkingSetup extends React.PureComponent { // eslint-disable-line r
         <Body>
           {currentPositionRadio}
           <MapContainer>
-            <div style={{ width: '100%', height: '100%' }}>
-              <GoogleMap
-                bootstrapURLKeys={mapProps.bootstrapURLKeys}
-                options={mapProps}
-                zoom={16}
-                center={parking}
-              >
-                <Marker
-                  place={place}
-                  lat={parking.lat}
-                  lng={parking.lng}
-                />
-              </GoogleMap>
-            </div>
+            <Map
+              containerElement={
+                <div style={{ height: '100%' }} />
+              }
+              mapElement={
+                <div style={{ height: '100%' }} />
+              }
+              center={center}
+              markers={markers}
+              mapProps={mapProps}
+            />
           </MapContainer>
           <FlexListView className={'spaced'}>
             { this.renderParkingLots() }

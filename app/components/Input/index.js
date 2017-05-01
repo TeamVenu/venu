@@ -18,6 +18,7 @@ const Label = styled.label`
   border: 2px solid currentColor;
   border-radius: 2em;
   text-align: center;
+  white-space: nowrap;
 `;
 
 export default class Input extends React.Component {
