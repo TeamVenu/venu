@@ -78,3 +78,11 @@ export const SettingsLink = styled(Link)`
   color: var(--foreground-color);
   text-decoration: none;
 `;
+
+export const TagsContainer = styled.ul`
+  padding: 0;
+  margin-top: 0;
+  display: flex;
+  flex-flow: row wrap;
+  list-style-type: none;
+`;

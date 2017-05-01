@@ -6,6 +6,26 @@ import Google from 'media/icons/socialmedia/google.png';
 const Btn = styled.button`
   padding: var(--padding);
 
+  &.action {
+    width: 100%;
+    display: block;
+    border-radius: 4px;
+    color: var(--grey);
+    padding: calc(var(--padding) - 2px);
+    border: 2px solid currentColor;
+    
+    &.cta-subdued {
+      color: var(--primary-accent-color);
+      border-color: currentColor;
+    }
+
+    &.cta {
+      border-color: var(--primary-accent-color);
+      background: var(--primary-accent-color);
+      color: var(--background-color);
+    }
+  }
+
   &.bold {
     font-weight: 700;
   }

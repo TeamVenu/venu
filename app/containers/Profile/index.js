@@ -10,14 +10,13 @@ import { createStructuredSelector } from 'reselect';
 import P from 'components/P';
 import H2 from 'components/H2';
 import H3 from 'components/H3';
+import Tag from 'components/Tag';
 import Button from 'components/Button';
 import TabBar from 'components/TabBar';
 import Container from 'components/Header';
 import TabBarList from 'components/TabBarList';
 import SmallWrapper from 'components/SmallWrapper';
 import FullWrapper from 'components/FullWrapper';
-import FlexListView from 'components/FlexListView';
-import Tag from 'components/Tag';
 
 // Media
 import User from 'media/icons/pins/user.png';
@@ -50,6 +49,7 @@ import {
   SettingsList,
   SettingsItem,
   SettingsLink,
+  TagsContainer,
 } from './styles';
 
 import messages from './messages';
@@ -140,9 +140,9 @@ export class Profile extends React.PureComponent { // eslint-disable-line react/
         </Container>
         <SmallWrapper>
           <H3 gray>Interests</H3>
-          <FlexListView>
+          <TagsContainer>
             { this.renderUserInterests() }
-          </FlexListView>
+          </TagsContainer>
         </SmallWrapper>
         <div>
           <SettingsList>

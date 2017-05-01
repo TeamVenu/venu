@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const TabBar = styled.nav`
   // Positioning
-  position: relative;
+  position: ${(props) => props.absolute ? 'absolute' : 'relative'};
   z-index: 20;
 
   // Size
@@ -12,7 +12,7 @@ const TabBar = styled.nav`
   // Styling
   background: ${(props) => props.transparent ? 'none' : 'var(--background-color)'};
   box-shadow: ${(props) => props.borderless ? 'none' : 'inset 0 -7px 1px -7px var(--foreground-color)'};
-  color: ${(props) => props.transparent ? 'var(--background-color)' : 'var(--foreground-color)'};
+  color: ${(props) => props.reversed ? 'var(--background-color)' : 'var(--foreground-color)'};
   &.bottom-bar {
     // Positioning
     position: fixed;

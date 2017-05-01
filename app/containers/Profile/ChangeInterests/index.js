@@ -141,7 +141,7 @@ export class ChangeInterests extends React.PureComponent { // eslint-disable-lin
     return (
       <FullWrapper className={'gradient-bg'} bottomPadding>
         <Navigation>
-          <TabBar transparent borderless>
+          <TabBar transparent reversed borderless>
             <TabBarList className={'header'}>
               <li>
                 <Button
@@ -244,7 +244,7 @@ export function mapDispatchToProps(dispatch) {
       // Loop through interests and get the recommended exhibits
       interests.forEach((interest) => {
         // Search through the exhibits
-        const recommended = getRecommendExhibits(interest);
+        const recommended = getRecommendExhibits(interest, u.exhibits);
 
         if (exhibits.recommended.length > 0) {
           exhibits.recommended.concat(recommended);

@@ -156,7 +156,22 @@ export class Directions extends React.PureComponent { // eslint-disable-line rea
     let actionContent = null;
 
     if (isNavigating) {
-      actionContent = (
+      actionContent = (destination.type !== 'exhibit')
+      ? (
+        <ActionContainer>
+          <Button
+            btnClasses={'full'}
+            name={messages.buttons.cancel.defaultMessage}
+            onClickEvent={goBack}
+          />
+          <Button
+            btnClasses={'full special reversed'}
+            name={messages.buttons.reachedDestination.defaultMessage}
+            onClickEvent={goBack}
+          />
+        </ActionContainer>
+      )
+      : (
         <ActionContainer>
           <Button
             btnClasses={'full'}

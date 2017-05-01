@@ -39,7 +39,7 @@ export const P = styled(Paragraph)`
   padding: 0;
   font-size: 0.9rem;
   font-weight: ${(props) => (props.zone) ? '400' : '300'};
-  // text-transform: ${(props) => (props.zone) ? 'uppercase' : 'initial'};
+  text-transform: ${(props) => (props.zone) ? 'uppercase' : 'initial'};
   color: ${(props) => (props.zone) ? 'var(--primary-accent-color)' : 'var(--gray)'};
   width: 100%;
   clear: both;

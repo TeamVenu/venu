@@ -56,11 +56,12 @@ import {
 
 const SearchBox = styled.input`
   border: 1px solid var(--foreground-color);
-  border-radius: 1em;
+  border-radius: 4px;
   display: block;
-  // width: 100%;
+  width: 90%;
   margin: auto;
   padding: calc(var(--padding) / 2);
+  font-size: 16px;
 
   &:focus {
     outline: 0;
