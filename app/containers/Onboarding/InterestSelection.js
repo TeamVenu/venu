@@ -163,7 +163,7 @@ export function mapDispatchToProps(dispatch) {
       // Loop through interests and get the recommended exhibits
       interests.forEach((interest) => {
         // Search through the exhibits
-        const recommended = getRecommendExhibits(interest);
+        const recommended = getRecommendExhibits(interest, newUser.exhibits);
 
         if (exhibits.recommended.length > 0) {
           exhibits.recommended.concat(recommended);

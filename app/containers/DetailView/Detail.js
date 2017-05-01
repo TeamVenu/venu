@@ -269,13 +269,13 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
 
     switch (currentPlace.subType) {
       case 'recommended':
-        subTypeComponent = (<P className={'small'}>Recommended For You</P>);
+        subTypeComponent = (<H4 className={'small'}>Recommended For You</H4>);
         break;
       case 'saved':
-        subTypeComponent = (<P className={'small'}>In Your Itinerary</P>);
+        subTypeComponent = (<H4 className={'small'}>In Your Itinerary</H4>);
         break;
       case 'visited':
-        subTypeComponent = (<P className={'small'}>You have been here!</P>);
+        subTypeComponent = (<H4 className={'small'}>You have been here!</H4>);
         break;
       default:
         break;

@@ -9,7 +9,7 @@ export const MapWrapper = styled.section`
   height: 100px;
 
   @media screen and (min-height: 600px) {
-    height: 200px;
+    height: 150px;
   }
 
   @media screen and (min-height: 760px) {

@@ -325,7 +325,7 @@ export function makeGradientColor(color1, color2, percent) {
   return color;
 }
 
-export function getRecommendExhibits(category) {
+export function getRecommendExhibits(category, userExhibits) {
   // Store our recommended exhibits in an array
   const recommendedExhibits = [];
 
@@ -338,7 +338,12 @@ export function getRecommendExhibits(category) {
     switch (place.type) {
       case 'exhibit':
         placeString = `${place.subType}-${place.key}`;
-        recommendedExhibits.push(placeString);
+
+        if ((userExhibits.recommended.indexOf(placeString) < 0)
+          && (userExhibits.saved.indexOf(placeString) < 0)
+          && (userExhibits.visited.indexOf(placeString) < 0)) {
+          recommendedExhibits.push(placeString);
+        }
         break;
       default:
         break;
