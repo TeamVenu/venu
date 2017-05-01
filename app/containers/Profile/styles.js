@@ -3,13 +3,11 @@ import { Link } from 'react-router';
 
 export const Header = styled.section`
   width: 100%;
-  height: 200px;
+  // height: 100px;
   padding: var(--padding);
-  background: var(--warm-gradient);
-  color: var(--background-color);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
   header {
@@ -18,16 +16,16 @@ export const Header = styled.section`
 `;
 
 export const ImageContainer = styled.section`
-  background: var(--background-color);
+  overflow: hidden;
   border-radius: 100%;
-  padding: var(--padding);
+  margin-top: var(--padding);
 `;
 
 export const ProfileImage = styled.img`
   display: block;
   margin: 0 auto;
-  width: 40px;
-  height: 40px;
+  width: 80px;
+  height: 80px;
 `;
 
 export const StatisticsBarList = styled.ul`
@@ -38,7 +36,6 @@ export const StatisticsBarList = styled.ul`
   flex-flow: row nowrap;
   width: 100%;
   background: var(--light-gray);
-  box-shadow: inset 0 -7px 1px -7px var(--foreground-color);
 `;
 
 export const StatisticsBarListItem = styled.li`

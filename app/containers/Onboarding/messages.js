@@ -12,21 +12,25 @@ export default defineMessages({
   },
   buttons: {
     id: 'venu.components.Onboarding.buttons',
+    skip: {
+      id: 'venu.components.Onboarding.buttons.skip',
+      defaultMessage: 'Skip',
+    },
     previous: {
       id: 'venu.components.Onboarding.buttons.previous',
       defaultMessage: 'Back',
     },
     next: {
       id: 'venu.components.Onboarding.buttons.next',
-      defaultMessage: 'Continue',
+      defaultMessage: 'Next',
     },
     finish: {
       id: 'venu.components.Onboarding.buttons.finish',
-      defaultMessage: 'Launch',
+      defaultMessage: 'Finish',
     },
-    retryGeolocation: {
-      id: 'venu.components.Onboarding.buttons.retryGeolocation',
-      defaultMessage: 'Retry Enabling Location',
+    getLocation: {
+      id: 'venu.components.Onboarding.buttons.getLocation',
+      defaultMessage: 'Get Location',
     },
   },
   accountCreation: {
@@ -68,25 +72,21 @@ export default defineMessages({
     },
     intro: {
       id: 'venu.components.Onboarding.geolocationSetup.intro',
-      defaultMessage: ' For a better experience VENU will need access to your location.',
+      defaultMessage: 'For the best experience allow VENU access to your location.',
     },
     location: {
       id: 'venu.components.Onboarding.geolocationSetup.location',
       retrieving: {
         id: 'venu.components.Onboarding.geolocationSetup.location.retrieving',
-        defaultMessage: ' For a better experience VENU will need access to your location. This might take a few seconds.',
+        defaultMessage: 'Retrieving your location this might take a few seconds...',
       },
       succeeded: {
         id: 'venu.components.Onboarding.geolocationSetup.location.succeeded',
         defaultMessage: 'VENU successfully retrieved your location!',
       },
-      failed: {
-        id: 'venu.components.Onboarding.geolocationSetup.location.failed',
-        defaultMessage: 'Geolocation is turned off. You may skip this step and continue using the app.',
-      },
       unavailable: {
         id: 'venu.components.Onboarding.geolocationSetup.location.unavailable',
-        defaultMessage: 'Geolocation is turned off. You may skip this step and continue using the app.',
+        defaultMessage: 'Location is unavailable. You may skip to continue using VENU.',
       },
     },
     device: {
@@ -185,11 +185,11 @@ export default defineMessages({
       id: 'venu.components.Onboarding.geolocationSetup.parking',
       title: {
         id: 'venu.components.Onboarding.geolocationSetup.parking.title',
-        defaultMessage: 'Set a parking spot reminder',
+        defaultMessage: 'Parking Reminder',
       },
-      description: {
-        id: 'venu.components.Onboarding.geolocationSetup.parking.description',
-        defaultMessage: 'Save your parking spot to find your vehicle later. You can edit this at any time.',
+      intro: {
+        id: 'venu.components.Onboarding.geolocationSetup.parking.intro',
+        defaultMessage: 'We’ll save your parking spot so you can find your vehicle later. You can change this at any time.',
       },
       lot: {
         id: 'venu.components.Onboarding.geolocationSetup.parking.lot',
@@ -197,7 +197,6 @@ export default defineMessages({
           {
             id: 'venu.components.Onboarding.geolocationSetup.parking.lot.a',
             name: 'lotA',
-            value: 0,
             defaultMessage: 'Lot A',
             location: {
               lat: 43.083631,
@@ -207,7 +206,6 @@ export default defineMessages({
           {
             id: 'venu.components.Onboarding.geolocationSetup.parking.lot.b',
             name: 'lotB',
-            value: 1,
             defaultMessage: 'Lot B',
             location: {
               lat: 43.083611,
@@ -217,7 +215,6 @@ export default defineMessages({
           {
             id: 'venu.components.Onboarding.geolocationSetup.parking.lot.c',
             name: 'lotC',
-            value: 2,
             defaultMessage: 'Lot C',
             location: {
               lat: 43.083403,
@@ -225,9 +222,26 @@ export default defineMessages({
             },
           },
           {
+            id: 'venu.components.Onboarding.geolocationSetup.parking.lot.d',
+            name: 'lotD',
+            defaultMessage: 'Lot D',
+            location: {
+              lat: 43.086716,
+              lng: -77.673594,
+            },
+          },
+          {
+            id: 'venu.components.Onboarding.geolocationSetup.parking.lot.e',
+            name: 'lotE',
+            defaultMessage: 'Lot E',
+            location: {
+              lat: 43.086871,
+              lng: -77.676160,
+            },
+          },
+          {
             id: 'venu.components.Onboarding.geolocationSetup.parking.lot.f',
             name: 'lotF',
-            value: 3,
             defaultMessage: 'Lot F',
             location: {
               lat: 43.086850,
@@ -235,19 +249,35 @@ export default defineMessages({
             },
           },
           {
-            id: 'venu.components.Onboarding.geolocationSetup.parking.lot.l',
-            name: 'lotL',
-            value: 4,
-            defaultMessage: 'Lot L',
+            id: 'venu.components.Onboarding.geolocationSetup.parking.lot.g',
+            name: 'lotG',
+            defaultMessage: 'Lot G',
             location: {
-              lat: 43.086958,
-              lng: -77.666903,
+              lat: 43.088396,
+              lng: -77.676265,
+            },
+          },
+          {
+            id: 'venu.components.Onboarding.geolocationSetup.parking.lot.h',
+            name: 'loth',
+            defaultMessage: 'Lot H',
+            location: {
+              lat: 43.088412,
+              lng: -77.678060,
+            },
+          },
+          {
+            id: 'venu.components.Onboarding.geolocationSetup.parking.lot.j',
+            name: 'lotJ',
+            defaultMessage: 'Lot J',
+            location: {
+              lat: 43.085909,
+              lng: -77.681072,
             },
           },
           {
             id: 'venu.components.Onboarding.geolocationSetup.parking.lot.k',
             name: 'lotK',
-            value: 5,
             defaultMessage: 'Lot K',
             location: {
               lat: 43.085822,
@@ -255,9 +285,17 @@ export default defineMessages({
             },
           },
           {
+            id: 'venu.components.Onboarding.geolocationSetup.parking.lot.l',
+            name: 'lotL',
+            defaultMessage: 'Lot L',
+            location: {
+              lat: 43.086958,
+              lng: -77.666903,
+            },
+          },
+          {
             id: 'venu.components.Onboarding.geolocationSetup.parking.lot.n',
             name: 'lotN',
-            value: 6,
             defaultMessage: 'Lot N',
             location: {
               lat: 43.088119,
@@ -267,7 +305,6 @@ export default defineMessages({
           {
             id: 'venu.components.Onboarding.geolocationSetup.parking.lot.r',
             name: 'lotR',
-            value: 7,
             defaultMessage: 'Lot R',
             location: {
               lat: 43.081420,
@@ -277,7 +314,6 @@ export default defineMessages({
           {
             id: 'venu.components.Onboarding.geolocationSetup.parking.lot.s',
             name: 'lotS',
-            value: 8,
             defaultMessage: 'Lot S',
             location: {
               lat: 43.081710,
@@ -285,9 +321,17 @@ export default defineMessages({
             },
           },
           {
+            id: 'venu.components.Onboarding.geolocationSetup.parking.lot.t',
+            name: 'lotT',
+            defaultMessage: 'Lot T',
+            location: {
+              lat: 43.085968,
+              lng: -77.682304,
+            },
+          },
+          {
             id: 'venu.components.Onboarding.geolocationSetup.parking.lot.u',
             name: 'lotU',
-            value: 9,
             defaultMessage: 'Lot U',
             location: {
               lat: 43.081804,
@@ -297,7 +341,6 @@ export default defineMessages({
           {
             id: 'venu.components.Onboarding.geolocationSetup.parking.lot.globalVillage',
             name: 'lotGlobalVillage',
-            value: 10,
             defaultMessage: 'Global Village Lot',
             location: {
               lat: 43.084053,
@@ -307,7 +350,6 @@ export default defineMessages({
           {
             id: 'venu.components.Onboarding.geolocationSetup.parking.lot.universityCommons',
             name: 'lotRITCommons',
-            value: 11,
             defaultMessage: 'RIT University Commons Lot',
             location: {
               lat: 43.079830,
@@ -326,7 +368,7 @@ export default defineMessages({
     },
     intro: {
       id: 'venu.components.Onboarding.interestSelection.intro',
-      defaultMessage: 'Select as many interests as you want so we can recommend events you may like.',
+      defaultMessage: 'Choose interests to get recommendations',
     },
     subtitle: {
       id: 'venu.components.Onboarding.interestSelection.title',

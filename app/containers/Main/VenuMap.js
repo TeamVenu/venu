@@ -52,7 +52,6 @@ const Map = withGoogleMap((props) => { // eslint-disable-line
 
   return (
     <GoogleMap
-      onClick={props.onMapClick}
       center={props.user.location}
       defaultZoom={props.mapProps.zoom}
       defaultCenter={props.mapProps.center}
@@ -109,7 +108,7 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
     const userMarkers = [userMarker];
 
     // If we have parking add it to usermarkers
-    if (userObject.parking.lat && userObject.parking.lng) {
+    if (userObject.parking && (userObject.parking.lat && userObject.parking.lng)) {
       // Create the parking Marker
       const parkingMarker = {
         type: 'parking',
@@ -134,7 +133,6 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
         mode={mapMode}
         user={userObject}
         mapProps={mapProps}
-        panToLocation={null}
       />
     );
   }

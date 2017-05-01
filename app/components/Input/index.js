@@ -5,16 +5,20 @@ const HiddenInput = styled.input`
   display: none;
   &:checked + label {
     background: var(--background-color);
-    color: var(--foreground-color);
+    color: var(--primary-accent-color);
+    border-color: var(--background-color);
   }
 `;
 
 const Label = styled.label`
   position: relative;
-  padding: var(--padding) calc(var(--padding) * 2);
-  background: var(--dark);
+  display: ${(props) => (props.full) ? 'block' : 'inherit'};
+  padding: calc(var(--padding) - 7px) calc(var(--padding) * 2);
+  color: var(--background-color);
+  border: 2px solid currentColor;
   border-radius: 2em;
-  min-width: 60px;
+  text-align: center;
+  white-space: nowrap;
 `;
 
 export default class Input extends React.Component {
@@ -24,6 +28,7 @@ export default class Input extends React.Component {
     value: T.any.isRequired,
     text: T.string.isRequired,
     type: T.string.isRequired,
+    full: T.bool,
     isRequired: T.bool,
     onChangeEvent: T.func,
     isSelected: T.bool,
@@ -43,7 +48,7 @@ export default class Input extends React.Component {
   }
 
   render() {
-    const { name, id, text, value, type, isSelected, isRequired } = this.props;
+    const { name, id, text, value, type, full, isSelected, isRequired } = this.props;
 
     return (
       <span>
@@ -57,6 +62,7 @@ export default class Input extends React.Component {
           onChange={this.handleOnChange}
         />
         <Label
+          full={full}
           id={`${id}Label`}
           htmlFor={id}
         >

@@ -20,7 +20,7 @@ import FlexListView from 'components/FlexListView';
 import Tag from 'components/Tag';
 
 // Media
-import UserIcon from 'media/icons/user.png';
+import User from 'media/icons/pins/user.png';
 
 // Containers
 
@@ -102,40 +102,39 @@ export class Profile extends React.PureComponent { // eslint-disable-line react/
     const visitedExhibits = filterExhibitsBy(allExhibits, 'subType', 'visited');
     const numberOfFavorited = favoritedExhibits.length;
     const numberOfVisited = visitedExhibits.length;
+    const image = (user.photoURL !== '') ? user.photoURL : User;
 
     return (
       <FullWrapper bottomPadding>
+        <TabBar>
+          <TabBarList className={'header'}>
+            <li />
+            <li>
+              <H2 className={'title'}>{ messages.header.profile.defaultMessage }</H2>
+            </li>
+            <li>
+              <Button
+                name={messages.actions.signOut.defaultMessage}
+                onClickEvent={onSignOut}
+              />
+            </li>
+          </TabBarList>
+        </TabBar>
         <Header>
-          <Container>
-            <TabBar transparent borderless>
-              <TabBarList className={'header'}>
-                <li />
-                <li>
-                  <H2 className={'title'}>{ messages.header.profile.defaultMessage }</H2>
-                </li>
-                <li>
-                  <Button
-                    name={messages.actions.editProfile.defaultMessage}
-                    onClickEvent={null}
-                  />
-                </li>
-              </TabBarList>
-            </TabBar>
-          </Container>
           <ImageContainer>
-            <ProfileImage src={UserIcon} />
+            <ProfileImage src={image} alt={'Profile Picture'} />
           </ImageContainer>
           <P className={'large'}>{ user.name }</P>
         </Header>
         <Container>
           <StatisticsBarList>
             <StatisticsBarListItem>
-              <P className={'large'}>{ numberOfVisited }</P>
-              <P>Booths Visited</P>
+              <P className={'large'}>{ numberOfFavorited }</P>
+              <P>Places Saved</P>
             </StatisticsBarListItem>
             <StatisticsBarListItem>
-              <P className={'large'}>{ numberOfFavorited }</P>
-              <P>Booths Favorited</P>
+              <P className={'large'}>{ numberOfVisited }</P>
+              <P>Places Visited</P>
             </StatisticsBarListItem>
           </StatisticsBarList>
         </Container>
@@ -148,29 +147,17 @@ export class Profile extends React.PureComponent { // eslint-disable-line react/
         <div>
           <SettingsList>
             <SettingsItem>
-              <SettingsLink to={'/accountsettings'}>
-                { messages.links.profile.settings.defaultMessage }
+              <SettingsLink to={'/changeinterests'}>
+                { messages.links.settings.interests.defaultMessage }
               </SettingsLink>
             </SettingsItem>
             <SettingsItem>
-              <SettingsLink to={'/'}>
-                { messages.links.profile.about.defaultMessage }
-              </SettingsLink>
-            </SettingsItem>
-            <SettingsItem>
-              <SettingsLink to={'/'}>
-                { messages.links.profile.help.defaultMessage }
+              <SettingsLink to={'/changeparking'}>
+                { messages.links.settings.parking.defaultMessage }
               </SettingsLink>
             </SettingsItem>
           </SettingsList>
         </div>
-        <SmallWrapper>
-          <Button
-            btnClasses={'full rounded bordered'}
-            name={messages.actions.signOut.defaultMessage}
-            onClickEvent={onSignOut}
-          />
-        </SmallWrapper>
       </FullWrapper>
     );
   }

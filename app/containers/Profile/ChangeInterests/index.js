@@ -7,19 +7,20 @@ import { browserHistory } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 
 // Components
+import P from 'components/P';
 import H2 from 'components/H2';
 import TabBar from 'components/TabBar';
+import Checkbox from 'components/Input';
 import Navigation from 'components/Header';
 import TabBarList from 'components/TabBarList';
 import FullWrapper from 'components/FullWrapper';
-import Checkbox from 'components/Input';
 import FlexListView from 'components/FlexListView';
 
 // Components
 import Button from 'components/Button';
 import Notifications from 'components/Notifications';
 import {
-  Container,
+  Header,
   Body,
   Footer,
   OptionItem,
@@ -44,7 +45,7 @@ import {
 } from 'containers/App/dispatches';
 
 // Helpers
-import { isUserOnboardingComplete } from 'utils/helpers';
+import { getRecommendExhibits } from 'utils/helpers';
 
 import messages from 'containers/Profile/messages';
 
@@ -71,15 +72,13 @@ export class ChangeInterests extends React.PureComponent { // eslint-disable-lin
     const { userProps, onChangeInterests, onGetAuthenticatedUser } = this.props;
     const user = (userProps.location) ? userProps : userProps.toJS();
     onGetAuthenticatedUser();
-
     onChangeInterests(user.interests);
   }
 
   componentDidUpdate() {
-    const { userProps, isSignedIn } = this.props;
-    const user = (userProps.location) ? userProps : userProps.toJS();
+    const { isSignedIn } = this.props;
 
-    if (!isSignedIn || !isUserOnboardingComplete(user)) {
+    if (!isSignedIn) {
       browserHistory.push('/login');
     }
   }
@@ -130,7 +129,6 @@ export class ChangeInterests extends React.PureComponent { // eslint-disable-lin
       success,
       interests,
       userProps,
-      isSignedIn,
       areInterestsValid,
       onClearErrorMessages,
       onClearSuccessMessages,
@@ -140,11 +138,10 @@ export class ChangeInterests extends React.PureComponent { // eslint-disable-lin
     const user = (userProps.location) ? userProps : userProps.toJS();
     const { goBack } = browserHistory;
 
-    if (!isSignedIn || !isUserOnboardingComplete(user)) return null;
     return (
       <FullWrapper className={'gradient-bg'} bottomPadding>
         <Navigation>
-          <TabBar>
+          <TabBar transparent borderless>
             <TabBarList className={'header'}>
               <li>
                 <Button
@@ -173,13 +170,18 @@ export class ChangeInterests extends React.PureComponent { // eslint-disable-lin
             goBack();
           }}
         />
-        <Container>
+        <FullWrapper className={'centered'}>
+          <Header>
+            <P>
+              { messages.settings.chooseInterests.intro.defaultMessage }
+            </P>
+          </Header>
           <Body>
-            <FlexListView className={'spaced'}>
+            <FlexListView>
               { this.renderInterestsList() }
             </FlexListView>
           </Body>
-          <Footer>
+          <Footer centered>
             <ButtonRow>
               <ButtonItem>
                 <Button
@@ -193,7 +195,7 @@ export class ChangeInterests extends React.PureComponent { // eslint-disable-lin
               </ButtonItem>
             </ButtonRow>
           </Footer>
-        </Container>
+        </FullWrapper>
       </FullWrapper>
     );
   }
@@ -203,7 +205,7 @@ ChangeInterests.propTypes = {
   error: T.string,
   success: T.string,
   isSignedIn: T.bool,
-  interests: T.array,
+  interests: T.any,
   onClearErrorMessages: T.func,
   onClearSuccessMessages: T.func,
   userProps: T.object.isRequired,
@@ -228,7 +230,30 @@ export function mapDispatchToProps(dispatch) {
     onGetAuthenticatedUser: () => dispatchGetAuthenticatedUser(dispatch),
     onClearErrorMessages: () => dispatchSetErrorMessages(dispatch, null),
     onClearSuccessMessages: () => dispatchSetSuccessMessages(dispatch, null),
-    onSubmitChangeInterests: (user) => {
+    onSubmitChangeInterests: (u) => {
+      // Cache the exhibits object
+      const exhibits = {
+        recommended: [],
+        saved: u.exhibits.saved,
+        visited: u.exhibits.visited,
+      };
+
+      // Cache interests
+      const interests = u.interests;
+
+      // Loop through interests and get the recommended exhibits
+      interests.forEach((interest) => {
+        // Search through the exhibits
+        const recommended = getRecommendExhibits(interest);
+
+        if (exhibits.recommended.length > 0) {
+          exhibits.recommended.concat(recommended);
+        } else {
+          exhibits.recommended = recommended;
+        }
+      });
+
+      const user = Object.assign({}, u, { exhibits });
       dispatchSetUser(dispatch, user);
       dispatchSetSuccessMessages(dispatch, 'Your interests have been updated!');
     },

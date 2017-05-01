@@ -68,6 +68,8 @@ export default class Marker extends React.Component {
   renderPin() {
     const { place, anchor, size } = this.props;
 
+    if (!place.lat && !place.lng) return null;
+
     // Set position of pin
     const position = {
       lat: place.lat,

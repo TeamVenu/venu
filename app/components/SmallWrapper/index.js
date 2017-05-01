@@ -5,7 +5,7 @@ const SmallWrapper = styled.section`
   width: 90%;
   max-width: 720px;
   padding-top: ${(props) => (props.padding) ? 'var(--topbar-height)' : '1em'};
-
+  height: 100%;
   &.centered-text {
     text-align: center;
   }
@@ -18,6 +18,9 @@ const SmallWrapper = styled.section`
     transform: translate(-50%, -50%);
     padding: 0;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 `;
 
