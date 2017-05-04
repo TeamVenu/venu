@@ -147,6 +147,10 @@ injectGlobal`
     outline: 0;
   }
 
+  .slider-slide {
+    padding: var(--padding) 0;
+  }
+
   @media screen and (min-width: 20rem) {
     #app {
       font-size: calc(0.875rem + 0.5 * ((100vw - 20rem) / 60));

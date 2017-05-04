@@ -6,14 +6,13 @@ import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { createStructuredSelector } from 'reselect';
-import styled from 'styled-components';
 
 // Components
 import P from 'components/P';
-import H2 from 'components/H2';
 import H3 from 'components/H3';
+import H4 from 'components/H4';
+import Carousel from 'components/Carousel';
 import Card from 'components/Card';
-import Button from 'components/Button';
 import TabBar from 'components/TabBar';
 import Container from 'components/Header';
 import TabBarList from 'components/TabBarList';
@@ -54,29 +53,21 @@ import {
   dispatchSearchCompleted,
 } from './dispatches';
 
-const SearchBox = styled.input`
-  border: 1px solid var(--foreground-color);
-  border-radius: 4px;
-  display: block;
-  width: 90%;
-  margin: auto;
-  padding: calc(var(--padding) / 2);
-  font-size: 16px;
+import {
+  Wrapper,
+  SearchBox,
+  List,
+  Item,
+  VerticalListView,
+  VerticalListSection,
+  HorizontalListView,
+  HorizontalListItem,
+  TagButton,
+  FacilityButton,
+  FacilityIcon,
+} from './styles';
 
-  &:focus {
-    outline: 0;
-  }
-`;
-
-const List = styled.ul`
-  margin: 0 0 calc(var(--topbar-height) * 1.5) 0;
-  padding: 0;
-  list-style-type: 0;
-`;
-
-const Item = styled.li`
-  border-bottom: 1px solid var(--light-gray);
-`;
+import messages from './messages';
 
 export class Search extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -85,6 +76,9 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
     this.searchTerm = this.searchTerm.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.renderPlacesList = this.renderPlacesList.bind(this);
+    this.renderInitianState = this.renderInitianState.bind(this);
+    this.renderRecommendedPlaces = this.renderRecommendedPlaces.bind(this);
+    this.renderCarouselList = this.renderCarouselList.bind(this);
   }
 
   componentWillMount() {
@@ -99,6 +93,12 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
     if (!isSignedIn || !isUserOnboardingComplete(user)) {
       browserHistory.push('/login');
     }
+  }
+
+  componentWillUnmount() {
+    const { onChangeTerm } = this.props;
+    const event = { target: { value: '' } };
+    onChangeTerm(event);
   }
 
   handleKeyPress(event) {
@@ -180,18 +180,144 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
     });
   }
 
+  renderInitianState() {
+    const { userProps } = this.props;
+    const user = (userProps.location) ? userProps : userProps.toJS();
+    const interests = Array.from(user.interests);
+
+    return (
+      <Wrapper>
+        <VerticalListView>
+          <VerticalListSection>
+            <H4>{messages.tagsHeader.defaultMessage}</H4>
+            <HorizontalListView>
+              {interests.map((interest, index) => (
+                <HorizontalListItem key={index}>
+                  <TagButton>
+                    {interest}
+                  </TagButton>
+                </HorizontalListItem>
+              ))}
+            </HorizontalListView>
+          </VerticalListSection>
+          <VerticalListSection>
+            <H4>{messages.facilitiesHeader.defaultMessage}</H4>
+            <HorizontalListView>
+              {
+                messages.facilities.map((facility, index) => (
+                  <HorizontalListItem key={index}>
+                    <FacilityButton>
+                      <FacilityIcon src={facility.src} alt={`${facility.name} Icon`} />
+                      <P>{facility.name}</P>
+                    </FacilityButton>
+                  </HorizontalListItem>
+                ))
+              }
+            </HorizontalListView>
+          </VerticalListSection>
+          {this.renderRecommendedPlaces()}
+        </VerticalListView>
+      </Wrapper>
+    );
+  }
+
+  renderRecommendedPlaces() {
+    const { userProps, exhibitProps } = this.props;
+    const user = (userProps.location) ? userProps : userProps.toJS();
+    const exhibitObj = (exhibitProps.artisticAlley) ? exhibitProps : exhibitProps.toJS();
+
+    // Make an exhibits object that will hold recommended
+    const exhibits = {
+      artisticAlley: [],
+      businessDistrict: [],
+      computerZone: [],
+      engineeringPark: [],
+      globalVillage: [],
+      greenPlace: [],
+      innovationCenter: [],
+      ntidArea: [],
+      recreationZone: [],
+      ritCentral: [],
+      scienceCenter: [],
+      technologyQuarter: [],
+      thinkTank: [],
+    };
+
+    // If recommended exhibits is greater than 1
+    if (user.exhibits.recommended.length > 0) {
+      // Go through recommended exhibits
+      user.exhibits.recommended.forEach((recommended) => { // eslint-disable-line
+        // If value is not empty
+        if (recommended.length > 0) {
+          // splice value
+          const keys = recommended.split('-');
+
+          // Make a place with the values
+          const place = exhibitObj[keys[0]][keys[1]];
+
+          // If a place exists
+          if (place) {
+            // Change exhibit
+            exhibits[keys[0]].push(place);
+          }
+        }
+      });
+
+      // return exhibitComponent.artisticAlley;
+      return messages.recommendedArray.map((zone, index) => {
+        if (exhibits[zone.name].length <= 0) return null;
+        return (
+          <VerticalListSection key={index}>
+            <H4>{ zone.defaultMessage }</H4>
+            <Carousel
+              decorators={[]}
+              cellSpacing={5}
+              slideWidth={0.95}
+              cellAlign={'center'}
+              edgeEasing={'easeOutCirc'}
+            >
+              { this.renderCarouselList(exhibits[zone.name]) }
+            </Carousel>
+          </VerticalListSection>
+        );
+      });
+    }
+
+    return null;
+  }
+
+  renderCarouselList(exhibits) {
+    return exhibits.map((exhibit, index) => {
+      const link = `/${exhibit.type}/${exhibit.colorZone}/${exhibit.exhibitCode}/${exhibit.key}`;
+      const room = (isNaN(exhibit.location) && isNaN(exhibit.location.charAt(1)))
+        ? exhibit.location
+        : exhibit.exhibitCode;
+      const location = `${exhibit.building}, ${room}`;
+      const place = {
+        link,
+        location,
+        place: exhibit,
+        name: exhibit.name,
+        zone: exhibit.imagineRitArea,
+        zoneClass: exhibit.colorZone,
+      };
+      return (
+        <Card key={index} place={place} />
+      );
+    });
+  }
+
   render() {
     const { searchResults, isSearching, searchTerm, onChangeTerm } = this.props;
 
     let bodyContent = null;
-
     if (isSearching) {
-      bodyContent = (<SmallWrapper className={'centered'}><H3>Searching...</H3></SmallWrapper>);
+      bodyContent = (<SmallWrapper className={'center'}><H3>Searching...</H3></SmallWrapper>);
     } else if (
       (searchResults.length === 0)
       || (searchResults.length === undefined)
       || (searchTerm.length === 0)) {
-      bodyContent = (<SmallWrapper className={'centered'}><P>Show Empty State here</P></SmallWrapper>);
+      bodyContent = this.renderInitianState();
     } else {
       // Call function for lists
       bodyContent = (
@@ -204,29 +330,18 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
     return (
       <div>
         <Container>
-          <TabBar borderless>
+          <TabBar>
             <TabBarList className={'header'}>
               <li>
-                <Button
-                  btnClasses={'large'}
-                  icon={'ion-android-search'}
-                  onClickEvent={null}
+                <SearchBox
+                  placeholder={'Find Places'}
+                  type={'text'}
+                  value={searchTerm}
+                  onChange={onChangeTerm}
+                  onKeyPress={this.handleKeyPress}
                 />
               </li>
-              <li>
-                <H2>Search</H2>
-              </li>
-              <li />
             </TabBarList>
-          </TabBar>
-          <TabBar>
-            <SearchBox
-              placeholder={'Find Places'}
-              type={'text'}
-              value={searchTerm}
-              onChange={onChangeTerm}
-              onKeyPress={this.handleKeyPress}
-            />
           </TabBar>
           {bodyContent}
         </Container>

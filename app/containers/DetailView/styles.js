@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import H4 from 'components/H4';
 
 export const MapWrapper = styled.section`
   background: var(--background-color);
@@ -132,11 +131,6 @@ export const ButtonItem = styled.li`
 
 export const DetailInfoWrapper = styled.section`
   border-top: 1px solid var(--light-gray);
-`;
-
-export const Subtitle = styled(H4)`
-  color: var(--grey);
-  font-weight: 700;
 `;
 
 export const TagsContainer = styled.ul`

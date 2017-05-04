@@ -3,6 +3,7 @@ import { Marker as Pin } from 'react-google-maps';
 import { browserHistory } from 'react-router';
 import DefaultPin from 'media/icons/pins/orangepin.png';
 import SavedPin from 'media/icons/pins/bluepin.png';
+import FadedPin from 'media/icons/pins/fadepin.png';
 import Entertainment from 'media/icons/pins/entertainment.png';
 import Entrance from 'media/icons/pins/entrance.png';
 import Food from 'media/icons/pins/food.png';
@@ -94,6 +95,9 @@ export default class Marker extends React.Component {
         switch (place.subType) {
           case 'saved':
             image = SavedPin;
+            break;
+          case 'visited':
+            image = FadedPin;
             break;
           default:
             image = DefaultPin;

@@ -39,14 +39,14 @@ const Map = withGoogleMap((props) => { // eslint-disable-line
     {
       textColor: 'white',
       url: MergedPin,
-      width: 45,
-      height: 38,
+      width: 53.242,
+      height: 45,
     },
     {
       textColor: 'white',
       url: ClusterPin,
-      width: 43,
-      height: 45,
+      width: 47.685,
+      height: 49.992,
     },
   ];
 

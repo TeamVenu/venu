@@ -5,10 +5,10 @@ import { browserHistory } from 'react-router';
 
 // Import Components
 import P from 'components/P';
+import H4 from 'components/H4';
 import Tag from 'components/Tag';
 import Card from 'components/Card';
 import Button from 'components/Button';
-
 // Global Selectors
 import { makeSelectUser } from 'containers/App/selectors';
 
@@ -22,7 +22,6 @@ import {
 
 // Import Local Components
 import {
-  Subtitle as H4,
   DetailWrapper,
   DetailContainer,
   DetailInfoWrapper,
@@ -285,7 +284,7 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
       <DetailWrapper>
         <DetailContainer>
           { subTypeComponent }
-          <Card place={place} />
+          <Card place={place} cardClass={'full'} />
           { this.renderActions() }
           <DetailInfoWrapper>
             { this.renderTagComponent() }
