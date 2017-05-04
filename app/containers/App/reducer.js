@@ -17,6 +17,8 @@ import imagineRITData from 'fixtures/places.json';
 import mapStyles from 'fixtures/map-styles.json';
 
 import {
+  SET_TIMER,
+  SET_LOCATION_ENABLED,
   SIGN_IN_WITH_GOOGLE,
   SIGN_IN_WITH_FACEBOOK,
   SIGN_IN_WITH_PROVIDER_ERROR,
@@ -53,8 +55,6 @@ import {
   CHANGE_MAP_CENTER,
   CHANGE_SELECTED_PLACE,
   NAVIGATE_TO_PLACE,
-  LIKE_PLACE,
-  UNLIKE_PLACE,
   CHANGE_EXHIBIT,
   SET_ERROR_MESSAGES,
   SET_SUCESS_MESSAGES,
@@ -137,6 +137,8 @@ const initialState = fromJS({
   // Current place
   currentPlace: {},
   destination: {},
+  isLocationEnabled: true,
+  timer: null,
 });
 
 /**
@@ -266,8 +268,10 @@ function appReducer(state = initialState, action) {
     case NAVIGATE_TO_PLACE:
       return state
         .set('destination', action.value);
-    case LIKE_PLACE:
-    case UNLIKE_PLACE:
+    case SET_TIMER:
+      return state.set('timer', action.value);
+    case SET_LOCATION_ENABLED:
+      return state.set('isLocationEnabled', action.value);
     default:
       return state;
   }

@@ -13,17 +13,21 @@ import Button from 'components/Button';
 import {
   makeSelectUser,
   makeSelectError,
+  makeSelectTimer,
   makeSelectLoading,
   makeSelectVenuMap,
   makeSelectMapMode,
   makeSelectExhibits,
   makeSelectFacilities,
   makeSelectCurrentPlace,
+  makeSelectIsLocationEnabled,
 } from 'containers/App/selectors';
 
 import {
+  dispatchSetTimer,
   dispatchChangeExhibit,
   dispatchGetUserLocation,
+  dispatchSetLocationEnabled,
  } from 'containers/App/dispatches';
 
 // Containers
@@ -38,8 +42,14 @@ import {
 } from './styles';
 
 export class Main extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+
+    this.timer = this.timer.bind(this);
+  }
+
   componentDidMount() {
-    const { user, exhibits, onChangeExhibit } = this.props;
+    const { user, exhibits, isLocationEnabled, onSetTimer, onChangeExhibit } = this.props;
     const exhibitsObj = (exhibits.artisticAlley) ? exhibits : exhibits.toJS();
 
     // For recommended exhibits
@@ -107,6 +117,31 @@ export class Main extends React.PureComponent { // eslint-disable-line react/pre
         }
       });
     } // End visited exhibits
+
+    // Timer
+    const timeToUpdateLocation = 60000; // minute to update
+
+    if (isLocationEnabled) {
+      const timer = setInterval(this.timer, timeToUpdateLocation);
+      onSetTimer(timer);
+    }
+  }
+
+  componentWillUnmount() {
+    const { timer, onSetTimer } = this.props;
+    // Clear timer
+    clearInterval(timer);
+
+    // Set timer to null
+    onSetTimer(null);
+  }
+
+  timer() {
+    const { user, isLocationEnabled, onGetUserLocation } = this.props;
+
+    if (isLocationEnabled) {
+      onGetUserLocation(user);
+    }
   }
 
   render() {
@@ -132,18 +167,18 @@ export class Main extends React.PureComponent { // eslint-disable-line react/pre
 }
 
 Main.propTypes = {
+  timer: T.any,
   user: T.object,
-  // mapMode: T.string,
-  // venuMap: T.object,
   exhibits: T.object,
-  // facilities: T.object,
-  // currentPlace: T.object,
+  isLocationEnabled: T.bool,
+  onSetTimer: T.func.isRequired,
   onChangeExhibit: T.func.isRequired,
   onGetUserLocation: T.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
+  timer: makeSelectTimer(),
   error: makeSelectError(),
   loading: makeSelectLoading(),
   mapMode: makeSelectMapMode(),
@@ -151,11 +186,11 @@ const mapStateToProps = createStructuredSelector({
   exhibits: makeSelectExhibits(),
   facilities: makeSelectFacilities(),
   currentPlace: makeSelectCurrentPlace(),
+  isLocationEnabled: makeSelectIsLocationEnabled(),
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onGetUserLocation: (user) => dispatchGetUserLocation(dispatch, user),
     onChangeExhibit: (p, subType) => {
       // Make a new place object
       // Make sure we don't mutate te old object
@@ -163,6 +198,9 @@ export function mapDispatchToProps(dispatch) {
       const place = Object.assign({}, p, { previousSubType: p.subType, subType });
       dispatchChangeExhibit(dispatch, place);
     },
+    onSetTimer: (timer) => dispatchSetTimer(dispatch, timer),
+    onGetUserLocation: (user) => dispatchGetUserLocation(dispatch, user),
+    onSetLocationEnabled: (enabled) => dispatchSetLocationEnabled(dispatch, enabled),
   };
 }
 

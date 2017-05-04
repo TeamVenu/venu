@@ -7,6 +7,7 @@ import {
   setUser,
   updateUserData,
   changeMapCenter,
+  setLocationEnabled,
 } from 'containers/App/actions';
 
 // Actions
@@ -183,6 +184,7 @@ export function askUserToEnableLocation(dispatch) {
     // b. Disabled by device
     // Set local storage so we don't have to repeat these steps on reload
     dispatch(setLocating(false));
+    dispatch(setLocationEnabled(false));
     dispatch(setupGeolocation(location, 'unavailable'));
   }
 }
@@ -199,6 +201,7 @@ export function retrieveUserLocationSucceeded(dispatch, position) {
     lng: position.coords.longitude,
   };
   dispatch(setLocating(false));
+  dispatch(setLocationEnabled(true));
   dispatch(setupGeolocation(location, 'succeeded'));
 }
 
@@ -210,5 +213,6 @@ export function retrieveUserLocationSucceeded(dispatch, position) {
  */
 export function retrieveUserLocationFailed(dispatch, location) {
   dispatch(setLocating(false));
+  dispatch(setLocationEnabled(false));
   dispatch(setupGeolocation(location, 'failed'));
 }

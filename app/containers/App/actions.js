@@ -1,4 +1,6 @@
 import {
+  SET_TIMER,
+  SET_LOCATION_ENABLED,
   SIGN_IN_WITH_GOOGLE,
   SIGN_IN_WITH_FACEBOOK,
   SIGN_IN_WITH_PROVIDER_ERROR,
@@ -545,3 +547,26 @@ export function setSuccessMessages(message) {
   };
 }
 
+/**
+ * setTimer
+ * Sets a timer using setInterval function
+ * @param {Func} timerId
+ */
+export function setTimer(timerId) {
+  return {
+    type: SET_TIMER,
+    value: timerId,
+  };
+}
+
+/**
+ * setLocationEnabled
+ * Sets location to enabled or disabled
+ * @param {bool} enabled
+ */
+export function setLocationEnabled(enabled) {
+  return {
+    type: SET_LOCATION_ENABLED,
+    value: enabled,
+  };
+}
