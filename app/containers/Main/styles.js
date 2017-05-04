@@ -13,9 +13,9 @@ export const Wrapper = styled.section`
 
 export const MapWrapper = styled.section`
   position: absolute;
-  top: calc(var(--topbar-height) * 2);
+  top: calc(calc(var(--topbar-height) / 1.2) + calc(var(--topbar-height) / 1.2));
   width: 100vw;
-  height: calc(100vh - (var(--topbar-height) * 2));
+  height: calc(100vh - calc(calc(calc(var(--topbar-height) / 1.2) + calc(var(--topbar-height) / 1.2)) + var(--topbar-height)));
   z-index: 10;
 `;
 

@@ -114,7 +114,7 @@ const initialState = fromJS({
   // Main props
   exhibits: imagineRITData.exhibits,
   facilities: imagineRITData.facilities,
-  mapMode: 'Discover',
+  mapMode: 'Recommended',
   // Map props
   venuMap: {
     bootstrapURLKeys: {

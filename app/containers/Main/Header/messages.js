@@ -12,16 +12,12 @@ export default defineMessages({
   },
   modes: [
     {
-      id: 'VENU.Main.Header.mode.default',
-      defaultMessage: 'Default',
+      id: 'VENU.Main.Header.mode.recommended',
+      defaultMessage: 'Recommended',
     },
     {
-      id: 'VENU.Main.Header.mode.discover',
-      defaultMessage: 'Discover',
-    },
-    {
-      id: 'VENU.Main.Header.mode.itinerary',
-      defaultMessage: 'Itinerary',
+      id: 'VENU.Main.Header.mode.all',
+      defaultMessage: 'All',
     },
   ],
 });

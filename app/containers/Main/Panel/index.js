@@ -27,7 +27,7 @@ import { filterExhibitsBy } from 'utils/helpers';
 import Item from './Item';
 
 // Local Components
-import { Wrapper } from './styles';
+import { Wrapper, ButtonWrapper } from './styles';
 
 export class Panel extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -68,36 +68,36 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
     // Verify mapMode
     switch (mapMode) {
       // If mode is Discover
-      case 'Discover':
+      case 'Recommended':
         // We want to just show recommended places
         places = filterExhibitsBy(exhibitsObj, property, recommended);
         break;
-      // If mode is Itinerary
-      case 'Itinerary':
+      default:
         // We want to just show saved places
         places = filterExhibitsBy(exhibitsObj, property, saved);
-        break;
-      // Otherwise mode is Discover
-      default:
-        // We don't want to show cards
-        places = [];
         break;
     }
 
     // If in itinerary with no places
-    if (places.length === 0 && mapMode === 'Itinerary') {
+    if (places.length === 0 && mapMode === 'All') {
       // Return a button that changes map to discover
       return (
-        <Wrapper>
+        <ButtonWrapper>
           <Button
             icon={'ion-plus'}
             btnClasses={'rounded special full'}
-            name={'Add Activities To Your Itinerary'}
+            name={'Find recommended activities'}
             onClickEvent={() => {
-              onChangeMapMode('Discover');
+              const e = {
+                target: {
+                  textContent: 'Recommended',
+                },
+              };
+
+              onChangeMapMode(e);
             }}
           />
-        </Wrapper>
+        </ButtonWrapper>
       );
     } else if (places.length === 0) {
       // If no places return null

@@ -7,6 +7,8 @@ import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import Button from 'components/Button';
+
 // Selectors
 import {
   makeSelectUser,
@@ -19,7 +21,10 @@ import {
   makeSelectCurrentPlace,
 } from 'containers/App/selectors';
 
-import { dispatchChangeExhibit } from 'containers/App/dispatches';
+import {
+  dispatchChangeExhibit,
+  dispatchGetUserLocation,
+ } from 'containers/App/dispatches';
 
 // Containers
 import Header from './Header';
@@ -105,6 +110,8 @@ export class Main extends React.PureComponent { // eslint-disable-line react/pre
   }
 
   render() {
+    const { user, onGetUserLocation } = this.props;
+
     return (
       <section>
         <MapWrapper>
@@ -112,6 +119,11 @@ export class Main extends React.PureComponent { // eslint-disable-line react/pre
         </MapWrapper>
         <Wrapper>
           <Header />
+          <Button
+            btnClasses={'fab'}
+            icon={'ion-android-locate'}
+            onClickEvent={() => { onGetUserLocation(user); }}
+          />
           <Panel />
         </Wrapper>
       </section>
@@ -127,6 +139,7 @@ Main.propTypes = {
   // facilities: T.object,
   // currentPlace: T.object,
   onChangeExhibit: T.func.isRequired,
+  onGetUserLocation: T.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -142,6 +155,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
+    onGetUserLocation: (user) => dispatchGetUserLocation(dispatch, user),
     onChangeExhibit: (p, subType) => {
       // Make a new place object
       // Make sure we don't mutate te old object

@@ -10,3 +10,13 @@ export const Wrapper = styled.section`
   padding: calc(var(--padding) * 2) 0;
   z-index: 15;
 `;
+
+export const ButtonWrapper = styled.section`
+  // Positioning
+  position: relative;
+  align-self: flex-end;
+  margin: 0;
+  width: 100%;
+  padding: calc(var(--padding) * 2);
+  z-index: 15;
+`;

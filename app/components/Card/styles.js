@@ -15,7 +15,7 @@ export const Wrapper = styled.section`
 
   &:not(.full) {
     border-radius: 4px;
-    box-shadow: 0px 1px 2px var(--foreground-color);
+    box-shadow: 0px 1px 2px var(--black-background-opaque);
   }
 `;
 

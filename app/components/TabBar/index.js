@@ -7,7 +7,8 @@ const TabBar = styled.nav`
 
   // Size
   width: 100%;
-  height: var(--topbar-height);
+  height: calc(var(--topbar-height) / 1.2);
+  // height: 35px;
   display: flex;
   justify-content: center;
 
@@ -26,7 +27,7 @@ const TabBar = styled.nav`
     position: fixed;
     bottom: 0;
     z-index: 9999;
-
+    height: var(--topbar-height);
     // Styling
     box-shadow: inset 0 7px 1px -7px var(--foreground-color);
 

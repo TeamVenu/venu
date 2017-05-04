@@ -203,7 +203,7 @@ export function retrieveUserLocationFailed(dispatch, userProps, location) {
  */
 export function dispatchChangeMapMode(dispatch, event) {
   // Regex pattern
-  const modePattern = /(Default|Discover|Itinerary)/i;
+  const modePattern = /(All|Recommended)/i;
 
   // Mode
   const mode = event.target.textContent;
@@ -214,7 +214,7 @@ export function dispatchChangeMapMode(dispatch, event) {
     dispatch(changeMapMode(mode));
   } else {
     // Otherwise set to Default as fallback
-    dispatch(changeMapMode('Default'));
+    dispatch(changeMapMode('All'));
   }
 }
 
