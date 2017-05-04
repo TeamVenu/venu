@@ -7,7 +7,7 @@ export const Wrapper = styled.section`
 `;
 
 export const VerticalListView = styled.ul`
-  margin: 0;
+  margin: var(--topbar-height) 0;
   padding: 0;
   list-style-type: none;
 `;
@@ -66,17 +66,22 @@ export const FacilityButton = styled.button`
 export const FacilityIcon = styled.img`
   display: block;
   margin: 0 auto;
-  // width: 24px;
   height: 24px;
   margin-bottom: calc(var(--padding) / 2);
 `;
 
+export const SearchContainer = styled.section`
+  position: relative;
+  margin: auto;
+  width: 90%;
+  max-width: 1170px;
+`;
+
 export const SearchBox = styled.input`
-  border: 1px solid var(--foreground-color);
+  background: var(--light-gray);
   border-radius: 4px;
   display: block;
-  width: 90%;
-  margin: auto;
+  width: 100%;
   padding: calc(var(--padding) / 2);
   font-size: 16px;
 
@@ -86,7 +91,7 @@ export const SearchBox = styled.input`
 `;
 
 export const List = styled.ul`
-  margin: 0 0 calc(var(--topbar-height) * 1.5) 0;
+  margin: var(--topbar-height) 0 calc(var(--topbar-height) * 1.5) 0;
   padding: 0;
   list-style-type: 0;
 `;

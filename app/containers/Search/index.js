@@ -11,11 +11,10 @@ import { createStructuredSelector } from 'reselect';
 import P from 'components/P';
 import H3 from 'components/H3';
 import H4 from 'components/H4';
-import Carousel from 'components/Carousel';
 import Card from 'components/Card';
 import TabBar from 'components/TabBar';
-import Container from 'components/Header';
-import TabBarList from 'components/TabBarList';
+import Button from 'components/Button';
+import Carousel from 'components/Carousel';
 import SmallWrapper from 'components/SmallWrapper';
 // Containers
 
@@ -55,6 +54,7 @@ import {
 
 import {
   Wrapper,
+  SearchContainer,
   SearchBox,
   List,
   Item,
@@ -72,13 +72,14 @@ import messages from './messages';
 export class Search extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
-
     this.searchTerm = this.searchTerm.bind(this);
+    this.clearSearch = this.clearSearch.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.renderPlacesList = this.renderPlacesList.bind(this);
     this.renderInitianState = this.renderInitianState.bind(this);
-    this.renderRecommendedPlaces = this.renderRecommendedPlaces.bind(this);
     this.renderCarouselList = this.renderCarouselList.bind(this);
+    this.handleCategoryClick = this.handleCategoryClick.bind(this);
+    this.renderRecommendedPlaces = this.renderRecommendedPlaces.bind(this);
   }
 
   componentWillMount() {
@@ -96,55 +97,70 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
   }
 
   componentWillUnmount() {
+    this.clearSearch();
+  }
+
+  clearSearch() {
     const { onChangeTerm } = this.props;
     const event = { target: { value: '' } };
     onChangeTerm(event);
+    this.searchTerm('');
   }
-
   handleKeyPress(event) {
     const { onBeginSearchQuery } = this.props;
 
     if (event.key === 'Enter') {
       onBeginSearchQuery();
-      this.searchTerm();
+      this.searchTerm(event.target.value);
     }
   }
 
-  searchTerm() {
-    const { searchTerm, searchData, onSearchResultsLoaded, exhibitProps, facilityProps } = this.props;
-    const queryResults = search(searchTerm, searchData, true);
+  handleCategoryClick(category) {
+    const { onChangeTerm, onBeginSearchQuery } = this.props;
+    const event = { target: { value: category } };
+    onChangeTerm(event);
+    onBeginSearchQuery();
+    this.searchTerm(category);
+  }
 
-    const exhibits = (exhibitProps.artisticAlley) ? exhibitProps : exhibitProps.toJS();
-    const facilities = (facilityProps.medical) ? facilityProps : facilityProps.toJS();
-    //
-    const returnedPlaces = [];
+  searchTerm(term) {
+    const { searchData, onSearchResultsLoaded, exhibitProps, facilityProps } = this.props;
+    if (term.length > 0) {
+      const queryResults = search(term, searchData, false);
+      const exhibits = (exhibitProps.artisticAlley) ? exhibitProps : exhibitProps.toJS();
+      const facilities = (facilityProps.medical) ? facilityProps : facilityProps.toJS();
+      //
+      const returnedPlaces = [];
 
-    //
-    let placeResult;
+      //
+      let placeResult;
 
-    //
-    let key = 0;
+      //
+      let key = 0;
 
-    // Create array of places using queryResults
-    queryResults.forEach((place) => { // eslint-disable-line
-      switch (place.type) {
-        case 'exhibit':
-          key = parseInt(place.key, 10);
-          placeResult = exhibits[place.subType][key];
-          returnedPlaces.push(placeResult);
-          break;
-        case 'facility':
-          key = parseInt(place.key, 10);
-          placeResult = facilities[place.subType][key];
-          returnedPlaces.push(placeResult);
-          break;
-        default:
-          break;
-      }
-    });
+      // Create array of places using queryResults
+      queryResults.forEach((place) => { // eslint-disable-line
+        switch (place.type) {
+          case 'exhibit':
+            key = parseInt(place.key, 10);
+            placeResult = exhibits[place.subType][key];
+            returnedPlaces.push(placeResult);
+            break;
+          case 'facility':
+            key = parseInt(place.key, 10);
+            placeResult = facilities[place.subType][key];
+            returnedPlaces.push(placeResult);
+            break;
+          default:
+            break;
+        }
+      });
 
-    // Call search results loaded
-    onSearchResultsLoaded(returnedPlaces);
+      // Call search results loaded
+      onSearchResultsLoaded(returnedPlaces);
+    } else {
+      onSearchResultsLoaded([]);
+    }
   }
 
   renderPlacesList() {
@@ -193,7 +209,7 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
             <HorizontalListView>
               {interests.map((interest, index) => (
                 <HorizontalListItem key={index}>
-                  <TagButton>
+                  <TagButton onClick={() => { this.handleCategoryClick(interest); }}>
                     {interest}
                   </TagButton>
                 </HorizontalListItem>
@@ -206,7 +222,7 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
               {
                 messages.facilities.map((facility, index) => (
                   <HorizontalListItem key={index}>
-                    <FacilityButton>
+                    <FacilityButton onClick={() => { this.handleCategoryClick(facility.term); }}>
                       <FacilityIcon src={facility.src} alt={`${facility.name} Icon`} />
                       <P>{facility.name}</P>
                     </FacilityButton>
@@ -308,15 +324,13 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
   }
 
   render() {
-    const { searchResults, isSearching, searchTerm, onChangeTerm } = this.props;
-
+    const { searchTerm, searchResults, isSearching, onChangeTerm } = this.props;
     let bodyContent = null;
     if (isSearching) {
       bodyContent = (<SmallWrapper className={'center'}><H3>Searching...</H3></SmallWrapper>);
     } else if (
       (searchResults.length === 0)
-      || (searchResults.length === undefined)
-      || (searchTerm.length === 0)) {
+      || (searchResults.size === 0)) {
       bodyContent = this.renderInitianState();
     } else {
       // Call function for lists
@@ -328,24 +342,25 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
     }
 
     return (
-      <div>
-        <Container>
-          <TabBar>
-            <TabBarList className={'header'}>
-              <li>
-                <SearchBox
-                  placeholder={'Find Places'}
-                  type={'text'}
-                  value={searchTerm}
-                  onChange={onChangeTerm}
-                  onKeyPress={this.handleKeyPress}
-                />
-              </li>
-            </TabBarList>
-          </TabBar>
-          {bodyContent}
-        </Container>
-      </div>
+      <section>
+        <TabBar className={'sticky'}>
+          <SearchContainer>
+            <SearchBox
+              type={'text'}
+              value={searchTerm}
+              onChange={onChangeTerm}
+              onKeyPress={this.handleKeyPress}
+              placeholder={messages.header.defaultMessage}
+            />
+            <Button
+              btnClasses={'clear'}
+              icon={'ion-ios-close'}
+              onClickEvent={this.clearSearch}
+            />
+          </SearchContainer>
+        </TabBar>
+        {bodyContent}
+      </section>
     );
   }
 }
@@ -353,12 +368,12 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
 Search.propTypes = {
   isSearching: T.bool,
   isSignedIn: T.bool,
+  searchTerm: T.string,
   searchResults: T.any,
   exhibitProps: T.object,
   facilityProps: T.object,
   userProps: T.object.isRequired,
   searchData: T.string.isRequired,
-  searchTerm: T.string,
   onChangeTerm: T.func.isRequired,
   onGetAuthenticatedUser: T.func.isRequired,
   onBeginSearchQuery: T.func.isRequired,

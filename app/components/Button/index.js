@@ -6,6 +6,13 @@ import Google from 'media/icons/socialmedia/google.png';
 const Btn = styled.button`
   padding: var(--padding);
 
+  &.clear {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: calc(var(--padding) / 2);
+  }
+
   &.action {
     width: 100%;
     display: block;
