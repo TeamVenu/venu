@@ -111,7 +111,7 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
 
     if (event.key === 'Enter') {
       onBeginSearchQuery();
-      this.searchTerm(event.target.value);
+      this.searchTerm(event.target.value, false);
     }
   }
 
@@ -120,13 +120,13 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
     const event = { target: { value: category } };
     onChangeTerm(event);
     onBeginSearchQuery();
-    this.searchTerm(category);
+    this.searchTerm(category, true);
   }
 
-  searchTerm(term) {
+  searchTerm(term, exact) {
     const { searchData, onSearchResultsLoaded, exhibitProps, facilityProps } = this.props;
     if (term.length > 0) {
-      const queryResults = search(term, searchData, false);
+      const queryResults = search(term, searchData, exact);
       const exhibits = (exhibitProps.artisticAlley) ? exhibitProps : exhibitProps.toJS();
       const facilities = (facilityProps.medical) ? facilityProps : facilityProps.toJS();
       //

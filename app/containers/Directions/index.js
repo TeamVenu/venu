@@ -260,7 +260,7 @@ export class Directions extends React.PureComponent { // eslint-disable-line rea
         location = `${destination.building}, ${room}`;
         break;
       case 'parking':
-        destination.name = `${user.name}'s Parking Spot`;
+        destination.name = (user.email.length > 0) ? `${user.name}'s Parking Spot` : 'My Parking Spot';
         break;
       default:
         link = null;
