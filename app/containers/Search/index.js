@@ -163,38 +163,6 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
     }
   }
 
-  renderPlacesList() {
-    const { searchResults } = this.props;
-
-    if (searchResults.length === 0) return null;
-
-    return searchResults.map((result, index) => { // eslint-disable-line
-
-      const room = (isNaN(result.location) && isNaN(result.location.charAt(1)))
-        ? result.location
-        : result.exhibitCode;
-
-      const location = `${result.building}, ${room}`;
-      const link = (result.type === 'exhibit')
-        ? `/${result.type}/${result.colorZone}/${result.exhibitCode}/${result.key}`
-        : `/${result.type}/${result.colorZone}/${result.subType}/${result.key}`;
-
-      const place = {
-        link,
-        location,
-        place: result,
-        name: result.name,
-        zone: result.imagineRitArea,
-        zoneClass: result.colorZone,
-      };
-
-      return (
-        <Item key={index}>
-          <Card place={place} cardClass={'full'} />
-        </Item>
-      );
-    });
-  }
 
   renderInitianState() {
     const { userProps } = this.props;
@@ -235,6 +203,39 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
         </VerticalListView>
       </Wrapper>
     );
+  }
+
+  renderPlacesList() {
+    const { searchResults } = this.props;
+
+    if (searchResults.length === 0) return null;
+
+    return searchResults.map((result, index) => { // eslint-disable-line
+
+      const room = (isNaN(result.location) && isNaN(result.location.charAt(1)))
+        ? result.location
+        : result.exhibitCode;
+
+      const location = `${result.building}, ${room}`;
+      const link = (result.type === 'exhibit')
+        ? `/${result.type}/${result.colorZone}/${result.exhibitCode}/${result.key}`
+        : `/${result.type}/${result.colorZone}/${result.subType}/${result.key}`;
+
+      const place = {
+        link,
+        location,
+        place: result,
+        name: result.name,
+        zone: result.imagineRitArea,
+        zoneClass: result.colorZone,
+      };
+
+      return (
+        <Item key={index}>
+          <Card place={place} cardClass={'full'} />
+        </Item>
+      );
+    });
   }
 
   renderRecommendedPlaces() {
@@ -326,6 +327,14 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
   render() {
     const { searchTerm, searchResults, isSearching, onChangeTerm } = this.props;
     let bodyContent = null;
+    const closeButton = (searchTerm.length > 0) ? (
+      <Button
+        btnClasses={'clear'}
+        icon={'ion-ios-close'}
+        onClickEvent={this.clearSearch}
+      />
+    ) : null;
+
     if (isSearching) {
       bodyContent = (<SmallWrapper className={'center'}><H3>Searching...</H3></SmallWrapper>);
     } else if (
@@ -352,11 +361,7 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
               onKeyPress={this.handleKeyPress}
               placeholder={messages.header.defaultMessage}
             />
-            <Button
-              btnClasses={'clear'}
-              icon={'ion-ios-close'}
-              onClickEvent={this.clearSearch}
-            />
+            { closeButton }
           </SearchContainer>
         </TabBar>
         {bodyContent}

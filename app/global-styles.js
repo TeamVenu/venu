@@ -112,7 +112,7 @@ injectGlobal`
   body {
     font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Open Sans", sans-serif;
     font-smoothing: antialiased;
-    background-color: var(--foreground-color);
+    background-color: var(--background-color);
     color: var(--foreground-color);
   }
 
