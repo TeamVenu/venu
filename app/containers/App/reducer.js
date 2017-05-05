@@ -71,10 +71,7 @@ function createInitialUserState() {
       lng: -77.677085,
     },
     photoURL: '',
-    parking: {
-      lat: 43.084167,
-      lng: -77.677085,
-    },
+    parking: '',
     interests: '',
     exhibits: {
       recommended: [''],

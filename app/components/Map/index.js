@@ -8,7 +8,6 @@ const Map = withGoogleMap((props) => {
   const anchor = new google.maps.Point(imageSize / 2, imageSize / 2); // eslint-disable-line
   const { options, zoom } = props.mapProps;
   const { center, markers } = props;
-
   return (
     <GoogleMap
       center={center}

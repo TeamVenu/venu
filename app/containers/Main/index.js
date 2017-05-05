@@ -54,7 +54,7 @@ export class Main extends React.PureComponent { // eslint-disable-line react/pre
 
     // For recommended exhibits
     // If recommended exhibits is greater than 1
-    if (user.exhibits.recommended.length > 1) {
+    if (user.exhibits.recommended.length > 0) {
       // Go through recommended exhibits
       user.exhibits.recommended.forEach((recommended) => { // eslint-disable-line
         // If value is not empty
@@ -76,7 +76,7 @@ export class Main extends React.PureComponent { // eslint-disable-line react/pre
 
     // For saved exhibits
     // If saved exhibits is greater than 1
-    if (user.exhibits.saved.length > 1) {
+    if (user.exhibits.saved.length > 0) {
       // Go through saved exhibits
       user.exhibits.saved.forEach((saved) => { // eslint-disable-line
         // If value is not empty
@@ -98,7 +98,7 @@ export class Main extends React.PureComponent { // eslint-disable-line react/pre
 
     // For visited exhibits
     // If visited exhibits is greater than 1
-    if (user.exhibits.visited.length > 1) {
+    if (user.exhibits.visited.length > 0) {
       // Go through visited exhibits
       user.exhibits.visited.forEach((visited) => { // eslint-disable-line
         // If value is not empty

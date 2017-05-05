@@ -95,10 +95,17 @@ export class ParkingSetup extends React.PureComponent { // eslint-disable-line r
     const { userProps, venuMap, stage, location, parkingPosition, onPreviousStage, onNextStage, onSetParkingLocation } = this.props;
     const user = (userProps.location) ? userProps : userProps.toJS();
     const mapProps = (venuMap.bootstrapURLKeys) ? venuMap : venuMap.toJS();
-    const parking = (parkingPosition && parkingPosition.lat) ? parkingPosition : parkingPosition.toJS();
-    const center = (parkingPosition && parkingPosition.lat) ? parking : mapProps.center;
+    let parking = '';
+
+    if (parkingPosition.lat && parkingPosition.lng) {
+      parking = parkingPosition;
+    } else if (parking !== '') {
+      parking = parkingPosition.toJS();
+    }
+
+    const center = (parking !== '') ? parking : mapProps.center;
     const btnMsg = (parking.lat) ? messages.buttons.next.defaultMessage : messages.buttons.skip.defaultMessage;
-    const currentPositionRadio = (parking.lat && (user.location.lat !== 43.084167 && user.location.lng !== -77.677085)) ? (
+    const currentPositionRadio = (parking !== '') ? (
       <Radio
         id={'currentLocation'}
         name={'parkingLot'}
@@ -112,13 +119,30 @@ export class ParkingSetup extends React.PureComponent { // eslint-disable-line r
         }}
       />
     ) : null;
+
+    const clearParkingPosition = (parking !== '') ? (
+      <Radio
+        id={'clearParking'}
+        name={'parkingLot'}
+        value={'clearParking'}
+        text={'Clear Parking'}
+        type={'radio'}
+        full
+        onChangeEvent={() => {
+          // Set parking location using current location
+          onSetParkingLocation('');
+        }}
+      />
+    ) : null;
+
     mapProps.zoom = 15;
-    const place = {
+
+    const markers = (parking.lat && parking.lng) ? [{
       type: 'parking',
-      lat: parking.lat,
-      lng: parking.lng,
-    };
-    const markers = [place];
+      lat: (parking.lat) ? parking.lat : user.location.lat,
+      lng: (parking.lng) ? parking.lng : user.location.lng,
+    }] : [];
+
     return (
       <FullWrapper className={'centered'}>
         <Header>
@@ -142,6 +166,7 @@ export class ParkingSetup extends React.PureComponent { // eslint-disable-line r
           <FlexListView className={'spaced'}>
             { this.renderParkingLots() }
           </FlexListView>
+          {clearParkingPosition}
         </Body>
         <Footer>
           <ButtonRow>
@@ -174,7 +199,7 @@ export class ParkingSetup extends React.PureComponent { // eslint-disable-line r
 
 ParkingSetup.propTypes = {
   userProps: T.object,
-  parkingPosition: T.object,
+  parkingPosition: T.any,
   stage: T.number.isRequired,
   venuMap: T.object.isRequired,
   location: T.object.isRequired,

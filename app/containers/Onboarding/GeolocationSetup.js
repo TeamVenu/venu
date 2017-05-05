@@ -57,7 +57,6 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
     } = this.props;
     // Store the userProps props we will use in an object
     const user = (userProps.location) ? userProps : userProps.toJS();
-
     let imageComponent = (isLocating) ? <H3><Ionicon icon={'icon ion-load-d'} rotate /></H3> : null;
     let geolocationBtnComponent = (isLocating) ? null : (
       <Body>
@@ -110,8 +109,7 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
                 isDisabled={isLocating}
                 onClickEvent={() => {
                   const location = (position.lat) ? position : position.toJS();
-                  const parking = (mode === 'succeeded') ? location : '';
-                  const props = Object.assign({}, user, { location, parking });
+                  const props = Object.assign({}, user, { location });
                   onNextStage(props, stage);
                 }}
               />

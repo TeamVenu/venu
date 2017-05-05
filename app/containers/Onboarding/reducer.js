@@ -29,7 +29,7 @@ const initialState = fromJS({
     lat: 43.084167,
     lng: -77.677085,
   },
-  parking: {},
+  parking: '',
   interests: [],
   geolocationMode: '',
   isLocating: null,
@@ -80,7 +80,6 @@ function onboardingReducer(state = initialState, action) {
     case SETUP_GEOLOCATION:
       return state
         .set('location', action.value)
-        .set('parking', action.value)
         .set('geolocationMode', action.mode)
         .set('isLocationValid', action.valid);
     case ONBOARDING_SET_STAGE:

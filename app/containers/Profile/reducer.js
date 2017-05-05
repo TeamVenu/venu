@@ -16,7 +16,7 @@ const initialState = fromJS({
   email: '',
   password: '',
   rePassword: '',
-  parking: {},
+  parking: '',
   interests: [],
   isNameValid: null,
   isAgeValid: null,
