@@ -12130,10 +12130,7 @@
 				"imagineRitArea": "RIT Central",
 				"building": "Outside",
 				"location": "North of Gene Polisseni Center",
-				"tags": [
-					"People Mover Stop",
-					"Transporter"
-				],
+				"tags": ["People Mover Stop", "Transporter"],
 				"lat": 43.083309,
 				"lng": -77.675091,
 				"description": "Visit the people mover stop for transportation across the RIT campus.",
@@ -12149,18 +12146,15 @@
 				"imagineRitArea": "Business District",
 				"building": "Outside",
 				"location": "North of Max Lowenthal Hall",
-				"tags": [
-					"People Mover Stop",
-					"Transporter"
-				],
+				"tags": ["People Mover Stop", "Transporter"],
 				"lat": 43.083178,
 				"lng": -77.676993,
 				"description": "Visit the people mover stop for transportation across the RIT campus.",
 				"year": 2017
 			},
 			{
-				"key": 2,
-				"id": 2,
+				"key": 3,
+				"id": 3,
 				"name": "Southern Golisano Transporter",
 				"type": "facility",
 				"subType": "transporter",
@@ -12168,18 +12162,15 @@
 				"imagineRitArea": "Computer Zone",
 				"building": "Outside",
 				"location": "Southeast of Golisano Hall",
-				"tags": [
-					"People Mover Stop",
-					"Transporter"
-				],
+				"tags": ["People Mover Stop", "Transporter"],
 				"lat": 43.083759,
 				"lng": -77.679565,
 				"description": "Visit the people mover stop for transportation across the RIT campus.",
 				"year": 2017
 			},
 			{
-				"key": 2,
-				"id": 2,
+				"key": 4,
+				"id": 4,
 				"name": "North Golisano Transporter",
 				"type": "facility",
 				"subType": "transporter",
@@ -12187,18 +12178,15 @@
 				"imagineRitArea": "Computer Zone",
 				"building": "Outside",
 				"location": "Northeast of Golisano Hall",
-				"tags": [
-					"People Mover Stop",
-					"Transporter"
-				],
+				"tags": ["People Mover Stop", "Transporter"],
 				"lat": 43.084832,
 				"lng": -77.679565,
 				"description": "Visit the people mover stop for transportation across the RIT campus.",
 				"year": 2017
 			},
 			{
-				"key": 3,
-				"id": 3,
+				"key": 5,
+				"id": 5,
 				"name": "Carson Transporter",
 				"type": "facility",
 				"subType": "transporter",
@@ -12206,29 +12194,23 @@
 				"imagineRitArea": "Artistic Alley",
 				"building": "Outside",
 				"location": "Northeast of Chester F. Carlson Center",
-				"tags": [
-					"People Mover Stop",
-					"Transporter"
-				],
+				"tags": ["People Mover Stop", "Transporter"],
 				"lat": 43.086128,
 				"lng": -77.677258,
 				"description": "Visit the people mover stop for transportation across the RIT campus.",
 				"year": 2017
 			},
 			{
-				"key": 4,
-				"id": 4,
-				"name": "Carson Transporter",
+				"key": 6,
+				"id": 6,
+				"name": "Field House Transporter",
 				"type": "facility",
 				"subType": "transporter",
 				"colorZone": "recreationZone",
 				"imagineRitArea": "Recreation Zone",
 				"building": "Outside",
 				"location": "Northwest of Gordon Field House",
-				"tags": [
-					"People Mover Stop",
-					"Transporter"
-				],
+				"tags": ["People Mover Stop", "Transporter"],
 				"lat": 43.085563,
 				"lng": -77.673282,
 				"description": "Visit the people mover stop for transportation across the RIT campus.",
