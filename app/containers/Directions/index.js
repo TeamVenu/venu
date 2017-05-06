@@ -1,4 +1,3 @@
-// TODO: Check but about sending users back to onboarding
 /*
  * Directions
  */
@@ -115,7 +114,7 @@ export class Directions extends React.PureComponent { // eslint-disable-line rea
     const travelMode = google.maps.TravelMode.WALKING; // eslint-disable-line
     const DirectionsService = new google.maps.DirectionsService(); // eslint-disable-line
     const okStatus = google.maps.DirectionsStatus.OK; // eslint-disable-line
-    const timeToUpdateLocation = 60000; // minute to update
+    const timeToUpdateLocation = 30000; // minute to update
 
     if (destination.lat && destination.lng && user.location) {
       DirectionsService.route({
@@ -261,7 +260,7 @@ export class Directions extends React.PureComponent { // eslint-disable-line rea
         location = `${destination.building}, ${room}`;
         break;
       case 'parking':
-        destination.name = `${user.name}'s Parking Spot`;
+        destination.name = (user.email.length > 0) ? `${user.name}'s Parking Spot` : 'My Parking Spot';
         break;
       default:
         link = null;

@@ -104,21 +104,33 @@ const makeSelectDestination = () => createSelector(
     (globalState) => globalState.get('destination')
 );
 
+const makeSelectIsLocationEnabled = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('isLocationEnabled')
+);
+
+const makeSelectTimer = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('timer')
+);
+
 export {
   selectGlobal,
   makeSelectUser,
+  makeSelectTimer,
   makeSelectError,
+  makeSelectUserId,
   makeSelectSuccess,
   makeSelectLoading,
   makeSelectVenuMap,
   makeSelectMapMode,
   makeSelectExhibits,
-  makeSelectUserId,
   makeSelectFacilities,
   makeSelectIsSignedIn,
   makeSelectDestination,
   makeSelectCurrentPlace,
   makeSelectLocationState,
   makeSelectIsAccountCreated,
+  makeSelectIsLocationEnabled,
   makeSelectOnboardingValidation,
 };

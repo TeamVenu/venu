@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 // Components
-import Carousel from 'components/Carousel';
+import Slider from 'components/Slider';
 import Button from 'components/Button';
 
 // Global Selectors
@@ -27,7 +27,7 @@ import { filterExhibitsBy } from 'utils/helpers';
 import Item from './Item';
 
 // Local Components
-import { Wrapper } from './styles';
+import { Wrapper, SlideList, ButtonWrapper } from './styles';
 
 export class Panel extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -41,11 +41,12 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
 
     return places.map((place) => { // eslint-disable-line
       return (
-        <Item
-          key={place.id}
-          place={place}
-          currentPlace={detailedPlace}
-        />
+        <SlideList key={place.id}>
+          <Item
+            place={place}
+            currentPlace={detailedPlace}
+          />
+        </SlideList>
       );
     });
   }
@@ -65,39 +66,65 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
     const saved = 'saved'; // Value saved
     const recommended = 'recommended'; // Value recommended
 
+    // Slider settings
+    const settings = {
+      arrows: false,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      responsive: [{
+        breakpoint: 1170,
+        settings: {
+          slidesToShow: 3,
+        },
+      }, {
+        breakpoint: 800,
+        settings: {
+          slidesToShow: 2,
+        },
+      }, {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+      ],
+    };
+
     // Verify mapMode
     switch (mapMode) {
       // If mode is Discover
-      case 'Discover':
+      case 'Recommended':
         // We want to just show recommended places
         places = filterExhibitsBy(exhibitsObj, property, recommended);
         break;
-      // If mode is Itinerary
-      case 'Itinerary':
+      default:
         // We want to just show saved places
         places = filterExhibitsBy(exhibitsObj, property, saved);
-        break;
-      // Otherwise mode is Discover
-      default:
-        // We don't want to show cards
-        places = [];
         break;
     }
 
     // If in itinerary with no places
-    if (places.length === 0 && mapMode === 'Itinerary') {
+    if (places.length === 0 && mapMode === 'All') {
       // Return a button that changes map to discover
       return (
-        <Wrapper>
+        <ButtonWrapper>
           <Button
             icon={'ion-plus'}
             btnClasses={'rounded special full'}
-            name={'Add Activities To Your Itinerary'}
+            name={'Find recommended activities'}
             onClickEvent={() => {
-              onChangeMapMode('Discover');
+              const e = {
+                target: {
+                  textContent: 'Recommended',
+                },
+              };
+
+              onChangeMapMode(e);
             }}
           />
-        </Wrapper>
+        </ButtonWrapper>
       );
     } else if (places.length === 0) {
       // If no places return null
@@ -107,20 +134,23 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
     // Otherwise return places in carousel
     return (
       <Wrapper full>
-        <Carousel
-          decorators={[]}
-          cellSpacing={15}
-          slideWidth={0.85}
-          cellAlign={'center'}
-          edgeEasing={'easeOutCirc'}
-        >
-          { this.renderPlaces(places) }
-        </Carousel>
+        <Slider {...settings}>
+          {this.renderPlaces(places)}
+        </Slider>
       </Wrapper>
     );
   }
 }
 
+// <Carousel
+//   decorators={[]}
+//   cellSpacing={15}
+//   slideWidth={0.85}
+//   cellAlign={'center'}
+//   edgeEasing={'easeOutCirc'}
+// >
+//   { this.renderPlaces(places) }
+// </Carousel>
 Panel.propTypes = {
   exhibits: T.object,
   mapMode: T.string,

@@ -22,7 +22,7 @@ export default defineMessages({
     },
     reachedDestination: {
       id: 'venu.components.Directions.buttons.reachedDestination',
-      defaultMessage: 'I\'m there',
+      defaultMessage: 'I\'ve Arrived!',
     },
   },
   emptyState: {

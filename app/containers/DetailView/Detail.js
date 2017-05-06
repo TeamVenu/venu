@@ -5,10 +5,10 @@ import { browserHistory } from 'react-router';
 
 // Import Components
 import P from 'components/P';
+import H4 from 'components/H4';
 import Tag from 'components/Tag';
 import Card from 'components/Card';
 import Button from 'components/Button';
-
 // Global Selectors
 import { makeSelectUser } from 'containers/App/selectors';
 
@@ -22,7 +22,6 @@ import {
 
 // Import Local Components
 import {
-  Subtitle as H4,
   DetailWrapper,
   DetailContainer,
   DetailInfoWrapper,
@@ -142,7 +141,7 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
 
           visitedBtn = (
             <Button
-              btnClasses={'action'}
+              btnClasses={'action cta'}
               icon={'ion-checkmark-round'}
               name={'Check in'}
               onClickEvent={() => {
@@ -154,7 +153,7 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
         case 'visited':
           visitedBtn = (
             <Button
-              btnClasses={'action'}
+              btnClasses={'action cta-subdued'}
               icon={'ion-checkmark-round'}
               name={'Visited'}
               onClickEvent={() => {
@@ -177,7 +176,7 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
 
           visitedBtn = (
             <Button
-              btnClasses={'action'}
+              btnClasses={'action cta'}
               icon={'ion-checkmark-round'}
               name={'Check in'}
               onClickEvent={() => {
@@ -285,7 +284,7 @@ export class Detail extends React.PureComponent { // eslint-disable-line react/p
       <DetailWrapper>
         <DetailContainer>
           { subTypeComponent }
-          <Card place={place} />
+          <Card place={place} cardClass={'full'} />
           { this.renderActions() }
           <DetailInfoWrapper>
             { this.renderTagComponent() }
@@ -429,7 +428,7 @@ export function mapDispatchToProps(dispatch) {
       // Make a new place object
       // Make sure we don't mutate te old object
       // To do this we user Object.assing({}, ...)
-      const place = Object.assign({}, p, { previousSubType: 'recommended', subType: p.previousSubType });
+      const place = Object.assign({}, p, { previousSubType: 'recommended', subType: 'recommended' });
       dispatchSetUser(dispatch, user);
       dispatchChangeExhibit(dispatch, place);
       dispatchChangeCurrentPlace(dispatch, place);

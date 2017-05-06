@@ -38,7 +38,7 @@ export class Onboarding extends React.PureComponent { // eslint-disable-line rea
 
     if ((user.location.lat === '' || user.location.lng === '') || (stage === 0)) {
       newStage = 0;
-    } else if ((user.parking === '') || (user.parking.lat === '' || user.parking.lng === '') || (stage === 1)) {
+    } else if ((user.parking.lat === '' || user.parking.lng === '') || (stage === 1)) {
       newStage = 1;
     } else if ((user.interests.length === 0) || (stage === 2)) {
       newStage = 2;

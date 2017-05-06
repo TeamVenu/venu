@@ -77,8 +77,8 @@ injectGlobal`
     --topbar-height: 50px;
     --pin-size: 30px;
 
-    @media (min-width: 720px) {
-      --topbar-height: 50px;
+    @media (min-width: 760px) {
+      --topbar-height: 60px;
     }
   }
 
@@ -112,7 +112,7 @@ injectGlobal`
   body {
     font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Open Sans", sans-serif;
     font-smoothing: antialiased;
-    background-color: var(--foreground-color);
+    background-color: var(--background-color);
     color: var(--foreground-color);
   }
 
@@ -145,6 +145,10 @@ injectGlobal`
 
   button:focus {
     outline: 0;
+  }
+
+  .slider-slide {
+    padding: var(--padding) 0;
   }
 
   @media screen and (min-width: 20rem) {

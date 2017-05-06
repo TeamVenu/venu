@@ -8,17 +8,30 @@ const TabBar = styled.nav`
   // Size
   width: 100%;
   height: var(--topbar-height);
+  display: flex;
+  justify-content: center;
 
   // Styling
   background: ${(props) => props.transparent ? 'none' : 'var(--background-color)'};
   box-shadow: ${(props) => props.borderless ? 'none' : 'inset 0 -7px 1px -7px var(--foreground-color)'};
   color: ${(props) => props.reversed ? 'var(--background-color)' : 'var(--foreground-color)'};
+
+  + nav {
+    height: calc(var(--topbar-height) / 1.2);
+
+  }
+
+  &.sticky {
+    position: fixed;
+    top: 0;
+  }
+
   &.bottom-bar {
     // Positioning
     position: fixed;
     bottom: 0;
     z-index: 9999;
-
+    height: var(--topbar-height);
     // Styling
     box-shadow: inset 0 7px 1px -7px var(--foreground-color);
 

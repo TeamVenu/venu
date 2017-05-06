@@ -2,6 +2,8 @@
 import isEmail from 'validator/lib/isEmail';
 
 import {
+  setTimer,
+  setLocationEnabled,
   signInUserWithGoogle,
   signInUserWithFacebook,
   signInUserWithProviderError,
@@ -155,6 +157,7 @@ export function dispatchGetUserLocation(dispatch, userProps) {
     // Set local storage so we don't have to repeat these steps on reload
     const errorMessage = 'Unable to retrieve your location. Please check your browser settings to enable tracking.';
     const user = Object.assign({}, userObject, { location });
+    dispatch(setLocationEnabled(false));
     dispatch(setUser(user));
     dispatch(changeMapCenter(user.location));
     dispatch(updateUserData());
@@ -175,6 +178,7 @@ export function retrieveUserLocationSucceeded(dispatch, userProps, position) {
   };
 
   const user = Object.assign({}, userProps, { location });
+  dispatch(setLocationEnabled(true));
   dispatch(setUser(user));
   dispatch(changeMapCenter(user.location));
   dispatch(updateUserData());
@@ -189,6 +193,7 @@ export function retrieveUserLocationSucceeded(dispatch, userProps, position) {
 export function retrieveUserLocationFailed(dispatch, userProps, location) {
   const errorMessage = 'Unable to retrieve your location. Please check your browser settings to enable tracking.';
   const user = Object.assign({}, userProps, { location });
+  dispatch(setLocationEnabled(false));
   dispatch(setUser(user));
   dispatch(changeMapCenter(user.location));
   dispatch(updateUserData());
@@ -203,7 +208,7 @@ export function retrieveUserLocationFailed(dispatch, userProps, location) {
  */
 export function dispatchChangeMapMode(dispatch, event) {
   // Regex pattern
-  const modePattern = /(Default|Discover|Itinerary)/i;
+  const modePattern = /(All|Recommended)/i;
 
   // Mode
   const mode = event.target.textContent;
@@ -214,7 +219,7 @@ export function dispatchChangeMapMode(dispatch, event) {
     dispatch(changeMapMode(mode));
   } else {
     // Otherwise set to Default as fallback
-    dispatch(changeMapMode('Default'));
+    dispatch(changeMapMode('All'));
   }
 }
 
@@ -528,4 +533,12 @@ export function dispatchCreateUserAccountWithEmailAndPassword(dispatch, credenti
       // Dispatch error message
       dispatch(signInUserError(error.message));
     });
+}
+
+export function dispatchSetTimer(dispatch, timerId) {
+  dispatch(setTimer(timerId));
+}
+
+export function dispatchSetLocationEnabled(dispatch, enabled) {
+  dispatch(setLocationEnabled(enabled));
 }

@@ -133,11 +133,18 @@ export class ChangeParking extends React.PureComponent { // eslint-disable-line 
 
     const { goBack } = browserHistory;
     const user = (userProps.location) ? userProps : userProps.toJS();
-    const parking = (parkingPosition && parkingPosition.lat) ? parkingPosition : parkingPosition.toJS();
-    const mapProps = (venuMap.bootstrapURLKeys) ? venuMap : venuMap.toJS();
-    const center = (parkingPosition && parkingPosition.lat) ? parking : mapProps.center;
+    let parking = '';
 
-    const currentPositionRadio = (parking.lat && (user.location.lat !== 43.084167 && user.location.lng !== -77.677085)) ? (
+    if (parkingPosition.lat && parkingPosition.lng) {
+      parking = parkingPosition;
+    } else if (parking !== '') {
+      parking = parkingPosition.toJS();
+    }
+
+    const mapProps = (venuMap.bootstrapURLKeys) ? venuMap : venuMap.toJS();
+    const center = (parking !== '') ? parking : mapProps.center;
+
+    const currentPositionRadio = (parking !== '') ? (
       <Radio
         id={'currentLocation'}
         name={'parkingLot'}
@@ -147,20 +154,32 @@ export class ChangeParking extends React.PureComponent { // eslint-disable-line 
         full
         onChangeEvent={() => {
           // Set parking location using current location
-          onChangeParking(user.location);
+          onChangeParking(location);
+        }}
+      />
+    ) : null;
+
+    const clearParkingPosition = (parking !== '') ? (
+      <Radio
+        id={'clearParking'}
+        name={'parkingLot'}
+        value={'clearParking'}
+        text={'Clear Parking'}
+        type={'radio'}
+        full
+        onChangeEvent={() => {
+          // Set parking location using current location
+          onChangeParking('');
         }}
       />
     ) : null;
 
     mapProps.zoom = 15;
-
-    const place = {
+    const markers = (parking.lat && parking.lng) ? [{
       type: 'parking',
-      lat: parking.lat,
-      lng: parking.lng,
-    };
-
-    const markers = [place];
+      lat: (parking.lat) ? parking.lat : user.location.lat,
+      lng: (parking.lng) ? parking.lng : user.location.lng,
+    }] : [];
 
     return (
       <FullWrapper className={'gradient-bg'} bottomPadding>
@@ -213,6 +232,7 @@ export class ChangeParking extends React.PureComponent { // eslint-disable-line 
             <FlexListView className={'s2paced'}>
               { this.renderParkingLotList() }
             </FlexListView>
+            { clearParkingPosition }
           </Body>
           <Footer centered>
             <ButtonRow>
@@ -238,7 +258,7 @@ ChangeParking.propTypes = {
   success: T.string,
   venuMap: T.object,
   isSignedIn: T.bool,
-  parkingPosition: T.object,
+  parkingPosition: T.any,
   onClearErrorMessages: T.func,
   onClearSuccessMessages: T.func,
   userProps: T.object.isRequired,

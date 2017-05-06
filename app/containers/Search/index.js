@@ -6,17 +6,16 @@ import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { createStructuredSelector } from 'reselect';
-import styled from 'styled-components';
+import Ionicon from 'react-ionicons';
 
 // Components
 import P from 'components/P';
-import H2 from 'components/H2';
 import H3 from 'components/H3';
+import H4 from 'components/H4';
 import Card from 'components/Card';
-import Button from 'components/Button';
 import TabBar from 'components/TabBar';
-import Container from 'components/Header';
-import TabBarList from 'components/TabBarList';
+import Button from 'components/Button';
+import Slider from 'components/Slider';
 import SmallWrapper from 'components/SmallWrapper';
 // Containers
 
@@ -54,37 +53,36 @@ import {
   dispatchSearchCompleted,
 } from './dispatches';
 
-const SearchBox = styled.input`
-  border: 1px solid var(--foreground-color);
-  border-radius: 4px;
-  display: block;
-  width: 90%;
-  margin: auto;
-  padding: calc(var(--padding) / 2);
-  font-size: 16px;
+import {
+  Wrapper,
+  SearchContainer,
+  SearchLabel,
+  SearchBox,
+  List,
+  Item,
+  VerticalListView,
+  VerticalListSection,
+  HorizontalListView,
+  HorizontalListItem,
+  TagButton,
+  FacilityButton,
+  FacilityIcon,
+  SlideList,
+} from './styles';
 
-  &:focus {
-    outline: 0;
-  }
-`;
-
-const List = styled.ul`
-  margin: 0 0 calc(var(--topbar-height) * 1.5) 0;
-  padding: 0;
-  list-style-type: 0;
-`;
-
-const Item = styled.li`
-  border-bottom: 1px solid var(--light-gray);
-`;
+import messages from './messages';
 
 export class Search extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
-
     this.searchTerm = this.searchTerm.bind(this);
+    this.clearSearch = this.clearSearch.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.renderPlacesList = this.renderPlacesList.bind(this);
+    this.renderInitianState = this.renderInitianState.bind(this);
+    this.renderCarouselList = this.renderCarouselList.bind(this);
+    this.handleCategoryClick = this.handleCategoryClick.bind(this);
+    this.renderRecommendedPlaces = this.renderRecommendedPlaces.bind(this);
   }
 
   componentWillMount() {
@@ -101,50 +99,113 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
     }
   }
 
+  componentWillUnmount() {
+    this.clearSearch();
+  }
+
+  clearSearch() {
+    const { onChangeTerm } = this.props;
+    const event = { target: { value: '' } };
+    onChangeTerm(event);
+    this.searchTerm('');
+  }
   handleKeyPress(event) {
     const { onBeginSearchQuery } = this.props;
 
     if (event.key === 'Enter') {
       onBeginSearchQuery();
-      this.searchTerm();
+      this.searchTerm(event.target.value, false);
     }
   }
 
-  searchTerm() {
-    const { searchTerm, searchData, onSearchResultsLoaded, exhibitProps, facilityProps } = this.props;
-    const queryResults = search(searchTerm, searchData, true);
+  handleCategoryClick(category) {
+    const { onChangeTerm, onBeginSearchQuery } = this.props;
+    const event = { target: { value: category } };
+    onChangeTerm(event);
+    onBeginSearchQuery();
+    this.searchTerm(category, true);
+  }
 
-    const exhibits = (exhibitProps.artisticAlley) ? exhibitProps : exhibitProps.toJS();
-    const facilities = (facilityProps.medical) ? facilityProps : facilityProps.toJS();
-    //
-    const returnedPlaces = [];
+  searchTerm(term, exact) {
+    const { searchData, onSearchResultsLoaded, exhibitProps, facilityProps } = this.props;
+    if (term.length > 0) {
+      const queryResults = search(term, searchData, exact);
+      const exhibits = (exhibitProps.artisticAlley) ? exhibitProps : exhibitProps.toJS();
+      const facilities = (facilityProps.medical) ? facilityProps : facilityProps.toJS();
+      //
+      const returnedPlaces = [];
 
-    //
-    let placeResult;
+      //
+      let placeResult;
 
-    //
-    let key = 0;
+      //
+      let key = 0;
 
-    // Create array of places using queryResults
-    queryResults.forEach((place) => { // eslint-disable-line
-      switch (place.type) {
-        case 'exhibit':
-          key = parseInt(place.key, 10);
-          placeResult = exhibits[place.subType][key];
-          returnedPlaces.push(placeResult);
-          break;
-        case 'facility':
-          key = parseInt(place.key, 10);
-          placeResult = facilities[place.subType][key];
-          returnedPlaces.push(placeResult);
-          break;
-        default:
-          break;
-      }
-    });
+      // Create array of places using queryResults
+      queryResults.forEach((place) => { // eslint-disable-line
+        switch (place.type) {
+          case 'exhibit':
+            key = parseInt(place.key, 10);
+            placeResult = exhibits[place.subType][key];
+            returnedPlaces.push(placeResult);
+            break;
+          case 'facility':
+            key = parseInt(place.key, 10);
+            placeResult = facilities[place.subType][key];
+            returnedPlaces.push(placeResult);
+            break;
+          default:
+            break;
+        }
+      });
 
-    // Call search results loaded
-    onSearchResultsLoaded(returnedPlaces);
+      // Call search results loaded
+      onSearchResultsLoaded(returnedPlaces);
+    } else {
+      onSearchResultsLoaded([]);
+    }
+  }
+
+
+  renderInitianState() {
+    const { userProps } = this.props;
+    const user = (userProps.location) ? userProps : userProps.toJS();
+    const interests = Array.from(user.interests);
+
+    return (
+      <Wrapper>
+        <VerticalListView>
+          <VerticalListSection>
+            <H4>{messages.tagsHeader.defaultMessage}</H4>
+            <HorizontalListView>
+              {interests.map((interest, index) => (
+                <HorizontalListItem key={index}>
+                  <TagButton onClick={() => { this.handleCategoryClick(interest); }}>
+                    {interest}
+                  </TagButton>
+                </HorizontalListItem>
+              ))}
+            </HorizontalListView>
+          </VerticalListSection>
+          <VerticalListSection>
+            <H4>{messages.facilitiesHeader.defaultMessage}</H4>
+            <HorizontalListView>
+              {
+                messages.facilities.map((facility, index) => (
+                  <HorizontalListItem key={index}>
+                    <FacilityButton onClick={() => { this.handleCategoryClick(facility.term); }}>
+                      <FacilityIcon src={facility.src} alt={`${facility.name} Icon`} />
+                      <P>{facility.name}</P>
+                    </FacilityButton>
+                  </HorizontalListItem>
+                ))
+              }
+            </HorizontalListView>
+          </VerticalListSection>
+          {this.renderRecommendedPlaces()}
+        </VerticalListView>
+      </Wrapper>
+    );
   }
 
   renderPlacesList() {
@@ -180,18 +241,131 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
     });
   }
 
-  render() {
-    const { searchResults, isSearching, searchTerm, onChangeTerm } = this.props;
+  renderRecommendedPlaces() {
+    const { userProps, exhibitProps } = this.props;
+    const user = (userProps.location) ? userProps : userProps.toJS();
+    const exhibitObj = (exhibitProps.artisticAlley) ? exhibitProps : exhibitProps.toJS();
 
+    // Make an exhibits object that will hold recommended
+    const exhibits = {
+      artisticAlley: [],
+      businessDistrict: [],
+      computerZone: [],
+      engineeringPark: [],
+      globalVillage: [],
+      greenPlace: [],
+      innovationCenter: [],
+      ntidArea: [],
+      recreationZone: [],
+      ritCentral: [],
+      scienceCenter: [],
+      technologyQuarter: [],
+      thinkTank: [],
+    };
+
+    // Slider settings
+    const settings = {
+      arrows: false,
+      // infinite: false,
+      speed: 500,
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      responsive: [{
+        breakpoint: 1170,
+        settings: {
+          slidesToShow: 3,
+        },
+      }, {
+        breakpoint: 800,
+        settings: {
+          slidesToShow: 2,
+        },
+      }, {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+      ],
+    };
+
+    // If recommended exhibits is greater than 1
+    if (user.exhibits.recommended.length > 0) {
+      // Go through recommended exhibits
+      user.exhibits.recommended.forEach((recommended) => { // eslint-disable-line
+        // If value is not empty
+        if (recommended.length > 0) {
+          // splice value
+          const keys = recommended.split('-');
+
+          // Make a place with the values
+          const place = exhibitObj[keys[0]][keys[1]];
+
+          // If a place exists
+          if (place) {
+            // Change exhibit
+            exhibits[keys[0]].push(place);
+          }
+        }
+      });
+
+      // return exhibitComponent.artisticAlley;
+      return messages.recommendedArray.map((zone, index) => {
+        if (exhibits[zone.name].length <= 2) return null;
+        return (
+          <VerticalListSection key={index}>
+            <H4>{ zone.defaultMessage }</H4>
+            <Slider {...settings}>
+              { this.renderCarouselList(exhibits[zone.name]) }
+            </Slider>
+          </VerticalListSection>
+        );
+      });
+    }
+
+    return null;
+  }
+
+  renderCarouselList(exhibits) {
+    return exhibits.map((exhibit, index) => {
+      const link = `/${exhibit.type}/${exhibit.colorZone}/${exhibit.exhibitCode}/${exhibit.key}`;
+      const room = (isNaN(exhibit.location) && isNaN(exhibit.location.charAt(1)))
+        ? exhibit.location
+        : exhibit.exhibitCode;
+      const location = `${exhibit.building}, ${room}`;
+      const place = {
+        link,
+        location,
+        place: exhibit,
+        name: exhibit.name,
+        zone: exhibit.imagineRitArea,
+        zoneClass: exhibit.colorZone,
+      };
+      return (
+        <SlideList key={index}>
+          <Card place={place} />
+        </SlideList>
+      );
+    });
+  }
+
+  render() {
+    const { searchTerm, searchResults, isSearching, onChangeTerm } = this.props;
     let bodyContent = null;
+    const closeButton = (searchTerm.length > 0) ? (
+      <Button
+        btnClasses={'clear'}
+        icon={'ion-ios-close'}
+        onClickEvent={this.clearSearch}
+      />
+    ) : null;
 
     if (isSearching) {
-      bodyContent = (<SmallWrapper className={'centered'}><H3>Searching...</H3></SmallWrapper>);
+      bodyContent = (<SmallWrapper className={'center'}><H3>Searching...</H3></SmallWrapper>);
     } else if (
       (searchResults.length === 0)
-      || (searchResults.length === undefined)
-      || (searchTerm.length === 0)) {
-      bodyContent = (<SmallWrapper className={'centered'}><P>Show Empty State here</P></SmallWrapper>);
+      || (searchResults.size === 0)) {
+      bodyContent = this.renderInitianState();
     } else {
       // Call function for lists
       bodyContent = (
@@ -202,35 +376,25 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
     }
 
     return (
-      <div>
-        <Container>
-          <TabBar borderless>
-            <TabBarList className={'header'}>
-              <li>
-                <Button
-                  btnClasses={'large'}
-                  icon={'ion-android-search'}
-                  onClickEvent={null}
-                />
-              </li>
-              <li>
-                <H2>Search</H2>
-              </li>
-              <li />
-            </TabBarList>
-          </TabBar>
-          <TabBar>
+      <section>
+        <TabBar className={'sticky'}>
+          <SearchContainer>
+            <SearchLabel htmlFor={'search-input'}>
+              <Ionicon icon={'icon ion-android-search'} />
+            </SearchLabel>
+            { closeButton }
             <SearchBox
-              placeholder={'Find Places'}
+              id={'search-input'}
               type={'text'}
               value={searchTerm}
               onChange={onChangeTerm}
               onKeyPress={this.handleKeyPress}
+              placeholder={messages.header.defaultMessage}
             />
-          </TabBar>
-          {bodyContent}
-        </Container>
-      </div>
+          </SearchContainer>
+        </TabBar>
+        {bodyContent}
+      </section>
     );
   }
 }
@@ -238,12 +402,12 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
 Search.propTypes = {
   isSearching: T.bool,
   isSignedIn: T.bool,
+  searchTerm: T.string,
   searchResults: T.any,
   exhibitProps: T.object,
   facilityProps: T.object,
   userProps: T.object.isRequired,
   searchData: T.string.isRequired,
-  searchTerm: T.string,
   onChangeTerm: T.func.isRequired,
   onGetAuthenticatedUser: T.func.isRequired,
   onBeginSearchQuery: T.func.isRequired,

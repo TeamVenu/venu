@@ -7,9 +7,13 @@ export const Container = styled.section`
   flex-wrap: no-wrap;
   margin: 0 auto;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   text-align: center;
   overflow: auto;
+
+  @media screen and (min-height: 380px) {
+    height: 100vh;
+  }
 `;
 
 export const HeaderContainer = styled.header`
@@ -18,7 +22,7 @@ export const HeaderContainer = styled.header`
   background-size: cover;
   display: flex;
   justify-content: flex-end;
-  height: 60%;
+  height: 50%;
 `;
 
 export const Header = styled.section`
@@ -42,13 +46,17 @@ export const Body = styled.ul`
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   height: 30%;
   padding-top: var(--padding);
-
-  li:last-of-type {
-    padding-bottom: var(--padding);
+  
+  li {
+    margin-bottom: var(--padding);
   }
+
+  // li:last-of-type {
+  //   padding-bottom: var(--padding);
+  // }
 `;
 
 export const Footer = styled.section`
@@ -60,11 +68,12 @@ export const Footer = styled.section`
   flex-direction: column;
   justify-content: center;
   padding: var(--padding);
-  height: 10%;
+  height: 15%;
+  text-align: center;
 `;
 
 export const Img = styled.img`
   display: block;
   margin: auto;
-  height: 52px;
+  max-height: 64px;
 `;

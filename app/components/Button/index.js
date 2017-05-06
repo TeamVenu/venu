@@ -6,6 +6,25 @@ import Google from 'media/icons/socialmedia/google.png';
 const Btn = styled.button`
   padding: var(--padding);
 
+  &.fab {
+    z-index: 15;
+    margin-left: auto;
+    align-self: flex-end;
+    padding: calc(var(--padding) / 2);
+    background: var(--background-color);
+  }
+
+  &.clear {
+    background: var(--light-gray);
+    padding: calc(var(--padding) / 2);
+    border-radius: 0 4px 4px 0;
+    order: 5;
+
+    + input {
+      border-radius: 0;
+    }
+  }
+
   &.action {
     width: 100%;
     display: block;
