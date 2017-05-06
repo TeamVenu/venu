@@ -8,11 +8,10 @@ export const Wrapper = styled.section`
   z-index: 15;
   left: auto;
   right: auto;
-  bottom: var(--tab-bar-height);
+  bottom: var(--topbar-height);
 `;
 
 export const ButtonWrapper = styled.section`
-  // Positioning
   position: relative;
   align-self: flex-end;
   margin: 0;
