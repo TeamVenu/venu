@@ -10,7 +10,7 @@ export default defineMessages({
     id: 'venu.components.Profile.header',
     profile: {
       id: 'venu.components.Profile.header.profile',
-      defaultMessage: 'VENU',
+      defaultMessage: 'Profile',
     },
     settings: {
       id: 'venu.components.Profile.header.settings',
