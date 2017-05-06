@@ -2,6 +2,8 @@ import {
   setUser,
   updateUserData,
   changeMapCenter,
+  trackNewLocation,
+  setErrorMessages,
 } from 'containers/App/actions';
 
 import {
@@ -51,7 +53,7 @@ export function dispatchGetUserLocation(dispatch, userProp) {
     // b. Disabled by device
     // Set local storage so we don't have to repeat these steps on reload
     const errorMessage = 'Your location is unavailable.';
-    alert(errorMessage);
+    dispatch(setErrorMessages(errorMessage));
     dispatch(setLocationEnabled(false));
   }
 }
@@ -73,6 +75,7 @@ export function retrieveUserLocationSucceeded(dispatch, userProp, position) {
   dispatch(setUser(user));
   dispatch(changeMapCenter(user.location));
   dispatch(updateUserData());
+  dispatch(trackNewLocation());
 }
 
 /**
@@ -83,6 +86,6 @@ export function retrieveUserLocationSucceeded(dispatch, userProp, position) {
  */
 export function retrieveUserLocationFailed(dispatch) {
   const errorMessage = 'Unable to retrieve your location. Please check your browser settings to enable tracking.';
-  alert(errorMessage);
+  dispatch(setErrorMessages(errorMessage));
   dispatch(setLocationEnabled(false));
 }

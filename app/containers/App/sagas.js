@@ -4,7 +4,7 @@ import {
   getAll,
   // get,
   create,
-  // push,
+  push,
   // remove,
   update,
   sync,
@@ -13,6 +13,7 @@ import {
 } from 'firebase-saga';
 
 import {
+  TRACK_NEW_LOCATION,
   CREATE_USER_ACCOUNT,
   LOAD_USER_DATA,
   SYNC_USER_DATA,
@@ -26,6 +27,8 @@ import {
 
 // Import actions
 import {
+  trackNewLocationError,
+  trackNewLocationSuccess,
   loadUserData,
   createUserAccount,
   createUserAccountError,
@@ -129,13 +132,28 @@ export function* updateUser() {
   }
 }
 
+export function* updateHeatmap() {
+  try {
+    const userProp = yield select(makeSelectUser());
+    const user = (userProp.location) ? userProp : userProp.toJS();
+
+    const location = `${user.location.lat}, ${user.location.lng}`;
+    yield call(push, 'locations', () => (location));
+
+    yield put(trackNewLocationSuccess());
+  } catch (error) {
+    yield put(trackNewLocationError(error.message));
+  }
+}
+
 export function* firebaseData() {
   const createUserWatcher = yield takeLatest(CREATE_USER_ACCOUNT, createUser);
   const loadUserWatcher = yield takeLatest(LOAD_USER_DATA, fetchUserData);
   const syncUserDataWatcher = yield takeLatest(SYNC_USER_DATA, syncUserData);
   const updateUserWatcher = yield takeLatest(UPDATE_USER_DATA, updateUser);
-
+  const newLocationWatcher = yield takeLatest(TRACK_NEW_LOCATION, updateHeatmap);
   yield take(LOCATION_CHANGE);
+  yield cancel(newLocationWatcher);
   yield cancel(createUserWatcher);
   yield cancel(loadUserWatcher);
   yield cancel(updateUserWatcher);

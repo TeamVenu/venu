@@ -14,6 +14,8 @@ import {
   makeSelectVenuMap,
   makeSelectMapMode,
   makeSelectExhibits,
+  makeSelectMapZoom,
+  makeSelectMapCenter,
   makeSelectFacilities,
   makeSelectCurrentPlace,
   makeSelectDestination,
@@ -21,6 +23,8 @@ import {
 
 // Dispatches
 import {
+  dispatchSetMapZoom,
+  dispatchSetMapCenter,
   dispatchChangeMapCenter,
   dispatchNavigateToPlace,
   dispatchChangeCurrentPlace,
@@ -52,11 +56,12 @@ const Map = withGoogleMap((props) => { // eslint-disable-line
 
   return (
     <GoogleMap
-      center={props.user.location}
+      zoom={props.zoom}
+      center={props.center}
       defaultZoom={props.mapProps.zoom}
       defaultCenter={props.mapProps.center}
       defaultOptions={props.mapProps.options}
-      ref={(map) => map && map.panTo(props.user.location)}
+      ref={(map) => map && map.panTo(props.center)}
     >
       <MarkerClusterer
         averageCenter
@@ -70,6 +75,7 @@ const Map = withGoogleMap((props) => { // eslint-disable-line
             place={marker}
             anchor={anchor}
             mode={props.mode}
+            onClickEvent={props.markerClickEvent}
           />
         ))}
       </MarkerClusterer>
@@ -88,13 +94,14 @@ const Map = withGoogleMap((props) => { // eslint-disable-line
 
 export class VenuMap extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { user, exhibits, facilities, mapMode, venuMap, onChangeMapCenter, onNavigateToPlace } = this.props;
+    const { user, zoom, mapCenter, exhibits, facilities, mapMode, venuMap, onChangeMapZoom, onChangeMapCenter, onNavigateToPlace } = this.props;
     // Convert venuMap to a JS object
     const mapProps = venuMap.toJS();
     const userObject = (user.location) ? user : user.toJS();
     const exhibitsObj = (exhibits.artisticAlley) ? exhibits : exhibits.toJS();
     const facilitiesObj = (facilities.entrance) ? facilities : facilities.toJS();
     const places = getPlacesArray(exhibitsObj, facilitiesObj);
+    const center = (mapCenter.lat) ? mapCenter : userObject.location;
 
     // Create the user Marker
     const userMarker = {
@@ -131,8 +138,14 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
         markers={places}
         userMarkers={userMarkers}
         mode={mapMode}
+        zoom={zoom}
         user={userObject}
+        center={center}
         mapProps={mapProps}
+        markerClickEvent={(coordinates) => {
+          onChangeMapZoom(23);
+          onChangeMapCenter(coordinates);
+        }}
       />
     );
   }
@@ -140,18 +153,23 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
 
 VenuMap.propTypes = {
   user: T.object,
+  zoom: T.number,
+  mapCenter: T.any,
   venuMap: T.object.isRequired,
   mapMode: T.string.isRequired,
   exhibits: T.object.isRequired,
   facilities: T.object.isRequired,
+  onChangeMapZoom: T.func.isRequired,
   onChangeMapCenter: T.func.isRequired,
   onNavigateToPlace: T.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
+  zoom: makeSelectMapZoom(),
   venuMap: makeSelectVenuMap(),
   mapMode: makeSelectMapMode(),
+  mapCenter: makeSelectMapCenter(),
   exhibits: makeSelectExhibits(),
   facilities: makeSelectFacilities(),
   currentPlace: makeSelectCurrentPlace(),
@@ -161,6 +179,7 @@ const mapStateToProps = createStructuredSelector({
 // Map dispatches to props
 export function mapDispatchToProps(dispatch) {
   return {
+    onChangeMapZoom: (zoom) => dispatchSetMapZoom(dispatch, zoom),
     onNavigateToPlace: (place) => {
       // Set place to navigate to
       dispatchNavigateToPlace(dispatch, place);
@@ -170,9 +189,10 @@ export function mapDispatchToProps(dispatch) {
     onSelectPlace: (place) => {
       const center = Object.assign({}, { lat: place.lat, lng: place.lng });
       dispatchChangeMapCenter(dispatch, center);
+      dispatchSetMapCenter(dispatch, center);
       dispatchChangeCurrentPlace(dispatch, place);
     },
-    onChangeMapCenter: (center) => dispatchChangeMapCenter(dispatch, center),
+    onChangeMapCenter: (center) => dispatchSetMapCenter(dispatch, center),
     onUserLocationChange: (location) => dispatchChangeUserLocation(dispatch, location),
   };
 }

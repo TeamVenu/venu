@@ -263,32 +263,6 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
       thinkTank: [],
     };
 
-    // Slider settings
-    const settings = {
-      arrows: false,
-      // infinite: false,
-      speed: 500,
-      slidesToShow: 4,
-      slidesToScroll: 1,
-      responsive: [{
-        breakpoint: 1170,
-        settings: {
-          slidesToShow: 3,
-        },
-      }, {
-        breakpoint: 800,
-        settings: {
-          slidesToShow: 2,
-        },
-      }, {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-      ],
-    };
-
     // If recommended exhibits is greater than 1
     if (user.exhibits.recommended.length > 0) {
       // Go through recommended exhibits
@@ -311,7 +285,37 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
 
       // return exhibitComponent.artisticAlley;
       return messages.recommendedArray.map((zone, index) => {
-        if (exhibits[zone.name].length <= 2) return null;
+        const amountOfExhibits = exhibits[zone.name].length;
+        if (amountOfExhibits <= 0) return null;
+
+        // Slider settings
+        const settings = {
+          arrows: false,
+          speed: 500,
+          className: 'center',
+          centerMode: true,
+          centerPadding: '20px',
+          slidesToShow: (amountOfExhibits > 3) ? 4 : amountOfExhibits,
+          slidesToScroll: 1,
+          responsive: [{
+            breakpoint: 1170,
+            settings: {
+              slidesToShow: (amountOfExhibits > 2) ? 3 : amountOfExhibits,
+            },
+          }, {
+            breakpoint: 800,
+            settings: {
+              slidesToShow: (amountOfExhibits > 1) ? 2 : amountOfExhibits,
+            },
+          }, {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 1,
+            },
+          },
+          ],
+        };
+
         return (
           <VerticalListSection key={index}>
             <H4>{ zone.defaultMessage }</H4>
@@ -382,7 +386,6 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
             <SearchLabel htmlFor={'search-input'}>
               <Ionicon icon={'icon ion-android-search'} />
             </SearchLabel>
-            { closeButton }
             <SearchBox
               id={'search-input'}
               type={'text'}
@@ -391,6 +394,7 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
               onKeyPress={this.handleKeyPress}
               placeholder={messages.header.defaultMessage}
             />
+            { closeButton }
           </SearchContainer>
         </TabBar>
         {bodyContent}

@@ -9,10 +9,12 @@ import { createStructuredSelector } from 'reselect';
 import P from 'components/P';
 import Card from 'components/Card';
 import Button from 'components/Button';
+import Notifications from 'components/Notifications';
 
 // Selectors
 import {
   makeSelectUser,
+  makeSelectError,
   makeSelectIsSignedIn,
   makeSelectDestination,
   makeSelectVenuMap,
@@ -21,6 +23,7 @@ import {
 import {
   dispatchSetUser,
   dispatchChangeExhibit,
+  dispatchSetErrorMessages,
 } from 'containers/App/dispatches';
 
 import { dispatchSetStage } from 'containers/Onboarding/dispatches';
@@ -221,7 +224,7 @@ export class Directions extends React.PureComponent { // eslint-disable-line rea
   }
 
   render() {
-    const { userProp, place, directions, venuMap } = this.props;
+    const { error, userProp, place, directions, venuMap, onClearErrorMessages } = this.props;
 
     const mapProps = venuMap.toJS();
     const user = (userProp.location) ? userProp : userProp.toJS();
@@ -296,6 +299,11 @@ export class Directions extends React.PureComponent { // eslint-disable-line rea
           center={user.location}
           directions={directions}
         />
+        <Notifications
+          type={'error'}
+          message={error}
+          onClickEvent={onClearErrorMessages}
+        />
         <BottomContainer>
           <CardContainer>
             { cardContent }
@@ -310,6 +318,7 @@ export class Directions extends React.PureComponent { // eslint-disable-line rea
 Directions.propTypes = {
   timer: T.any,
   place: T.object,
+  error: T.string,
   directions: T.any,
   venuMap: T.object,
   isSignedIn: T.bool,
@@ -323,9 +332,11 @@ Directions.propTypes = {
   onReachDestination: T.func.isRequired,
   onSetLocationEnabled: T.func.isRequired,
   onUpdateUserLocation: T.func.isRequired,
+  onClearErrorMessages: T.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
+  error: makeSelectError(),
   timer: makeSelectTimer(),
   userProp: makeSelectUser(),
   venuMap: makeSelectVenuMap(),
@@ -340,6 +351,7 @@ export function mapDispatchToProps(dispatch) {
   return {
     onSetTimer: (timer) => dispatchSetTimer(dispatch, timer),
     onStartOnboarding: (stage) => dispatchSetStage(dispatch, stage),
+    onClearErrorMessages: () => dispatchSetErrorMessages(dispatch, null),
     onUpdateUserLocation: (user) => dispatchGetUserLocation(dispatch, user),
     onSetDirections: (directions) => dispatchSetDirections(dispatch, directions),
     onSetNavigating: (navigating) => dispatchSetNavigating(dispatch, navigating),

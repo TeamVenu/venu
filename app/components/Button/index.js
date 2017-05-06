@@ -7,22 +7,16 @@ const Btn = styled.button`
   padding: var(--padding);
 
   &.fab {
-    z-index: 15;
-    margin-left: auto;
-    align-self: flex-end;
+    position: absolute;
+    top: 40%;
+    right: 0;
+    z-index: 20;
     padding: calc(var(--padding) / 2);
     background: var(--background-color);
   }
 
   &.clear {
-    background: var(--light-gray);
-    padding: calc(var(--padding) / 2);
-    border-radius: 0 4px 4px 0;
-    order: 5;
-
-    + input {
-      border-radius: 0;
-    }
+    padding: 0 calc(var(--padding) / 2) 0;
   }
 
   &.action {

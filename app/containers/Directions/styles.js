@@ -8,7 +8,7 @@ export const Wrapper = styled.section`
 
 export const BottomContainer = styled.section`
   position: absolute;
-  bottom: 0;
+  bottom: 1em;
   width: 100%;
   padding: 1em;
 `;

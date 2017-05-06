@@ -8,7 +8,6 @@ import { createStructuredSelector } from 'reselect';
 
 // Components
 import P from 'components/P';
-import H2 from 'components/H2';
 import H3 from 'components/H3';
 import Tag from 'components/Tag';
 import Button from 'components/Button';
@@ -110,7 +109,7 @@ export class Profile extends React.PureComponent { // eslint-disable-line react/
           <TabBarList className={'header'}>
             <li />
             <li>
-              <H2 className={'title'}>{ messages.header.profile.defaultMessage }</H2>
+              <H3 className={'title'}>{ messages.header.profile.defaultMessage }</H3>
             </li>
             <li>
               <Button

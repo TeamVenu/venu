@@ -1,10 +1,13 @@
 import React, { PropTypes as T } from 'react';
-import Ionicon from 'react-ionicons';
+import ErrorIcon from 'media/icons/error.png';
+import CheckIcon from 'media/icons/success.png';
 
 import P from 'components/P';
+import Icon from 'components/Icon';
 import Button from 'components/Button';
 
-import { Wrapper, IconWrapper } from './styles';
+import { ShadowBG, Wrapper, IconWrapper, TextWrapper } from './styles';
+
 export default class Notification extends React.Component {
   static propTypes = {
     type: T.string.isRequired,
@@ -28,38 +31,32 @@ export default class Notification extends React.Component {
 
     if (!message) return null;
 
-    let icon = '';
-    let text = 'Dismiss';
+    const text = (type === 'success') ? 'Go Back' : 'Dismiss';
 
-    switch (type) {
-      case 'error':
-        icon = 'ion-close-round';
-        break;
-      case 'warning':
-        icon = 'ion-alert';
-        break;
-      case 'success':
-        icon = 'ion-checkmark-round';
-        text = 'Return';
-        break;
-      default:
-        icon = '';
-        break;
-    }
+    const iconComponent = (type === 'success') ? (
+      <Icon src={CheckIcon} alt={'Success Icon'} title={'Success'} />
+    ) : (
+      <Icon src={ErrorIcon} alt={'Error Icon'} title={'Failed'} />
+    );
+
     return (
-      <Wrapper className={type}>
-        <IconWrapper>
-          <Ionicon icon={icon} />
-        </IconWrapper>
-        <P>
-          {message}
-        </P>
-        <Button
-          btnClasses={'bold'}
-          name={text}
-          onClickEvent={this.handleClick}
-        />
-      </Wrapper>
+      <ShadowBG>
+        <Wrapper>
+          <IconWrapper>
+            { iconComponent }
+          </IconWrapper>
+          <TextWrapper>
+            <P>
+              {message}
+            </P>
+            <Button
+              btnClasses={'bold'}
+              name={text}
+              onClickEvent={this.handleClick}
+            />
+          </TextWrapper>
+        </Wrapper>
+      </ShadowBG>
     );
   }
 }

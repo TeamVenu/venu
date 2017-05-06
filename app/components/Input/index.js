@@ -13,7 +13,7 @@ const HiddenInput = styled.input`
 const Label = styled.label`
   position: relative;
   display: ${(props) => (props.full) ? 'block' : 'inherit'};
-  padding: calc(var(--padding) - 7px) calc(var(--padding) * 2);
+  padding: 3px 20px;
   color: var(--background-color);
   border: 2px solid currentColor;
   border-radius: 2em;

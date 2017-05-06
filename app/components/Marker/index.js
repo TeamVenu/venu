@@ -21,6 +21,7 @@ export default class Marker extends React.Component {
   static propTypes = {
     size: T.any,
     anchor: T.any,
+    onClickEvent: T.func,
     place: T.object.isRequired,
   }
 
@@ -32,9 +33,18 @@ export default class Marker extends React.Component {
   }
 
   onHandleClick(url) {
-    const { place } = this.props;
+    const { place, onClickEvent } = this.props;
 
     if (url) {
+      if (onClickEvent) {
+        const center = {
+          lat: place.lat,
+          lng: place.lng,
+        };
+
+        onClickEvent(center);
+      }
+
       browserHistory.push({
         pathname: url,
       });

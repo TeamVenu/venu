@@ -18,6 +18,11 @@ import mapStyles from 'fixtures/map-styles.json';
 
 import {
   SET_TIMER,
+  SET_MAP_ZOOM,
+  SET_MAP_CENTER,
+  TRACK_NEW_LOCATION,
+  TRACK_NEW_LOCATION_ERROR,
+  TRACK_NEW_LOCATION_SUCCESS,
   SET_LOCATION_ENABLED,
   SIGN_IN_WITH_GOOGLE,
   SIGN_IN_WITH_FACEBOOK,
@@ -131,6 +136,8 @@ const initialState = fromJS({
     },
     zoom: 20,
   },
+  center: '',
+  zoom: 20,
   // Current place
   currentPlace: {},
   destination: {},
@@ -233,6 +240,12 @@ function appReducer(state = initialState, action) {
     case CHANGE_USER_EMAIL:
       return state
         .setIn(['user', 'email'], action.value);
+    case SET_MAP_CENTER:
+      return state
+        .set('center', action.value);
+    case SET_MAP_ZOOM:
+      return state
+        .set('zoom', action.value);
     case SETUP_GEOLOCATION:
       return state
         .setIn(['user', 'location'], action.value)
@@ -269,6 +282,9 @@ function appReducer(state = initialState, action) {
       return state.set('timer', action.value);
     case SET_LOCATION_ENABLED:
       return state.set('isLocationEnabled', action.value);
+    case TRACK_NEW_LOCATION:
+    case TRACK_NEW_LOCATION_ERROR:
+    case TRACK_NEW_LOCATION_SUCCESS:
     default:
       return state;
   }
