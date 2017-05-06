@@ -6,6 +6,7 @@ import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { createStructuredSelector } from 'reselect';
+import Ionicon from 'react-ionicons';
 
 // Components
 import P from 'components/P';
@@ -55,6 +56,7 @@ import {
 import {
   Wrapper,
   SearchContainer,
+  SearchLabel,
   SearchBox,
   List,
   Item,
@@ -380,14 +382,18 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
       <section>
         <TabBar className={'sticky'}>
           <SearchContainer>
+            <SearchLabel htmlFor={'search-input'}>
+              <Ionicon icon={'icon ion-android-search'} />
+            </SearchLabel>
+            { closeButton }
             <SearchBox
+              id={'search-input'}
               type={'text'}
               value={searchTerm}
               onChange={onChangeTerm}
               onKeyPress={this.handleKeyPress}
               placeholder={messages.header.defaultMessage}
             />
-            { closeButton }
           </SearchContainer>
         </TabBar>
         {bodyContent}

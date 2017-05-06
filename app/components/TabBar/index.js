@@ -7,8 +7,7 @@ const TabBar = styled.nav`
 
   // Size
   width: 100%;
-  height: calc(var(--topbar-height) / 1.2);
-  // height: 35px;
+  height: var(--topbar-height);
   display: flex;
   justify-content: center;
 
@@ -16,6 +15,11 @@ const TabBar = styled.nav`
   background: ${(props) => props.transparent ? 'none' : 'var(--background-color)'};
   box-shadow: ${(props) => props.borderless ? 'none' : 'inset 0 -7px 1px -7px var(--foreground-color)'};
   color: ${(props) => props.reversed ? 'var(--background-color)' : 'var(--foreground-color)'};
+
+  + nav {
+    height: calc(var(--topbar-height) / 1.2);
+
+  }
 
   &.sticky {
     position: fixed;

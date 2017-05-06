@@ -15,10 +15,14 @@ const Btn = styled.button`
   }
 
   &.clear {
-    position: absolute;
-    right: 0;
-    top: 0;
+    background: var(--light-gray);
     padding: calc(var(--padding) / 2);
+    border-radius: 0 4px 4px 0;
+    order: 5;
+
+    + input {
+      border-radius: 0;
+    }
   }
 
   &.action {

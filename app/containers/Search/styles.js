@@ -75,15 +75,24 @@ export const SearchContainer = styled.section`
   margin: auto;
   width: 90%;
   max-width: 1170px;
+  // background: red;
+  display: flex;
+  // align-items: baseline;
+`;
+
+export const SearchLabel = styled.label`
+  background: var(--light-gray);
+  padding: calc(var(--padding) / 2);
+  border-radius: 4px 0 0 4px;
 `;
 
 export const SearchBox = styled.input`
   background: var(--light-gray);
-  border-radius: 4px;
   display: block;
-  width: 100%;
+  flex: 2;
   padding: calc(var(--padding) / 2);
   font-size: 16px;
+  border-radius: 0 4px 4px 0;
 
   &:focus {
     outline: 0;

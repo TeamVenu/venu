@@ -73,8 +73,9 @@ const TabBarList = styled.ul`
     }
 
     // Shift buttons in first li to the left
-    &:not(.tabs):first-of-type button {
-      margin-right: auto;
+    &:not(.tabs):first-of-type button.large {
+      display: flex;
+      width: 100%;
     }
 
     // Shift buttons in last li to the right
