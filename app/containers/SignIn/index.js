@@ -12,6 +12,7 @@ import Wrapper from 'components/FullWrapper';
 import Logo from 'components/Logo';
 import H1 from 'components/H1';
 import H3 from 'components/H3';
+import H4 from 'components/H4';
 
 import P from 'components/P';
 import Button from 'components/Button';
@@ -128,6 +129,7 @@ export class SignIn extends React.PureComponent { // eslint-disable-line react/p
               alt={'Imagine RIT Logo'}
               title={'Imagine RIT Logo'}
             />
+            <H4 className={'small'}> { messages.subtitle.defaultMessage } </H4>
           </Footer>
         </Container>
       </Wrapper>

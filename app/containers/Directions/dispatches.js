@@ -50,7 +50,7 @@ export function dispatchGetUserLocation(dispatch, userProp) {
     // a. Not supported by device or
     // b. Disabled by device
     // Set local storage so we don't have to repeat these steps on reload
-    const errorMessage = 'Location is disabled';
+    const errorMessage = 'Your location is unavailable.';
     alert(errorMessage);
     dispatch(setLocationEnabled(false));
   }

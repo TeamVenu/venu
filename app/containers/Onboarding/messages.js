@@ -14,7 +14,7 @@ export default defineMessages({
     id: 'venu.components.Onboarding.buttons',
     skip: {
       id: 'venu.components.Onboarding.buttons.skip',
-      defaultMessage: 'Skip',
+      defaultMessage: 'Skip This Step',
     },
     previous: {
       id: 'venu.components.Onboarding.buttons.previous',
@@ -22,7 +22,7 @@ export default defineMessages({
     },
     next: {
       id: 'venu.components.Onboarding.buttons.next',
-      defaultMessage: 'Next',
+      defaultMessage: 'Next Step',
     },
     finish: {
       id: 'venu.components.Onboarding.buttons.finish',
@@ -30,7 +30,7 @@ export default defineMessages({
     },
     getLocation: {
       id: 'venu.components.Onboarding.buttons.getLocation',
-      defaultMessage: 'Get Location',
+      defaultMessage: 'Get My Location',
     },
   },
   accountCreation: {
@@ -72,21 +72,21 @@ export default defineMessages({
     },
     intro: {
       id: 'venu.components.Onboarding.geolocationSetup.intro',
-      defaultMessage: 'For the best experience allow VENU access to your location.',
+      defaultMessage: 'To provide the best experience, VENU would like to access your location.',
     },
     location: {
       id: 'venu.components.Onboarding.geolocationSetup.location',
       retrieving: {
         id: 'venu.components.Onboarding.geolocationSetup.location.retrieving',
-        defaultMessage: 'Retrieving your location this might take a few seconds...',
+        defaultMessage: 'Retrieving your location. This might take a few seconds...',
       },
       succeeded: {
         id: 'venu.components.Onboarding.geolocationSetup.location.succeeded',
-        defaultMessage: 'VENU successfully retrieved your location!',
+        defaultMessage: 'Thanks! VENU successfully retrieved your location.',
       },
       unavailable: {
         id: 'venu.components.Onboarding.geolocationSetup.location.unavailable',
-        defaultMessage: 'Location is unavailable. You may skip to continue using VENU.',
+        defaultMessage: 'Seems like your location is unavailable. You may skip to continue using VENU.',
       },
     },
     device: {
@@ -185,11 +185,11 @@ export default defineMessages({
       id: 'venu.components.Onboarding.geolocationSetup.parking',
       title: {
         id: 'venu.components.Onboarding.geolocationSetup.parking.title',
-        defaultMessage: 'Parking Reminder',
+        defaultMessage: 'Your Parking Lot',
       },
       intro: {
         id: 'venu.components.Onboarding.geolocationSetup.parking.intro',
-        defaultMessage: 'We’ll save your parking spot so you can find your vehicle later. You can change this at any time.',
+        defaultMessage: 'We’ll save your parking spot so you can find your vehicle later. You can change this at any time from your profile.',
       },
       lot: {
         id: 'venu.components.Onboarding.geolocationSetup.parking.lot',
@@ -364,11 +364,11 @@ export default defineMessages({
     id: 'venu.components.Onboarding.interestSelection',
     title: {
       id: 'venu.components.Onboarding.interestSelection.title',
-      defaultMessage: 'Personalize',
+      defaultMessage: 'Select Your Interests',
     },
     intro: {
       id: 'venu.components.Onboarding.interestSelection.intro',
-      defaultMessage: 'Choose interests to get recommendations',
+      defaultMessage: 'Let us know what you\'re passionate about!',
     },
     subtitle: {
       id: 'venu.components.Onboarding.interestSelection.title',

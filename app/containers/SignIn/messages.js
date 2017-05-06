@@ -12,7 +12,11 @@ export default defineMessages({
   },
   intro: {
     id: 'venu.components.SignIn.intro',
-    defaultMessage: 'A wayfinding app that assists you in finding nearby activities that you might be interested in.',
+    defaultMessage: 'A wayfinding app for Imagine RIT.',
+  },
+  subtitle: {
+    id: 'venu.components.SignIn.subtitle',
+    defaultMessage: 'A New Media Capstone Project',
   },
   buttons: {
     id: 'venu.components.SignIn.buttons',
@@ -45,19 +49,19 @@ export default defineMessages({
     },
     anonymous: {
       id: 'venu.components.SignIn.signIn.anonymous',
-      defaultMessage: 'Continue Anonymously',
+      defaultMessage: 'Continue As Guest',
     },
     loading: {
       id: 'venu.components.SignIn.signIn.loading',
-      defaultMessage: 'Hold one moment while we sign you in...',
+      defaultMessage: 'Signing you in. Please wait...',
     },
     facebook: {
       id: 'venu.components.SignIn.signIn.facebook',
-      defaultMessage: 'Continue with Facebook',
+      defaultMessage: 'Continue With Facebook',
     },
     google: {
       id: 'venu.components.SignIn.signIn.google',
-      defaultMessage: 'Continue with Google',
+      defaultMessage: 'Continue With Google',
     },
   },
 });
