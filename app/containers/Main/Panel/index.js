@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 // Components
-import Carousel from 'components/Carousel';
+import Slider from 'components/Slider';
 import Button from 'components/Button';
 
 // Global Selectors
@@ -27,7 +27,7 @@ import { filterExhibitsBy } from 'utils/helpers';
 import Item from './Item';
 
 // Local Components
-import { Wrapper, ButtonWrapper } from './styles';
+import { Wrapper, SlideList, ButtonWrapper } from './styles';
 
 export class Panel extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -41,11 +41,12 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
 
     return places.map((place) => { // eslint-disable-line
       return (
-        <Item
-          key={place.id}
-          place={place}
-          currentPlace={detailedPlace}
-        />
+        <SlideList key={place.id}>
+          <Item
+            place={place}
+            currentPlace={detailedPlace}
+          />
+        </SlideList>
       );
     });
   }
@@ -64,6 +65,35 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
     const property = 'subType'; // Filter with subType
     const saved = 'saved'; // Value saved
     const recommended = 'recommended'; // Value recommended
+
+    // Slider settings
+    const settings = {
+      arrows: false,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      responsive: [{
+        breakpoint: 1170,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        },
+      }, {
+        breakpoint: 800,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      }, {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      ],
+    };
 
     // Verify mapMode
     switch (mapMode) {
@@ -107,20 +137,23 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
     // Otherwise return places in carousel
     return (
       <Wrapper full>
-        <Carousel
-          decorators={[]}
-          cellSpacing={15}
-          slideWidth={0.85}
-          cellAlign={'center'}
-          edgeEasing={'easeOutCirc'}
-        >
-          { this.renderPlaces(places) }
-        </Carousel>
+        <Slider {...settings}>
+          {this.renderPlaces(places)}
+        </Slider>
       </Wrapper>
     );
   }
 }
 
+// <Carousel
+//   decorators={[]}
+//   cellSpacing={15}
+//   slideWidth={0.85}
+//   cellAlign={'center'}
+//   edgeEasing={'easeOutCirc'}
+// >
+//   { this.renderPlaces(places) }
+// </Carousel>
 Panel.propTypes = {
   exhibits: T.object,
   mapMode: T.string,

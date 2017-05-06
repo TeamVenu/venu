@@ -14,7 +14,7 @@ import H4 from 'components/H4';
 import Card from 'components/Card';
 import TabBar from 'components/TabBar';
 import Button from 'components/Button';
-import Carousel from 'components/Carousel';
+import Slider from 'components/Slider';
 import SmallWrapper from 'components/SmallWrapper';
 // Containers
 
@@ -65,6 +65,7 @@ import {
   TagButton,
   FacilityButton,
   FacilityIcon,
+  SlideList,
 } from './styles';
 
 import messages from './messages';
@@ -260,6 +261,35 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
       thinkTank: [],
     };
 
+    // Slider settings
+    const settings = {
+      arrows: false,
+      // infinite: false,
+      speed: 500,
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      responsive: [{
+        breakpoint: 1170,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        },
+      }, {
+        breakpoint: 800,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      }, {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      ],
+    };
+
     // If recommended exhibits is greater than 1
     if (user.exhibits.recommended.length > 0) {
       // Go through recommended exhibits
@@ -282,19 +312,13 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
 
       // return exhibitComponent.artisticAlley;
       return messages.recommendedArray.map((zone, index) => {
-        if (exhibits[zone.name].length <= 0) return null;
+        if (exhibits[zone.name].length <= 2) return null;
         return (
           <VerticalListSection key={index}>
             <H4>{ zone.defaultMessage }</H4>
-            <Carousel
-              decorators={[]}
-              cellSpacing={5}
-              slideWidth={0.95}
-              cellAlign={'center'}
-              edgeEasing={'easeOutCirc'}
-            >
+            <Slider {...settings}>
               { this.renderCarouselList(exhibits[zone.name]) }
-            </Carousel>
+            </Slider>
           </VerticalListSection>
         );
       });
@@ -319,7 +343,9 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
         zoneClass: exhibit.colorZone,
       };
       return (
-        <Card key={index} place={place} />
+        <SlideList key={index}>
+          <Card place={place} />
+        </SlideList>
       );
     });
   }

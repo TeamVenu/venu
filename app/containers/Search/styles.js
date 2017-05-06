@@ -99,3 +99,7 @@ export const List = styled.ul`
 export const Item = styled.li`
   border-bottom: 1px solid var(--light-gray);
 `;
+
+export const SlideList = styled.section`
+  padding: var(--padding);
+`;

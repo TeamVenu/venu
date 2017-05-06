@@ -34,6 +34,10 @@ export const Title = styled(H2)`
   white-space: nowrap;
   display: block;
   text-overflow: ellipsis;
+
+  .slick-slide & {
+    font-size: 1.2rem;
+  }
 `;
 
 export const P = styled(Paragraph)`

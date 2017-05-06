@@ -20,3 +20,7 @@ export const ButtonWrapper = styled.section`
   padding: calc(var(--padding) * 2);
   z-index: 15;
 `;
+
+export const SlideList = styled.section`
+  padding: 0 var(--padding);
+`;
