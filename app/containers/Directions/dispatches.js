@@ -2,6 +2,7 @@ import {
   setUser,
   updateUserData,
   changeMapCenter,
+  trackNewLocation,
 } from 'containers/App/actions';
 
 import {
@@ -73,6 +74,7 @@ export function retrieveUserLocationSucceeded(dispatch, userProp, position) {
   dispatch(setUser(user));
   dispatch(changeMapCenter(user.location));
   dispatch(updateUserData());
+  dispatch(trackNewLocation());
 }
 
 /**

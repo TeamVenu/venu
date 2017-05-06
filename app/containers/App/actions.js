@@ -1,6 +1,10 @@
 import {
   SET_TIMER,
+  SET_MAP_ZOOM,
   SET_MAP_CENTER,
+  TRACK_NEW_LOCATION,
+  TRACK_NEW_LOCATION_ERROR,
+  TRACK_NEW_LOCATION_SUCCESS,
   SET_LOCATION_ENABLED,
   SIGN_IN_WITH_GOOGLE,
   SIGN_IN_WITH_FACEBOOK,
@@ -576,5 +580,31 @@ export function setMapCenter(coordinates) {
   return {
     type: SET_MAP_CENTER,
     value: coordinates,
+  };
+}
+
+export function setMapZoom(zoom) {
+  return {
+    type: SET_MAP_ZOOM,
+    value: zoom,
+  };
+}
+
+export function trackNewLocation() {
+  return {
+    type: TRACK_NEW_LOCATION,
+  };
+}
+
+export function trackNewLocationError(error) {
+  return {
+    type: TRACK_NEW_LOCATION_ERROR,
+    value: error,
+  };
+}
+
+export function trackNewLocationSuccess() {
+  return {
+    type: TRACK_NEW_LOCATION_SUCCESS,
   };
 }

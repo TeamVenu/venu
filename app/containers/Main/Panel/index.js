@@ -15,6 +15,7 @@ import {
 
 // Dispatches
 import {
+  dispatchSetMapZoom,
   dispatchSetMapCenter,
   dispatchChangeMapMode,
 } from 'containers/App/dispatches';
@@ -50,7 +51,7 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   render() {
-    const { mapMode, exhibits, onChangeMapCenter } = this.props;
+    const { mapMode, exhibits, onChangeMapZoom, onChangeMapCenter } = this.props;
 
     const exhibitsObj = exhibits.toJS();
 
@@ -98,6 +99,7 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
           lng: place.lng,
         };
 
+        onChangeMapZoom(23);
         onChangeMapCenter(center);
       },
       responsive: [{
@@ -134,7 +136,8 @@ Panel.propTypes = {
   exhibits: T.object,
   mapMode: T.string,
   currentPlace: T.object,
-  onChangeMapCenter: T.func,
+  onChangeMapZoom: T.func.isRequired,
+  onChangeMapCenter: T.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -146,6 +149,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
+    onChangeMapZoom: (zoom) => dispatchSetMapZoom(dispatch, zoom),
     onChangeMapMode: (mode) => dispatchChangeMapMode(dispatch, mode),
     onChangeMapCenter: (center) => dispatchSetMapCenter(dispatch, center),
   };

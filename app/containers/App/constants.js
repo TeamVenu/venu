@@ -44,6 +44,12 @@ export const UPDATE_USER_DATA = 'venu/App/UPDATE_USER_DATA';
 export const UPDATE_USER_DATA_ERROR = 'venu/App/UPDATE_USER_DATA_ERROR';
 export const UPDATE_USER_DATA_SUCCESS = 'venu/App/UPDATE_USER_DATA_SUCCESS';
 
+
+// Update Locations
+export const TRACK_NEW_LOCATION = 'venu/App/TRACK_NEW_LOCATION';
+export const TRACK_NEW_LOCATION_ERROR = 'venu/App/TRACK_NEW_LOCATION_ERROR';
+export const TRACK_NEW_LOCATION_SUCCESS = 'venu/App/TRACK_NEW_LOCATION_SUCCESS';
+
 // Auth Email Update
 export const UPDATE_AUTH_EMAIL = 'venu/App/UPDATE_AUTH_EMAIL';
 export const UPDATE_AUTH_EMAIL_ERROR = 'venu/App/UPDATE_AUTH_EMAIL_ERROR';
@@ -80,3 +86,4 @@ export const SET_TIMER = 'venu/App/SET_TIMER';
 export const SET_LOCATION_ENABLED = 'venu/App/SET_LOCATION_ENABLED';
 
 export const SET_MAP_CENTER = 'venu/App/SET_MAP_CENTER';
+export const SET_MAP_ZOOM = 'venu/App/SET_MAP_ZOOM';

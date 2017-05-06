@@ -25,6 +25,10 @@ import {
   makeSelectUser,
 } from 'containers/App/selectors';
 
+import {
+  trackNewLocation,
+} from 'containers/App/actions';
+
 // Local Selectors
 import {
   makeSelectIsLocating,
@@ -54,6 +58,7 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
       isLocating,
       onNextStage,
       onAskUserToEnableLocation,
+      onUpdateHeatmap,
     } = this.props;
     // Store the userProps props we will use in an object
     const user = (userProps.location) ? userProps : userProps.toJS();
@@ -111,6 +116,9 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
                   const location = (position.lat) ? position : position.toJS();
                   const props = Object.assign({}, user, { location });
                   onNextStage(props, stage);
+                  if (mode === 'succeeded') {
+                    onUpdateHeatmap();
+                  }
                 }}
               />
             </ButtonItem>
@@ -125,6 +133,7 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
 GeolocationSetup.propTypes = {
   mode: T.string,
   isLocating: T.bool,
+  onUpdateHeatmap: T.func,
   stage: T.any.isRequired,
   position: T.object.isRequired,
   userProps: T.object.isRequired,
@@ -142,6 +151,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
+    onUpdateHeatmap: () => dispatch(trackNewLocation()),
     onAskUserToEnableLocation: () => askUserToEnableLocation(dispatch),
     onNextStage: (user, stage) => dispatchGoToNextStage(dispatch, user, stage),
   };

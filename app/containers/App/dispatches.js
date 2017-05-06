@@ -3,7 +3,9 @@ import isEmail from 'validator/lib/isEmail';
 
 import {
   setTimer,
+  setMapZoom,
   setMapCenter,
+  trackNewLocation,
   setLocationEnabled,
   signInUserWithGoogle,
   signInUserWithFacebook,
@@ -182,6 +184,7 @@ export function retrieveUserLocationSucceeded(dispatch, userProps, position) {
   dispatch(setLocationEnabled(true));
   dispatch(setUser(user));
   dispatch(changeMapCenter(user.location));
+  dispatch(trackNewLocation());
   dispatch(updateUserData());
 }
 
@@ -550,4 +553,8 @@ export function dispatchSetMapCenter(dispatch, coordinates) {
     // Dispatch
     dispatch(setMapCenter(coordinates));
   }
+}
+
+export function dispatchSetMapZoom(dispatch, zoom) {
+  dispatch(setMapZoom(zoom));
 }

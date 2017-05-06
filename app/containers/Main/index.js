@@ -24,6 +24,7 @@ import {
 
 import {
   dispatchSetTimer,
+  dispatchSetMapCenter,
   dispatchChangeExhibit,
   dispatchGetUserLocation,
   dispatchSetLocationEnabled,
@@ -42,10 +43,27 @@ export class Main extends React.PureComponent { // eslint-disable-line react/pre
     super(props);
 
     this.timer = this.timer.bind(this);
+    this.updateExhibitData = this.updateExhibitData.bind(this);
+    this.beginTrackingTimer = this.beginTrackingTimer.bind(this);
+    this.cancelTrackingTimer = this.cancelTrackingTimer.bind(this);
+    this.handleLocateButtonClicked = this.handleLocateButtonClicked.bind(this);
   }
 
   componentDidMount() {
-    const { user, exhibits, isLocationEnabled, onSetTimer, onChangeExhibit } = this.props;
+    this.updateExhibitData();
+    this.beginTrackingTimer();
+  }
+
+  componentDidUpdate() {
+    // this.beginTrackingTimer();
+  }
+
+  componentWillUnmount() {
+    this.cancelTrackingTimer();
+  }
+
+  updateExhibitData() {
+    const { user, exhibits, onChangeExhibit } = this.props;
     const exhibitsObj = (exhibits.artisticAlley) ? exhibits : exhibits.toJS();
 
     // For recommended exhibits
@@ -113,7 +131,10 @@ export class Main extends React.PureComponent { // eslint-disable-line react/pre
         }
       });
     } // End visited exhibits
+  }
 
+  beginTrackingTimer() {
+    const { isLocationEnabled, onSetTimer } = this.props;
     // Timer
     const timeToUpdateLocation = 60000; // minute to update
 
@@ -123,13 +144,21 @@ export class Main extends React.PureComponent { // eslint-disable-line react/pre
     }
   }
 
-  componentWillUnmount() {
+  cancelTrackingTimer() {
     const { timer, onSetTimer } = this.props;
     // Clear timer
     clearInterval(timer);
 
     // Set timer to null
     onSetTimer(null);
+  }
+
+  handleLocateButtonClicked() {
+    const { user, onChangeMapCenter, onGetUserLocation } = this.props;
+
+    onGetUserLocation(user);
+    onChangeMapCenter(user.location);
+    this.beginTrackingTimer();
   }
 
   timer() {
@@ -141,8 +170,6 @@ export class Main extends React.PureComponent { // eslint-disable-line react/pre
   }
 
   render() {
-    const { user, onGetUserLocation } = this.props;
-
     return (
       <section>
         <MapWrapper>
@@ -152,15 +179,13 @@ export class Main extends React.PureComponent { // eslint-disable-line react/pre
         <Button
           btnClasses={'fab'}
           icon={'ion-android-locate'}
-          onClickEvent={() => { onGetUserLocation(user); }}
+          onClickEvent={this.handleLocateButtonClicked}
         />
         <Panel />
       </section>
     );
   }
 }
-//         <Wrapper>
-        // </Wrapper>
 
 Main.propTypes = {
   timer: T.any,
@@ -170,6 +195,7 @@ Main.propTypes = {
   onSetTimer: T.func.isRequired,
   onChangeExhibit: T.func.isRequired,
   onGetUserLocation: T.func.isRequired,
+  onChangeMapCenter: T.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -196,6 +222,7 @@ export function mapDispatchToProps(dispatch) {
     },
     onSetTimer: (timer) => dispatchSetTimer(dispatch, timer),
     onGetUserLocation: (user) => dispatchGetUserLocation(dispatch, user),
+    onChangeMapCenter: (center) => dispatchSetMapCenter(dispatch, center),
     onSetLocationEnabled: (enabled) => dispatchSetLocationEnabled(dispatch, enabled),
   };
 }
