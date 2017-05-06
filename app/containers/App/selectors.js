@@ -114,6 +114,11 @@ const makeSelectTimer = () => createSelector(
   (globalState) => globalState.get('timer')
 );
 
+const makeSelectMapCenter = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('center')
+);
+
 export {
   selectGlobal,
   makeSelectUser,
@@ -125,6 +130,7 @@ export {
   makeSelectVenuMap,
   makeSelectMapMode,
   makeSelectExhibits,
+  makeSelectMapCenter,
   makeSelectFacilities,
   makeSelectIsSignedIn,
   makeSelectDestination,

@@ -8,7 +8,7 @@ import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 
 // Components
-import H2 from 'components/H2';
+import H3 from 'components/H3';
 import Map from 'components/Map';
 import TabBar from 'components/TabBar';
 import Navigation from 'components/Header';
@@ -194,7 +194,7 @@ export class ChangeParking extends React.PureComponent { // eslint-disable-line 
                 />
               </li>
               <li>
-                <H2>{ messages.settings.changeParking.header.defaultMessage }</H2>
+                <H3>{ messages.settings.changeParking.header.defaultMessage }</H3>
               </li>
               <li />
             </TabBarList>

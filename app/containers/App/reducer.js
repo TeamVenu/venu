@@ -17,6 +17,7 @@ import imagineRITData from 'fixtures/places.json';
 import mapStyles from 'fixtures/map-styles.json';
 
 import {
+  SET_MAP_CENTER,
   SET_TIMER,
   SET_LOCATION_ENABLED,
   SIGN_IN_WITH_GOOGLE,
@@ -131,6 +132,10 @@ const initialState = fromJS({
     },
     zoom: 20,
   },
+  center: {
+    lat: 43.084167,
+    lng: -77.677085,
+  },
   // Current place
   currentPlace: {},
   destination: {},
@@ -233,6 +238,9 @@ function appReducer(state = initialState, action) {
     case CHANGE_USER_EMAIL:
       return state
         .setIn(['user', 'email'], action.value);
+    case SET_MAP_CENTER:
+      return state
+        .set('center', action.value);
     case SETUP_GEOLOCATION:
       return state
         .setIn(['user', 'location'], action.value)

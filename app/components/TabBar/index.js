@@ -17,13 +17,13 @@ const TabBar = styled.nav`
   color: ${(props) => props.reversed ? 'var(--background-color)' : 'var(--foreground-color)'};
 
   + nav {
-    height: calc(var(--topbar-height) / 1.2);
-
+    height: var(--segment-bar-height);
   }
 
   &.sticky {
     position: fixed;
     top: 0;
+    background: var(--light-gray);
   }
 
   &.bottom-bar {
@@ -31,7 +31,7 @@ const TabBar = styled.nav`
     position: fixed;
     bottom: 0;
     z-index: 9999;
-    height: var(--topbar-height);
+    height: var(--tab-bar-height);
     // Styling
     box-shadow: inset 0 7px 1px -7px var(--foreground-color);
 

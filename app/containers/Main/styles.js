@@ -4,18 +4,14 @@ export const Wrapper = styled.section`
   position: relative;
   margin: 0;
   width: 100%;
-  height: calc(100vh - var(--topbar-height));
-  -webkit-box-orient: horizontal;
-  -o-box-orient: horizontal;
-  display: flex;
-  flex-flow: row wrap;
+  height: 100vh;
 `;
 
 export const MapWrapper = styled.section`
   position: absolute;
-  top: calc(var(--topbar-height) + calc(var(--topbar-height) / 1.2));
+  top: calc(var(--topbar-height) + var(--segment-bar-height));
   width: 100vw;
-  height: calc(100vh - calc(calc(var(--topbar-height) + calc(var(--topbar-height) / 1.2)) + var(--topbar-height)));
+  height: calc(100% - (var(--tab-bar-height) + var(--segment-bar-height) + var(--topbar-height)));
   z-index: 10;
 `;
 
@@ -32,7 +28,6 @@ export const UserPin = styled.section`
   height: 40px;
   background: var(--background-color);
   border: 3px solid var(--foreground-color);
-  // box-shadow: 0 0 40px black;
   border-radius: 100%;
   display: flex;
   justify-content: center;

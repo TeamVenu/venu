@@ -78,3 +78,5 @@ export const SET_SUCESS_MESSAGES = 'venu/App/SET_SUCCESS_MESSAGES';
 export const SET_USER = 'venu/App/SET_USER';
 export const SET_TIMER = 'venu/App/SET_TIMER';
 export const SET_LOCATION_ENABLED = 'venu/App/SET_LOCATION_ENABLED';
+
+export const SET_MAP_CENTER = 'venu/App/SET_MAP_CENTER';

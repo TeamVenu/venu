@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 // Components
-import H2 from 'components/H2';
+import H3 from 'components/H3';
 import TabBar from 'components/TabBar';
 import Container from 'components/Header';
 import TabBarList from 'components/TabBarList';
@@ -61,7 +61,7 @@ export class Header extends React.PureComponent { // eslint-disable-line react/p
           onClickEvent={onClearErrorMessages}
         />
         <TabBar borderless>
-          <H2 className={'title'}>{ messages.title.defaultMessage }</H2>
+          <H3 className={'title'}>{ messages.title.defaultMessage }</H3>
         </TabBar>
         <TabBar>
           <TabBarList two>

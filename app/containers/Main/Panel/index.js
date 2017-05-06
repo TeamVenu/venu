@@ -4,7 +4,6 @@ import { createStructuredSelector } from 'reselect';
 
 // Components
 import Slider from 'components/Slider';
-import Button from 'components/Button';
 
 // Global Selectors
 import {
@@ -16,8 +15,7 @@ import {
 
 // Dispatches
 import {
-  dispatchChangeMapCenter,
-  dispatchChangeCurrentPlace,
+  dispatchSetMapCenter,
   dispatchChangeMapMode,
 } from 'containers/App/dispatches';
 
@@ -27,7 +25,7 @@ import { filterExhibitsBy } from 'utils/helpers';
 import Item from './Item';
 
 // Local Components
-import { Wrapper, SlideList, ButtonWrapper } from './styles';
+import { Wrapper, SlideList } from './styles';
 
 export class Panel extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -52,7 +50,7 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   render() {
-    const { mapMode, exhibits, onChangeMapMode } = this.props;
+    const { mapMode, exhibits, onChangeMapCenter } = this.props;
 
     const exhibitsObj = exhibits.toJS();
 
@@ -65,32 +63,6 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
     const property = 'subType'; // Filter with subType
     const saved = 'saved'; // Value saved
     const recommended = 'recommended'; // Value recommended
-
-    // Slider settings
-    const settings = {
-      arrows: false,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 4,
-      slidesToScroll: 1,
-      responsive: [{
-        breakpoint: 1170,
-        settings: {
-          slidesToShow: 3,
-        },
-      }, {
-        breakpoint: 800,
-        settings: {
-          slidesToShow: 2,
-        },
-      }, {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-      ],
-    };
 
     // Verify mapMode
     switch (mapMode) {
@@ -105,31 +77,47 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
         break;
     }
 
-    // If in itinerary with no places
-    if (places.length === 0 && mapMode === 'All') {
-      // Return a button that changes map to discover
-      return (
-        <ButtonWrapper>
-          <Button
-            icon={'ion-plus'}
-            btnClasses={'rounded special full'}
-            name={'Find recommended activities'}
-            onClickEvent={() => {
-              const e = {
-                target: {
-                  textContent: 'Recommended',
-                },
-              };
-
-              onChangeMapMode(e);
-            }}
-          />
-        </ButtonWrapper>
-      );
-    } else if (places.length === 0) {
+    if (places.length === 0) {
       // If no places return null
       return null;
     }
+
+    // Slider settings
+    const settings = {
+      arrows: false,
+      speed: 500,
+      slidesToShow: (places.length > 3) ? 4 : places.length,
+      slidesToScroll: 1,
+      className: 'center',
+      centerMode: true,
+      centerPadding: '20px',
+      afterChange: (currentSlide) => {
+        const place = places[currentSlide];
+        const center = {
+          lat: place.lat,
+          lng: place.lng,
+        };
+
+        onChangeMapCenter(center);
+      },
+      responsive: [{
+        breakpoint: 1170,
+        settings: {
+          slidesToShow: (places.length > 2) ? 3 : places.length,
+        },
+      }, {
+        breakpoint: 800,
+        settings: {
+          slidesToShow: (places.length > 1) ? 2 : places.length,
+        },
+      }, {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+      ],
+    };
 
     // Otherwise return places in carousel
     return (
@@ -142,20 +130,11 @@ export class Panel extends React.PureComponent { // eslint-disable-line react/pr
   }
 }
 
-// <Carousel
-//   decorators={[]}
-//   cellSpacing={15}
-//   slideWidth={0.85}
-//   cellAlign={'center'}
-//   edgeEasing={'easeOutCirc'}
-// >
-//   { this.renderPlaces(places) }
-// </Carousel>
 Panel.propTypes = {
   exhibits: T.object,
   mapMode: T.string,
   currentPlace: T.object,
-  onChangeMapMode: T.func,
+  onChangeMapCenter: T.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -167,23 +146,8 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onSelectPlace2: (place) => {
-      const center = {
-        lat: place.lat,
-        lng: place.lng,
-      };
-      dispatchChangeCurrentPlace(dispatch, place);
-      dispatchChangeMapCenter(dispatch, center);
-    },
-    onSelectPlace: (place) => {
-      const center = {
-        lat: place.lat,
-        lng: place.lng,
-      };
-
-      dispatchChangeMapCenter(dispatch, center);
-    },
     onChangeMapMode: (mode) => dispatchChangeMapMode(dispatch, mode),
+    onChangeMapCenter: (center) => dispatchSetMapCenter(dispatch, center),
   };
 }
 

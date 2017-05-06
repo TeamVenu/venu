@@ -3,6 +3,7 @@ import isEmail from 'validator/lib/isEmail';
 
 import {
   setTimer,
+  setMapCenter,
   setLocationEnabled,
   signInUserWithGoogle,
   signInUserWithFacebook,
@@ -541,4 +542,12 @@ export function dispatchSetTimer(dispatch, timerId) {
 
 export function dispatchSetLocationEnabled(dispatch, enabled) {
   dispatch(setLocationEnabled(enabled));
+}
+
+export function dispatchSetMapCenter(dispatch, coordinates) {
+  // Validate data
+  if (coordinates.lat && coordinates.lng) {
+    // Dispatch
+    dispatch(setMapCenter(coordinates));
+  }
 }

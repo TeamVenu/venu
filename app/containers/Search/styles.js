@@ -26,7 +26,6 @@ export const VerticalListSection = styled.li`
 `;
 
 export const HorizontalListView = styled.ul`
-  // background: green;
   margin: 0;
   padding: var(--padding);
   padding-left: 0;
@@ -60,7 +59,6 @@ export const FacilityButton = styled.button`
   padding: var(--padding);
   border-radius: 4px;
     white-space: nowrap;
-
 `;
 
 export const FacilityIcon = styled.img`
@@ -73,26 +71,23 @@ export const FacilityIcon = styled.img`
 export const SearchContainer = styled.section`
   position: relative;
   margin: auto;
-  width: 90%;
+  width: 100%;
   max-width: 1170px;
-  // background: red;
   display: flex;
-  // align-items: baseline;
+  align-items: center;
 `;
 
 export const SearchLabel = styled.label`
-  background: var(--light-gray);
-  padding: calc(var(--padding) / 2);
+  // padding: calc(var(--padding) / 1);
+  padding-left: calc(var(--padding) / 2);
   border-radius: 4px 0 0 4px;
 `;
 
 export const SearchBox = styled.input`
-  background: var(--light-gray);
   display: block;
   flex: 2;
-  padding: calc(var(--padding) / 2);
+  // padding: calc(var(--padding) / 1);
   font-size: 16px;
-  border-radius: 0 4px 4px 0;
 
   &:focus {
     outline: 0;

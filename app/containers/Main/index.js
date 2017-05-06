@@ -6,7 +6,6 @@
 import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-
 import Button from 'components/Button';
 
 // Selectors
@@ -36,10 +35,7 @@ import VenuMap from './VenuMap';
 import Panel from './Panel';
 
 // Local components
-import {
-  Wrapper,
-  MapWrapper,
-} from './styles';
+import { MapWrapper } from './styles';
 
 export class Main extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -152,19 +148,19 @@ export class Main extends React.PureComponent { // eslint-disable-line react/pre
         <MapWrapper>
           <VenuMap />
         </MapWrapper>
-        <Wrapper>
-          <Header />
-          <Button
-            btnClasses={'fab'}
-            icon={'ion-android-locate'}
-            onClickEvent={() => { onGetUserLocation(user); }}
-          />
-          <Panel />
-        </Wrapper>
+        <Header />
+        <Button
+          btnClasses={'fab'}
+          icon={'ion-android-locate'}
+          onClickEvent={() => { onGetUserLocation(user); }}
+        />
+        <Panel />
       </section>
     );
   }
 }
+//         <Wrapper>
+        // </Wrapper>
 
 Main.propTypes = {
   timer: T.any,

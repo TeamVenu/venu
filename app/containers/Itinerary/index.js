@@ -11,7 +11,7 @@ import styled from 'styled-components';
 
 // Components
 import A from 'components/A';
-import H2 from 'components/H2';
+import H3 from 'components/H3';
 import Card from 'components/Card';
 import TabBar from 'components/TabBar';
 import Container from 'components/Header';
@@ -125,7 +125,7 @@ export class Itinerary extends React.PureComponent { // eslint-disable-line reac
             <TabBarList className={'header'}>
               <li />
               <li>
-                <H2 className={'title'}>Itinerary</H2>
+                <H3 className={'title'}>Itinerary</H3>
               </li>
               <li />
             </TabBarList>

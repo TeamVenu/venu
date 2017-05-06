@@ -14,6 +14,7 @@ import {
   makeSelectVenuMap,
   makeSelectMapMode,
   makeSelectExhibits,
+  makeSelectMapCenter,
   makeSelectFacilities,
   makeSelectCurrentPlace,
   makeSelectDestination,
@@ -21,6 +22,7 @@ import {
 
 // Dispatches
 import {
+  dispatchSetMapCenter,
   dispatchChangeMapCenter,
   dispatchNavigateToPlace,
   dispatchChangeCurrentPlace,
@@ -52,11 +54,11 @@ const Map = withGoogleMap((props) => { // eslint-disable-line
 
   return (
     <GoogleMap
-      center={props.user.location}
+      center={props.center}
       defaultZoom={props.mapProps.zoom}
       defaultCenter={props.mapProps.center}
       defaultOptions={props.mapProps.options}
-      ref={(map) => map && map.panTo(props.user.location)}
+      ref={(map) => map && map.panTo(props.center)}
     >
       <MarkerClusterer
         averageCenter
@@ -70,6 +72,7 @@ const Map = withGoogleMap((props) => { // eslint-disable-line
             place={marker}
             anchor={anchor}
             mode={props.mode}
+            onClickEvent={props.markerClickEvent}
           />
         ))}
       </MarkerClusterer>
@@ -88,13 +91,14 @@ const Map = withGoogleMap((props) => { // eslint-disable-line
 
 export class VenuMap extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { user, exhibits, facilities, mapMode, venuMap, onChangeMapCenter, onNavigateToPlace } = this.props;
+    const { user, mapCenter, exhibits, facilities, mapMode, venuMap, onChangeMapCenter, onNavigateToPlace } = this.props;
     // Convert venuMap to a JS object
     const mapProps = venuMap.toJS();
     const userObject = (user.location) ? user : user.toJS();
     const exhibitsObj = (exhibits.artisticAlley) ? exhibits : exhibits.toJS();
     const facilitiesObj = (facilities.entrance) ? facilities : facilities.toJS();
     const places = getPlacesArray(exhibitsObj, facilitiesObj);
+    const center = (mapCenter.lat) ? mapCenter : mapCenter.toJS();
 
     // Create the user Marker
     const userMarker = {
@@ -132,7 +136,9 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
         userMarkers={userMarkers}
         mode={mapMode}
         user={userObject}
+        center={center}
         mapProps={mapProps}
+        markerClickEvent={onChangeMapCenter}
       />
     );
   }
@@ -140,6 +146,7 @@ export class VenuMap extends React.PureComponent { // eslint-disable-line react/
 
 VenuMap.propTypes = {
   user: T.object,
+  mapCenter: T.object,
   venuMap: T.object.isRequired,
   mapMode: T.string.isRequired,
   exhibits: T.object.isRequired,
@@ -152,6 +159,7 @@ const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
   venuMap: makeSelectVenuMap(),
   mapMode: makeSelectMapMode(),
+  mapCenter: makeSelectMapCenter(),
   exhibits: makeSelectExhibits(),
   facilities: makeSelectFacilities(),
   currentPlace: makeSelectCurrentPlace(),
@@ -170,9 +178,10 @@ export function mapDispatchToProps(dispatch) {
     onSelectPlace: (place) => {
       const center = Object.assign({}, { lat: place.lat, lng: place.lng });
       dispatchChangeMapCenter(dispatch, center);
+      dispatchSetMapCenter(dispatch, center);
       dispatchChangeCurrentPlace(dispatch, place);
     },
-    onChangeMapCenter: (center) => dispatchChangeMapCenter(dispatch, center),
+    onChangeMapCenter: (center) => dispatchSetMapCenter(dispatch, center),
     onUserLocationChange: (location) => dispatchChangeUserLocation(dispatch, location),
   };
 }

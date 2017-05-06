@@ -74,11 +74,15 @@ injectGlobal`
 
     /* */
     --padding: 10px;
-    --topbar-height: 50px;
+    --topbar-height: 40px;
+    --segment-bar-height: 36px;
+    --tab-bar-height: 50px;
     --pin-size: 30px;
 
     @media (min-width: 760px) {
-      --topbar-height: 60px;
+      --topbar-height: 50px;
+      --tab-bar-height: 60px;
+      --segment-bar-height: 42px;
     }
   }
 

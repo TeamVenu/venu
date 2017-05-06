@@ -1,5 +1,6 @@
 import {
   SET_TIMER,
+  SET_MAP_CENTER,
   SET_LOCATION_ENABLED,
   SIGN_IN_WITH_GOOGLE,
   SIGN_IN_WITH_FACEBOOK,
@@ -568,5 +569,12 @@ export function setLocationEnabled(enabled) {
   return {
     type: SET_LOCATION_ENABLED,
     value: enabled,
+  };
+}
+
+export function setMapCenter(coordinates) {
+  return {
+    type: SET_MAP_CENTER,
+    value: coordinates,
   };
 }
