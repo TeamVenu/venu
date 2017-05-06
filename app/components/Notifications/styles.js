@@ -1,4 +1,17 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const pop = keyframes`
+  0% {
+    // transform-origin: 50% 50%;
+    transform: scale(0);
+  }
+  90% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
 
 export const ShadowBG = styled.section`
   position: fixed;
@@ -9,6 +22,7 @@ export const ShadowBG = styled.section`
   background: var(--black-background-opaque);
   overflow: hidden;
   z-index: 9999;
+  animation: ${pop} 0.4s;
 `;
 
 export const Wrapper = styled.section`
