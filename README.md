@@ -3,7 +3,7 @@
 Wayfinding app for Imagine RIT
 
 ## About
-*VENU* is a wayfinding app made specifically for Imagine RIT. Users can utilize the app to see nearby exhibits and facilities. They can add events to their itinerary as well as navigate to the buildings where these exhibits are located. VENU was created as our capstone project for Rit's New Media program which incorporates both designers and developers.
+**VENU** is a wayfinding app made specifically for **Imagine RIT**. Users can utilize the app to see nearby exhibits and facilities. They can add events to their itinerary as well as navigate to the buildings where these exhibits are located. **VENU** was created as our capstone project for the **New Media** at the **Rochester Institute of Technology** which incorporates both designers and developers.
 
 ### Meet the team!
 
@@ -16,16 +16,16 @@ Wayfinding app for Imagine RIT
 * Isaac Selleck - Developer & Data Visualization
 
 ### Product
-[Sign In](http://i.imgur.com/w9JLMxE.png "Sign In")
-[Enable Location](http://i.imgur.com/3CeVTle.png "Enable Location")
-[Map](http://i.imgur.com/OPbXZa9.png "Map")
-[Detail](http://i.imgur.com/mrtQtQc.png "Detail")
-[Saved Booth](http://i.imgur.com/m0hcVds.png "Saved Booth")
-[Navigation](http://i.imgur.com/o8iTYgP.png "Navigation")
-[Visited Booth](http://i.imgur.com/uDBeHv9.png "Visited Booth")
-[Search](http://i.imgur.com/SjaHP4y.png "Search")
-[Itinerary](http://i.imgur.com/0c7v9Cu.png "Itinerary")
-[Profile](http://i.imgur.com/QrbfTH7.png "Profile")
+![Sign In](http://i.imgur.com/w9JLMxE.png "Sign In")
+![Enable Location](http://i.imgur.com/3CeVTle.png "Enable Location")
+![Map](http://i.imgur.com/OPbXZa9.png "Map")
+![Detail](http://i.imgur.com/mrtQtQc.png "Detail")
+![Saved Booth](http://i.imgur.com/m0hcVds.png "Saved Booth")
+![Navigation](http://i.imgur.com/o8iTYgP.png "Navigation")
+![Visited Booth](http://i.imgur.com/uDBeHv9.png "Visited Booth")
+![Search](http://i.imgur.com/SjaHP4y.png "Search")
+![Itinerary](http://i.imgur.com/0c7v9Cu.png "Itinerary")
+![Profile](http://i.imgur.com/QrbfTH7.png "Profile")
 
 
 ## Documentation
