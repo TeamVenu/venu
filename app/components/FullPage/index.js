@@ -14,11 +14,11 @@ export const Container = styled.section`
 `;
 
 export const Header = styled.section`
-  flex: 2;
+  margin-top: var(--topbar-height);
   display: flex;
   text-align: center;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
 `;
 
 export const Body = styled.section`
@@ -26,11 +26,16 @@ export const Body = styled.section`
   text-align: left;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: ${(props) => (props.centered) ? 'center' : 'flex-start'};
   text-align: center;
+  margin-bottom: 4em;
 `;
 
 export const Footer = styled.ul`
+  position: fixed;
+  bottom: 0;
+  width: 90%;
+  max-width: 960px;
   margin: 0;
   flex: 1;
   padding: 0;

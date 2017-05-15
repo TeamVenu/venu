@@ -13,7 +13,6 @@ import Button from 'components/Button';
 import SmallWrapper from 'components/SmallWrapper';
 
 import {
-  Header,
   Body,
   Footer,
   ButtonRow,
@@ -64,14 +63,12 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
     const user = (userProps.location) ? userProps : userProps.toJS();
     let imageComponent = (isLocating) ? <H3><Ionicon icon={'icon ion-load-d'} rotate /></H3> : null;
     let geolocationBtnComponent = (isLocating) ? null : (
-      <Body>
-        <Button
-          isIconAfter
-          btnClasses={'special reversed rounded'}
-          name={messages.buttons.getLocation.defaultMessage}
-          onClickEvent={onAskUserToEnableLocation}
-        />
-      </Body>
+      <Button
+        isIconAfter
+        btnClasses={'special reversed rounded'}
+        name={messages.buttons.getLocation.defaultMessage}
+        onClickEvent={onAskUserToEnableLocation}
+      />
     );
 
     let btnMsg = messages.buttons.skip.defaultMessage;
@@ -98,12 +95,12 @@ export class GeolocationSetup extends React.PureComponent { // eslint-disable-li
 
     return (
       <SmallWrapper className={'centered'}>
-        <Header>
+        <Body centered>
           { imageComponent }
           <H3>{ messages.geolocationSetup.title.defaultMessage }</H3>
           <P>{ msg }</P>
-        </Header>
-        { geolocationBtnComponent }
+          { geolocationBtnComponent }
+        </Body>
         <Footer>
           <ButtonRow>
             <ButtonItem>

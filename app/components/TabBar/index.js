@@ -11,6 +11,12 @@ const TabBar = styled.nav`
   display: flex;
   justify-content: center;
 
+  &.sticky {
+    position: fixed;
+    top: 0;
+    background: ${(props) => props.transparent ? 'none' : 'var(--light-gray)'};
+  }
+
   // Styling
   background: ${(props) => props.transparent ? 'none' : 'var(--background-color)'};
   box-shadow: ${(props) => props.borderless ? 'none' : 'inset 0 -7px 1px -7px var(--foreground-color)'};
@@ -18,12 +24,6 @@ const TabBar = styled.nav`
 
   + nav {
     height: var(--segment-bar-height);
-  }
-
-  &.sticky {
-    position: fixed;
-    top: 0;
-    background: var(--light-gray);
   }
 
   &.bottom-bar {

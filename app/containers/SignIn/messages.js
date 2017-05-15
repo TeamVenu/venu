@@ -63,5 +63,9 @@ export default defineMessages({
       id: 'venu.components.SignIn.signIn.google',
       defaultMessage: 'Continue With Google',
     },
+    cancel: {
+      id: 'venu.components.SignIn.signIn.cancel',
+      defaultMessage: 'Sign in with another service',
+    },
   },
 });

@@ -21,6 +21,7 @@ import FlexListView from 'components/FlexListView';
 import Button from 'components/Button';
 import Notifications from 'components/Notifications';
 import {
+  Header,
   Body,
   Footer,
   OptionItem,
@@ -184,7 +185,7 @@ export class ChangeParking extends React.PureComponent { // eslint-disable-line 
     return (
       <FullWrapper className={'gradient-bg'} bottomPadding>
         <Navigation>
-          <TabBar transparent reversed borderless>
+          <TabBar className={'sticky'} transparent reversed borderless>
             <TabBarList className={'header'}>
               <li>
                 <Button
@@ -214,6 +215,8 @@ export class ChangeParking extends React.PureComponent { // eslint-disable-line 
           }}
         />
         <FullWrapper className={'centered'}>
+          <Header>
+          </Header>
           <Body>
             {currentPositionRadio}
             <MapContainer>
