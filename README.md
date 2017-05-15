@@ -7,13 +7,13 @@ Wayfinding app for Imagine RIT
 
 ### Meet the team!
 
-* **Jenna Ammerall** - Visual Design Lead
-* **James Andrest** - Designer & Blogger
-* **Julia Bender** - Designer & Marketing Lead
-* **Jeffwaslin Dinh** - Designer, Coordinator, & Marketer
-* **Melanie Kim** - Team Manager, Visual & UI/UX Designer
-* **Erick Sauri** - Development Lead
-* **Isaac Selleck** - Developer & Data Visualization
+* [**Jenna Ammerall**](http://jra1798.cias.rit.edu/) - Visual Design Lead
+* [**James Andrest**](http://www.jamusandrest.com/) - Designer & Blogger
+* [**Julia Bender**](https://juliabender.myportfolio.com/) - Designer & Marketing Lead
+* [**Jeffwaslin Dinh**](https://www.jeffdinh.net/) - Designer, Coordinator, & Marketer
+* [**Melanie Kim**](http://melaniejkim.com/) - Team Manager, Visual & UI/UX Designer
+* [**Erick Sauri**](http://ericksauri.com) - Development Lead
+* [**Isaac Selleck**](https://people.rit.edu/ixs5214/portfolio/) - Developer & Data Visualization
 
 ### Screenshots
 * [Sign In](http://i.imgur.com/w9JLMxE.png "Sign In")
