@@ -15,17 +15,17 @@ Wayfinding app for Imagine RIT
 * Erick Sauri - Development Lead
 * Isaac Selleck - Developer & Data Visualization
 
-### Product
-![Sign In](http://i.imgur.com/w9JLMxE.png "Sign In")
-![Enable Location](http://i.imgur.com/3CeVTle.png "Enable Location")
-![Map](http://i.imgur.com/OPbXZa9.png "Map")
-![Detail](http://i.imgur.com/mrtQtQc.png "Detail")
-![Saved Booth](http://i.imgur.com/m0hcVds.png "Saved Booth")
-![Navigation](http://i.imgur.com/o8iTYgP.png "Navigation")
-![Visited Booth](http://i.imgur.com/uDBeHv9.png "Visited Booth")
-![Search](http://i.imgur.com/SjaHP4y.png "Search")
-![Itinerary](http://i.imgur.com/0c7v9Cu.png "Itinerary")
-![Profile](http://i.imgur.com/QrbfTH7.png "Profile")
+### Screenshots
+[Sign In](http://i.imgur.com/w9JLMxE.png "Sign In")
+[Onboarding](http://i.imgur.com/3CeVTle.png "Enable Location")
+[Map View](http://i.imgur.com/OPbXZa9.png "Map")
+[Detail View](http://i.imgur.com/mrtQtQc.png "Detail")
+[Saved Booth](http://i.imgur.com/m0hcVds.png "Saved Booth")
+[Navigation](http://i.imgur.com/o8iTYgP.png "Navigation")
+[Visited Booth](http://i.imgur.com/uDBeHv9.png "Visited Booth")
+[Search](http://i.imgur.com/SjaHP4y.png "Search")
+[Itinerary](http://i.imgur.com/0c7v9Cu.png "Itinerary")
+[Profile](http://i.imgur.com/QrbfTH7.png "Profile")
 
 
 ## Documentation
