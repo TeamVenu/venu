@@ -1,5 +1,5 @@
 ![banner](http://i.imgur.com/RunuALd.jpg "VENU")
-# VENU
+# [VENU](https://ritvenu.com)
 Wayfinding app for Imagine RIT
 
 ## About
