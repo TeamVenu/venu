@@ -26,6 +26,7 @@ import {
 } from 'containers/App/selectors';
 
 import {
+  dispatchSignOutUser,
   dispatchGetAuthenticatedUser,
   dispatchSignInUserWithGoogle,
   dispatchSignInUserAnonymously,
@@ -72,6 +73,7 @@ export class SignIn extends React.PureComponent { // eslint-disable-line react/p
       onSignInAnonymously,
       onSignInWithFacebook,
       isLoading,
+      onSignOut,
     } = this.props;
 
     // If loading show correct message
@@ -82,6 +84,12 @@ export class SignIn extends React.PureComponent { // eslint-disable-line react/p
             <Ionicon icon={'icon ion-load-d'} rotate />
             {messages.signIn.loading.defaultMessage}
           </H3>
+        </li>
+        <li>
+          <Button
+            name={messages.signIn.cancel.defaultMessage}
+            onClickEvent={onSignOut}
+          />
         </li>
       </Body>
     ) : (
@@ -142,6 +150,7 @@ SignIn.propTypes = {
   isLoading: T.bool,
   isAccountCreated: T.bool,
   isSignedIn: T.bool,
+  onSignOut: T.func.isRequired,
   onSignInWithGoogle: T.func.isRequired,
   onSignInAnonymously: T.func.isRequired,
   onSignInWithFacebook: T.func.isRequired,
@@ -160,6 +169,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
+    onSignOut: () => dispatchSignOutUser(dispatch),
     onGetAuthenticatedUser: () => dispatchGetAuthenticatedUser(dispatch),
     onSignInWithGoogle: () => dispatchSignInUserWithGoogle(dispatch),
     onSignInAnonymously: () => dispatchSignInUserAnonymously(dispatch),

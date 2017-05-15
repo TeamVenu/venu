@@ -12,7 +12,6 @@ import FlexListView from 'components/FlexListView';
 import FullWrapper from 'components/FullWrapper';
 
 import {
-  Header,
   Body,
   Footer,
   OptionItem,
@@ -145,10 +144,8 @@ export class ParkingSetup extends React.PureComponent { // eslint-disable-line r
 
     return (
       <FullWrapper className={'centered'}>
-        <Header>
+        <Body centered>
           <H3>{ messages.geolocationSetup.parking.title.defaultMessage }</H3>
-        </Header>
-        <Body>
           {currentPositionRadio}
           <MapContainer>
             <Map

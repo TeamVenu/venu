@@ -5,8 +5,8 @@ const pop = keyframes`
     // transform-origin: 50% 50%;
     transform: scale(0);
   }
-  90% {
-    transform: scale(1.1);
+  85% {
+    transform: scale(1.15);
   }
   100% {
     transform: scale(1);
@@ -22,18 +22,17 @@ export const ShadowBG = styled.section`
   background: var(--black-background-opaque);
   overflow: hidden;
   z-index: 9999;
-  animation: ${pop} 0.4s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Wrapper = styled.section`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
+  animation: ${pop} 0.2s;
+  width: 90%;
   background: var(--background-color);
   color: var(--foreground-color);
-  max-width: 380px;
+  max-width: 320px;
   border-radius: 4px;
 `;
 
