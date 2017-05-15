@@ -1,6 +1,6 @@
 # VENU
 ## Wayfinding app that assists event attendees and personalizes their experience at large events.
-[banner](http://i.imgur.com/RunuALd.jpg "VENU")
+![banner](http://i.imgur.com/RunuALd.jpg "VENU")
 
 ## Documentation
 - [**Initial Project Setup**](docs/git/setup.md): Initial setup to start working on the project
